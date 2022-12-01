@@ -25,26 +25,31 @@ export default function parseHtmlTokens(str, i = 0) {
   };
   let textStart = i;
   const flushTextContent = () => {
+    let t;
     if (i > textStart) {
-      token.content.push({
+      t = {
         type: "Text",
         text: str.substring(textStart, i),
         start: textStart,
         end: i,
-      });
-      token.end = i;
-      textStart = i;
+      };
     }
+    token.end = i;
+    textStart = i;
+    return t;
   };
   for (; i < str.length; i++) {
     const t = parseHtmlToken(str, i);
     if (t) {
-      flushTextContent();
+      const textToken = flushTextContent();
+      if (textToken) token.content.push(textToken);
+
       token.content.push(t);
       token.end = textStart = i = t.end;
       i--;
     }
   }
-  flushTextContent();
+  const textToken = flushTextContent();
+  if (textToken) token.content.push(textToken);
   return token;
 }

@@ -18,7 +18,7 @@ export default function newHtmlRawTagParser(...tagNames) {
       start: openTag.start,
       end: openTag.end,
     };
-    if (!token.closing) {
+    if (!openTag.closing) {
       let closingTag;
       const parseTagContent = newSkipParser("", (str, i) => {
         if (str[i] !== "<" || str[i + 1] !== "/") return;

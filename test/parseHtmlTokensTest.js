@@ -175,7 +175,98 @@ describe("parseHtmlTokens", () => {
     });
   });
 
-  it(`should parse basic html documents`, async () => {
+  it(`should parse a simple full html documents`, async () => {
+    const result = parseHtmlTokens(
+      `before
+      <script type="template/foobar" >
+        <style>.body { color: red }</style>
+        <div>
+          <h3>Hello, there!</h3>
+        </div>
+      </script>
+      after`,
+    );
+    // console.log(JSON.stringify(result, null, 2));
+    expect(result).to.eql({
+      "type": "Html",
+      "content": [
+        {
+          "type": "Text",
+          "text": "before\n      ",
+          "start": 0,
+          "end": 13,
+        },
+        {
+          "type": "HtmlRawTag",
+          "open": {
+            "type": "HtmlTag",
+            "closing": false,
+            "opening": true,
+            "name": {
+              "type": "HtmlTagName",
+              "name": "script",
+              "start": 14,
+              "end": 20,
+            },
+            "attributes": [
+              {
+                "type": "HtmlAttribute",
+                "name": {
+                  "type": "HtmlAttributeName",
+                  "name": "type",
+                  "start": 21,
+                  "end": 25,
+                },
+                "start": 21,
+                "end": 43,
+                "value": {
+                  "type": "HtmlAttributeValue",
+                  "value": [
+                    "template/foobar",
+                  ],
+                  "start": 26,
+                  "end": 43,
+                },
+              },
+            ],
+            "start": 13,
+            "end": 45,
+          },
+          "close": {
+            "type": "HtmlTag",
+            "closing": true,
+            "opening": false,
+            "name": {
+              "type": "HtmlTagName",
+              "name": "script",
+              "start": 160,
+              "end": 166,
+            },
+            "attributes": [],
+            "start": 158,
+            "end": 167,
+          },
+          "contentStart": 45,
+          "contentEnd": 158,
+          "content": [
+            "\n        <style>.body { color: red }</style>\n        <div>\n          <h3>Hello, there!</h3>\n        </div>\n      ",
+          ],
+          "start": 13,
+          "end": 167,
+        },
+        {
+          "type": "Text",
+          "text": "\n      after",
+          "start": 167,
+          "end": 179,
+        },
+      ],
+      "start": 0,
+      "end": 179,
+    });
+  });
+
+  it(`should parse a simple full html documents`, async () => {
     const result = parseHtmlTokens(`
     <!DOCTYPE html>
     <html lang="en-US">
@@ -497,57 +588,61 @@ describe("parseHtmlTokens", () => {
           "end": 315,
         },
         {
-          "type": "HtmlTag",
-          "closing": false,
-          "opening": true,
-          "name": {
-            "type": "HtmlTagName",
-            "name": "style",
-            "start": 316,
-            "end": 321,
-          },
-          "attributes": [
-            {
-              "type": "HtmlAttribute",
-              "name": {
-                "type": "HtmlAttributeName",
-                "name": "id",
-                "start": 322,
-                "end": 324,
-              },
-              "start": 322,
-              "end": 333,
-              "value": {
-                "type": "HtmlAttributeValue",
-                "value": [
-                  "my-css",
-                ],
-                "start": 325,
-                "end": 333,
-              },
+          "type": "HtmlRawTag",
+          "open": {
+            "type": "HtmlTag",
+            "closing": false,
+            "opening": true,
+            "name": {
+              "type": "HtmlTagName",
+              "name": "style",
+              "start": 316,
+              "end": 321,
             },
+            "attributes": [
+              {
+                "type": "HtmlAttribute",
+                "name": {
+                  "type": "HtmlAttributeName",
+                  "name": "id",
+                  "start": 322,
+                  "end": 324,
+                },
+                "start": 322,
+                "end": 333,
+                "value": {
+                  "type": "HtmlAttributeValue",
+                  "value": [
+                    "my-css",
+                  ],
+                  "start": 325,
+                  "end": 333,
+                },
+              },
+            ],
+            "start": 315,
+            "end": 334,
+          },
+          "close": {
+            "type": "HtmlTag",
+            "closing": true,
+            "opening": false,
+            "name": {
+              "type": "HtmlTagName",
+              "name": "style",
+              "start": 371,
+              "end": 376,
+            },
+            "attributes": [],
+            "start": 369,
+            "end": 377,
+          },
+          "contentStart": 334,
+          "contentEnd": 369,
+          "content": [
+            "\n       .body { color: red }\n      ",
           ],
           "start": 315,
-          "end": 334,
-        },
-        {
-          "type": "Text",
-          "text": "\n       .body { color: red }\n      ",
-          "start": 334,
-          "end": 369,
-        },
-        {
-          "type": "HtmlTag",
-          "closing": true,
-          "opening": false,
-          "name": {
-            "type": "HtmlTagName",
-            "name": "style",
-            "start": 371,
-            "end": 376,
-          },
-          "attributes": [],
-          "start": 369,
           "end": 377,
         },
         {
