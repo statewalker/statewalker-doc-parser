@@ -1,3 +1,4 @@
+export { default as iterateHtmlTokens } from "./iterateHtmlTokens.js";
 export { default as newFencedParser } from "./newFencedParser.js";
 export { default as newSequenceParser } from "./newSequenceParser.js";
 export { default as parseEol } from "./parseEol.js";
@@ -8,6 +9,7 @@ export { default as parseHtmlInstructions } from "./parseHtmlInstructions.js";
 export { default as parseHtmlName } from "./parseHtmlName.js";
 export { default as parseHtmlSymbols } from "./parseHtmlSymbols.js";
 export { default as parseHtmlTag } from "./parseHtmlTag.js";
+export { default as parseHtmlToken } from "./parseHtmlToken.js";
 export { default as parseSpaces } from "./parseSpaces.js";
 export { default as parseCode } from "./parseCode.js";
 export { default as parseMdBlockCode } from "./parseMdBlockCode.js";

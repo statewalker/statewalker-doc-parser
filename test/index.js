@@ -6,4 +6,5 @@ import "./parseHtmlTagTest.js";
 import "./parseHtmlEntityTest.js";
 import "./parseHtmlRawTagsTest.js";
 import "./parseHtmlTokensTest.js";
+import "./parseHtmlTest.js";
 // */

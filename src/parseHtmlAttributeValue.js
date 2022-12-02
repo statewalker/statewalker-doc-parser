@@ -51,7 +51,7 @@ export default function parseHtmlAttributeValue(str, i = 0) {
         if (!quot) {
           let endSpacePos = skipSpaces(str, i);
           if (endSpacePos > i) break;
-          if (char === '<' || char === '>') break;
+          if (char === '/' || char === '<' || char === '>') break;
         }
         code = parseCode(str, i);
         if (code) {
