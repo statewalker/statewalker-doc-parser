@@ -11,6 +11,8 @@ export default function parseHtmlTag(str, i = 0) {
     closing: false,
     opening: true,
     name : null,
+    nameStart : i,
+    nameEnd : i,
     attributes: [],
     start: i,
     end: i,
@@ -24,8 +26,9 @@ export default function parseHtmlTag(str, i = 0) {
 
   const name = parseHtmlName(str, i);
   if (!name) return;
-  token.name = name;
-  name.type = "HtmlTagName";
+  token.name = name.name;
+  token.nameStart = name.start;
+  token.nameEnd = name.end;
   i = name.end;
 
   if (token.closing) {

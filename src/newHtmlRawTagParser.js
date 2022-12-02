@@ -6,7 +6,7 @@ export default function newHtmlRawTagParser(...tagNames) {
   return (str, i) => {
     const openTag = parseHtmlTag(str, i);
     if (!openTag) return;
-    if (!set.has(openTag.name.name)) return;
+    if (!set.has(openTag.name)) return;
     i = openTag.end;
     const token = {
       type: "HtmlRawTag",
@@ -23,7 +23,7 @@ export default function newHtmlRawTagParser(...tagNames) {
       const parseTagContent = newSkipParser("", (str, i) => {
         if (str[i] !== "<" || str[i + 1] !== "/") return;
         const t = parseHtmlTag(str, i);
-        if (!t || !t.closing || t.name.name !== openTag.name.name) return;
+        if (!t || !t.closing || t.name !== openTag.name) return;
         closingTag = t;
         return t;
       });

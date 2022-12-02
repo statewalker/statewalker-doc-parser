@@ -14,12 +14,9 @@ describe("parseHtmlAttribute", () => {
   it(`should parse attributes without values`, async () => {
     test("a", {
       type: "HtmlAttribute",
-      name: {
-        type: "HtmlAttributeName",
-        start: 0,
-        end: 1,
-        name: "a",
-      },
+      name: "a",
+      nameStart: 0,
+      nameEnd: 1,
       start: 0,
       end: 1,
     });
@@ -28,12 +25,9 @@ describe("parseHtmlAttribute", () => {
   it(`should parse attributes with undefined values`, async () => {
     test("a = ", {
       type: "HtmlAttribute",
-      name: {
-        type: "HtmlAttributeName",
-        start: 0,
-        end: 1,
-        name: "a",
-      },
+      name: "a",
+      nameStart: 0,
+      nameEnd: 1,
       start: 0,
       end: 4,
     });
@@ -42,18 +36,12 @@ describe("parseHtmlAttribute", () => {
   it(`should parse simple attribute values`, async () => {
     test("a=b", {
       type: "HtmlAttribute",
-      name: {
-        type: "HtmlAttributeName",
-        start: 0,
-        end: 1,
-        name: "a",
-      },
-      value: {
-        type: "HtmlAttributeValue",
-        start: 2,
-        end: 3,
-        value: ["b"],
-      },
+      name: "a",
+      nameStart: 0,
+      nameEnd: 1,
+      value: ["b"],
+      valueStart: 2,
+      valueEnd: 3,
       start: 0,
       end: 3,
     });
@@ -62,18 +50,12 @@ describe("parseHtmlAttribute", () => {
   it(`should parse simple attribute values separated by spaces`, async () => {
     test("a    =     b:cd:ef$gh", {
       type: "HtmlAttribute",
-      name: {
-        type: "HtmlAttributeName",
-        start: 0,
-        end: 1,
-        name: "a",
-      },
-      value: {
-        type: "HtmlAttributeValue",
-        start: 11,
-        end: 21,
-        value: ["b:cd:ef$gh"],
-      },
+      name: "a",
+      nameStart: 0,
+      nameEnd: 1,
+      value: ["b:cd:ef$gh"],
+      valueStart: 11,
+      valueEnd: 21,
       start: 0,
       end: 21,
     });
@@ -84,29 +66,26 @@ describe("parseHtmlAttribute", () => {
       "a    =     'b:${\n foo='Foo' bar=\"Bar\" hello \n}:c'",
       {
         type: "HtmlAttribute",
-        name: {
-          type: "HtmlAttributeName",
-          start: 0,
-          end: 1,
-          name: "a",
-        },
-        value: {
-          type: "HtmlAttributeValue",
-          value: [
-            "b:",
-            {
-              type: "Code",
-              code: ["\n foo='Foo' bar=\"Bar\" hello \n"],
-              codeStart: 16,
-              codeEnd: 45,
-              start: 14,
-              end: 46,
-            },
-            ":c",
-          ],
-          start: 11,
-          end: 49,
-        },
+        name: "a",
+        nameStart: 0,
+        nameEnd: 1,
+        value: ["b:cd:ef$gh"],
+        valueStart: 11,
+        valueEnd: 21,
+        value: [
+          "b:",
+          {
+            type: "Code",
+            code: ["\n foo='Foo' bar=\"Bar\" hello \n"],
+            codeStart: 16,
+            codeEnd: 45,
+            start: 14,
+            end: 46,
+          },
+          ":c",
+        ],
+        valueStart: 11,
+        valueEnd: 49,
         start: 0,
         end: 49,
       },
@@ -118,27 +97,21 @@ describe("parseHtmlAttribute", () => {
       "a    =     ${\n foo='Foo' bar=\"Bar\" hello \n}",
       {
         type: "HtmlAttribute",
-        name: {
-          type: "HtmlAttributeName",
-          start: 0,
-          end: 1,
-          name: "a",
-        },
-        value: {
-          type: "HtmlAttributeValue",
-          value: [
-            {
-              type: "Code",
-              code: ["\n foo='Foo' bar=\"Bar\" hello \n"],
-              codeStart: 13,
-              codeEnd: 42,
-              start: 11,
-              end: 43,
-            },
-          ],
-          start: 11,
-          end: 43,
-        },
+        name: "a",
+        nameStart: 0,
+        nameEnd: 1,
+        value: [
+          {
+            type: "Code",
+            code: ["\n foo='Foo' bar=\"Bar\" hello \n"],
+            codeStart: 13,
+            codeEnd: 42,
+            start: 11,
+            end: 43,
+          },
+        ],
+        valueStart: 11,
+        valueEnd: 43,
         start: 0,
         end: 43,
       },
@@ -148,28 +121,22 @@ describe("parseHtmlAttribute", () => {
       "a    =     b:${\n foo='Foo' bar=\"Bar\" hello \n}",
       {
         type: "HtmlAttribute",
-        name: {
-          type: "HtmlAttributeName",
-          start: 0,
-          end: 1,
-          name: "a",
-        },
-        value: {
-          type: "HtmlAttributeValue",
-          value: [
-            "b:",
-            {
-              type: "Code",
-              code: ["\n foo='Foo' bar=\"Bar\" hello \n"],
-              codeStart: 15,
-              codeEnd: 44,
-              start: 13,
-              end: 45,
-            },
-          ],
-          start: 11,
-          end: 45,
-        },
+        name: "a",
+        nameStart: 0,
+        nameEnd: 1,
+        value: [
+          "b:",
+          {
+            type: "Code",
+            code: ["\n foo='Foo' bar=\"Bar\" hello \n"],
+            codeStart: 15,
+            codeEnd: 44,
+            start: 13,
+            end: 45,
+          },
+        ],
+        valueStart: 11,
+        valueEnd: 45,
         start: 0,
         end: 45,
       },
@@ -179,28 +146,22 @@ describe("parseHtmlAttribute", () => {
       "a    =     ${\n foo='Foo' bar=\"Bar\" hello \n}:c",
       {
         type: "HtmlAttribute",
-        name: {
-          type: "HtmlAttributeName",
-          start: 0,
-          end: 1,
-          name: "a",
-        },
-        value: {
-          type: "HtmlAttributeValue",
-          value: [
-            {
-              type: "Code",
-              code: ["\n foo='Foo' bar=\"Bar\" hello \n"],
-              codeStart: 13,
-              codeEnd: 42,
-              start: 11,
-              end: 43,
-            },
-            ":c",
-          ],
-          start: 11,
-          end: 45,
-        },
+        name: "a",
+        nameStart: 0,
+        nameEnd: 1,
+        value: [
+          {
+            type: "Code",
+            code: ["\n foo='Foo' bar=\"Bar\" hello \n"],
+            codeStart: 13,
+            codeEnd: 42,
+            start: 11,
+            end: 43,
+          },
+          ":c",
+        ],
+        valueStart: 11,
+        valueEnd: 45,
         start: 0,
         end: 45,
       },
@@ -210,29 +171,23 @@ describe("parseHtmlAttribute", () => {
       "a    =     b:${\n foo='Foo' bar=\"Bar\" hello \n}:c",
       {
         type: "HtmlAttribute",
-        name: {
-          type: "HtmlAttributeName",
-          start: 0,
-          end: 1,
-          name: "a",
-        },
-        value: {
-          type: "HtmlAttributeValue",
-          value: [
-            "b:",
-            {
-              type: "Code",
-              code: ["\n foo='Foo' bar=\"Bar\" hello \n"],
-              codeStart: 15,
-              codeEnd: 44,
-              start: 13,
-              end: 45,
-            },
-            ":c",
-          ],
-          start: 11,
-          end: 47,
-        },
+        name: "a",
+        nameStart: 0,
+        nameEnd: 1,
+        value: [
+          "b:",
+          {
+            type: "Code",
+            code: ["\n foo='Foo' bar=\"Bar\" hello \n"],
+            codeStart: 15,
+            codeEnd: 44,
+            start: 13,
+            end: 45,
+          },
+          ":c",
+        ],
+        valueStart: 11,
+        valueEnd: 47,
         start: 0,
         end: 47,
       },
@@ -244,56 +199,50 @@ describe("parseHtmlAttribute", () => {
       "a = ${x}${y}${z}",
       {
         "type": "HtmlAttribute",
-        "name": {
-          "type": "HtmlAttributeName",
-          "name": "a",
-          "start": 0,
-          "end": 1,
-        },
+        "name": "a",
+        "nameStart": 0,
+        "nameEnd": 1,
         "start": 0,
         "end": 16,
-        "value": {
-          "type": "HtmlAttributeValue",
-          "value": [
-            {
-              "type": "Code",
-              "codeStart": 6,
-              "codeEnd": 7,
-              "code": [
-                "x",
-              ],
-              "start": 4,
-              "end": 8,
-            },
-            {
-              "type": "Code",
-              "codeStart": 10,
-              "codeEnd": 11,
-              "code": [
-                "y",
-              ],
-              "start": 8,
-              "end": 12,
-            },
-            {
-              "type": "Code",
-              "codeStart": 14,
-              "codeEnd": 15,
-              "code": [
-                "z",
-              ],
-              "start": 12,
-              "end": 16,
-            },
-          ],
-          "start": 4,
-          "end": 16,
-        },
+        "value": [
+          {
+            "type": "Code",
+            "codeStart": 6,
+            "codeEnd": 7,
+            "code": [
+              "x",
+            ],
+            "start": 4,
+            "end": 8,
+          },
+          {
+            "type": "Code",
+            "codeStart": 10,
+            "codeEnd": 11,
+            "code": [
+              "y",
+            ],
+            "start": 8,
+            "end": 12,
+          },
+          {
+            "type": "Code",
+            "codeStart": 14,
+            "codeEnd": 15,
+            "code": [
+              "z",
+            ],
+            "start": 12,
+            "end": 16,
+          },
+        ],
+        "valueStart": 4,
+        "valueEnd": 16,
       },
     );
   });
 
-  it(`should parse attributes key/value pairs on multiple lines`, async () => {
+  return it(`should parse attributes key/value pairs on multiple lines`, async () => {
     test(
       `abc:$my-description  
          =  
@@ -306,31 +255,25 @@ describe("parseHtmlAttribute", () => {
    `,
       {
         type: "HtmlAttribute",
-        name: {
-          type: "HtmlAttributeName",
-          start: 0,
-          end: 19,
-          name: "abc:$my-description",
-        },
-        value: {
-          type: "HtmlAttributeValue",
-          value: [
-            "b:",
-            {
-              type: "Code",
-              code: [
-                '\n           <MyInternalWidget\n             foo=\'${<Foo bar="Baz">}\'\n             bar="Bar" hello>\n          ',
-              ],
-              codeStart: 50,
-              codeEnd: 158,
-              start: 48,
-              end: 159,
-            },
-            ":c\n       ",
-          ],
-          start: 45,
-          end: 170,
-        },
+        name: "abc:$my-description",
+        nameStart: 0,
+        nameEnd: 19,
+        value: [
+          "b:",
+          {
+            type: "Code",
+            code: [
+              '\n           <MyInternalWidget\n             foo=\'${<Foo bar="Baz">}\'\n             bar="Bar" hello>\n          ',
+            ],
+            codeStart: 50,
+            codeEnd: 158,
+            start: 48,
+            end: 159,
+          },
+          ":c\n       ",
+        ],
+        valueStart: 45,
+        valueEnd: 170,
         start: 0,
         end: 170,
       },

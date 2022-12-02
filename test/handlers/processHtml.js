@@ -8,14 +8,14 @@ export default function* processHtml(tokens, listeners = {
     // TODO: add HTML entities
     const positions = [token.start, token.end];
     if (token.type === "HtmlTag") {
-      Object.assign(positions, { name: [token.name.start, token.name.end] });
-      const type = token.name.name;
+      Object.assign(positions, { name: [token.nameStart, token.nameEnd] });
+      const type = token.name;
       const closing = token.closing;
       const opening = token.opening;
       if (opening) {
         let attrs = token.attributes.reduce((index, t) => {
-          const list = t.value ? t.value.value : [];
-          index[t.name.name] = list.length > 1 ? list : list[0];
+          const list = t.value || [];
+          index[t.name] = list.length > 1 ? list : list[0];
           return index;
         }, {});
         positions.attributes = token.attributes.map((t) => [t.start, t.end]);
