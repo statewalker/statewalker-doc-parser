@@ -148,6 +148,8 @@ describe("parseHtmlTag", () => {
                 "code": [
                   " `<toto titi=tata/>` ",
                 ],
+                "codeStart" : 16,
+                "codeEnd" : 37,
                 "start": 14,
                 "end": 38,
               },
@@ -194,6 +196,8 @@ describe("parseHtmlTag", () => {
           "code": [
             " `<toto titi=tata/>` ",
           ],
+          "codeStart" : 11,
+          "codeEnd" : 32,
           "start": 9,
           "end": 33,
         },
@@ -267,6 +271,8 @@ describe("parseHtmlTag", () => {
                 "code": [
                   " `<toto titi=tata/>` ",
                 ],
+                "codeStart" : 16,
+                "codeEnd" : 37,
                 "start": 14,
                 "end": 38,
               },

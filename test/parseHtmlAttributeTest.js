@@ -93,6 +93,8 @@ describe("parseHtmlAttribute", () => {
           {
             type: "Code",
             code: ["\n foo='Foo' bar=\"Bar\" hello \n"],
+            codeStart : 16,
+            codeEnd : 45,
             start: 14,
             end: 46,
           },
@@ -135,6 +137,8 @@ describe("parseHtmlAttribute", () => {
             code: [
               '\n           <MyInternalWidget\n             foo=\'${<Foo bar="Baz">}\'\n             bar="Bar" hello>\n          ',
             ],
+            codeStart : 50,
+            codeEnd : 158,
             start: 48,
             end: 159,
           },

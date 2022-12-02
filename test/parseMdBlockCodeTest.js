@@ -101,6 +101,8 @@ describe("parseMdBlockCode", () => {
         {
           type: "Code",
           code: [" js template ```code\n``` "],
+          codeStart: 9,
+          codeEnd: 34,
           start: 7,
           end: 35,
         },
@@ -124,6 +126,8 @@ describe("parseMdBlockCode", () => {
         {
           type: "Code",
           code: [" js template ```code\n``` "],
+          codeStart: 9,
+          codeEnd: 34,
           start: 7,
           end: 35,
         },
@@ -146,6 +150,8 @@ describe("parseMdBlockCode", () => {
         {
           type: "Code",
           code: [" js template ```code\n``` \n```xxx"],
+          codeStart : 9,
+          codeEnd : 41,
           start: 7,
           end: 41,
         },

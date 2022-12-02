@@ -1,12 +1,12 @@
 import { default as expect } from "expect.js";
-import { iterateHtmlTokens } from "../src/iterateHtmlTokens";
+import iterateHtmlTokens from "../src/iterateHtmlTokens.js";
 import { TreeBuilder } from "./TreeBuilder.js";
 
 describe("parseHtmlTokens", () => {
   function* processHtml(str, listeners = {
     beginTag(type, attrs, positions = {}) {},
-    endTag() {},
-    onText(text) {},
+    endTag(positions = {}) {},
+    onText(text, positions = {}) {},
   }) {
     for (let token of iterateHtmlTokens(str)) {
       // TODO: add code blocks
