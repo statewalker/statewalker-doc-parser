@@ -13,6 +13,7 @@ export default function parseEol(str, i = 0) {
   return count > 0
     ? {
       type: "Eol",
+      count,
       start,
       end: i,
     }

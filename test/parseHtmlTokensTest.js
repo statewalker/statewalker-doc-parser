@@ -145,8 +145,8 @@ describe("parseHtmlTokens", () => {
         {
           "type": "HtmlEntity",
           "entity": "#008",
-          "contentStart": 1,
-          "contentEnd": 5,
+          "entityStart": 1,
+          "entityEnd": 5,
           "start": 0,
           "end": 6,
         },
@@ -164,8 +164,8 @@ describe("parseHtmlTokens", () => {
         {
           "type": "HtmlEntity",
           "entity": "nbsp",
-          "contentStart": 1,
-          "contentEnd": 5,
+          "entityStart": 1,
+          "entityEnd": 5,
           "start": 0,
           "end": 6,
         },

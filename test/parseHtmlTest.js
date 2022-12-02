@@ -1,49 +1,24 @@
 import { default as expect } from "expect.js";
 import iterateHtmlTokens from "../src/iterateHtmlTokens.js";
-import { TreeBuilder } from "./TreeBuilder.js";
+import TreeBuilder from "./handlers/TreeBuilder.js";
+import processHtml from "./handlers/processHtml.js";
 
 describe("parseHtmlTokens", () => {
-  function* processHtml(str, listeners = {
-    beginTag(type, attrs, positions = {}) {},
-    endTag(positions = {}) {},
-    onText(text, positions = {}) {},
-  }) {
-    for (let token of iterateHtmlTokens(str)) {
-      // TODO: add code blocks
-      // TODO: add HTML entities
-      const positions = [token.start, token.end];
-      if (token.type === "HtmlTag") {
-        Object.assign(positions, { name: [token.name.start, token.name.end] });
-        const type = token.name.name;
-        const closing = token.closing;
-        const opening = token.opening;
-        if (opening) {
-          let attrs = token.attributes.reduce((index, t) => {
-            const list = t.value ? t.value.value : [];
-            index[t.name.name] = list.length > 1 ? list : list[0];
-            return index;
-          }, {});
-          positions.attributes = token.attributes.map((t) => [t.start, t.end]);
-          listeners.beginTag(type, attrs, positions);
-        }
-        if (closing) {
-          listeners.endTag(positions);
-        }
-      } else if (token.type === "Text") {
-        listeners.onText(token.text, positions);
-      }
-      yield token;
-    }
-  }
 
   function test(str, control) {
-    const tree = TreeBuilder.parse((text, listeners) => {
-      for (let t of processHtml(text, listeners)) {
-        //
-      }
-    }, str);
+    const builder = new TreeBuilder();
+    let it;
+    it = iterateHtmlTokens(str);
+    it = processHtml(it, builder);
+    let end = 0;
+    for (let token of it) {
+      // console.log('*', token);
+      end = token.end;
+    }
+    const tree = builder.result;
     try {
       expect(tree).to.eql(control);
+      expect(end).to.eql(str.length);
     } catch (error) {
       console.log(JSON.stringify(tree, null, 2));
       throw error;
@@ -93,7 +68,7 @@ describe("parseHtmlTokens", () => {
     });
   });
 
-  it('should parse attributes with colon', () => {
+  it('should parse attributes with colons', () => {
     test(`<h1 foo:bar=baz>Abc`, {
       "type": "h1",
       "attrs": { 'foo:bar': 'baz' },

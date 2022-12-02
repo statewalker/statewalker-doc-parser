@@ -7,7 +7,7 @@ export const ENTITIES = {
   'quot': '"',
   // 'nbsp': '\xa0'
 };
-export const ENTITY_PATTERN = /&([a-z]+|#\d+);/ig;
+export const ENTITY_PATTERN = /&([a-zA-Z_]+|#\d+);/ig;
 
 export function decodeHTML(text) {
   // A single replace pass with a static RegExp is faster than a loop
@@ -24,8 +24,7 @@ export function decodeHTML(text) {
   });
 }
 
-
-export class TreeBuilder {
+export default class TreeBuilder {
 
   static parse(parser, str) {
     const builder = new TreeBuilder();
@@ -42,22 +41,23 @@ export class TreeBuilder {
   get result() { return this.tree; }
 
   get tree() {
-    this._reportText();
+    this._flushText();
     const root = this._tree.children && this._tree.children.length === 1
       ? this._tree.children[0]
       : this._tree
     return root;
   }
 
-  _reportText() {
+  _flushText() {
     if (!this._text) return;
-    const text = decodeHTML(this._text);
+    // const text = decodeHTML(this._text);
+    const text = this._text;
     (this._peek.children = this._peek.children || []).push(text);
     this._text = '';
   }
 
   beginTag(type, attrs) {
-    this._reportText();
+    this._flushText();
     const peek = { type };
     (this._peek.children = this._peek.children || []).push(peek);
     this._peek = peek;
@@ -86,26 +86,9 @@ export class TreeBuilder {
   }
 
   endTag() {
-    this._reportText();
+    this._flushText();
     this._stack.pop();
     this._peek = this._stack[this._stack.length - 1];
-    // (this._peek.children = this._peek.children || []).push(node);
-
-    // // This is the root 
-    // if (this._stack.length === 1 && this._peek.children) {
-    //   this._peek.children = this._peek.children.filter((n) => {
-    //     if (typeof n !== 'string') return true;
-    //     return !!n.trim();
-    //   })
-    //   if (this._peek.children && this._peek.children.length === 1) {
-    //     this._tree = this._peek.children[0];
-    //   } else {
-    //     if (typeof this._peek === 'object') {
-    //       this._peek.type = this._peek.type || 'div';
-    //     }
-    //     this._tree = this._peek;
-    //   }
-    // }
   }
 
   onText(str) {

@@ -2,7 +2,7 @@ export default function parseHtmlEntity(str, i = 0) {
   if (str[i] !== '&') return ;
   const start = i;
   i++;
-  const contentStart = i;
+  const entityStart = i;
   if (str[i] === '#') i++;
   for (; i < str.length; i++) {
     const char = str[i];
@@ -17,9 +17,9 @@ export default function parseHtmlEntity(str, i = 0) {
   if (str[i] !== ';') return ;
   return {
     type : 'HtmlEntity',
-    entity : str.substring(contentStart, i),
-    contentStart,
-    contentEnd : i,
+    entity : str.substring(entityStart, i),
+    entityStart,
+    entityEnd : i,
     start,
     end : i + 1
   }

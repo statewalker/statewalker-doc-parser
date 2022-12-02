@@ -18,8 +18,8 @@ export default function parseHtmlName(str, i = 0) {
         ((char >= "0" && char <= "9") ||
           char === "-" ||
           char === "." ||
-          char === ":")) ||
-      
+          (char === ":" &&
+            ((i < str.length - 1) && !/^[\s="'`]/.test(str[i + 1] || ""))))) ||
       char === "_" ||
       char === "{" ||
       char === "}" ||

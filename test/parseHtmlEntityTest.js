@@ -6,8 +6,8 @@ describe("parseHtmlEntity", () => {
     const result = parseHtmlEntity("&#008;");
     expect(result).to.eql({
       type: "HtmlEntity",
-      contentStart: 1,
-      contentEnd: 5,
+      entityStart: 1,
+      entityEnd: 5,
       entity: "#008",
       start: 0,
       end: 6,
@@ -18,8 +18,8 @@ describe("parseHtmlEntity", () => {
     const result = parseHtmlEntity("&nbsp;");
     expect(result).to.eql({
       type: "HtmlEntity",
-      contentStart: 1,
-      contentEnd: 5,
+      entityStart: 1,
+      entityEnd: 5,
       entity: "nbsp",
       start: 0,
       end: 6,

@@ -13,5 +13,8 @@ export { default as parseHtmlToken } from "./parseHtmlToken.js";
 export { default as parseSpaces } from "./parseSpaces.js";
 export { default as parseCode } from "./parseCode.js";
 export { default as parseMdBlockCode } from "./parseMdBlockCode.js";
+export { default as parseMdBlockProperty } from "./parseMdBlockProperty.js";
+export { default as parseMdBlockProperties } from "./parseMdBlockProperties.js";
+export { default as parseMdBlocksSeparators } from "./parseMdBlocksSeparators.js";
 export { default as skipSpaces } from "./skipSpaces.js";
 export { default as toTextToken } from "./toTextToken.js";

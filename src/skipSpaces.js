@@ -1,9 +1,10 @@
 import parseSpaces from "./parseSpaces.js";
 import parseEol from "./parseEol.js";
 
-export default function skipSpaces(str, i = 0) {
+export default function skipSpaces(str, i = 0, whitespaceOnly = false) {
   while (i < str.length) {
-    const token = parseSpaces(str, i) || parseEol(str, i);
+    let token = parseSpaces(str, i);
+    if (!token && !whitespaceOnly) token = parseEol(str, i);
     if (!token) break;
     i = token.end;
   }

@@ -1,13 +1,7 @@
 import parseCode from "./parseCode.js";
-// import parseHtmlName from "./parseHtmlName.js";
-// import parseSpaces from "./parseSpaces.js";
-// import parseEol from "./parseEol.js";
 import skipSpaces from "./skipSpaces.js";
 
-export default function parseHtmlAttributeValue(str, i = 0) {
-  //   let quot = str[i];
-  // if (str[i] !== '"' && str[i] !== "'" && (str[i] !== '$' && str[i + 1] !== '{')) return ;
-
+export default function parseHtmlAttributeValue(str, i = 0, stopSymbols = ['/', '<', '>']) {
   const start = i;
   let token = {
     type: "HtmlAttributeValue",
@@ -15,11 +9,11 @@ export default function parseHtmlAttributeValue(str, i = 0) {
     start,
     end: i,
   };
-  let code = parseCode(str, i);
-  if (code) {
-    token.value.push(code);
-    token.end = code.end;
-  } else {
+  // let code = parseCode(str, i);
+  // if (code) {
+  //   token.value.push(code);
+  //   token.end = code.end;
+  // } else {
     let quot = str[i];
     if (quot === '"' || quot === "'") {
       i++;
@@ -51,9 +45,9 @@ export default function parseHtmlAttributeValue(str, i = 0) {
         if (!quot) {
           let endSpacePos = skipSpaces(str, i);
           if (endSpacePos > i) break;
-          if (char === '/' || char === '<' || char === '>') break;
+          if (stopSymbols.indexOf(char) >= 0) break;
         }
-        code = parseCode(str, i);
+        const code = parseCode(str, i);
         if (code) {
           flushText();
           token.value.push(code);
@@ -67,7 +61,7 @@ export default function parseHtmlAttributeValue(str, i = 0) {
     }
     flushText();
     token.end = i;
-  }
+  // }
   if (token.end === token.start) return;
   // token.text = str.substring(token.start, token.end);
   return token;
