@@ -6,6 +6,7 @@ import "./parseHtmlEntityTest.js";
 import "./parseHtmlRawTagsTest.js";
 import "./parseHtmlTokensTest.js";
 import "./parseHtmlTest.js";
+import "./parseHtmlWithRebalancingTest.js";
 
 import "./parseMdBlockCodeTest.js";
 import "./parseMdBlocksSeparatorsTest.js";

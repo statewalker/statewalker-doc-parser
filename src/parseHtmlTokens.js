@@ -1,4 +1,4 @@
-import iterateHtmlTokens from "./iterateHtmlTokens.js";
+import splitToHtmlTokens from "./splitToHtmlTokens.js";
 
 export default function parseHtmlTokens(str, i = 0) {
   const token = {
@@ -7,7 +7,7 @@ export default function parseHtmlTokens(str, i = 0) {
     start: i,
     end: i,
   };
-  for (let t of iterateHtmlTokens(str, i)) {
+  for (let t of splitToHtmlTokens(str, i)) {
     token.content.push(t);
     token.end = t.end;
   }

@@ -1,6 +1,6 @@
 import parseHtmlToken from "./parseHtmlToken.js";
 
-export default function* iterateHtmlTokens(str, i = 0) {
+export default function* splitToHtmlTokens(str, i = 0) {
   let textStart = i;
   const getTextToken = () => {
     let t;

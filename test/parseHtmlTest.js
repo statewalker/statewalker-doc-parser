@@ -1,19 +1,21 @@
 import { default as expect } from "expect.js";
-import iterateHtmlTokens from "../src/iterateHtmlTokens.js";
+import splitToHtmlTokens from "../src/splitToHtmlTokens.js";
 import TreeBuilder from "./handlers/TreeBuilder.js";
 import processHtml from "./handlers/processHtml.js";
+import transformHtmlTokens from "./handlers/transformHtmlTokens.js";
 
 describe("parseHtmlTokens", () => {
 
   function test(str, control) {
     const builder = new TreeBuilder();
     let it;
-    it = iterateHtmlTokens(str);
+    it = splitToHtmlTokens(str); 
+    it = transformHtmlTokens(it);
     it = processHtml(it, builder);
     let end = 0;
     for (let token of it) {
       // console.log('*', token);
-      end = token.end;
+      ([, end] = token.positions);
     }
     const tree = builder.result;
     try {
@@ -94,13 +96,13 @@ describe("parseHtmlTokens", () => {
     });
   })
 
-  it('should parse tags with colon', () => {
+  it('should parse tags with a colon', () => {
     test(`<foo:h1 bar:baz=boo>Abc`, {
       "type": "foo:h1",
       "attrs": { 'bar:baz': 'boo' },
       "children": ["Abc"]
     });
-    test(`<html:h1 a:b=c>Abc</h1>`, {
+    test(`<html:h1 a:b=c>Abc</html:h1>`, {
       "type": "html:h1",
       "attrs": { 'a:b': 'c' },
       "children": ["Abc"]
