@@ -25,6 +25,8 @@
     "default": "./src/index.js"
   },
   "dependencies": {
+    "@statewalker/fsm": "^0.16.0",
+    "@statewalker/tree": "^0.10.2"
   },
   "devDependencies": {
     "@statewalker/rollup": "^0.1.6",
