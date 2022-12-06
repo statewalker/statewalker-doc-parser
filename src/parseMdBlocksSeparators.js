@@ -1,60 +1,35 @@
 import parseEol from "./parseEol.js";
 import parseSpaces from "./parseSpaces.js";
 import parseMdBlockProperties from "./parseMdBlockProperties.js";
+import parseMdBlockSeparatorPrefix from "./parseMdBlockSeparatorPrefix.js";
 
 export default function parseMdBlocksSeparators(
   str,
   i = 0,
-  separators = ["***", "---", "..."],
+  parseSeparatorPrefix = parseMdBlockSeparatorPrefix,
 ) {
-  let separatorToken,
-    start = i;
-  for (let separator of separators) {
-    let j;
-    for (j = 0; j < separator.length; j++) {
-      if (str[i + j] !== separator[j]) break;
-    }
-    if (j === separator.length) {
-      separatorToken = {
-        type: "MdSeparator",
-        char: separator[separator.length - 1],
-        start: i,
-        end: i + separator.length,
-      };
-      // Skip all separator charts
-      for (
-        i = separatorToken.end;
-        i < str.length && str[i] === separatorToken.char;
-        i++
-      ) {
-        separatorToken.end++;
-      }
-      separatorToken.content = str.substring(
-        separatorToken.start,
-        separatorToken.end,
-      );
-      break;
-    }
-  }
+  const separatorToken = parseSeparatorPrefix(str, i);
   if (!separatorToken) return;
+  const start = i;
+  i = separatorToken.end;
   const spaces = parseSpaces(str, i);
   if (spaces) i = spaces.end;
   if (i < str.length) {
     const eol = parseEol(str, i);
     // It is not the end of the file and there is no EOL symbols. So it is not a block separator.
-    if (!eol) return ;
+    if (!eol) return;
     i = eol.end;
   }
 
   const token = {
-    type : "MdBlockSeparator",
-    separator : str.substring(separatorToken.start, separatorToken.end),
-    separatorChar : separatorToken.char,
-    separatorStart : separatorToken.start,
-    separatorEnd : separatorToken.end,
+    type: "MdBlockSeparator",
+    separator: str.substring(separatorToken.start, separatorToken.end),
+    separatorChar: separatorToken.char,
+    separatorStart: separatorToken.start,
+    separatorEnd: separatorToken.end,
     start,
-    end : i
-  }
+    end: i,
+  };
   const properties = parseMdBlockProperties(str, i);
   if (properties) {
     token.properties = properties;

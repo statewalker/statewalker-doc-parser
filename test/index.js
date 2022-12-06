@@ -10,4 +10,5 @@ import "./parseHtmlWithRebalancingTest.js";
 
 import "./parseMdBlockCodeTest.js";
 import "./parseMdBlocksSeparatorsTest.js";
+import "./parseMdHeaderStartTest.js";
 // */
