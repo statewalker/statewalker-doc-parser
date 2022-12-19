@@ -1,3 +1,3 @@
-# @statewalker/doc-parser
+# @statewalker/parse-mdoc
 ## Parser for HTML and Markdown documents
 
