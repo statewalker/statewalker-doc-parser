@@ -29,7 +29,7 @@ export function newHtmlTagsRebalancer({
   closeSelfElements = "colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr",
 
   // Elements which can not exist alone - without containers
-  internalElements = "thead,tbody,head,body",
+  internalElements = "thead,tbody,tfoot,head,body",
   // // Attributes that have their values filled in disabled="disabled"
   // fillAttributes = "checked,compact,declare,defer,disabled,ismap,multiple,nohref,noresize,noshade,nowrap,readonly,selected",
 
@@ -110,7 +110,7 @@ export function newHtmlTagsRebalancer({
       block: block.has(type),
       blockContainer: blockContainers.has(type),
       inline: inline.has(type),
-      inlineContainers: inlineContainers.has(type) || blockContainers.has(type),
+      inlineContainer: inlineContainers.has(type) || blockContainers.has(type),
     };
   }
 
