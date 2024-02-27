@@ -6,7 +6,7 @@ export type TGramTestData = TTestData & {
 
 export const gramTestData: TGramTestData[] = [
   {
-    description: "Tokenizer.gram should read spaces",
+    description: "should read spaces",
     input: "before     after",
     before: "before",
     after: "after",
@@ -20,7 +20,7 @@ export const gramTestData: TGramTestData[] = [
   },
   {
     description:
-      "Tokenizer.gram should read code blocks from a specified position",
+      "should read code blocks starting from a specified position",
     input: "before ${ js `${inner code}` md```code\n``` } after",
     before: "before ",
     after: " after",
