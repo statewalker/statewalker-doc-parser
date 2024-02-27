@@ -26,24 +26,31 @@
   },
   "dependencies": {
     "@statewalker/fsm": "^0.16.0",
-    "@statewalker/tree": "^0.10.2"
+    "@statewalker/tree": "^0.10.2",
+    "uc.micro": "^2.0.0"
   },
   "devDependencies": {
-    "@statewalker/rollup": "^0.1.6",
+    "@types/node": "^20.11.16",
     "eslint": "^8",
     "expect.js": "^0.3",
     "mocha": "^10",
-    "rollup": "^3"
+    "rollup": "^3",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:statewalker/statewalker-parse-mdoc.git"
   },
   "scripts": {
-    "eslint": "eslint src",
-    "rollup": "rollup -c",
+    "build": "tsup",
+    "watch": "tsup --watch",
+    "clean": "rm -rf dist",
+    "lint": "eslint \"**/*.ts\"",
+    "test-vitest": "vitest --watch",
     "test": "mocha -R spec ./test/index.js && yarn eslint",
-    "prepublishOnly": "rm -rf dist && yarn test && yarn rollup"
+    "prepublishOnly": "rm -rf dist && yarn test && yarn build"
   },
   "sideEffects": false,
   "publishConfig": {
