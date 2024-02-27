@@ -85,6 +85,17 @@ export class TokenizerContext {
     this.i = i;
   }
 
+  match(pattern: string): boolean {
+    for (let i = 0; i < pattern.length; i++) {
+      if (this.str[this._i + i] !== pattern[i]) return false;
+    }
+    return true;
+  }
+
+  getChar() {
+    return this.char.value;
+  }
+
   /**
    * Skips all characters of the specified type. The last position
    * will be the first character of the next type.
