@@ -76,10 +76,7 @@ export class TokenizerContext {
     return this._char;
   }
 
-  tokenizer: Tokenizer;
-
-  constructor(tokenizer: Tokenizer, str: string, i: number = 0) {
-    this.tokenizer = tokenizer;
+  constructor(str: string, i: number = 0) {
     this.str = str;
     this._char = getCharToken(str, str.length);
     this.i = i;
@@ -110,8 +107,8 @@ export class TokenizerContext {
   }
 
   /**
-   * Skips all characters until the specified type was found (or until the end of 
-   * the tokenized string). The last position will be the first character of the 
+   * Skips all characters until the specified type was found (or until the end of
+   * the tokenized string). The last position will be the first character of the
    * requested type.
    * @param charType the character type to find or a combination of types (ex: CHAR_SPACE | CHAR_EOL)
    * @returns this - returns the context for chaining
@@ -134,39 +131,19 @@ export class TokenizerContext {
   }
 }
 
-export class Tokenizer {
-  methods: TTokenizerMethod[][] = [];
-
-  // char: TTokenizerMethod = this._bind(TTokenLevel.char);
-  gram: TTokenizerMethod = this._bind(TTokenLevel.gram);
-  word: TTokenizerMethod = this._bind(TTokenLevel.word);
-  block: TTokenizerMethod = this._bind(TTokenLevel.block);
-
-  constructor() {
-    // this.methods[TTokenLevel.char] = [];
-    this.methods[TTokenLevel.gram] = [];
-    this.methods[TTokenLevel.word] = [];
-    this.methods[TTokenLevel.block] = [];
-  }
-
-  add(level: TTokenLevel, ...methods: TTokenizerMethod[]): this {
-    this.methods[level].push(...methods);
-    return this;
-  }
-
-  protected _bind(level: TTokenLevel): TTokenizerMethod {
-    return (ctx: TokenizerContext): TToken | undefined => {
-      let result: TToken | undefined;
-      const tokenizers = this.methods[level];
-      for (let i = 0; i < tokenizers.length; i++) {
-        let start = ctx.i;
-        result = tokenizers[i](ctx);
-        if (result) {
-          break;
-        }
-        ctx.i = start;
+export function newCompositeTokenizer(
+  ...tokenizers: TTokenizerMethod[]
+): TTokenizerMethod {
+  return (ctx: TokenizerContext): TToken | undefined => {
+    let result: TToken | undefined;
+    const start = ctx.i;
+    for (let i = 0; i < tokenizers.length; i++) {
+      result = tokenizers[i](ctx);
+      if (result) {
+        break;
       }
-      return result;
-    };
-  }
+      ctx.i = start;
+    }
+    return result;
+  };
 }

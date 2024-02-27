@@ -19,8 +19,7 @@ export const gramTestData: TGramTestData[] = [
     },
   },
   {
-    description:
-      "should read code blocks starting from a specified position",
+    description: "should read code blocks starting from a specified position",
     input: "before ${ js `${inner code}` md```code\n``` } after",
     before: "before ",
     after: " after",

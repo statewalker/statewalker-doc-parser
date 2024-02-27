@@ -2,8 +2,9 @@ import { describe, expect, it, beforeEach } from "../deps.ts";
 import {
   TToken,
   TTokenLevel,
-  Tokenizer,
+  TTokenizerMethod,
   TokenizerContext,
+  newCompositeTokenizer,
 } from "./tokenizer.ts";
 import {
   readEols,
@@ -11,44 +12,49 @@ import {
   readDigits,
   readText,
 } from "./tokenizer-sequence.ts";
-import { readCode } from "./tokenizer-code.ts";
+import { newCodeReader } from "./tokenizer-code.ts";
 import { blockTestData } from "./data.block.ts";
 import { gramTestData } from "./data.gram.ts";
 
-function readParagraph(ctx: TokenizerContext): TToken | undefined {
-  const currentLevel = TTokenLevel.block;
-  let list: TToken[] = [];
-  let token: TToken | undefined;
-  while ((token = ctx.tokenizer.gram(ctx))) {
-    if (token.level >= currentLevel) {
-      // ctx.resetTo(token);
-      break;
+function newBlockReader(nextToken: TTokenizerMethod): TTokenizerMethod {
+  return (ctx: TokenizerContext): TToken | undefined => {
+    const currentLevel = TTokenLevel.block;
+    let list: TToken[] = [];
+    let token: TToken | undefined;
+    while ((token = nextToken(ctx))) {
+      if (token.level >= currentLevel) {
+        // ctx.resetTo(token);
+        break;
+      }
+      if (token.type === "Eol" && token.value.length > 1) {
+        ctx.resetTo(token);
+        break;
+      }
+      list.push(token);
     }
-    if (token.type === "Eol" && token.value.length > 1) {
-      ctx.resetTo(token);
-      break;
-    }
-    list.push(token);
-  }
-  if (!list.length) return;
-  const start = list[0].start;
-  const end = list[list.length - 1].end;
-  return {
-    level: currentLevel,
-    type: "Block",
-    start,
-    end,
-    value: ctx.substring(start, end),
-    children: list,
+    if (!list.length) return;
+    const start = list[0].start;
+    const end = list[list.length - 1].end;
+    return {
+      level: currentLevel,
+      type: "Block",
+      start,
+      end,
+      value: ctx.substring(start, end),
+      children: list,
+    };
   };
 }
 
-function newContext(str: string, i: number = 0) {
-  const tokenizer = new Tokenizer()
-    .add(TTokenLevel.gram, readCode, readEols, readSpaces, readDigits, readText)
-    .add(TTokenLevel.block, readParagraph);
-  const ctx = new TokenizerContext(tokenizer, str, i);
-  return ctx;
+function newNgramsWithCode() {
+  const readNgrams = newCompositeTokenizer(
+    readEols,
+    readSpaces,
+    readDigits,
+    readText
+  );
+  const readCode = newCodeReader(readNgrams);
+  return newCompositeTokenizer(readCode, readNgrams);
 }
 
 describe("Tokenizer.gram", () => {
@@ -58,8 +64,9 @@ describe("Tokenizer.gram", () => {
     after: string,
     control: TToken & Record<string, any>
   ) {
-    const ctx = newContext(str, before.length);
-    const result = ctx.tokenizer.gram(ctx);
+    const ctx = new TokenizerContext(str, before.length);
+    const readToken = newNgramsWithCode();
+    const result = readToken(ctx);
     expect(result !== undefined).toBe(true);
     try {
       const token: TToken = result as TToken;
@@ -75,13 +82,15 @@ describe("Tokenizer.gram", () => {
     it(data.description, () => {
       testGram(data.input, data.before, data.after, data.expected);
     });
-  })
+  });
 });
 
 describe("Tokenizer.block", () => {
   function testPara(str: string, control: TToken) {
-    const ctx = newContext(str);
-    const result = ctx.tokenizer.block(ctx);
+    const ctx = new TokenizerContext(str);
+    const readNgramsWithCode = newNgramsWithCode();
+    const readToken = newBlockReader(readNgramsWithCode);
+    const result = readToken(ctx);
     try {
       expect(result !== undefined).toEqual(true);
       const token: TToken = result as TToken;

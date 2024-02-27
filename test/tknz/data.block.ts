@@ -2,79 +2,6 @@ import { TTestData } from "./data.types";
 
 export const blockTestData: TTestData[] = [
   {
-    input: "first\n\nsecond",
-    description: "should read paragraphs until the next empty line",
-    expected: {
-      level: 3,
-      type: "Block",
-      start: 0,
-      end: 5,
-      value: "first",
-      children: [
-        {
-          type: "Text",
-          level: 0,
-          start: 0,
-          end: 5,
-          value: "first",
-        },
-      ],
-    },
-  },
-  {
-    input: "first\n${ inner \n\n\n code }\nsecond",
-    description:
-      "should read paragraphs containing code blocks with empty lines",
-    expected: {
-      level: 3,
-      type: "Block",
-      start: 0,
-      end: 32,
-      value: "first\n${ inner \n\n\n code }\nsecond",
-      children: [
-        {
-          type: "Text",
-          level: 0,
-          start: 0,
-          end: 5,
-          value: "first",
-        },
-        {
-          type: "Eol",
-          level: 0,
-          start: 5,
-          end: 6,
-          value: "\n",
-        },
-        {
-          type: "Code",
-          level: 0,
-          codeStart: 8,
-          codeEnd: 24,
-          code: [" inner \n\n\n code "],
-          start: 6,
-          end: 25,
-          value: "${ inner \n\n\n code }",
-        },
-        {
-          type: "Eol",
-          level: 0,
-          start: 25,
-          end: 26,
-          value: "\n",
-        },
-        {
-          type: "Text",
-          level: 0,
-          start: 26,
-          end: 32,
-          value: "second",
-        },
-      ],
-    },
-  },
-
-  {
     input: " A B C ",
     description: "should read text and spaces",
     expected: {
@@ -205,6 +132,179 @@ export const blockTestData: TTestData[] = [
       ],
     },
   },
+  {
+    description: "should read blocks with spaces",
+    input: "before     after",
+    expected: {
+      level: 3,
+      type: "Block",
+      start: 0,
+      end: 16,
+      value: "before     after",
+      children: [
+        {
+          type: "Text",
+          level: 0,
+          start: 0,
+          end: 6,
+          value: "before",
+        },
+        {
+          type: "Space",
+          level: 0,
+          start: 6,
+          end: 11,
+          value: "     ",
+        },
+        {
+          type: "Text",
+          level: 0,
+          start: 11,
+          end: 16,
+          value: "after",
+        },
+      ],
+    },
+  },
+
+  {
+    description: "should read embeded code blocks",
+    input: "before ${ js `${inner code}` md```code\n``` } after",
+    expected: {
+      level: 3,
+      type: "Block",
+      start: 0,
+      end: 50,
+      value: "before ${ js `${inner code}` md```code\n``` } after",
+      children: [
+        {
+          type: "Text",
+          level: 0,
+          start: 0,
+          end: 6,
+          value: "before",
+        },
+        {
+          type: "Space",
+          level: 0,
+          start: 6,
+          end: 7,
+          value: " ",
+        },
+        {
+          type: "Code",
+          level: 0,
+          codeStart: 9,
+          codeEnd: 43,
+          code: [
+            " js `",
+            {
+              type: "Code",
+              level: 0,
+              codeStart: 16,
+              codeEnd: 26,
+              code: ["inner code"],
+              start: 14,
+              end: 27,
+              value: "${inner code}",
+            },
+            "` md```code\n``` ",
+          ],
+          start: 7,
+          end: 44,
+          value: "${ js `${inner code}` md```code\n``` }",
+        },
+        {
+          type: "Space",
+          level: 0,
+          start: 44,
+          end: 45,
+          value: " ",
+        },
+        {
+          type: "Text",
+          level: 0,
+          start: 45,
+          end: 50,
+          value: "after",
+        },
+      ],
+    },
+  },
+  // -------------------------------------------------------------
+  {
+    input: "first\n\nsecond",
+    description: "should read paragraphs until the next empty line",
+    expected: {
+      level: 3,
+      type: "Block",
+      start: 0,
+      end: 5,
+      value: "first",
+      children: [
+        {
+          type: "Text",
+          level: 0,
+          start: 0,
+          end: 5,
+          value: "first",
+        },
+      ],
+    },
+  },
+  {
+    input: "first\n${ inner \n\n\n code }\nsecond",
+    description:
+      "should read paragraphs containing code blocks with empty lines",
+    expected: {
+      level: 3,
+      type: "Block",
+      start: 0,
+      end: 32,
+      value: "first\n${ inner \n\n\n code }\nsecond",
+      children: [
+        {
+          type: "Text",
+          level: 0,
+          start: 0,
+          end: 5,
+          value: "first",
+        },
+        {
+          type: "Eol",
+          level: 0,
+          start: 5,
+          end: 6,
+          value: "\n",
+        },
+        {
+          type: "Code",
+          level: 0,
+          codeStart: 8,
+          codeEnd: 24,
+          code: [" inner \n\n\n code "],
+          start: 6,
+          end: 25,
+          value: "${ inner \n\n\n code }",
+        },
+        {
+          type: "Eol",
+          level: 0,
+          start: 25,
+          end: 26,
+          value: "\n",
+        },
+        {
+          type: "Text",
+          level: 0,
+          start: 26,
+          end: 32,
+          value: "second",
+        },
+      ],
+    },
+  },
+
   {
     input: "before ${code} after",
     description: "should read text with code blocks",
