@@ -15,7 +15,6 @@ describe("readHtmlName", () => {
   }
   it(`should read HTML names (attribute and tag names)`, async () => {
     test("a", {
-      level: 1,
       type: "HtmlName",
       name: "a",
       start: 0,
@@ -23,7 +22,6 @@ describe("readHtmlName", () => {
       value: "a",
     });
     test("abc", {
-      level: 1,
       type: "HtmlName",
       name: "abc",
       start: 0,
@@ -31,7 +29,6 @@ describe("readHtmlName", () => {
       value: "abc",
     });
     test("abc:cde123", {
-      level: 1,
       type: "HtmlName",
       name: "abc:cde123",
       start: 0,
@@ -39,7 +36,6 @@ describe("readHtmlName", () => {
       value: "abc:cde123",
     });
     test("$abc:cde123", {
-      level: 1,
       type: "HtmlName",
       name: "$abc:cde123",
       start: 0,

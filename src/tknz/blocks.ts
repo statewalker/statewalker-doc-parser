@@ -24,7 +24,6 @@ export function newBlockReader(
       const end = ctx.i;
       if (end === start) return;
       return {
-        level: 0,
         type,
         start,
         end,
@@ -77,7 +76,6 @@ export function newFencedBlockReader<
       }
       let end = ctx.i;
       const result = {
-        level: 0,
         type,
         start,
         end,

@@ -7,28 +7,24 @@ export const testData: TTestData[] = [
     expected: [
       {
         type: "Text",
-        level: 0,
         start: 0,
         end: 6,
         value: "before",
       },
       {
         type: "Space",
-        level: 0,
         start: 6,
         end: 7,
         value: " ",
       },
       {
         type: "Code",
-        level: 0,
         codeStart: 9,
         codeEnd: 43,
         code: [
           " js `",
           {
             type: "Code",
-            level: 0,
             codeStart: 16,
             codeEnd: 26,
             code: ["inner code"],
@@ -44,14 +40,12 @@ export const testData: TTestData[] = [
       },
       {
         type: "Space",
-        level: 0,
         start: 44,
         end: 45,
         value: " ",
       },
       {
         type: "Text",
-        level: 0,
         start: 45,
         end: 50,
         value: "after",
@@ -65,21 +59,18 @@ export const testData: TTestData[] = [
     expected: [
       {
         type: "Text",
-        level: 0,
         start: 0,
         end: 5,
         value: "first",
       },
       {
         type: "Eol",
-        level: 0,
         start: 5,
         end: 6,
         value: "\n",
       },
       {
         type: "Code",
-        level: 0,
         codeStart: 8,
         codeEnd: 24,
         code: [" inner \n\n\n code "],
@@ -89,14 +80,12 @@ export const testData: TTestData[] = [
       },
       {
         type: "Eol",
-        level: 0,
         start: 25,
         end: 26,
         value: "\n",
       },
       {
         type: "Text",
-        level: 0,
         start: 26,
         end: 32,
         value: "second",
@@ -110,21 +99,18 @@ export const testData: TTestData[] = [
     expected: [
       {
         type: "Text",
-        level: 0,
         start: 0,
         end: 6,
         value: "before",
       },
       {
         type: "Space",
-        level: 0,
         start: 6,
         end: 7,
         value: " ",
       },
       {
         type: "Code",
-        level: 0,
         codeStart: 9,
         codeEnd: 13,
         code: ["code"],
@@ -134,14 +120,12 @@ export const testData: TTestData[] = [
       },
       {
         type: "Space",
-        level: 0,
         start: 14,
         end: 15,
         value: " ",
       },
       {
         type: "Text",
-        level: 0,
         start: 15,
         end: 20,
         value: "after",
@@ -154,35 +138,30 @@ export const testData: TTestData[] = [
     expected: [
       {
         type: "Text",
-        level: 0,
         start: 0,
         end: 6,
         value: "before",
       },
       {
         type: "Space",
-        level: 0,
         start: 6,
         end: 7,
         value: " ",
       },
       {
         type: "Code",
-        level: 0,
         codeStart: 9,
         codeEnd: 48,
         code: [
           "A1 `B1 ",
           {
             type: "Code",
-            level: 0,
             codeStart: 18,
             codeEnd: 40,
             code: [
               "C1 `",
               {
                 type: "Code",
-                level: 0,
                 codeStart: 24,
                 codeEnd: 35,
                 code: ["third level"],
@@ -204,14 +183,12 @@ export const testData: TTestData[] = [
       },
       {
         type: "Space",
-        level: 0,
         start: 49,
         end: 50,
         value: " ",
       },
       {
         type: "Text",
-        level: 0,
         start: 50,
         end: 55,
         value: "after",

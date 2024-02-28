@@ -1,54 +1,12 @@
 import { EOS, getCharType } from "./chars";
 
-/**
- * Levels:
- * - 0: char - individual symbols
- * - 1: gram - sequence of symbols (normally - "tokens" in parsers)
- * - 2: word - meaningful combination of n-grams (ex: tag names like "svg:text")
- * - 3: block - sequence of words forming an independent block of text.
- *
- * Tokenizers for each level SHOULD use only tokenizers of lower levels.
- * Ex: A tokenizer function recognizing words can use individual characters
- * or n-grams.
- * If a tokenizer from the lower level returns a tokens of the same level or higher
- * than the current tokenizer then it should interpret this token as the "end of flow"
- * token and return the unterminated token or "undefined".
- */
-export enum TTokenLevel {
-  char = 0,
-  gram = 1,
-  word = 2,
-  block = 3,
-  sys = 1000,
-}
-
 export interface TToken extends Record<string, any> {
-  level: TTokenLevel;
   type: string;
   value: string;
   start: number;
   end: number;
   children?: TToken[];
 }
-
-export interface TCharToken extends TToken {
-  type: "Char";
-  charType: number;
-}
-// function getCharToken(str: string, i: number): TCharToken {
-//   const charType = getCharType(str, i);
-//   const value = charType !== EOS ? str[i] : "";
-//   const start = i;
-//   const end = i + value.length;
-//   return {
-//     type: "Char",
-//     level: TTokenLevel.char,
-//     charType,
-//     value,
-//     start,
-//     end,
-//   };
-// }
 
 /**
  * Tokenizer method signature. Each tokenizer method should return a token or "undefined".
@@ -105,19 +63,12 @@ export class TokenizerContext {
   }
   set i(value: number) {
     this._i = Math.max(0, Math.min(value, this.str.length));
-    // this._char = getCharToken(this.str, this._i);
   }
-
-  // private _char: TCharToken;
-  // get char(): TCharToken {
-  //   return this._char;
-  // }
 
   private fences = new TokenizerFences(this);
 
   constructor(str: string, i: number = 0) {
     this.str = str;
-    // this._char = getCharToken(str, str.length);
     this.i = i;
   }
 

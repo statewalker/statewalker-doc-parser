@@ -1,9 +1,4 @@
-import {
-  TToken,
-  TTokenLevel,
-  TTokenizerMethod,
-  TokenizerContext,
-} from "./tokenizer.ts";
+import { TToken, TTokenizerMethod, TokenizerContext } from "./tokenizer.ts";
 
 export interface TCodeToken extends TToken {
   type: "Code";
@@ -99,7 +94,6 @@ export function newCodeReader(parent: TTokenizerMethod): TTokenizerMethod {
         flushText(ctx.i);
         const result: TCodeToken = {
           type: "Code",
-          level: TTokenLevel.char,
           codeStart,
           codeEnd,
           code,

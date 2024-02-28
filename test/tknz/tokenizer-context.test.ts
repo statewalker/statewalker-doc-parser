@@ -20,7 +20,6 @@ function readCodeStart(ctx: TokenizerContext): TToken | undefined {
   ctx.i += 2;
   const end = ctx.i;
   return {
-    level: 0,
     type: "CodeStart",
     start,
     end,
@@ -34,7 +33,6 @@ function readCodeEnd(ctx: TokenizerContext): TToken | undefined {
   ctx.i++;
   const end = ctx.i;
   return {
-    level: 0,
     type: "CodeEnd",
     start,
     end,
@@ -54,7 +52,6 @@ function readTagStart(ctx: TokenizerContext): TToken | undefined {
     ctx.i++;
     const end = ctx.i;
     return {
-      level: 0,
       type: "TagStart",
       start,
       end,
@@ -75,7 +72,6 @@ function readTagEnd(ctx: TokenizerContext): TToken | undefined {
     ctx.i++;
     const end = ctx.i;
     return {
-      level: 0,
       type: "TagEnd",
       start,
       end,
@@ -89,7 +85,6 @@ function readWord(ctx: TokenizerContext): TToken | undefined {
   let end = ctx.skipWhile(CHAR_ANY);
   if (end === start) return;
   return {
-    level: 0,
     type: "Word",
     start,
     end,
@@ -101,7 +96,6 @@ function readPunctuation(ctx: TokenizerContext): TToken | undefined {
   let end = ctx.skipWhile(CHAR_PUNCTUATION);
   if (end === start) return;
   return {
-    level: 0,
     type: "Punctuation",
     start,
     end,
@@ -136,28 +130,25 @@ describe("TokenizerContext", () => {
       newCompositeTokenizer([readWord, readPunctuation])
     );
     test(readToken, "hello world", {
-      level: 0,
       type: "Text",
       start: 0,
       end: 11,
       value: "hello world",
       children: [
-        { level: 0, type: "Word", start: 0, end: 5, value: "hello" },
-        { level: 0, type: "Word", start: 6, end: 11, value: "world" },
+        { type: "Word", start: 0, end: 5, value: "hello" },
+        { type: "Word", start: 6, end: 11, value: "world" },
       ],
     });
-
     test(readToken, "hello - world!", {
-      level: 0,
       type: "Text",
       start: 0,
       end: 14,
       value: "hello - world!",
       children: [
-        { level: 0, type: "Word", start: 0, end: 5, value: "hello" },
-        { level: 0, type: "Punctuation", start: 6, end: 7, value: "-" },
-        { level: 0, type: "Word", start: 8, end: 13, value: "world" },
-        { level: 0, type: "Punctuation", start: 13, end: 14, value: "!" },
+        { type: "Word", start: 0, end: 5, value: "hello" },
+        { type: "Punctuation", start: 6, end: 7, value: "-" },
+        { type: "Word", start: 8, end: 13, value: "world" },
+        { type: "Punctuation", start: 13, end: 14, value: "!" },
       ],
     });
   });
@@ -180,53 +171,32 @@ describe("TokenizerContext", () => {
   it("should tokenize fenced blocks", () => {
     const readToken = newReaderWithCodeBlocks();
     test(readToken, "hello ${wonderful} world", {
-      level: 0,
       type: "Text",
       start: 0,
       end: 24,
       value: "hello ${wonderful} world",
       children: [
-        { level: 0, type: "Word", start: 0, end: 5, value: "hello" },
+        { type: "Word", start: 0, end: 5, value: "hello" },
         {
-          level: 0,
           type: "FencedBlock",
           start: 6,
           end: 18,
+          startToken: { type: "CodeStart", start: 6, end: 8, value: "${" },
           value: "${wonderful}",
           children: [
             {
-              level: 0,
               type: "Text",
               start: 8,
               end: 17,
               value: "wonderful",
               children: [
-                {
-                  level: 0,
-                  type: "Word",
-                  start: 8,
-                  end: 17,
-                  value: "wonderful",
-                },
+                { type: "Word", start: 8, end: 17, value: "wonderful" },
               ],
             },
           ],
-          startToken: {
-            level: 0,
-            type: "CodeStart",
-            start: 6,
-            end: 8,
-            value: "${",
-          },
-          endToken: {
-            level: 0,
-            type: "CodeEnd",
-            start: 17,
-            end: 18,
-            value: "}",
-          },
+          endToken: { type: "CodeEnd", start: 17, end: 18, value: "}" },
         },
-        { level: 0, type: "Word", start: 19, end: 24, value: "world" },
+        { type: "Word", start: 19, end: 24, value: "world" },
       ],
     });
   });
@@ -234,87 +204,57 @@ describe("TokenizerContext", () => {
   it("should tokenize embedded fenced blocks", () => {
     const readToken = newReaderWithCodeBlocks();
     test(readToken, "before ${A ${B} C} after", {
-      level: 0,
       type: "Text",
       start: 0,
       end: 24,
       value: "before ${A ${B} C} after",
       children: [
-        { level: 0, type: "Word", start: 0, end: 6, value: "before" },
+        { type: "Word", start: 0, end: 6, value: "before" },
         {
-          level: 0,
           type: "FencedBlock",
           start: 7,
           end: 18,
+          startToken: { type: "CodeStart", start: 7, end: 9, value: "${" },
           value: "${A ${B} C}",
           children: [
             {
-              level: 0,
               type: "Text",
               start: 9,
               end: 17,
               value: "A ${B} C",
               children: [
-                { level: 0, type: "Word", start: 9, end: 10, value: "A" },
+                { type: "Word", start: 9, end: 10, value: "A" },
                 {
-                  level: 0,
                   type: "FencedBlock",
                   start: 11,
                   end: 15,
-                  value: "${B}",
-                  children: [
-                    {
-                      level: 0,
-                      type: "Text",
-                      start: 13,
-                      end: 14,
-                      value: "B",
-                      children: [
-                        {
-                          level: 0,
-                          type: "Word",
-                          start: 13,
-                          end: 14,
-                          value: "B",
-                        },
-                      ],
-                    },
-                  ],
                   startToken: {
-                    level: 0,
                     type: "CodeStart",
                     start: 11,
                     end: 13,
                     value: "${",
                   },
-                  endToken: {
-                    level: 0,
-                    type: "CodeEnd",
-                    start: 14,
-                    end: 15,
-                    value: "}",
-                  },
+                  value: "${B}",
+                  children: [
+                    {
+                      type: "Text",
+                      start: 13,
+                      end: 14,
+                      value: "B",
+                      children: [
+                        { type: "Word", start: 13, end: 14, value: "B" },
+                      ],
+                    },
+                  ],
+                  endToken: { type: "CodeEnd", start: 14, end: 15, value: "}" },
                 },
-                { level: 0, type: "Word", start: 16, end: 17, value: "C" },
+                { type: "Word", start: 16, end: 17, value: "C" },
               ],
             },
           ],
-          startToken: {
-            level: 0,
-            type: "CodeStart",
-            start: 7,
-            end: 9,
-            value: "${",
-          },
-          endToken: {
-            level: 0,
-            type: "CodeEnd",
-            start: 17,
-            end: 18,
-            value: "}",
-          },
+          endToken: { type: "CodeEnd", start: 17, end: 18, value: "}" },
         },
-        { level: 0, type: "Word", start: 19, end: 24, value: "after" },
+        { type: "Word", start: 19, end: 24, value: "after" },
       ],
     });
   });
@@ -336,144 +276,88 @@ describe("TokenizerContext", () => {
   it("should tokenize heterogenious fenced blocks", () => {
     const readToken = newReaderWithMixedFencedBlocks();
     test(readToken, `\${before} <code> A \${B} C </code> \${after}`, {
-      level: 0,
       type: "Text",
       start: 0,
       end: 42,
       value: "${before} <code> A ${B} C </code> ${after}",
       children: [
         {
-          level: 0,
           type: "Code",
           start: 0,
           end: 9,
+          startToken: { type: "CodeStart", start: 0, end: 2, value: "${" },
           value: "${before}",
           children: [
             {
-              level: 0,
               type: "Text",
               start: 2,
               end: 8,
               value: "before",
-              children: [
-                { level: 0, type: "Word", start: 2, end: 8, value: "before" },
-              ],
+              children: [{ type: "Word", start: 2, end: 8, value: "before" }],
             },
           ],
-          startToken: {
-            level: 0,
-            type: "CodeStart",
-            start: 0,
-            end: 2,
-            value: "${",
-          },
-          endToken: { level: 0, type: "CodeEnd", start: 8, end: 9, value: "}" },
+          endToken: { type: "CodeEnd", start: 8, end: 9, value: "}" },
         },
         {
-          level: 0,
           type: "Tag",
           start: 10,
           end: 33,
+          startToken: { type: "TagStart", start: 10, end: 16, value: "<code>" },
           value: "<code> A ${B} C </code>",
           children: [
             {
-              level: 0,
               type: "Text",
               start: 16,
               end: 26,
               value: " A ${B} C ",
               children: [
-                { level: 0, type: "Word", start: 17, end: 18, value: "A" },
+                { type: "Word", start: 17, end: 18, value: "A" },
                 {
-                  level: 0,
                   type: "Code",
                   start: 19,
                   end: 23,
-                  value: "${B}",
-                  children: [
-                    {
-                      level: 0,
-                      type: "Text",
-                      start: 21,
-                      end: 22,
-                      value: "B",
-                      children: [
-                        {
-                          level: 0,
-                          type: "Word",
-                          start: 21,
-                          end: 22,
-                          value: "B",
-                        },
-                      ],
-                    },
-                  ],
                   startToken: {
-                    level: 0,
                     type: "CodeStart",
                     start: 19,
                     end: 21,
                     value: "${",
                   },
-                  endToken: {
-                    level: 0,
-                    type: "CodeEnd",
-                    start: 22,
-                    end: 23,
-                    value: "}",
-                  },
+                  value: "${B}",
+                  children: [
+                    {
+                      type: "Text",
+                      start: 21,
+                      end: 22,
+                      value: "B",
+                      children: [
+                        { type: "Word", start: 21, end: 22, value: "B" },
+                      ],
+                    },
+                  ],
+                  endToken: { type: "CodeEnd", start: 22, end: 23, value: "}" },
                 },
-                { level: 0, type: "Word", start: 24, end: 25, value: "C" },
+                { type: "Word", start: 24, end: 25, value: "C" },
               ],
             },
           ],
-          startToken: {
-            level: 0,
-            type: "TagStart",
-            start: 10,
-            end: 16,
-            value: "<code>",
-          },
-          endToken: {
-            level: 0,
-            type: "TagEnd",
-            start: 26,
-            end: 33,
-            value: "</code>",
-          },
+          endToken: { type: "TagEnd", start: 26, end: 33, value: "</code>" },
         },
         {
-          level: 0,
           type: "Code",
           start: 34,
           end: 42,
+          startToken: { type: "CodeStart", start: 34, end: 36, value: "${" },
           value: "${after}",
           children: [
             {
-              level: 0,
               type: "Text",
               start: 36,
               end: 41,
               value: "after",
-              children: [
-                { level: 0, type: "Word", start: 36, end: 41, value: "after" },
-              ],
+              children: [{ type: "Word", start: 36, end: 41, value: "after" }],
             },
           ],
-          startToken: {
-            level: 0,
-            type: "CodeStart",
-            start: 34,
-            end: 36,
-            value: "${",
-          },
-          endToken: {
-            level: 0,
-            type: "CodeEnd",
-            start: 41,
-            end: 42,
-            value: "}",
-          },
+          endToken: { type: "CodeEnd", start: 41, end: 42, value: "}" },
         },
       ],
     });
@@ -482,143 +366,87 @@ describe("TokenizerContext", () => {
   it("should tokenize broken heterogenious fenced blocks", () => {
     const readToken = newReaderWithMixedFencedBlocks();
     test(readToken, `\${before} <code> A \${B C </code> \${after}`, {
-      level: 0,
       type: "Text",
       start: 0,
       end: 41,
       value: "${before} <code> A ${B C </code> ${after}",
       children: [
         {
-          level: 0,
           type: "Code",
           start: 0,
           end: 9,
+          startToken: { type: "CodeStart", start: 0, end: 2, value: "${" },
           value: "${before}",
           children: [
             {
-              level: 0,
               type: "Text",
               start: 2,
               end: 8,
               value: "before",
-              children: [
-                { level: 0, type: "Word", start: 2, end: 8, value: "before" },
-              ],
+              children: [{ type: "Word", start: 2, end: 8, value: "before" }],
             },
           ],
-          startToken: {
-            level: 0,
-            type: "CodeStart",
-            start: 0,
-            end: 2,
-            value: "${",
-          },
-          endToken: { level: 0, type: "CodeEnd", start: 8, end: 9, value: "}" },
+          endToken: { type: "CodeEnd", start: 8, end: 9, value: "}" },
         },
         {
-          level: 0,
           type: "Tag",
           start: 10,
           end: 32,
+          startToken: { type: "TagStart", start: 10, end: 16, value: "<code>" },
           value: "<code> A ${B C </code>",
           children: [
             {
-              level: 0,
               type: "Text",
               start: 16,
               end: 25,
               value: " A ${B C ",
               children: [
-                { level: 0, type: "Word", start: 17, end: 18, value: "A" },
+                { type: "Word", start: 17, end: 18, value: "A" },
                 {
-                  level: 0,
                   type: "Code",
                   start: 19,
                   end: 25,
-                  value: "${B C ",
-                  children: [
-                    {
-                      level: 0,
-                      type: "Text",
-                      start: 21,
-                      end: 25,
-                      value: "B C ",
-                      children: [
-                        {
-                          level: 0,
-                          type: "Word",
-                          start: 21,
-                          end: 22,
-                          value: "B",
-                        },
-                        {
-                          level: 0,
-                          type: "Word",
-                          start: 23,
-                          end: 24,
-                          value: "C",
-                        },
-                      ],
-                    },
-                  ],
                   startToken: {
-                    level: 0,
                     type: "CodeStart",
                     start: 19,
                     end: 21,
                     value: "${",
                   },
+                  value: "${B C ",
+                  children: [
+                    {
+                      type: "Text",
+                      start: 21,
+                      end: 25,
+                      value: "B C ",
+                      children: [
+                        { type: "Word", start: 21, end: 22, value: "B" },
+                        { type: "Word", start: 23, end: 24, value: "C" },
+                      ],
+                    },
+                  ],
                 },
               ],
             },
           ],
-          startToken: {
-            level: 0,
-            type: "TagStart",
-            start: 10,
-            end: 16,
-            value: "<code>",
-          },
-          endToken: {
-            level: 0,
-            type: "TagEnd",
-            start: 25,
-            end: 32,
-            value: "</code>",
-          },
+          endToken: { type: "TagEnd", start: 25, end: 32, value: "</code>" },
         },
         {
-          level: 0,
           type: "Code",
           start: 33,
           end: 41,
+          startToken: { type: "CodeStart", start: 33, end: 35, value: "${" },
           value: "${after}",
           children: [
             {
-              level: 0,
               type: "Text",
               start: 35,
               end: 40,
               value: "after",
-              children: [
-                { level: 0, type: "Word", start: 35, end: 40, value: "after" },
-              ],
+              children: [{ type: "Word", start: 35, end: 40, value: "after" }],
             },
           ],
-          startToken: {
-            level: 0,
-            type: "CodeStart",
-            start: 33,
-            end: 35,
-            value: "${",
-          },
-          endToken: {
-            level: 0,
-            type: "CodeEnd",
-            start: 40,
-            end: 41,
-            value: "}",
-          },
+          endToken: { type: "CodeEnd", start: 40, end: 41, value: "}" },
         },
       ],
     });

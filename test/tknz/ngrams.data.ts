@@ -13,7 +13,6 @@ export const gramTestData: TGramTestData[] = [
     after: "after",
     expected: {
       type: "Space",
-      level: 0,
       start: 6,
       end: 11,
       value: "     ",
@@ -26,7 +25,6 @@ export const gramTestData: TGramTestData[] = [
     after: "after",
     expected: {
       type: "Punctuation",
-      level: 0,
       start: 6,
       end: 12,
       value: ".,;'\"`",
@@ -39,7 +37,6 @@ export const gramTestData: TGramTestData[] = [
     after: "after",
     expected: {
       type: "Punctuation",
-      level: 0,
       start: 6,
       end: 7,
       value: "`",
@@ -52,7 +49,6 @@ export const gramTestData: TGramTestData[] = [
     after: "after",
     expected: {
       type: "Format",
-      level: 0,
       start: 6,
       end: 7,
       value: "\xAD",
@@ -65,14 +61,12 @@ export const gramTestData: TGramTestData[] = [
     after: " after",
     expected: {
       type: "Code",
-      level: 0,
       codeStart: 9,
       codeEnd: 43,
       code: [
         " js `",
         {
           type: "Code",
-          level: 0,
           codeStart: 16,
           codeEnd: 26,
           code: ["inner code"],

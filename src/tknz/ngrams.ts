@@ -25,7 +25,6 @@ export function readSequence<T extends TToken>(
   return end > start
     ? ({
         type,
-        level: TTokenLevel.char,
         start,
         end,
         value: ctx.substring(start, end),

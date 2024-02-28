@@ -46,7 +46,6 @@ export function readHtmlName(
   const i = ctx.i;
   if (i === start) return;
   return {
-    level: 1,
     type: "HtmlName",
     name,
     start,

@@ -18,7 +18,6 @@ export default function readHtmlAttribute(
   let end = start;
   name.type = "HtmlAttributeName";
   const token: THtmlAttributeToken = {
-    level: name.level,
     type: "HtmlAttribute",
     start,
     end,
