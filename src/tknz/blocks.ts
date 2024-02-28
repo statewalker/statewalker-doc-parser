@@ -9,23 +9,13 @@ export function newBlockReader(
       const start = ctx.i;
       const len = ctx.length;
       const children: TToken[] = [];
-      let textStart = start;
-      const flushText = (i: number) => {
-        if (i > textStart) {
-          // list.push(ctx.substring(textStart, i));
-          textStart = i;
-        }
-      };
       while (ctx.i < len) {
-        let i = ctx.i;
         const fence = fences.getFenceToken();
         if (fence) {
           break;
         }
         const token = readToken(ctx);
         if (token) {
-          flushText(i);
-          textStart = ctx.i;
           children.push(token);
         } else {
           ctx.i++;
@@ -33,7 +23,6 @@ export function newBlockReader(
       }
       const end = ctx.i;
       if (end === start) return;
-      flushText(end);
       return {
         level: 0,
         type,
