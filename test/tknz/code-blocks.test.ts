@@ -5,7 +5,7 @@ import {
   TTokenizerMethod,
   TokenizerContext,
 } from "../../src/tknz/tokenizer.ts";
-import { testData } from "./block.data.ts";
+import { testData } from "./code-blocks.data.ts";
 import { newNgramsWithCode } from "../../src/tknz/blocks.ts";
 
 function newBlockReader(nextToken: TTokenizerMethod): TTokenizerMethod {
@@ -37,28 +37,28 @@ function newBlockReader(nextToken: TTokenizerMethod): TTokenizerMethod {
   };
 }
 
-describe("Tokenizer.block", () => {
-  function testPara(str: string, control: TToken) {
-    const ctx = new TokenizerContext(str);
-    const readNgramsWithCode = newNgramsWithCode();
-    const readToken = newBlockReader(readNgramsWithCode);
-    const result = readToken(ctx);
-    try {
-      expect(result !== undefined).toEqual(true);
-      const token: TToken = result as TToken;
-      expect(token).to.eql(control);
-      expect(token.start).toEqual(0);
-      expect(token.value).toEqual(str.substring(token.start, token.end));
-    } catch (error) {
-      console.log(JSON.stringify(result));
-      // console.log(JSON.stringify(result, null, 2));
-      throw error;
+function test(str: string, control: TToken) {
+  const ctx = new TokenizerContext(str);
+  const readToken = newNgramsWithCode();
+  let result: TToken[] = [];
+  try {
+    let token: TToken | undefined;
+    while ((token = readToken(ctx))) {
+      result.push(token);
     }
+    expect(result !== undefined).toEqual(true);
+    expect(result).to.eql(control);
+  } catch (error) {
+    console.log(JSON.stringify(result));
+    // console.log(JSON.stringify(result, null, 2));
+    throw error;
   }
+}
 
+describe("code.block", () => {
   testData.forEach((data) => {
     it(data.description, () => {
-      testPara(data.input, data.expected);
+      test(data.input, data.expected);
     });
   });
 });

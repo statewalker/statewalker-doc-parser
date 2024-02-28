@@ -1,6 +1,6 @@
-import { TTestData } from "./data.types";
+import { TTestData } from "./data.types.ts";
 
-export const blockTestData: TTestData[] = [
+export const testData: TTestData[] = [
   {
     input: " A B C ",
     description: "should read text and spaces",
