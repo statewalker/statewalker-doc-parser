@@ -24,6 +24,7 @@ export function newCodeReader(parent: TTokenizerMethod): TTokenizerMethod {
         let depth = 0;
         if (ctx.getChar(+0) !== "$" || ctx.getChar(+1) !== "{") return;
         ctx.i += 2;
+        // const fenceLevel = ctx.addFence(() => ctx.getChar() === "}");
         found = true;
 
         const codeStart = ctx.i;
@@ -47,10 +48,28 @@ export function newCodeReader(parent: TTokenizerMethod): TTokenizerMethod {
             escaped = false;
           } else if (ch === "\\") {
             escaped = true;
-          } else if (quot) {
-            if (ch === quot) {
-              quot = "";
-            } else if (quot === "`" && ch === "$") {
+          } else if (ch === '"' || ch === "'" || ch === "`") {
+            if (quot) {
+              if (ch === quot) {
+                quot = "";
+              }
+            } else {
+              quot = ch;
+            }
+          } else if (ch === "{") {
+            depth++;
+          } else if (ch === "}") {
+            if (depth === 0) {
+              flushText(ctx.i);
+              codeEnd = ctx.i;
+              ctx.i++;
+              textStart = ctx.i;
+              break;
+            } else {
+              depth--;
+            }
+          } else {
+            if (quot === "`" && ch === "$") {
               // FIXME:
               // - add a new fence with the current level
               // - read a next token using the parent tokenizer
@@ -70,20 +89,11 @@ export function newCodeReader(parent: TTokenizerMethod): TTokenizerMethod {
                 textStart = r.end;
               }
             }
-          } else if (ch === '"' || ch === "'" || ch === "`") {
-            quot = ch;
-          } else if (ch === "{") {
-            depth++;
-          } else if (ch === "}") {
-            if (depth === 0) {
-              flushText(ctx.i);
-              codeEnd = ctx.i;
-              ctx.i++;
-              textStart = ctx.i;
-              break;
-            } else {
-              depth--;
-            }
+            // if (ctx.checkFence(fenceLevel)) {
+            //   flushText(ctx.i);
+            //   codeEnd = ctx.i;
+            //   break;
+            // }
           }
         }
         flushText(ctx.i);

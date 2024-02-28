@@ -53,7 +53,44 @@ export interface TCharToken extends TToken {
 /**
  * Tokenizer method signature. Each tokenizer method should return a token or "undefined".
  */
-export type TTokenizerMethod = (ctx: TokenizerContext) => TToken | undefined;
+export type TTokenizerMethod<T = TToken> = (
+  ctx: TokenizerContext
+) => T | undefined;
+
+export class TokenizerFences {
+  context: TokenizerContext;
+
+  fences: TTokenizerMethod[] = [];
+
+  constructor(context: TokenizerContext) {
+    this.context = context;
+  }
+
+  get level(): number {
+    return this.fences.length;
+  }
+
+  addFence = (f: TTokenizerMethod) => {
+    this.fences.push(f);
+  };
+
+  getFenceToken = (): TToken | undefined => {
+    let result: TToken | undefined;
+    const ctx = this.context;
+    const start = ctx.i;
+    for (let i = this.fences.length - 1; !result && i >= 0; i--) {
+      result = this.fences[i](ctx);
+      ctx.i = start;
+    }
+    return result;
+  };
+
+  reset = (level: number): void => {
+    while (this.fences.length > level) {
+      this.fences.pop();
+    }
+  };
+}
 
 export class TokenizerContext {
   str: string;
@@ -75,6 +112,8 @@ export class TokenizerContext {
   // get char(): TCharToken {
   //   return this._char;
   // }
+
+  private fences = new TokenizerFences(this);
 
   constructor(str: string, i: number = 0) {
     this.str = str;
@@ -139,6 +178,29 @@ export class TokenizerContext {
    */
   substring(from: number, to: number): string {
     return this.str.substring(from, to);
+  }
+
+  /**
+   * Guards the execution of a tokenizer method.
+   * If the method returns "undefined" then the position of the tokenized string
+   * will be reset to the initial position.
+   * @param f the tokenizer method to guard
+   * @returns the result of the tokenizer method - the resulting token or "undefined"
+   */
+  guard<T = TToken>(
+    f: (fences: TokenizerFences) => T | undefined
+  ): T | undefined {
+    const start = this.i;
+    let result: T | undefined;
+    const level = this.fences.level;
+    try {
+      return (result = f(this.fences));
+    } finally {
+      this.fences.reset(level);
+      if (result === undefined) {
+        this.i = start;
+      }
+    }
   }
 }
 

@@ -15,23 +15,22 @@ import {
   newCompositeTokenizer,
 } from "./tokenizer.ts";
 
-function readSequence<T extends TToken>(
+export function readSequence<T extends TToken>(
   ctx: TokenizerContext,
   charsMask: number,
   type: string
 ): T | undefined {
   const start = ctx.i;
   const end = ctx.skipWhile(charsMask);
-  if (end > start) {
-    return {
-      type,
-      level: TTokenLevel.char,
-      start,
-      end,
-      value: ctx.substring(start, end),
-    } as T;
-  }
-  ctx.i = start;
+  return end > start
+    ? ({
+        type,
+        level: TTokenLevel.char,
+        start,
+        end,
+        value: ctx.substring(start, end),
+      } as T)
+    : undefined;
 }
 
 // -----------------------------------------------------------------------------
@@ -76,11 +75,7 @@ export interface TPunctuationToken extends TToken {
 export function readPunctuation(
   ctx: TokenizerContext
 ): TPunctuationToken | undefined {
-  return readSequence<TPunctuationToken>(
-    ctx,
-    CHAR_PUNCTUATION,
-    "Punctuation"
-  );
+  return readSequence<TPunctuationToken>(ctx, CHAR_PUNCTUATION, "Punctuation");
 }
 
 // -----------------------------------------------------------------------------
