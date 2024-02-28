@@ -1,6 +1,6 @@
 import { describe, expect, it } from "../deps.ts";
 import { TToken, TokenizerContext } from "../../src/tknz/tokenizer.ts";
-import { newNgramsWithCode } from "../../src/tknz/blocks.ts";
+import { newNgramsWithCode } from "./newNgramsWithCode.ts";
 import { testData } from "./code-blocks.data.ts";
 
 function test(str: string, control: TToken) {

@@ -12,61 +12,7 @@ import {
   CHAR_SPACE,
 } from "../../src/tknz/chars.ts";
 import { readHtmlName } from "../../src/tknz/html-names.ts";
-
-// function readChar(ctx: TokenizerContext): TToken {
-//   const start = ctx.i;
-//   const value = ctx.getChar();
-//   ctx.i++;
-//   return {
-//     level: 0,
-//     type: "Char",
-//     start,
-//     end: start + 1,
-//     value,
-//   };
-// }
-
-function newBlockReader(readToken: TTokenizerMethod): TTokenizerMethod {
-  return (ctx: TokenizerContext): TToken | undefined =>
-    ctx.guard((fences) => {
-      const start = ctx.i;
-      const len = ctx.length;
-      const children: TToken[] = [];
-      let textStart = start;
-      const flushText = (i: number) => {
-        if (i > textStart) {
-          // list.push(ctx.substring(textStart, i));
-          textStart = i;
-        }
-      };
-      while (ctx.i < len) {
-        let i = ctx.i;
-        const fence = fences.getFenceToken();
-        if (fence) {
-          break;
-        }
-        const token = readToken(ctx);
-        if (token) {
-          flushText(i);
-          textStart = ctx.i;
-          children.push(token);
-        } else {
-          ctx.i++;
-        }
-      }
-      const end = ctx.i;
-      if (end === start) return;
-      flushText(end);
-      return {
-        level: 0,
-        type: "Text",
-        start,
-        end,
-        value: ctx.substring(start, end),
-        children,
-      };
-    });
-}
+import { newBlockReader, newFencedBlockReader } from "../../src/tknz/blocks.ts";
 
 function readCodeStart(ctx: TokenizerContext): TToken | undefined {
   if (ctx.getChar(+0) !== "$" || ctx.getChar(+1) !== "{") return;
@@ -138,59 +84,6 @@ function readTagEnd(ctx: TokenizerContext): TToken | undefined {
   });
 }
 
-export interface TFencedBlockToken extends TToken {
-  startToken: TToken;
-  endToken?: TToken;
-}
-
-function newFencedBlockReader<T extends TFencedBlockToken = TFencedBlockToken>(
-  type: string,
-  readStart: TTokenizerMethod,
-  readToken: TTokenizerMethod,
-  readEnd: TTokenizerMethod
-): TTokenizerMethod<T> {
-  return (ctx: TokenizerContext): T | undefined =>
-    ctx.guard((fences) => {
-      const start = ctx.i;
-      const startToken = readStart(ctx);
-      let endToken: TToken | undefined;
-      if (!startToken) return;
-      ctx.i = startToken.end;
-      fences.addFence(readEnd);
-
-      const children: TToken[] = [];
-      while (ctx.i < ctx.length) {
-        endToken = readEnd(ctx);
-        if (endToken) {
-          ctx.i = endToken.end;
-          break;
-        }
-        const fence = fences.getFenceToken();
-        if (fence) {
-          break;
-        }
-        const token = readToken(ctx);
-        if (token) {
-          children.push(token);
-          ctx.i = token.end;
-        } else {
-          ctx.i++;
-        }
-      }
-      let end = ctx.i;
-      return {
-        level: 0,
-        type,
-        start,
-        end,
-        value: ctx.substring(start, end),
-        children,
-        startToken,
-        endToken,
-      } as T;
-    });
-}
-
 function readWord(ctx: TokenizerContext): TToken | undefined {
   const start = ctx.i;
   let end = ctx.skipWhile(CHAR_ANY);
@@ -239,6 +132,7 @@ function test(
 describe("TokenizerContext", () => {
   it("should tokenize a list of words", () => {
     const readToken = newBlockReader(
+      "Text",
       newCompositeTokenizer([readWord, readPunctuation])
     );
     test(readToken, "hello world", {
@@ -272,7 +166,7 @@ describe("TokenizerContext", () => {
     const list: TTokenizerMethod[] = [];
     list.push(readWord);
     const compositeReader = newCompositeTokenizer(list);
-    const readToken = newBlockReader(compositeReader);
+    const readToken = newBlockReader("Text", compositeReader);
     const readFencedBlock = newFencedBlockReader(
       "FencedBlock",
       readCodeStart,
@@ -429,7 +323,7 @@ describe("TokenizerContext", () => {
     const list: TTokenizerMethod[] = [];
     list.push(readWord);
     const compositeReader = newCompositeTokenizer(list);
-    const readToken = newBlockReader(compositeReader);
+    const readToken = newBlockReader("Text", compositeReader);
     list.unshift(
       newFencedBlockReader("Code", readCodeStart, readToken, readCodeEnd)
     );

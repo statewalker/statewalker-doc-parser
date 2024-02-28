@@ -6,7 +6,7 @@ import {
   TokenizerContext,
 } from "../../src/tknz/tokenizer.ts";
 import { testData } from "./block.data.ts";
-import { newNgramsWithCode } from "../../src/tknz/blocks.ts";
+import { newNgramsWithCode } from "./newNgramsWithCode.ts";
 
 function newBlockReader(nextToken: TTokenizerMethod): TTokenizerMethod {
   return (ctx: TokenizerContext): TToken | undefined => {

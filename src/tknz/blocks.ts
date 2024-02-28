@@ -1,14 +1,102 @@
-import { newCodeReader } from "./code-blocks.ts";
-import { newNgramsReader } from "./ngrams.ts";
-import { TTokenizerMethod, newCompositeTokenizer } from "./tokenizer.ts";
+import { TToken, TTokenizerMethod, TokenizerContext } from "./tokenizer.ts";
 
-export function newNgramsWithCode() {
-  const list: TTokenizerMethod[] = [];
-  const readNgrams = newNgramsReader(list);
-  const readCode = newCodeReader(readNgrams);
-  // We add the code reader to the same list of tokenizers
-  // as used in the code reader itself. It allows to the code reader
-  // to read nested code tokens.
-  list.unshift(readCode);
-  return newCompositeTokenizer([readCode, readNgrams]);
+export function newBlockReader(
+  type: string,
+  readToken: TTokenizerMethod
+): TTokenizerMethod {
+  return (ctx: TokenizerContext): TToken | undefined =>
+    ctx.guard((fences) => {
+      const start = ctx.i;
+      const len = ctx.length;
+      const children: TToken[] = [];
+      let textStart = start;
+      const flushText = (i: number) => {
+        if (i > textStart) {
+          // list.push(ctx.substring(textStart, i));
+          textStart = i;
+        }
+      };
+      while (ctx.i < len) {
+        let i = ctx.i;
+        const fence = fences.getFenceToken();
+        if (fence) {
+          break;
+        }
+        const token = readToken(ctx);
+        if (token) {
+          flushText(i);
+          textStart = ctx.i;
+          children.push(token);
+        } else {
+          ctx.i++;
+        }
+      }
+      const end = ctx.i;
+      if (end === start) return;
+      flushText(end);
+      return {
+        level: 0,
+        type,
+        start,
+        end,
+        value: ctx.substring(start, end),
+        children,
+      };
+    });
+}
+
+export interface TFencedBlockToken extends TToken {
+  startToken: TToken;
+  endToken?: TToken;
+}
+
+export function newFencedBlockReader<
+  T extends TFencedBlockToken = TFencedBlockToken
+>(
+  type: string,
+  readStart: TTokenizerMethod,
+  readToken: TTokenizerMethod,
+  readEnd: TTokenizerMethod
+): TTokenizerMethod<T> {
+  return (ctx: TokenizerContext): T | undefined =>
+    ctx.guard((fences) => {
+      const start = ctx.i;
+      const startToken = readStart(ctx);
+      let endToken: TToken | undefined;
+      if (!startToken) return;
+      ctx.i = startToken.end;
+      fences.addFence(readEnd);
+
+      const children: TToken[] = [];
+      while (ctx.i < ctx.length) {
+        endToken = readEnd(ctx);
+        if (endToken) {
+          ctx.i = endToken.end;
+          break;
+        }
+        const fence = fences.getFenceToken();
+        if (fence) {
+          break;
+        }
+        const token = readToken(ctx);
+        if (token) {
+          children.push(token);
+          ctx.i = token.end;
+        } else {
+          ctx.i++;
+        }
+      }
+      let end = ctx.i;
+      const result = {
+        level: 0,
+        type,
+        start,
+        end,
+        startToken,
+        value: ctx.substring(start, end),
+        children,
+      } as T;
+      if (endToken) result.endToken = endToken;
+      return result;
+    });
 }
