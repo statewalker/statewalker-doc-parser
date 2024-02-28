@@ -22,10 +22,8 @@ export function newCodeReader(parent: TTokenizerMethod): TTokenizerMethod {
       let found = false;
       try {
         let depth = 0;
-        if (!ctx.match("$")) return;
-        ctx.i++;
-        if (!ctx.match("{")) return;
-        ctx.i++;
+        if (ctx.getChar(+0) !== "$" || ctx.getChar(+1) !== "{") return;
+        ctx.i += 2;
         found = true;
 
         const codeStart = ctx.i;
@@ -55,7 +53,7 @@ export function newCodeReader(parent: TTokenizerMethod): TTokenizerMethod {
             } else if (quot === "`" && ch === "$") {
               // FIXME:
               // - add a new fence with the current level
-              // - read next token from the context
+              // - read a next token using the parent tokenizer
               const previousPos = ctx.i;
               const r = read(ctx);
               if (r) {

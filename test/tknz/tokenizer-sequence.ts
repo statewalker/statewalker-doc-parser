@@ -1,5 +1,18 @@
-import { CHAR_ANY, CHAR_DIGIT, CHAR_EOL, CHAR_SPACE } from "./chars.ts";
-import { TToken, TTokenLevel, TokenizerContext } from "./tokenizer.ts";
+import {
+  CHAR_ANY,
+  CHAR_CONTROL,
+  CHAR_DIGIT,
+  CHAR_EOL,
+  CHAR_PUNCTUATION,
+  CHAR_FORMAT,
+  CHAR_SPACE,
+} from "./chars.ts";
+import {
+  TToken,
+  TTokenLevel,
+  TokenizerContext,
+  newCompositeTokenizer,
+} from "./tokenizer.ts";
 
 function readContinuation<T extends TToken>(
   ctx: TokenizerContext,
@@ -7,16 +20,17 @@ function readContinuation<T extends TToken>(
   type: string
 ): T | undefined {
   const start = ctx.i;
-  const end = ctx.skipWhile(charsMask).i;
-  return end > start
-    ? ({
-        type,
-        level: TTokenLevel.char,
-        start,
-        end,
-        value: ctx.substring(start, end),
-      } as T)
-    : undefined;
+  const end = ctx.skipWhile(charsMask);
+  if (end > start) {
+    return {
+      type,
+      level: TTokenLevel.char,
+      start,
+      end,
+      value: ctx.substring(start, end),
+    } as T;
+  }
+  ctx.i = start;
 }
 
 // -----------------------------------------------------------------------------
@@ -53,6 +67,45 @@ export function readEols(ctx: TokenizerContext): TEolToken | undefined {
 
 // -----------------------------------------------------------------------------
 
+export interface TPunctuationToken extends TToken {
+  type: "Punctuation";
+  count: number; // number of control symbols
+}
+
+export function readPunctuation(
+  ctx: TokenizerContext
+): TPunctuationToken | undefined {
+  return readContinuation<TPunctuationToken>(
+    ctx,
+    CHAR_PUNCTUATION,
+    "Punctuation"
+  );
+}
+
+// -----------------------------------------------------------------------------
+
+export interface TFormatToken extends TToken {
+  type: "Format";
+  count: number; // number of control symbols
+}
+
+export function readFormat(ctx: TokenizerContext): TFormatToken | undefined {
+  return readContinuation<TFormatToken>(ctx, CHAR_FORMAT, "Format");
+}
+
+// -----------------------------------------------------------------------------
+
+export interface TControlToken extends TToken {
+  type: "Control";
+  count: number; // number of control symbols
+}
+
+export function readControls(ctx: TokenizerContext): TControlToken | undefined {
+  return readContinuation<TControlToken>(ctx, CHAR_CONTROL, "Control");
+}
+
+// -----------------------------------------------------------------------------
+
 export interface TTextToken extends TToken {
   type: "Text";
   count: number; // number of texts or digits
@@ -63,3 +116,15 @@ export function readText(ctx: TokenizerContext): TTextToken | undefined {
 }
 
 // -----------------------------------------------------------------------------
+
+export function newNgramsReader() {
+  return newCompositeTokenizer(
+    readEols,
+    readSpaces,
+    readPunctuation,
+    readFormat,
+    readControls,
+    readDigits,
+    readText
+  );
+}

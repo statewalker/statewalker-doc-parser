@@ -6,12 +6,7 @@ import {
   TokenizerContext,
   newCompositeTokenizer,
 } from "./tokenizer.ts";
-import {
-  readEols,
-  readSpaces,
-  readDigits,
-  readText,
-} from "./tokenizer-sequence.ts";
+import { newNgramsReader } from "./tokenizer-sequence.ts";
 import { newCodeReader } from "./tokenizer-code.ts";
 import { blockTestData } from "./data.block.ts";
 import { gramTestData } from "./data.gram.ts";
@@ -23,11 +18,10 @@ function newBlockReader(nextToken: TTokenizerMethod): TTokenizerMethod {
     let token: TToken | undefined;
     while ((token = nextToken(ctx))) {
       if (token.level >= currentLevel) {
-        // ctx.resetTo(token);
         break;
       }
       if (token.type === "Eol" && token.value.length > 1) {
-        ctx.resetTo(token);
+        ctx.i = token.start;
         break;
       }
       list.push(token);
@@ -47,12 +41,7 @@ function newBlockReader(nextToken: TTokenizerMethod): TTokenizerMethod {
 }
 
 function newNgramsWithCode() {
-  const readNgrams = newCompositeTokenizer(
-    readEols,
-    readSpaces,
-    readDigits,
-    readText
-  );
+  const readNgrams = newNgramsReader();
   const readCode = newCodeReader(readNgrams);
   return newCompositeTokenizer(readCode, readNgrams);
 }
@@ -74,7 +63,8 @@ describe("Tokenizer.gram", () => {
       expect(str.substring(0, token.start)).to.eql(before);
       expect(str.substring(token.end)).to.eql(after);
     } catch (error) {
-      console.log(JSON.stringify(result, null, 2));
+      console.log(JSON.stringify(result));
+      // console.log(JSON.stringify(result, null, 2));
       throw error;
     }
   }
@@ -98,7 +88,8 @@ describe("Tokenizer.block", () => {
       expect(token.start).toEqual(0);
       expect(token.value).toEqual(str.substring(token.start, token.end));
     } catch (error) {
-      console.log(JSON.stringify(result, null, 2));
+      console.log(JSON.stringify(result));
+      // console.log(JSON.stringify(result, null, 2));
       throw error;
     }
   }
