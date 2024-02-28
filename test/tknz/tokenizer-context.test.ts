@@ -81,14 +81,13 @@ function readTagEnd(ctx: TokenizerContext): TToken | undefined {
 }
 
 function readWord(ctx: TokenizerContext): TToken | undefined {
-  const start = ctx.i;
-  let end = ctx.skipWhile(CHAR_ANY);
-  if (end === start) return;
+  const token = readHtmlName(ctx) as TToken;
+  if (!token) return;
   return {
     type: "Word",
-    start,
-    end,
-    value: ctx.substring(start, end),
+    start: token.start,
+    end: token.end,
+    value: token.value,
   };
 }
 function readPunctuation(ctx: TokenizerContext): TToken | undefined {
@@ -450,5 +449,459 @@ describe("TokenizerContext", () => {
         },
       ],
     });
+  });
+
+  it("should tokenize broken heterogenious fenced blocks - 2", () => {
+    const readToken = newReaderWithMixedFencedBlocks();
+    test(readToken, `before \${X <code> A \${B <code>C</code> } </code> `, {
+      type: "Text",
+      start: 0,
+      end: 49,
+      value: "before ${X <code> A ${B <code>C</code> } </code> ",
+      children: [
+        { type: "Word", start: 0, end: 6, value: "before" },
+        {
+          type: "Code",
+          start: 7,
+          end: 49,
+          startToken: { type: "CodeStart", start: 7, end: 9, value: "${" },
+          value: "${X <code> A ${B <code>C</code> } </code> ",
+          children: [
+            {
+              type: "Text",
+              start: 9,
+              end: 49,
+              value: "X <code> A ${B <code>C</code> } </code> ",
+              children: [
+                { type: "Word", start: 9, end: 10, value: "X" },
+                {
+                  type: "Tag",
+                  start: 11,
+                  end: 48,
+                  startToken: {
+                    type: "TagStart",
+                    start: 11,
+                    end: 17,
+                    value: "<code>",
+                  },
+                  value: "<code> A ${B <code>C</code> } </code>",
+                  children: [
+                    {
+                      type: "Text",
+                      start: 17,
+                      end: 41,
+                      value: " A ${B <code>C</code> } ",
+                      children: [
+                        { type: "Word", start: 18, end: 19, value: "A" },
+                        {
+                          type: "Code",
+                          start: 20,
+                          end: 40,
+                          startToken: {
+                            type: "CodeStart",
+                            start: 20,
+                            end: 22,
+                            value: "${",
+                          },
+                          value: "${B <code>C</code> }",
+                          children: [
+                            {
+                              type: "Text",
+                              start: 22,
+                              end: 39,
+                              value: "B <code>C</code> ",
+                              children: [
+                                {
+                                  type: "Word",
+                                  start: 22,
+                                  end: 23,
+                                  value: "B",
+                                },
+                                {
+                                  type: "Tag",
+                                  start: 24,
+                                  end: 38,
+                                  startToken: {
+                                    type: "TagStart",
+                                    start: 24,
+                                    end: 30,
+                                    value: "<code>",
+                                  },
+                                  value: "<code>C</code>",
+                                  children: [
+                                    {
+                                      type: "Text",
+                                      start: 30,
+                                      end: 31,
+                                      value: "C",
+                                      children: [
+                                        {
+                                          type: "Word",
+                                          start: 30,
+                                          end: 31,
+                                          value: "C",
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                  endToken: {
+                                    type: "TagEnd",
+                                    start: 31,
+                                    end: 38,
+                                    value: "</code>",
+                                  },
+                                },
+                              ],
+                            },
+                          ],
+                          endToken: {
+                            type: "CodeEnd",
+                            start: 39,
+                            end: 40,
+                            value: "}",
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                  endToken: {
+                    type: "TagEnd",
+                    start: 41,
+                    end: 48,
+                    value: "</code>",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+  });
+
+  it("should tokenize properly blocks with the same opening and closing patterns", () => {
+    function readJsFence(ctx: TokenizerContext): TToken | undefined {
+      if (
+        ctx.getChar(+0) !== "`" ||
+        ctx.getChar(+1) !== "`" ||
+        ctx.getChar(+2) !== "`"
+      )
+        return;
+      const start = ctx.i;
+      ctx.i += 3;
+      const end = ctx.i;
+      return {
+        type: "JsFence",
+        start,
+        end,
+        value: ctx.substring(start, end),
+      };
+    }
+
+    function newReader() {
+      const list: TTokenizerMethod[] = [];
+      list.push(readWord);
+      const compositeReader = newCompositeTokenizer(list);
+      const readToken = newBlockReader("Content", compositeReader);
+      list.unshift(
+        newFencedBlockReader("JsCode", readJsFence, readToken, readJsFence)
+      );
+      return readToken;
+    }
+
+    test(
+      newReader(),
+      `
+before 
+\`\`\`
+First Js Block
+\`\`\`
+between
+\`\`\`
+Second Js Block
+\`\`\`
+after
+`,
+      {
+        type: "Content",
+        start: 0,
+        end: 70,
+        value:
+          "\nbefore \n```\nFirst Js Block\n```\nbetween\n```\nSecond Js Block\n```\nafter\n",
+        children: [
+          { type: "Word", start: 1, end: 7, value: "before" },
+          {
+            type: "JsCode",
+            start: 9,
+            end: 31,
+            startToken: { type: "JsFence", start: 9, end: 12, value: "```" },
+            value: "```\nFirst Js Block\n```",
+            children: [
+              {
+                type: "Content",
+                start: 12,
+                end: 28,
+                value: "\nFirst Js Block\n",
+                children: [
+                  { type: "Word", start: 13, end: 18, value: "First" },
+                  { type: "Word", start: 19, end: 21, value: "Js" },
+                  { type: "Word", start: 22, end: 27, value: "Block" },
+                ],
+              },
+            ],
+            endToken: { type: "JsFence", start: 28, end: 31, value: "```" },
+          },
+          { type: "Word", start: 32, end: 39, value: "between" },
+          {
+            type: "JsCode",
+            start: 40,
+            end: 63,
+            startToken: { type: "JsFence", start: 40, end: 43, value: "```" },
+            value: "```\nSecond Js Block\n```",
+            children: [
+              {
+                type: "Content",
+                start: 43,
+                end: 60,
+                value: "\nSecond Js Block\n",
+                children: [
+                  { type: "Word", start: 44, end: 50, value: "Second" },
+                  { type: "Word", start: 51, end: 53, value: "Js" },
+                  { type: "Word", start: 54, end: 59, value: "Block" },
+                ],
+              },
+            ],
+            endToken: { type: "JsFence", start: 60, end: 63, value: "```" },
+          },
+          { type: "Word", start: 64, end: 69, value: "after" },
+        ],
+      }
+    );
+  });
+  it("should tokenize blocks with the same opening and closing patterns (simple version)", () => {
+    function readJsFence(ctx: TokenizerContext): TToken | undefined {
+      if (
+        ctx.getChar(+0) !== "`" ||
+        ctx.getChar(+1) !== "`" ||
+        ctx.getChar(+2) !== "`"
+      )
+        return;
+      const start = ctx.i;
+      ctx.i += 3;
+      const end = ctx.i;
+      return {
+        type: "JsFence",
+        start,
+        end,
+        value: ctx.substring(start, end),
+      };
+    }
+
+    function newReader() {
+      const list: TTokenizerMethod[] = [];
+      const compositeReader = newCompositeTokenizer(list);
+      const readToken = newBlockReader("Content", compositeReader);
+      list.unshift(
+        newFencedBlockReader("JsCode", readJsFence, readToken, readJsFence)
+      );
+      return readToken;
+    }
+
+    test(
+      newReader(),
+      `
+before 
+\`\`\`
+First Js Block
+\`\`\`
+between
+\`\`\`
+Second Js Block
+\`\`\`
+after
+`,
+      {
+        type: "Content",
+        start: 0,
+        end: 70,
+        value:
+          "\nbefore \n```\nFirst Js Block\n```\nbetween\n```\nSecond Js Block\n```\nafter\n",
+        children: [
+          {
+            type: "JsCode",
+            start: 9,
+            end: 31,
+            startToken: { type: "JsFence", start: 9, end: 12, value: "```" },
+            value: "```\nFirst Js Block\n```",
+            children: [
+              {
+                type: "Content",
+                start: 12,
+                end: 28,
+                value: "\nFirst Js Block\n",
+                children: [],
+              },
+            ],
+            endToken: { type: "JsFence", start: 28, end: 31, value: "```" },
+          },
+          {
+            type: "JsCode",
+            start: 40,
+            end: 63,
+            startToken: { type: "JsFence", start: 40, end: 43, value: "```" },
+            value: "```\nSecond Js Block\n```",
+            children: [
+              {
+                type: "Content",
+                start: 43,
+                end: 60,
+                value: "\nSecond Js Block\n",
+                children: [],
+              },
+            ],
+            endToken: { type: "JsFence", start: 60, end: 63, value: "```" },
+          },
+        ],
+      }
+    );
+  });
+
+  it("should tokenize hierarchical MD code blocks", () => {
+    function readCodeFence(ctx: TokenizerContext): TToken | undefined {
+      if (
+        ctx.getChar(+0) !== "`" ||
+        ctx.getChar(+1) !== "`" ||
+        ctx.getChar(+2) !== "`"
+      ) {
+        return;
+      }
+      function isAlphaNum(ch: string[1]) {
+        return (
+          (ch >= "0" && ch <= "9") ||
+          (ch >= "a" && ch <= "z") ||
+          (ch >= "A" && ch <= "Z")
+        );
+      }
+      return ctx.guard(() => {
+        const start = ctx.i;
+        ctx.i += 3;
+        let namesStart = ctx.skipWhile(CHAR_SPACE);
+        for (; ctx.i < ctx.length; ctx.i++) {
+          const char = ctx.getChar();
+          if (!isAlphaNum(char)) break;
+          // if (!char.match(/^\p{L}/u)) break;
+        }
+        const name = ctx.substring(namesStart, ctx.i);
+        const end = ctx.i;
+        return {
+          type: "MdCodeFence",
+          start,
+          end,
+          value: ctx.substring(start, end),
+          name,
+        } as TToken;
+      });
+    }
+    function readCodeEnd(ctx: TokenizerContext): TToken | undefined {
+      const token = readCodeFence(ctx);
+      if (!token || token.name) return;
+      return token;
+    }
+
+    function newReader() {
+      const list: TTokenizerMethod[] = [];
+      // list.push(readWord);
+      const compositeReader = newCompositeTokenizer(list);
+      const readToken = newBlockReader("Content", compositeReader);
+      list.unshift(
+        newFencedBlockReader("MdCode", readCodeFence, readToken, readCodeEnd)
+      );
+      return readToken;
+    }
+
+    test(
+      newReader(),
+      `
+before 
+\`\`\`ts
+First Typescript Block
+\`\`\`js
+Internal Javascript Block
+\`\`\`
+Typescript Again
+\`\`\`
+after
+`,
+      {
+        type: "Content",
+        start: 0,
+        end: 101,
+        value:
+          "\nbefore \n```ts\nFirst Typescript Block\n```js\nInternal Javascript Block\n```\nTypescript Again\n```\nafter\n",
+        children: [
+          {
+            type: "MdCode",
+            start: 9,
+            end: 94,
+            startToken: {
+              type: "MdCodeFence",
+              start: 9,
+              end: 14,
+              value: "```ts",
+              name: "ts",
+            },
+            value:
+              "```ts\nFirst Typescript Block\n```js\nInternal Javascript Block\n```\nTypescript Again\n```",
+            children: [
+              {
+                type: "Content",
+                start: 14,
+                end: 91,
+                value:
+                  "\nFirst Typescript Block\n```js\nInternal Javascript Block\n```\nTypescript Again\n",
+                children: [
+                  {
+                    type: "MdCode",
+                    start: 38,
+                    end: 73,
+                    startToken: {
+                      type: "MdCodeFence",
+                      start: 38,
+                      end: 43,
+                      value: "```js",
+                      name: "js",
+                    },
+                    value: "```js\nInternal Javascript Block\n```",
+                    children: [
+                      {
+                        type: "Content",
+                        start: 43,
+                        end: 70,
+                        value: "\nInternal Javascript Block\n",
+                        children: [],
+                      },
+                    ],
+                    endToken: {
+                      type: "MdCodeFence",
+                      start: 70,
+                      end: 73,
+                      value: "```",
+                      name: "",
+                    },
+                  },
+                ],
+              },
+            ],
+            endToken: {
+              type: "MdCodeFence",
+              start: 91,
+              end: 94,
+              value: "```",
+              name: "",
+            },
+          },
+        ],
+      }
+    );
   });
 });

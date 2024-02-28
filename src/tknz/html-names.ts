@@ -32,9 +32,10 @@ export function readHtmlName(
             i < ctx.length - 1 &&
             !/^[\s="'`]/.test(ctx.getChar(+1) || "")))) ||
       char === "_" ||
-      char === "{" ||
-      char === "}" ||
-      (char === "$" && ctx.getChar(+1) !== "{") ||
+      char === "$" ||
+      // char === "{" ||
+      // char === "}" ||
+      // (char === "$" && ctx.getChar(+1) !== "{") ||
       re.test(char)
     ) {
       name += char;
