@@ -1,6 +1,6 @@
 import { CHAR_EOL, CHAR_SPACE } from "./chars.ts";
-import { readAttributeValue } from "./readHtmlAttributeValue.ts";
-import { readHtmlName } from "./readHtmlName.ts";
+import { readAttributeValue } from "./html-values.ts";
+import { readHtmlName } from "./html-names.ts";
 import { TToken, TokenizerContext } from "./tokenizer.ts";
 
 export interface THtmlAttributeToken extends TToken {

@@ -1,15 +1,12 @@
-import { describe, expect, it, beforeEach } from "../deps.ts";
+import { describe, expect, it } from "../deps.ts";
 import {
   TToken,
   TTokenLevel,
   TTokenizerMethod,
   TokenizerContext,
-  newCompositeTokenizer,
-} from "./tokenizer.ts";
-import { newNgramsReader } from "./tokenizer-sequence.ts";
-import { newCodeReader } from "./tokenizer-code.ts";
+} from "../../src/tknz/tokenizer.ts";
 import { blockTestData } from "./data.block.ts";
-import { gramTestData } from "./data.gram.ts";
+import { newNgramsWithCode } from "../../src/tknz/blocks.ts";
 
 function newBlockReader(nextToken: TTokenizerMethod): TTokenizerMethod {
   return (ctx: TokenizerContext): TToken | undefined => {
@@ -39,41 +36,6 @@ function newBlockReader(nextToken: TTokenizerMethod): TTokenizerMethod {
     };
   };
 }
-
-function newNgramsWithCode() {
-  const readNgrams = newNgramsReader();
-  const readCode = newCodeReader(readNgrams);
-  return newCompositeTokenizer(readCode, readNgrams);
-}
-
-describe("Tokenizer.gram", () => {
-  function testGram(
-    str: string,
-    before: string,
-    after: string,
-    control: TToken & Record<string, any>
-  ) {
-    const ctx = new TokenizerContext(str, before.length);
-    const readToken = newNgramsWithCode();
-    const result = readToken(ctx);
-    expect(result !== undefined).toBe(true);
-    try {
-      const token: TToken = result as TToken;
-      expect(token).to.eql(control);
-      expect(str.substring(0, token.start)).to.eql(before);
-      expect(str.substring(token.end)).to.eql(after);
-    } catch (error) {
-      console.log(JSON.stringify(result));
-      // console.log(JSON.stringify(result, null, 2));
-      throw error;
-    }
-  }
-  gramTestData.forEach((data) => {
-    it(data.description, () => {
-      testGram(data.input, data.before, data.after, data.expected);
-    });
-  });
-});
 
 describe("Tokenizer.block", () => {
   function testPara(str: string, control: TToken) {

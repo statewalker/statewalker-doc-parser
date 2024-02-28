@@ -1,31 +1,6 @@
 import { describe, expect, it, beforeEach } from "../deps.ts";
-import { readHtmlName } from "./readHtmlName.ts";
-import { newCodeReader } from "./tokenizer-code.ts";
-import {
-  newNgramsReader,
-  readDigits,
-  readEols,
-  readSpaces,
-  readText,
-} from "./tokenizer-sequence.ts";
-import { TokenizerContext, newCompositeTokenizer } from "./tokenizer.ts";
-
-// function newNgramsWithCode() {
-//   const readNgrams = newCompositeTokenizer(
-//     readEols,
-//     readSpaces,
-//     readDigits,
-//     readText
-//   );
-//   const readCode = newCodeReader(readNgrams);
-//   return newCompositeTokenizer(readCode, readNgrams);
-// }
-
-// function newNgramsWithCode() {
-//   const readNgrams = newNgramsReader();
-//   const readCode = newCodeReader(readNgrams);
-//   return newCompositeTokenizer(readCode, readNgrams);
-// }
+import { readHtmlName } from "../../src/tknz/html-names.ts";
+import { TokenizerContext } from "../../src/tknz/tokenizer.ts";
 
 describe("readHtmlName", () => {
   function test(str: string, control?: Record<string, any>) {

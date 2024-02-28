@@ -143,7 +143,7 @@ export class TokenizerContext {
 }
 
 export function newCompositeTokenizer(
-  ...tokenizers: TTokenizerMethod[]
+  tokenizers: TTokenizerMethod[]
 ): TTokenizerMethod {
   return (ctx: TokenizerContext): TToken | undefined => {
     let result: TToken | undefined;

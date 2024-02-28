@@ -10,11 +10,12 @@ import {
 import {
   TToken,
   TTokenLevel,
+  TTokenizerMethod,
   TokenizerContext,
   newCompositeTokenizer,
 } from "./tokenizer.ts";
 
-function readContinuation<T extends TToken>(
+function readSequence<T extends TToken>(
   ctx: TokenizerContext,
   charsMask: number,
   type: string
@@ -40,7 +41,7 @@ export interface TDigitsToken extends TToken {
   count: number; // number of digits
 }
 export function readDigits(ctx: TokenizerContext): TDigitsToken | undefined {
-  return readContinuation<TDigitsToken>(ctx, CHAR_DIGIT, "Digit");
+  return readSequence<TDigitsToken>(ctx, CHAR_DIGIT, "Digit");
 }
 
 // -----------------------------------------------------------------------------
@@ -51,7 +52,7 @@ export interface TSpaceToken extends TToken {
 }
 
 export function readSpaces(ctx: TokenizerContext): TSpaceToken | undefined {
-  return readContinuation<TSpaceToken>(ctx, CHAR_SPACE, "Space");
+  return readSequence<TSpaceToken>(ctx, CHAR_SPACE, "Space");
 }
 
 // -----------------------------------------------------------------------------
@@ -62,7 +63,7 @@ export interface TEolToken extends TToken {
 }
 
 export function readEols(ctx: TokenizerContext): TEolToken | undefined {
-  return readContinuation<TEolToken>(ctx, CHAR_EOL, "Eol");
+  return readSequence<TEolToken>(ctx, CHAR_EOL, "Eol");
 }
 
 // -----------------------------------------------------------------------------
@@ -75,7 +76,7 @@ export interface TPunctuationToken extends TToken {
 export function readPunctuation(
   ctx: TokenizerContext
 ): TPunctuationToken | undefined {
-  return readContinuation<TPunctuationToken>(
+  return readSequence<TPunctuationToken>(
     ctx,
     CHAR_PUNCTUATION,
     "Punctuation"
@@ -90,7 +91,7 @@ export interface TFormatToken extends TToken {
 }
 
 export function readFormat(ctx: TokenizerContext): TFormatToken | undefined {
-  return readContinuation<TFormatToken>(ctx, CHAR_FORMAT, "Format");
+  return readSequence<TFormatToken>(ctx, CHAR_FORMAT, "Format");
 }
 
 // -----------------------------------------------------------------------------
@@ -101,7 +102,7 @@ export interface TControlToken extends TToken {
 }
 
 export function readControls(ctx: TokenizerContext): TControlToken | undefined {
-  return readContinuation<TControlToken>(ctx, CHAR_CONTROL, "Control");
+  return readSequence<TControlToken>(ctx, CHAR_CONTROL, "Control");
 }
 
 // -----------------------------------------------------------------------------
@@ -112,13 +113,13 @@ export interface TTextToken extends TToken {
 }
 
 export function readText(ctx: TokenizerContext): TTextToken | undefined {
-  return readContinuation<TTextToken>(ctx, CHAR_DIGIT | CHAR_ANY, "Text");
+  return readSequence<TTextToken>(ctx, CHAR_DIGIT | CHAR_ANY, "Text");
 }
 
 // -----------------------------------------------------------------------------
 
-export function newNgramsReader() {
-  return newCompositeTokenizer(
+export function newNgramsReader(tokenizers: TTokenizerMethod[] = []) {
+  tokenizers.push(
     readEols,
     readSpaces,
     readPunctuation,
@@ -127,4 +128,5 @@ export function newNgramsReader() {
     readDigits,
     readText
   );
+  return newCompositeTokenizer(tokenizers);
 }

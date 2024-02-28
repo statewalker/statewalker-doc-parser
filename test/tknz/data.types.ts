@@ -1,4 +1,4 @@
-import { TToken } from "./tokenizer";
+import { TToken } from "../../src/tknz/tokenizer";
 
 export type TTestData = {
   input: string;

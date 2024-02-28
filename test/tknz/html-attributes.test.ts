@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach } from "../deps.ts";
-import { readHtmlAttribute } from "./readHtmlAttribute.ts";
+import { readHtmlAttribute } from "../../src/tknz/html-attributes.ts";
 
 describe("readHtmlAttribute", () => {
   function test(str : string, control : Record<string, any>) {
