@@ -9,18 +9,16 @@ export interface TCodeToken extends TToken {
 
 export function newCodeReader(parent: TTokenizerMethod): TTokenizerMethod {
   return function readCode(ctx: TokenizerContext): TCodeToken | undefined {
-    const res = read(ctx);
-    return res;
+    return read();
 
-    function read(ctx: TokenizerContext): TCodeToken | undefined {
-      const start = ctx.i;
-      let found = false;
-      try {
-        let depth = 0;
-        if (ctx.getChar(+0) !== "$" || ctx.getChar(+1) !== "{") return;
+    function read(): TCodeToken | undefined {
+      let depth = 0;
+      if (ctx.getChar(+0) !== "$" || ctx.getChar(+1) !== "{") return;
+
+      return ctx.guard((fences) => {
+        const start = ctx.i;
         ctx.i += 2;
         // const fenceLevel = ctx.addFence(() => ctx.getChar() === "}");
-        found = true;
 
         const codeStart = ctx.i;
         let codeEnd = codeStart;
@@ -69,7 +67,7 @@ export function newCodeReader(parent: TTokenizerMethod): TTokenizerMethod {
               // - add a new fence with the current level
               // - read a next token using the parent tokenizer
               const previousPos = ctx.i;
-              const r = read(ctx);
+              const r = read();
               if (r) {
                 flushText(previousPos);
                 code.push(r);
@@ -83,12 +81,16 @@ export function newCodeReader(parent: TTokenizerMethod): TTokenizerMethod {
                 codeEnd = ctx.i;
                 textStart = r.end;
               }
+            } else {
+              const token = fences.getFenceToken();
+              if (token) {
+                flushText(ctx.i);
+                codeEnd = ctx.i;
+                // ctx.i = token.end;
+                textStart = ctx.i;
+                break;
+              }
             }
-            // if (ctx.checkFence(fenceLevel)) {
-            //   flushText(ctx.i);
-            //   codeEnd = ctx.i;
-            //   break;
-            // }
           }
         }
         flushText(ctx.i);
@@ -103,9 +105,7 @@ export function newCodeReader(parent: TTokenizerMethod): TTokenizerMethod {
         };
         // if (children) result.children = children;
         return result;
-      } finally {
-        if (!found) ctx.i = start;
-      }
+      });
     }
   };
 }

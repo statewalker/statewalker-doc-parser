@@ -12,7 +12,12 @@ import {
   CHAR_SPACE,
 } from "../../src/tknz/chars.ts";
 import { readHtmlName } from "../../src/tknz/html-names.ts";
-import { newBlockReader, newFencedBlockReader } from "../../src/tknz/blocks.ts";
+import {
+  newBlockReader,
+  newDynamicFencedBlockReader,
+  newFencedBlockReader,
+} from "../../src/tknz/blocks.ts";
+import { read } from "fs";
 
 function readCodeStart(ctx: TokenizerContext): TToken | undefined {
   if (ctx.getChar(+0) !== "$" || ctx.getChar(+1) !== "{") return;
@@ -899,6 +904,462 @@ after
               value: "```",
               name: "",
             },
+          },
+        ],
+      }
+    );
+  });
+});
+
+describe("TokenizerContext", () => {
+  interface TMdHeaderStartToken extends TToken {
+    type: "MdHeaderStart";
+    level: number;
+  }
+
+  function readMdHeaderStart(
+    ctx: TokenizerContext
+  ): TMdHeaderStartToken | undefined {
+    return ctx.guard(() => {
+      const start = ctx.i;
+      const eolPos = ctx.skipWhile(CHAR_EOL);
+      if (start > 0 && eolPos === start) return;
+
+      ctx.skipWhile(CHAR_SPACE);
+      let level = 0;
+      for (level = 0; level <= 6; level++) {
+        if (ctx.getChar(level) !== "#") break;
+      }
+      if (level === 0) return;
+      ctx.i += level;
+      if (ctx.getChar() !== " ") return;
+      ctx.i++;
+      const end = ctx.i;
+      return {
+        type: "MdHeaderStart",
+        start,
+        end,
+        value: ctx.substring(start, end),
+        level,
+      };
+    });
+  }
+
+  function readNewLine(ctx: TokenizerContext): TToken | undefined {
+    return ctx.guard(() => {
+      const start = ctx.i;
+      const eolPos = ctx.skipWhile(CHAR_EOL);
+      if (start > 0 && eolPos === start) return;
+      return {
+        type: "Eol",
+        start,
+        end: eolPos,
+        value: ctx.substring(start, eolPos),
+        level: 0,
+      };
+    });
+  }
+
+  interface TMdHeaderEndToken extends TToken {
+    type: "MdHeaderEnd";
+  }
+  function readMdHeaderEnd(
+    ctx: TokenizerContext
+  ): TMdHeaderEndToken | undefined {
+    return ctx.guard(() => {
+      const start = ctx.i;
+      const token = readMdHeaderStart(ctx) || readNewLine(ctx);
+      if (!token) return;
+      const end = token.start;
+      ctx.i = end;
+      return {
+        type: "MdHeaderEnd",
+        start,
+        end,
+        value: ctx.substring(start, end),
+      };
+    });
+  }
+
+  function newMdHeaderReader(readToken: TTokenizerMethod) {
+    return newFencedBlockReader(
+      "MdHeader",
+      readMdHeaderStart,
+      readToken,
+      readMdHeaderEnd
+    );
+  }
+
+  it("should read MD headers", () => {
+    function newReader() {
+      const list: TTokenizerMethod[] = [];
+      const compositeReader = newCompositeTokenizer(list);
+      const readToken = newBlockReader("MdContent", compositeReader);
+      const readMdHeader = newMdHeaderReader(readToken);
+      list.unshift(readMdHeader);
+      return readToken;
+    }
+
+    test(
+      newReader(),
+      `
+# First Header
+First paragraph
+## Second Header
+Second paragraph
+`,
+      {
+        type: "MdContent",
+        start: 0,
+        end: 66,
+        value:
+          "\n# First Header\nFirst paragraph\n## Second Header\nSecond paragraph\n",
+        children: [
+          {
+            type: "MdHeader",
+            start: 0,
+            end: 15,
+            startToken: {
+              type: "MdHeaderStart",
+              start: 0,
+              end: 3,
+              value: "\n# ",
+              level: 1,
+            },
+            value: "\n# First Header",
+            children: [
+              {
+                type: "MdContent",
+                start: 3,
+                end: 15,
+                value: "First Header",
+                children: [],
+              },
+            ],
+            endToken: { type: "MdHeaderEnd", start: 15, end: 15, value: "" },
+          },
+          {
+            type: "MdHeader",
+            start: 31,
+            end: 48,
+            startToken: {
+              type: "MdHeaderStart",
+              start: 31,
+              end: 35,
+              value: "\n## ",
+              level: 2,
+            },
+            value: "\n## Second Header",
+            children: [
+              {
+                type: "MdContent",
+                start: 35,
+                end: 48,
+                value: "Second Header",
+                children: [],
+              },
+            ],
+            endToken: { type: "MdHeaderEnd", start: 48, end: 48, value: "" },
+          },
+        ],
+      }
+    );
+
+    test(
+      newReader(),
+      `
+  # First Header
+  First paragraph
+
+  ## Second Header
+  Second paragraph
+  `,
+      {
+        type: "MdContent",
+        start: 0,
+        end: 77,
+        value:
+          "\n  # First Header\n  First paragraph\n\n  ## Second Header\n  Second paragraph\n  ",
+        children: [
+          {
+            type: "MdHeader",
+            start: 0,
+            end: 17,
+            startToken: {
+              type: "MdHeaderStart",
+              start: 0,
+              end: 5,
+              value: "\n  # ",
+              level: 1,
+            },
+            value: "\n  # First Header",
+            children: [
+              {
+                type: "MdContent",
+                start: 5,
+                end: 17,
+                value: "First Header",
+                children: [],
+              },
+            ],
+            endToken: { type: "MdHeaderEnd", start: 17, end: 17, value: "" },
+          },
+          {
+            type: "MdHeader",
+            start: 35,
+            end: 55,
+            startToken: {
+              type: "MdHeaderStart",
+              start: 35,
+              end: 42,
+              value: "\n\n  ## ",
+              level: 2,
+            },
+            value: "\n\n  ## Second Header",
+            children: [
+              {
+                type: "MdContent",
+                start: 42,
+                end: 55,
+                value: "Second Header",
+                children: [],
+              },
+            ],
+            endToken: { type: "MdHeaderEnd", start: 55, end: 55, value: "" },
+          },
+        ],
+      }
+    );
+  });
+
+  it("should build hierarchical document structure based on headers", () => {
+    function newReader() {
+      const list: TTokenizerMethod[] = [];
+      // list.push(readWord);
+      const compositeReader = newCompositeTokenizer(list);
+      const readToken = newBlockReader("MdContent", compositeReader);
+      const readMdHeader = newMdHeaderReader(readToken);
+
+      list.unshift(
+        // readMdHeader,
+        newDynamicFencedBlockReader(
+          "MdSection",
+          readMdHeader,
+          () => readToken,
+          (token: TToken): TTokenizerMethod | undefined => {
+            if (token.type !== "MdHeader") {
+              return;
+            }
+            const level = token.startToken.level;
+            return (ctx: TokenizerContext) => {
+              return ctx.guard(() => {
+                const token = readMdHeaderStart(ctx);
+                if (!token || token.level > level) return;
+                const end = (ctx.i = token.start);
+                return {
+                  type: "MdSectionEnd",
+                  start: token.start,
+                  end,
+                  value: ctx.substring(token.start, ctx.i),
+                };
+              });
+            };
+          }
+        )
+      );
+      return readToken;
+    }
+
+    test(
+      newReader(),
+      `
+# First Header
+First paragraph
+# Second Header
+Second paragraph
+## Subsection
+Inner paragraph
+# Third Header
+Third paragraph
+`,
+      {
+        type: "MdContent",
+        start: 0,
+        end: 126,
+        value:
+          "\n# First Header\nFirst paragraph\n# Second Header\nSecond paragraph\n## Subsection\nInner paragraph\n# Third Header\nThird paragraph\n",
+        children: [
+          {
+            type: "MdSection",
+            start: 0,
+            end: 31,
+            startToken: {
+              type: "MdHeader",
+              start: 0,
+              end: 15,
+              startToken: {
+                type: "MdHeaderStart",
+                start: 0,
+                end: 3,
+                value: "\n# ",
+                level: 1,
+              },
+              value: "\n# First Header",
+              children: [
+                {
+                  type: "MdContent",
+                  start: 3,
+                  end: 15,
+                  value: "First Header",
+                  children: [],
+                },
+              ],
+              endToken: { type: "MdHeaderEnd", start: 15, end: 15, value: "" },
+            },
+            value: "\n# First Header\nFirst paragraph",
+            children: [
+              {
+                type: "MdContent",
+                start: 15,
+                end: 31,
+                value: "\nFirst paragraph",
+                children: [],
+              },
+            ],
+            endToken: { type: "MdSectionEnd", start: 31, end: 31, value: "" },
+          },
+          {
+            type: "MdSection",
+            start: 31,
+            end: 94,
+            startToken: {
+              type: "MdHeader",
+              start: 31,
+              end: 47,
+              startToken: {
+                type: "MdHeaderStart",
+                start: 31,
+                end: 34,
+                value: "\n# ",
+                level: 1,
+              },
+              value: "\n# Second Header",
+              children: [
+                {
+                  type: "MdContent",
+                  start: 34,
+                  end: 47,
+                  value: "Second Header",
+                  children: [],
+                },
+              ],
+              endToken: { type: "MdHeaderEnd", start: 47, end: 47, value: "" },
+            },
+            value:
+              "\n# Second Header\nSecond paragraph\n## Subsection\nInner paragraph",
+            children: [
+              {
+                type: "MdContent",
+                start: 47,
+                end: 94,
+                value: "\nSecond paragraph\n## Subsection\nInner paragraph",
+                children: [
+                  {
+                    type: "MdSection",
+                    start: 64,
+                    end: 94,
+                    startToken: {
+                      type: "MdHeader",
+                      start: 64,
+                      end: 78,
+                      startToken: {
+                        type: "MdHeaderStart",
+                        start: 64,
+                        end: 68,
+                        value: "\n## ",
+                        level: 2,
+                      },
+                      value: "\n## Subsection",
+                      children: [
+                        {
+                          type: "MdContent",
+                          start: 68,
+                          end: 78,
+                          value: "Subsection",
+                          children: [],
+                        },
+                      ],
+                      endToken: {
+                        type: "MdHeaderEnd",
+                        start: 78,
+                        end: 78,
+                        value: "",
+                      },
+                    },
+                    value: "\n## Subsection\nInner paragraph",
+                    children: [
+                      {
+                        type: "MdContent",
+                        start: 78,
+                        end: 94,
+                        value: "\nInner paragraph",
+                        children: [],
+                      },
+                    ],
+                    endToken: {
+                      type: "MdSectionEnd",
+                      start: 94,
+                      end: 94,
+                      value: "",
+                    },
+                  },
+                ],
+              },
+            ],
+            endToken: { type: "MdSectionEnd", start: 94, end: 94, value: "" },
+          },
+          {
+            type: "MdSection",
+            start: 94,
+            end: 126,
+            startToken: {
+              type: "MdHeader",
+              start: 94,
+              end: 109,
+              startToken: {
+                type: "MdHeaderStart",
+                start: 94,
+                end: 97,
+                value: "\n# ",
+                level: 1,
+              },
+              value: "\n# Third Header",
+              children: [
+                {
+                  type: "MdContent",
+                  start: 97,
+                  end: 109,
+                  value: "Third Header",
+                  children: [],
+                },
+              ],
+              endToken: {
+                type: "MdHeaderEnd",
+                start: 109,
+                end: 109,
+                value: "",
+              },
+            },
+            value: "\n# Third Header\nThird paragraph\n",
+            children: [
+              {
+                type: "MdContent",
+                start: 109,
+                end: 126,
+                value: "\nThird paragraph\n",
+                children: [],
+              },
+            ],
           },
         ],
       }
