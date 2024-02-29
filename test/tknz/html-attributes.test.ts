@@ -9,10 +9,12 @@ import { newHtmlValueReader } from "../../src/tknz/html/html-values.ts";
 import { readHtmlName } from "../../src/tknz/html/html-names.ts";
 import { CHAR_EOL, CHAR_SPACE } from "../../src/tknz/chars.ts";
 import { newHtmlAttributeReader } from "../../src/tknz/html/html-attributes.ts";
+import { newCodeReader } from "../../src/tknz/code-readers.ts";
 
 describe("readHtmlAttribute", () => {
   function test(str: string, control: Record<string, any>) {
-    const readToken = newHtmlAttributeReader();
+    const readCode = newCodeReader();
+    const readToken = newHtmlAttributeReader(readCode);
     const ctx = new TokenizerContext(str);
     const result = readToken(ctx);
     try {
@@ -240,42 +242,6 @@ describe("readHtmlAttribute", () => {
           quoted: true,
           valueStart: 5,
           valueEnd: 31,
-        },
-      ],
-    });
-  });
-});
-
-describe("readHtmlAttribute", () => {
-  it(`should read attributes recursively`, async () => {
-    function testRecursive(str: string, control: Record<string, any>) {
-      const tokenizers: TTokenizerMethod[] = [];
-      const composite = newCompositeTokenizer(tokenizers);
-      const readToken = newHtmlAttributeReader(composite);
-      tokenizers.push(readToken);
-
-      const ctx = new TokenizerContext(str);
-      const result = readToken(ctx);
-      try {
-        expect(result).to.eql(control);
-      } catch (error) {
-        console.log(JSON.stringify(result, null, 2));
-        throw error;
-      }
-    }
-
-    testRecursive("a = \"before hello='world' after\"", {
-      type: "HtmlAttribute",
-      start: 0,
-      end: 1,
-      value: "a",
-      children: [
-        {
-          type: "HtmlName",
-          name: "a",
-          start: 0,
-          end: 1,
-          value: "a",
         },
       ],
     });

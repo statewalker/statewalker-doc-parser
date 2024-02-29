@@ -23,10 +23,7 @@ export function newHtmlValueReader(
   
   const read = newCompositeTokenizer(tokenizers);
   {
-    const readCode = newCodeReader(readToken);
-    tokenizers.push(readCode);
-
-    const readQuotedText = newQuotedTextReader(() => readCode);
+    const readQuotedText = newQuotedTextReader(() => readToken);
     tokenizers.push(readQuotedText);
 
     tokenizers.push(

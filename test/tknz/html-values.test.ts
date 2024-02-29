@@ -5,10 +5,12 @@ import {
 } from "../../src/tknz/tokenizer.ts";
 import { describe, expect, it, beforeEach } from "../deps.ts";
 import { newHtmlValueReader } from "../../src/tknz/html/html-values.ts";
+import { newCodeReader } from "../../src/tknz/code-readers.ts";
 
 describe("readHtmlAttribute", () => {
   function test(str: string, control: Record<string, any>) {
-    const readToken = newHtmlValueReader();
+    const readCode = newCodeReader();
+    const readToken = newHtmlValueReader(readCode);
     const ctx = new TokenizerContext(str);
     const result = readToken(ctx);
     try {
@@ -287,7 +289,6 @@ describe("readHtmlAttribute", () => {
         ctx: TokenizerContext
       ): TToken | undefined => {
         const start = ctx.i;
-        console.log("I AM HERE!", start);
         if (
           ctx.getChar(+0) !== "(" ||
           ctx.getChar(+1) !== "c" ||
@@ -295,11 +296,12 @@ describe("readHtmlAttribute", () => {
         )
           return;
         ctx.i += 3;
+        const end = ctx.i;
         return {
           type: "HtmlEntity",
           start,
-          end: ctx.i,
-          value: "&copy;",
+          end,
+          value: ctx.substring(start, end),
         };
       };
       const readToken = newHtmlValueReader(readEntity);
@@ -320,22 +322,10 @@ describe("readHtmlAttribute", () => {
       end: 16,
       children: [
         {
-          type: "Code",
-          codeStart: 5,
-          codeEnd: 12,
-          code: [
-            "X ",
-            {
-              type: "HtmlEntity",
-              start: 7,
-              end: 10,
-              value: "&copy;",
-            },
-            " Y",
-          ],
-          start: 3,
-          end: 13,
-          value: "${X (c) Y}",
+          type: "HtmlEntity",
+          start: 7,
+          end: 10,
+          value: "(c)",
         },
       ],
       quoted: true,
