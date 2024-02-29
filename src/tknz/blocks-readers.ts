@@ -1,38 +1,5 @@
 import { TToken, TTokenizerMethod, TokenizerContext } from "./tokenizer.ts";
 
-export function newBlockReader(
-  type: string,
-  readToken: TTokenizerMethod
-): TTokenizerMethod {
-  return (ctx: TokenizerContext): TToken | undefined =>
-    ctx.guard((fences) => {
-      const start = ctx.i;
-      const len = ctx.length;
-      const children: TToken[] = [];
-      while (ctx.i < len) {
-        const fence = fences.getFenceToken();
-        if (fence) {
-          break;
-        }
-        const token = readToken(ctx);
-        if (token) {
-          children.push(token);
-        } else {
-          ctx.i++;
-        }
-      }
-      const end = ctx.i;
-      if (end === start) return;
-      return {
-        type,
-        start,
-        end,
-        value: ctx.substring(start, end),
-        children,
-      };
-    });
-}
-
 export interface TFencedBlockToken extends TToken {
   startToken: TToken;
   endToken?: TToken;
@@ -105,4 +72,35 @@ export function newFencedBlockReader<
     () => readToken,
     () => readEnd
   );
+}export function newBlockReader(
+  type: string,
+  readToken: TTokenizerMethod
+): TTokenizerMethod {
+  return (ctx: TokenizerContext): TToken | undefined => ctx.guard((fences) => {
+    const start = ctx.i;
+    const len = ctx.length;
+    const children: TToken[] = [];
+    while (ctx.i < len) {
+      const fence = fences.getFenceToken();
+      if (fence) {
+        break;
+      }
+      const token = readToken(ctx);
+      if (token) {
+        children.push(token);
+      } else {
+        ctx.i++;
+      }
+    }
+    const end = ctx.i;
+    if (end === start) return;
+    return {
+      type,
+      start,
+      end,
+      value: ctx.substring(start, end),
+      children,
+    };
+  });
 }
+

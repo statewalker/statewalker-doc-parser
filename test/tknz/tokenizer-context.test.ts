@@ -11,12 +11,12 @@ import {
   CHAR_PUNCTUATION,
   CHAR_SPACE,
 } from "../../src/tknz/chars.ts";
-import { readHtmlName } from "../../src/tknz/html-names.ts";
+import { readHtmlName } from "../../src/tknz/html/html-names.ts";
 import {
-  newBlockReader,
   newDynamicFencedBlockReader,
   newFencedBlockReader,
-} from "../../src/tknz/blocks.ts";
+} from "../../src/tknz/blocks-readers.ts";
+import { newBlockReader } from "../../src/tknz/blocks-readers.ts";
 import { read } from "fs";
 
 function readCodeStart(ctx: TokenizerContext): TToken | undefined {

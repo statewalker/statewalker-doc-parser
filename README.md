@@ -16,3 +16,11 @@
 * https://github.com/observablehq/framework/pull/597
 * https://github.com/observablehq/framework/pull/843
 * https://github.com/observablehq/framework/issues/882 - VS Code Extension
+
+
+Based on fences. A fence is like a rule for the end of stream defined by the parent tokenizer. So fences depends on the context where they were defined. 
+Exactly the same sequence of characters could have some specific meaning in one context but in another one it can have completely difference function.
+
+It means that this framewor avoids ahead-of-time tokenization and defines tokens dynamically, depending on their context. 
+This feature differentiates TKNZ from other parsing frameworks.
+Basically TKNZ is a hierarchy of tokens - one tokens are used to build another ones and rules of their creation are defined in run-time.

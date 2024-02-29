@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach } from "../deps.ts";
-import { readHtmlName } from "../../src/tknz/html-names.ts";
+import { readHtmlName } from "../../src/tknz/html/html-names.ts";
 import { TokenizerContext } from "../../src/tknz/tokenizer.ts";
 
 describe("readHtmlName", () => {

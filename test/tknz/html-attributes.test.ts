@@ -1,96 +1,18 @@
-import { read } from "fs";
-import {
-  newDynamicFencedBlockReader,
-  newFencedBlockReader,
-} from "../../src/tknz/blocks.ts";
-import { newCodeReader } from "../../src/tknz/code-blocks.ts";
 import {
   TToken,
   TTokenizerMethod,
   TokenizerContext,
   newCompositeTokenizer,
 } from "../../src/tknz/tokenizer.ts";
-import { describe, expect, it, beforeEach } from "../deps.ts";
-
-function newCharReader(type: string, check: (char: string) => boolean) {
-  return (ctx: TokenizerContext) => {
-    const char = ctx.getChar();
-    if (!check(char)) return;
-    const start = ctx.i;
-    const end = ++ctx.i;
-    return {
-      type,
-      value: char,
-      start,
-      end,
-    };
-  };
-}
-function newCharsReader(type: string, check: (char: string) => boolean) {
-  return (ctx: TokenizerContext) =>
-    ctx.guard(() => {
-      const start = ctx.i;
-      while (ctx.i < ctx.length) {
-        const char = ctx.getChar();
-        if (!check(char)) break;
-        ctx.i++;
-      }
-      const end = ctx.i;
-      if (start === end) return;
-      return {
-        type,
-        value: ctx.substring(start, end),
-        start,
-        end,
-      };
-    });
-}
-
-function newQuotedTextReader(
-  newTokensReader: (token: TToken) => TTokenizerMethod | undefined = () =>
-    undefined
-): TTokenizerMethod {
-  const readQuotedText = newDynamicFencedBlockReader(
-    "QuotedText",
-    newCharReader(
-      "QuoteOpen",
-      (char) => char === '"' || char === "'" || char === "`"
-    ),
-    newTokensReader,
-    (quote: TToken) =>
-      newCharReader("QuoteClose", (char) => char === quote.value)
-  );
-  return (ctx: TokenizerContext) => {
-    const token = readQuotedText(ctx);
-    if (!token) return;
-    const { type, value, start, end, children } = token;
-    return { type, value, start, end, children };
-  };
-}
+import { describe, expect, it } from "../deps.ts";
+import { newHtmlValueReader } from "../../src/tknz/html/html-values.ts";
+import { readHtmlName } from "../../src/tknz/html/html-names.ts";
+import { CHAR_EOL, CHAR_SPACE } from "../../src/tknz/chars.ts";
+import { newHtmlAttributeReader } from "../../src/tknz/html/html-attributes.ts";
 
 describe("readHtmlAttribute", () => {
-  function newValueReader(readToken?: TTokenizerMethod) {
-    const tokenizers: TTokenizerMethod[] = [];
-    if (readToken) tokenizers.push(readToken);
-    const result = newCompositeTokenizer(tokenizers);
-    {
-      const readCode = newCodeReader();
-      tokenizers.push(readCode);
-
-      const readQuotedText = newQuotedTextReader(() => readCode);
-      tokenizers.push(readQuotedText);
-
-      tokenizers.push(
-        newCharsReader("String", (char) => {
-          return !!char.match(/\S/);
-        })
-      );
-    }
-    return result;
-  }
-
   function test(str: string, control: Record<string, any>) {
-    const readToken = newValueReader();
+    const readToken = newHtmlAttributeReader();
     const ctx = new TokenizerContext(str);
     const result = readToken(ctx);
     try {
@@ -100,204 +22,262 @@ describe("readHtmlAttribute", () => {
       throw error;
     }
   }
-  it(`should read simple string values`, async () => {
+  it(`should read attributes without values`, async () => {
     test("a", {
-      type: "String",
-      value: "a",
+      type: "HtmlAttribute",
       start: 0,
       end: 1,
-    });
-    test("a:b-c", {
-      type: "String",
-      value: "a:b-c",
-      start: 0,
-      end: 5,
-    });
-  });
-
-  it(`should read quoted values with code`, async () => {
-    test("'a:b ${c d e} f' XYZ", {
-      type: "QuotedText",
-      value: "'a:b ${c d e} f'",
-      start: 0,
-      end: 16,
+      value: "a",
       children: [
         {
-          type: "Code",
-          codeStart: 7,
-          codeEnd: 12,
-          code: ["c d e"],
-          start: 5,
-          end: 13,
-          value: "${c d e}",
+          type: "HtmlName",
+          name: "a",
+          start: 0,
+          end: 1,
+          value: "a",
         },
       ],
     });
-
-    // The inner block is NOT interpreted because it is not in the
-    // right context (between backticks).
-    test("'a:${b ${c d e} f}g' XYZ", {
-      type: "QuotedText",
-      value: "'a:${b ${c d e} f}g'",
+    test("a     ", {
+      type: "HtmlAttribute",
       start: 0,
-      end: 20,
+      end: 1,
+      value: "a",
       children: [
         {
-          type: "Code",
-          codeStart: 5,
-          codeEnd: 17,
-          code: ["b ${c d e} f"],
-          start: 3,
-          end: 18,
-          value: "${b ${c d e} f}",
-        },
-      ],
-    });
-    test("'a:${b ${c d e} f}g' XYZ", {
-      type: "QuotedText",
-      value: "'a:${b ${c d e} f}g'",
-      start: 0,
-      end: 20,
-      children: [
-        {
-          type: "Code",
-          codeStart: 5,
-          codeEnd: 17,
-          code: ["b ${c d e} f"],
-          start: 3,
-          end: 18,
-          value: "${b ${c d e} f}",
+          type: "HtmlName",
+          name: "a",
+          start: 0,
+          end: 1,
+          value: "a",
         },
       ],
     });
   });
 
-  it(`should read hierarchical code blocks between backticks`, async () => {
-    // In this test the inner block is interpreted as a code
-    // because it is between backticks.
-    test("'a:${b `${c d e}` f}g' XYZ", {
-      type: "QuotedText",
-      value: "'a:${b `${c d e}` f}g'",
+  it(`should read attribute name and code values`, async () => {
+    test("a = ${A}", {
+      type: "HtmlAttribute",
       start: 0,
-      end: 22,
+      end: 8,
+      value: "a = ${A}",
       children: [
         {
-          type: "Code",
-          codeStart: 5,
-          codeEnd: 19,
-          code: [
-            "b `",
-            {
-              type: "Code",
-              codeStart: 10,
-              codeEnd: 15,
-              code: ["c d e"],
-              start: 8,
-              end: 16,
-              value: "${c d e}",
-            },
-            "` f",
-          ],
-          start: 3,
-          end: 20,
-          value: "${b `${c d e}` f}",
+          type: "HtmlName",
+          name: "a",
+          start: 0,
+          end: 1,
+          value: "a",
+        },
+        {
+          type: "HtmlValue",
+          codeStart: 6,
+          codeEnd: 7,
+          code: ["A"],
+          start: 4,
+          end: 8,
+          value: "${A}",
+          quoted: false,
+          valueStart: 4,
+          valueEnd: 8,
         },
       ],
     });
 
-    test("'a:${b `${c ${not a code} e}` f}g' XYZ", {
-      type: "QuotedText",
-      value: "'a:${b `${c ${not a code} e}` f}g'",
+    test("a = ${A `${B}` C}", {
+      type: "HtmlAttribute",
       start: 0,
-      end: 34,
+      end: 17,
+      value: "a = ${A `${B}` C}",
       children: [
         {
-          type: "Code",
-          codeStart: 5,
-          codeEnd: 31,
+          type: "HtmlName",
+          name: "a",
+          start: 0,
+          end: 1,
+          value: "a",
+        },
+        {
+          type: "HtmlValue",
+          codeStart: 6,
+          codeEnd: 16,
           code: [
-            "b `",
+            "A `",
             {
               type: "Code",
-              codeStart: 10,
-              codeEnd: 27,
-              code: ["c ${not a code} e"],
-              start: 8,
-              end: 28,
-              value: "${c ${not a code} e}",
+              codeStart: 11,
+              codeEnd: 12,
+              code: ["B"],
+              start: 9,
+              end: 13,
+              value: "${B}",
             },
-            "` f",
+            "` C",
           ],
-          start: 3,
+          start: 4,
+          end: 17,
+          value: "${A `${B}` C}",
+          quoted: false,
+          valueStart: 4,
+          valueEnd: 17,
+        },
+      ],
+    });
+  });
+
+  it(`should read attribute name and values`, async () => {
+    test("a=A", {
+      type: "HtmlAttribute",
+      start: 0,
+      end: 3,
+      value: "a=A",
+      children: [
+        {
+          type: "HtmlName",
+          name: "a",
+          start: 0,
+          end: 1,
+          value: "a",
+        },
+        {
+          type: "HtmlValue",
+          value: "A",
+          start: 2,
+          end: 3,
+          quoted: false,
+          valueStart: 2,
+          valueEnd: 3,
+        },
+      ],
+    });
+  });
+
+  test("a  = \n  A", {
+    type: "HtmlAttribute",
+    start: 0,
+    end: 9,
+    value: "a  = \n  A",
+    children: [
+      {
+        type: "HtmlName",
+        name: "a",
+        start: 0,
+        end: 1,
+        value: "a",
+      },
+      {
+        type: "HtmlValue",
+        value: "A",
+        start: 8,
+        end: 9,
+        quoted: false,
+        valueStart: 8,
+        valueEnd: 9,
+      },
+    ],
+  });
+
+  it(`should read attributes with undefined values`, async () => {
+    test("a = ", {
+      type: "HtmlAttribute",
+      start: 0,
+      end: 4,
+      value: "a = ",
+      children: [
+        {
+          type: "HtmlName",
+          name: "a",
+          start: 0,
+          end: 1,
+          value: "a",
+        },
+      ],
+    });
+  });
+
+  it(`should read simple attribute values`, async () => {
+    test("a = 'before ${A `${B}` C} after' XX", {
+      type: "HtmlAttribute",
+      start: 0,
+      end: 32,
+      value: "a = 'before ${A `${B}` C} after'",
+      children: [
+        {
+          type: "HtmlName",
+          name: "a",
+          start: 0,
+          end: 1,
+          value: "a",
+        },
+        {
+          type: "HtmlValue",
+          value: "'before ${A `${B}` C} after'",
+          start: 4,
           end: 32,
-          value: "${b `${c ${not a code} e}` f}",
-        },
-      ],
-    });
-    test("'a:${b `${c `${embedded code}` e}` f}g' XYZ", {
-      type: "QuotedText",
-      value: "'a:${b `${c `${embedded code}` e}` f}g'",
-      start: 0,
-      end: 39,
-      children: [
-        {
-          type: "Code",
-          codeStart: 5,
-          codeEnd: 36,
-          code: [
-            "b `",
+          children: [
             {
               type: "Code",
-              codeStart: 10,
-              codeEnd: 32,
+              codeStart: 14,
+              codeEnd: 24,
               code: [
-                "c `",
+                "A `",
                 {
                   type: "Code",
-                  codeStart: 15,
-                  codeEnd: 28,
-                  code: ["embedded code"],
-                  start: 13,
-                  end: 29,
-                  value: "${embedded code}",
+                  codeStart: 19,
+                  codeEnd: 20,
+                  code: ["B"],
+                  start: 17,
+                  end: 21,
+                  value: "${B}",
                 },
-                "` e",
+                "` C",
               ],
-              start: 8,
-              end: 33,
-              value: "${c `${embedded code}` e}",
+              start: 12,
+              end: 25,
+              value: "${A `${B}` C}",
             },
-            "` f",
           ],
-          start: 3,
-          end: 37,
-          value: "${b `${c `${embedded code}` e}` f}",
+          quoted: true,
+          valueStart: 5,
+          valueEnd: 31,
         },
       ],
     });
   });
+});
 
-  it(`should read quoted values`, async () => {
-    test("'a:b c d e f' XYZ", {
-      type: "QuotedText",
-      value: "'a:b c d e f'",
+describe("readHtmlAttribute", () => {
+  it(`should read attributes recursively`, async () => {
+    function testRecursive(str: string, control: Record<string, any>) {
+      const tokenizers: TTokenizerMethod[] = [];
+      const composite = newCompositeTokenizer(tokenizers);
+      const readToken = newHtmlAttributeReader(composite);
+      tokenizers.push(readToken);
+
+      const ctx = new TokenizerContext(str);
+      const result = readToken(ctx);
+      try {
+        expect(result).to.eql(control);
+      } catch (error) {
+        console.log(JSON.stringify(result, null, 2));
+        throw error;
+      }
+    }
+
+    testRecursive("a = \"before hello='world' after\"", {
+      type: "HtmlAttribute",
       start: 0,
-      end: 13,
-      children: [],
-    });
-    test('"a:b c d e f" XYZ', {
-      type: "QuotedText",
-      value: '"a:b c d e f"',
-      start: 0,
-      end: 13,
-      children: [],
-    });
-    test("`a:b c d e f` XYZ", {
-      type: "QuotedText",
-      value: "`a:b c d e f`",
-      start: 0,
-      end: 13,
-      children: [],
+      end: 1,
+      value: "a",
+      children: [
+        {
+          type: "HtmlName",
+          name: "a",
+          start: 0,
+          end: 1,
+          value: "a",
+        },
+      ],
     });
   });
 });

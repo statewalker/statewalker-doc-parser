@@ -1,4 +1,4 @@
-import { newCodeReader } from "../../src/tknz/code-blocks.ts";
+import { newCodeReader } from "../../src/tknz/code-readers.ts";
 import { newNgramsReader } from "../../src/tknz/ngrams.ts";
 import { TTokenizerMethod, newCompositeTokenizer } from "../../src/tknz/tokenizer.ts";
 
