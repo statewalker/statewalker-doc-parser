@@ -1,4 +1,4 @@
-import { CHAR_EOL, CHAR_SPACE } from "../chars.ts";
+import { CHAR_EOL, CHAR_SPACE, isSpaceOrEol } from "../chars.ts";
 import { readHtmlName } from "./html-names.ts";
 import { TToken, TTokenizerMethod, TokenizerContext } from "../tokenizer.ts";
 import { newHtmlValueReader } from "./html-values.ts";
@@ -17,11 +17,11 @@ export function newHtmlAttributeReader(
       if (!name) return;
       let end = name.end;
       const children: TToken[] = [name];
-      ctx.skipWhile(CHAR_SPACE | CHAR_EOL);
+      ctx.skipWhile(isSpaceOrEol);
       let valueToken: TToken | undefined;
       if (ctx.getChar() === "=") {
         ctx.i++;
-        ctx.skipWhile(CHAR_SPACE | CHAR_EOL);
+        ctx.skipWhile(isSpaceOrEol);
         end = ctx.i;
         valueToken = readValue(ctx);
         if (valueToken) {

@@ -6,14 +6,14 @@ import {
   CHAR_PUNCTUATION,
   CHAR_FORMAT,
   CHAR_SPACE,
-} from "./chars.ts";
+  isCharType,
+} from "../../src/tknz/chars.ts";
 import {
   TToken,
-  TTokenLevel,
   TTokenizerMethod,
   TokenizerContext,
   newCompositeTokenizer,
-} from "./tokenizer.ts";
+} from "../../src/tknz/tokenizer.ts";
 
 export function readSequence<T extends TToken>(
   ctx: TokenizerContext,
@@ -21,7 +21,7 @@ export function readSequence<T extends TToken>(
   type: string
 ): T | undefined {
   const start = ctx.i;
-  const end = ctx.skipWhile(charsMask);
+  const end = ctx.skipWhile((ch) => isCharType(ch, charsMask));
   return end > start
     ? ({
         type,

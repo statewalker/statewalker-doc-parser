@@ -1,5 +1,5 @@
 import { newCodeReader } from "../../src/tknz/code-readers.ts";
-import { newNgramsReader } from "../../src/tknz/ngrams.ts";
+import { newNgramsReader } from "./ngrams.ts";
 import { TTokenizerMethod, newCompositeTokenizer } from "../../src/tknz/tokenizer.ts";
 
 export function newNgramsWithCode() {

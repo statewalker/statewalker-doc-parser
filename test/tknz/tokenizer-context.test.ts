@@ -10,6 +10,11 @@ import {
   CHAR_EOL,
   CHAR_PUNCTUATION,
   CHAR_SPACE,
+  isCharType,
+  isEol,
+  isPunctuation,
+  isSpace,
+  isSpaceOrEol,
 } from "../../src/tknz/chars.ts";
 import { readHtmlName } from "../../src/tknz/html/html-names.ts";
 import {
@@ -52,7 +57,7 @@ function readTagStart(ctx: TokenizerContext): TToken | undefined {
     ctx.i++;
     const nameToken = readHtmlName(ctx);
     if (!nameToken) return;
-    ctx.skipWhile(CHAR_EOL | CHAR_SPACE);
+    ctx.skipWhile(isSpaceOrEol);
     if (ctx.getChar() !== ">") return;
     ctx.i++;
     const end = ctx.i;
@@ -72,7 +77,7 @@ function readTagEnd(ctx: TokenizerContext): TToken | undefined {
     ctx.i += 2;
     const nameToken = readHtmlName(ctx);
     if (!nameToken) return;
-    ctx.skipWhile(CHAR_EOL | CHAR_SPACE);
+    ctx.skipWhile(isSpaceOrEol);
     if (ctx.getChar() !== ">") return;
     ctx.i++;
     const end = ctx.i;
@@ -97,7 +102,7 @@ function readWord(ctx: TokenizerContext): TToken | undefined {
 }
 function readPunctuation(ctx: TokenizerContext): TToken | undefined {
   const start = ctx.i;
-  let end = ctx.skipWhile(CHAR_PUNCTUATION);
+  let end = ctx.skipWhile(isPunctuation);
   if (end === start) return;
   return {
     type: "Punctuation",
@@ -790,7 +795,7 @@ after
       return ctx.guard(() => {
         const start = ctx.i;
         ctx.i += 3;
-        let namesStart = ctx.skipWhile(CHAR_SPACE);
+        let namesStart = ctx.skipWhile(isSpace);
         for (; ctx.i < ctx.length; ctx.i++) {
           const char = ctx.getChar();
           if (!isAlphaNum(char)) break;
@@ -922,10 +927,10 @@ describe("TokenizerContext", () => {
   ): TMdHeaderStartToken | undefined {
     return ctx.guard(() => {
       const start = ctx.i;
-      const eolPos = ctx.skipWhile(CHAR_EOL);
+      const eolPos = ctx.skipWhile(isEol);
       if (start > 0 && eolPos === start) return;
 
-      ctx.skipWhile(CHAR_SPACE);
+      ctx.skipWhile(isSpace);
       let level = 0;
       for (level = 0; level <= 6; level++) {
         if (ctx.getChar(level) !== "#") break;
@@ -948,7 +953,7 @@ describe("TokenizerContext", () => {
   function readNewLine(ctx: TokenizerContext): TToken | undefined {
     return ctx.guard(() => {
       const start = ctx.i;
-      const eolPos = ctx.skipWhile(CHAR_EOL);
+      const eolPos = ctx.skipWhile(isEol);
       if (start > 0 && eolPos === start) return;
       return {
         type: "Eol",

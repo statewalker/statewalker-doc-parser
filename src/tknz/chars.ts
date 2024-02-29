@@ -28,11 +28,30 @@ export const EOS = 512;
 
 const charTypes: Record<string, number> = {};
 
-export function getCharType(str: string, i: number): number {
-  if (i >= str.length) return EOS;
-  const char = str[i];
+export function isSpace(char: string[1]): boolean {
+  return !!(_getCharType(char) & CHAR_SPACE);
+}
+export function isEol(char: string[1]): boolean {
+  return !!(_getCharType(char) & CHAR_EOL);
+}
+export function isSpaceOrEol(char: string[1]): boolean {
+  return !!(_getCharType(char) & (CHAR_EOL | CHAR_SPACE));
+}
+export function isPunctuation(char: string[1]): boolean {
+  return !!(_getCharType(char) & CHAR_PUNCTUATION);
+}
+export function isCharType(char: string[1], type: number): boolean {
+  return !!(_getCharType(char) & type);
+}
+
+export function _getCharType(char: string[1]): number {
   if (charTypes[char]) return charTypes[char];
   return (charTypes[char] = detectCharType(char));
+}
+
+export function getCharType(str: string, i: number): number {
+  if (i >= str.length) return EOS;
+  return _getCharType(str[i]);
 }
 
 export function detectCharType(char: string): number {

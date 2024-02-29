@@ -89,36 +89,19 @@ export class TokenizerContext {
   }
 
   /**
-   * Skips all characters of the specified type. The last position
-   * will be the first character of the next type.
-   * @param charType the character type to skip or a combination of types (ex: CHAR_SPACE | CHAR_EOL)
-   * @returns the position of the first character of the next type
+   * Skips all characters for which the given check method returns true. The last position
+   * will be the first character for which the check method returns false.
+   * @param check the method to check the characters
+   * @returns the position of the first character for which the check method returns false
    */
-  skipWhile(charType: number): number {
+  skipWhile(check: (char: string[1]) => boolean): number {
     const len = this.str.length;
     let i = 0;
-    for (i = this._i; i < len && getCharType(this.str, i) & charType; i++) {
+    for (i = this._i; i < len && check(this.str[i]); i++) {
       /* */
     }
     this.i = i;
     return this._i;
-  }
-
-  /**
-   * Skips all characters until the specified type was found (or until the end of
-   * the tokenized string). The last position will be the first character of the
-   * requested type.
-   * @param charType the character type to find or a combination of types (ex: CHAR_SPACE | CHAR_EOL)
-   * @returns the position of the first character of the requested type
-   */
-  skipUntil(charType: number): number {
-    const len = this.str.length;
-    let i: number = 0;
-    for (i = this._i; i < len && !(getCharType(this.str, i) & charType); i++) {
-      /* */
-    }
-    this.i = i;
-    return i;
   }
 
   /**
