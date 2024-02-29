@@ -7,7 +7,9 @@ export interface TCodeToken extends TToken {
   code: (TToken | string)[];
 }
 
-export function newCodeReader(readToken: TTokenizerMethod = () => undefined): TTokenizerMethod {
+export function newCodeReader(
+  readToken: TTokenizerMethod = () => undefined
+): TTokenizerMethod {
   return function readCode(ctx: TokenizerContext): TCodeToken | undefined {
     return read();
 
@@ -49,7 +51,11 @@ export function newCodeReader(readToken: TTokenizerMethod = () => undefined): TT
             escaped = false;
           } else if (ch === "\\") {
             escaped = true;
-          } else if (ch === '"' || ch === "'" || ch === "`") {
+          } else if (
+            // ch === '"' ||
+            // ch === "'" ||
+            ch === "`"
+          ) {
             if (quot) {
               if (ch === quot) {
                 quot = "";
@@ -74,13 +80,10 @@ export function newCodeReader(readToken: TTokenizerMethod = () => undefined): TT
               if (updateToken(read)) {
                 continue;
               }
-            } else {
-              if (fences.getFenceToken()) {
-                break;
-              }
-              if (updateToken(readToken)) {
-                continue;
-              }
+            } else if (fences.getFenceToken()) {
+              break;
+            } else if (updateToken(readToken)) {
+              continue;
             }
           }
           ctx.i++;

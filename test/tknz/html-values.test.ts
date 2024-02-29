@@ -3,8 +3,8 @@ import {
   TTokenizerMethod,
   TokenizerContext,
 } from "../../src/tknz/tokenizer.ts";
-import { describe, expect, it, beforeEach } from "../deps.ts";
-import { newHtmlValueReader } from "../../src/tknz/html/html-values.ts";
+import { describe, expect, it } from "../deps.ts";
+import { newHtmlValueReader } from "../../src/tknz/html/index.ts";
 import { newCodeReader } from "../../src/tknz/code-readers.ts";
 
 describe("readHtmlAttribute", () => {

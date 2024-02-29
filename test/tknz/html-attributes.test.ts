@@ -1,14 +1,6 @@
-import {
-  TToken,
-  TTokenizerMethod,
-  TokenizerContext,
-  newCompositeTokenizer,
-} from "../../src/tknz/tokenizer.ts";
+import { TokenizerContext } from "../../src/tknz/tokenizer.ts";
 import { describe, expect, it } from "../deps.ts";
-import { newHtmlValueReader } from "../../src/tknz/html/html-values.ts";
-import { readHtmlName } from "../../src/tknz/html/html-names.ts";
-import { CHAR_EOL, CHAR_SPACE } from "../../src/tknz/chars.ts";
-import { newHtmlAttributeReader } from "../../src/tknz/html/html-attributes.ts";
+import { newHtmlAttributeReader } from "../../src/tknz/html/index.ts";
 import { newCodeReader } from "../../src/tknz/code-readers.ts";
 
 describe("readHtmlAttribute", () => {
@@ -58,6 +50,33 @@ describe("readHtmlAttribute", () => {
   });
 
   it(`should read attribute name and code values`, async () => {
+    test("x=${y}", {
+      type: "HtmlAttribute",
+      start: 0,
+      end: 6,
+      value: "x=${y}",
+      children: [
+        {
+          type: "HtmlName",
+          name: "x",
+          start: 0,
+          end: 1,
+          value: "x",
+        },
+        {
+          type: "HtmlValue",
+          codeStart: 4,
+          codeEnd: 5,
+          code: ["y"],
+          start: 2,
+          end: 6,
+          value: "${y}",
+          quoted: false,
+          valueStart: 2,
+          valueEnd: 6,
+        },
+      ],
+    });
     test("a = ${A}", {
       type: "HtmlAttribute",
       start: 0,
