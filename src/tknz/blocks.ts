@@ -53,9 +53,8 @@ export function newDynamicFencedBlockReader<
       let endToken: TToken | undefined;
       if (!startToken) return;
       ctx.i = startToken.end;
-      const readToken = getContentTokenizer(startToken);
-      if (!readToken) return;
 
+      const readToken = getContentTokenizer(startToken) || (() => undefined);
       const readEnd = getEndTokenizer(startToken);
       if (readEnd) fences.addFence(readEnd);
 

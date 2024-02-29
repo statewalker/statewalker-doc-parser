@@ -7,18 +7,16 @@ export interface TCodeToken extends TToken {
   code: (TToken | string)[];
 }
 
-export function newCodeReader(parent: TTokenizerMethod): TTokenizerMethod {
+export function newCodeReader(readToken: TTokenizerMethod = () => undefined): TTokenizerMethod {
   return function readCode(ctx: TokenizerContext): TCodeToken | undefined {
     return read();
 
     function read(): TCodeToken | undefined {
       let depth = 0;
       if (ctx.getChar(+0) !== "$" || ctx.getChar(+1) !== "{") return;
-
       return ctx.guard((fences) => {
         const start = ctx.i;
         ctx.i += 2;
-        // const fenceLevel = ctx.addFence(() => ctx.getChar() === "}");
 
         const codeStart = ctx.i;
         let codeEnd = codeStart;
@@ -34,8 +32,18 @@ export function newCodeReader(parent: TTokenizerMethod): TTokenizerMethod {
             textStart = i;
           }
         };
-        for (const len = ctx.length; ctx.i < len; ctx.i++, codeEnd++) {
-          // FIXME: read the fence token and break the loop if found
+        function updateToken(loadToken: TTokenizerMethod): boolean {
+          const previousPos = ctx.i;
+          const token = loadToken(ctx);
+          if (!token) return false;
+          flushText(previousPos);
+          code.push(token);
+          children = children || [];
+          children.push(token);
+          ctx.i = codeEnd = textStart = token.end;
+          return true;
+        }
+        while (ctx.i < ctx.length) {
           const ch = ctx.getChar();
           if (escaped) {
             escaped = false;
@@ -63,35 +71,20 @@ export function newCodeReader(parent: TTokenizerMethod): TTokenizerMethod {
             }
           } else {
             if (quot === "`" && ch === "$") {
-              // FIXME:
-              // - add a new fence with the current level
-              // - read a next token using the parent tokenizer
-              const previousPos = ctx.i;
-              const r = read();
-              if (r) {
-                flushText(previousPos);
-                code.push(r);
-                if (!children) {
-                  children = [r];
-                } else {
-                  children.push(r);
-                }
-                ctx.i = r.end;
-                ctx.i--;
-                codeEnd = ctx.i;
-                textStart = r.end;
+              if (updateToken(read)) {
+                continue;
               }
             } else {
-              const token = fences.getFenceToken();
-              if (token) {
-                flushText(ctx.i);
-                codeEnd = ctx.i;
-                // ctx.i = token.end;
-                textStart = ctx.i;
+              if (fences.getFenceToken()) {
                 break;
+              }
+              if (updateToken(readToken)) {
+                continue;
               }
             }
           }
+          ctx.i++;
+          codeEnd++;
         }
         flushText(ctx.i);
         const result: TCodeToken = {

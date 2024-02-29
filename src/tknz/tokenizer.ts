@@ -1,4 +1,4 @@
-import { EOS, getCharType } from "./chars";
+import { getCharType } from "./chars";
 
 export interface TToken extends Record<string, any> {
   type: string;

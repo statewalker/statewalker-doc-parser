@@ -5,7 +5,7 @@ import { TTokenizerMethod, newCompositeTokenizer } from "../../src/tknz/tokenize
 export function newNgramsWithCode() {
   const list: TTokenizerMethod[] = [];
   const readNgrams = newNgramsReader(list);
-  const readCode = newCodeReader(readNgrams);
+  const readCode = newCodeReader();
   // We add the code reader to the same list of tokenizers
   // as used in the code reader itself. It allows to the code reader
   // to read nested code tokens.
