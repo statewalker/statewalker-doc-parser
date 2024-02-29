@@ -1,5 +1,3 @@
-import { getCharType } from "./chars";
-
 export interface TToken extends Record<string, any> {
   type: string;
   value: string;

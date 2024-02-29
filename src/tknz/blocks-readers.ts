@@ -72,35 +72,37 @@ export function newFencedBlockReader<
     () => readToken,
     () => readEnd
   );
-}export function newBlockReader(
+}
+
+export function newBlockReader(
   type: string,
   readToken: TTokenizerMethod
 ): TTokenizerMethod {
-  return (ctx: TokenizerContext): TToken | undefined => ctx.guard((fences) => {
-    const start = ctx.i;
-    const len = ctx.length;
-    const children: TToken[] = [];
-    while (ctx.i < len) {
-      const fence = fences.getFenceToken();
-      if (fence) {
-        break;
+  return (ctx: TokenizerContext): TToken | undefined =>
+    ctx.guard((fences) => {
+      const start = ctx.i;
+      const len = ctx.length;
+      const children: TToken[] = [];
+      while (ctx.i < len) {
+        const fence = fences.getFenceToken();
+        if (fence) {
+          break;
+        }
+        const token = readToken(ctx);
+        if (token) {
+          children.push(token);
+        } else {
+          ctx.i++;
+        }
       }
-      const token = readToken(ctx);
-      if (token) {
-        children.push(token);
-      } else {
-        ctx.i++;
-      }
-    }
-    const end = ctx.i;
-    if (end === start) return;
-    return {
-      type,
-      start,
-      end,
-      value: ctx.substring(start, end),
-      children,
-    };
-  });
+      const end = ctx.i;
+      if (end === start) return;
+      return {
+        type,
+        start,
+        end,
+        value: ctx.substring(start, end),
+        children,
+      };
+    });
 }
-
