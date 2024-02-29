@@ -63,22 +63,19 @@ export const gramTestData: TGramTestData[] = [
       type: "Code",
       codeStart: 9,
       codeEnd: 43,
-      code: [
-        " js `",
+      start: 7,
+      end: 44,
+      value: "${ js `${inner code}` md```code\n``` }",
+      children: [
         {
           type: "Code",
           codeStart: 16,
           codeEnd: 26,
-          code: ["inner code"],
           start: 14,
           end: 27,
           value: "${inner code}",
         },
-        "` md```code\n``` ",
       ],
-      start: 7,
-      end: 44,
-      value: "${ js `${inner code}` md```code\n``` }",
     },
   },
 ];

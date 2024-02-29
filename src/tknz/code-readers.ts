@@ -4,7 +4,6 @@ export interface TCodeToken extends TToken {
   type: "Code";
   codeStart: number;
   codeEnd: number;
-  code: (TToken | string)[];
 }
 
 export function newCodeReader(
@@ -23,26 +22,16 @@ export function newCodeReader(
         const codeStart = ctx.i;
         let codeEnd = codeStart;
 
-        const code: (TToken | string)[] = [];
         let children: TToken[] | undefined = undefined;
         let escaped = false;
         let quot = null;
-        let textStart = codeStart;
-        const flushText = (i: number) => {
-          if (i > textStart) {
-            code.push(ctx.substring(textStart, i));
-            textStart = i;
-          }
-        };
         function updateToken(loadToken: TTokenizerMethod): boolean {
           const previousPos = ctx.i;
           const token = loadToken(ctx);
           if (!token) return false;
-          flushText(previousPos);
-          code.push(token);
           children = children || [];
           children.push(token);
-          ctx.i = codeEnd = textStart = token.end;
+          ctx.i = codeEnd = token.end;
           return true;
         }
         while (ctx.i < ctx.length) {
@@ -67,10 +56,8 @@ export function newCodeReader(
             depth++;
           } else if (ch === "}") {
             if (depth === 0) {
-              flushText(ctx.i);
               codeEnd = ctx.i;
               ctx.i++;
-              textStart = ctx.i;
               break;
             } else {
               depth--;
@@ -89,17 +76,15 @@ export function newCodeReader(
           ctx.i++;
           codeEnd++;
         }
-        flushText(ctx.i);
         const result: TCodeToken = {
           type: "Code",
           codeStart,
           codeEnd,
-          code,
           start,
           end: ctx.i,
           value: ctx.str.slice(start, ctx.i),
         };
-        // if (children) result.children = children;
+        if (children) result.children = children;
         return result;
       });
     }
