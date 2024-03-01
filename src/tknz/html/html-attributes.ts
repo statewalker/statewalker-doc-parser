@@ -29,6 +29,7 @@ export function newHtmlAttributeReader(
           children.push(valueToken);
         }
       }
+      ctx.i = end;
       return {
         type: "HtmlAttribute",
         start,

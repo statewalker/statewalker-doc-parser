@@ -1140,7 +1140,7 @@ Second paragraph
   it("should build hierarchical document structure based on headers", () => {
     function newReader() {
       const list: TTokenizerMethod[] = [];
-      // list.push(readWord);
+      // // list.push(readWord);
       const compositeReader = newCompositeTokenizer(list);
       const readToken = newBlockReader("MdContent", compositeReader);
       const readMdHeader = newMdHeaderReader(readToken);
@@ -1150,7 +1150,7 @@ Second paragraph
         newDynamicFencedBlockReader(
           "MdSection",
           readMdHeader,
-          () => readToken,
+          () => readMdHeader,
           (token: TToken): TTokenizerMethod | undefined => {
             if (token.type !== "MdHeader") {
               return;
@@ -1222,15 +1222,7 @@ Third paragraph
               endToken: { type: "MdHeaderEnd", start: 15, end: 15, value: "" },
             },
             value: "\n# First Header\nFirst paragraph",
-            children: [
-              {
-                type: "MdContent",
-                start: 15,
-                end: 31,
-                value: "\nFirst paragraph",
-                children: [],
-              },
-            ],
+            children: [],
             endToken: { type: "MdSectionEnd", start: 31, end: 31, value: "" },
           },
           {
@@ -1264,61 +1256,32 @@ Third paragraph
               "\n# Second Header\nSecond paragraph\n## Subsection\nInner paragraph",
             children: [
               {
-                type: "MdContent",
-                start: 47,
-                end: 94,
-                value: "\nSecond paragraph\n## Subsection\nInner paragraph",
+                type: "MdHeader",
+                start: 64,
+                end: 78,
+                startToken: {
+                  type: "MdHeaderStart",
+                  start: 64,
+                  end: 68,
+                  value: "\n## ",
+                  level: 2,
+                },
+                value: "\n## Subsection",
                 children: [
                   {
-                    type: "MdSection",
-                    start: 64,
-                    end: 94,
-                    startToken: {
-                      type: "MdHeader",
-                      start: 64,
-                      end: 78,
-                      startToken: {
-                        type: "MdHeaderStart",
-                        start: 64,
-                        end: 68,
-                        value: "\n## ",
-                        level: 2,
-                      },
-                      value: "\n## Subsection",
-                      children: [
-                        {
-                          type: "MdContent",
-                          start: 68,
-                          end: 78,
-                          value: "Subsection",
-                          children: [],
-                        },
-                      ],
-                      endToken: {
-                        type: "MdHeaderEnd",
-                        start: 78,
-                        end: 78,
-                        value: "",
-                      },
-                    },
-                    value: "\n## Subsection\nInner paragraph",
-                    children: [
-                      {
-                        type: "MdContent",
-                        start: 78,
-                        end: 94,
-                        value: "\nInner paragraph",
-                        children: [],
-                      },
-                    ],
-                    endToken: {
-                      type: "MdSectionEnd",
-                      start: 94,
-                      end: 94,
-                      value: "",
-                    },
+                    type: "MdContent",
+                    start: 68,
+                    end: 78,
+                    value: "Subsection",
+                    children: [],
                   },
                 ],
+                endToken: {
+                  type: "MdHeaderEnd",
+                  start: 78,
+                  end: 78,
+                  value: "",
+                },
               },
             ],
             endToken: { type: "MdSectionEnd", start: 94, end: 94, value: "" },
@@ -1356,15 +1319,7 @@ Third paragraph
               },
             },
             value: "\n# Third Header\nThird paragraph\n",
-            children: [
-              {
-                type: "MdContent",
-                start: 109,
-                end: 126,
-                value: "\nThird paragraph\n",
-                children: [],
-              },
-            ],
+            children: [],
           },
         ],
       }
