@@ -94,7 +94,7 @@ export const testData: TTestData[] = [
           type: "HtmlOpenTag",
           start: 0,
           end: 41,
-          autoclosing: false,
+          autoclosing: true,
           children: [
             {
               type: "HtmlTagName",
@@ -190,7 +190,7 @@ export const testData: TTestData[] = [
           type: "HtmlOpenTag",
           start: 0,
           end: 22,
-          autoclosing: false,
+          autoclosing: true,
           children: [
             {
               type: "HtmlTagName",
@@ -226,7 +226,7 @@ export const testData: TTestData[] = [
           type: "HtmlOpenTag",
           start: 0,
           end: 40,
-          autoclosing: false,
+          autoclosing: true,
           children: [
             {
               type: "HtmlTagName",

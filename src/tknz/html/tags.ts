@@ -83,7 +83,7 @@ export function newHtmlOpenTagReader(
     const nameToken = token.startToken.children?.[0];
     if (!nameToken) return ;
     nameToken.type = "HtmlTagName";
-    const closingToken = token.endTag;
+    const closingToken = token.endToken;
     const autoclosing = !!closingToken?.autoclosing;
     const children = [nameToken];
     if (token.children) children.push(...token.children);
