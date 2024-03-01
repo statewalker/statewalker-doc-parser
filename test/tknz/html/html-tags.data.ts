@@ -82,6 +82,225 @@ export const testData: TTestData[] = [
   },
 
   {
+    input: "before <a attr",
+    description: `should read non-closed tags with attributes`,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 14,
+      value: "before <a attr",
+      children: [
+        {
+          type: "HtmlOpenTag",
+          start: 7,
+          end: 14,
+          autoclosing: false,
+          children: [
+            {
+              type: "HtmlTagName",
+              name: "a",
+              start: 8,
+              end: 9,
+              value: "a",
+            },
+            {
+              type: "HtmlAttribute",
+              start: 10,
+              end: 14,
+              value: "attr",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "attr",
+                  start: 10,
+                  end: 14,
+                  value: "attr",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  {
+    input: "before <a attr1=val1 attr2=val2 ",
+    description: `should read non-closed tags with multiple attributes`,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 32,
+      value: "before <a attr1=val1 attr2=val2 ",
+      children: [
+        {
+          type: "HtmlOpenTag",
+          start: 7,
+          end: 32,
+          autoclosing: false,
+          children: [
+            {
+              type: "HtmlTagName",
+              name: "a",
+              start: 8,
+              end: 9,
+              value: "a",
+            },
+            {
+              type: "HtmlAttribute",
+              start: 10,
+              end: 20,
+              value: "attr1=val1",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "attr1",
+                  start: 10,
+                  end: 15,
+                  value: "attr1",
+                },
+                {
+                  type: "HtmlValue",
+                  value: "val1",
+                  start: 16,
+                  end: 20,
+                  quoted: false,
+                  valueStart: 16,
+                  valueEnd: 20,
+                },
+              ],
+            },
+            {
+              type: "HtmlAttribute",
+              start: 21,
+              end: 31,
+              value: "attr2=val2",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "attr2",
+                  start: 21,
+                  end: 26,
+                  value: "attr2",
+                },
+                {
+                  type: "HtmlValue",
+                  value: "val2",
+                  start: 27,
+                  end: 31,
+                  quoted: false,
+                  valueStart: 27,
+                  valueEnd: 31,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  {
+    input: "before <a attr1=val1 attr2='a b c' attr3='\" quoted \"' > after",
+    description: `should read tags with multiple attributes containing angle brackets`,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 61,
+      value: "before <a attr1=val1 attr2='a b c' attr3='\" quoted \"' > after",
+      children: [
+        {
+          type: "HtmlOpenTag",
+          start: 7,
+          end: 55,
+          autoclosing: false,
+          children: [
+            {
+              type: "HtmlTagName",
+              name: "a",
+              start: 8,
+              end: 9,
+              value: "a",
+            },
+            {
+              type: "HtmlAttribute",
+              start: 10,
+              end: 20,
+              value: "attr1=val1",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "attr1",
+                  start: 10,
+                  end: 15,
+                  value: "attr1",
+                },
+                {
+                  type: "HtmlValue",
+                  value: "val1",
+                  start: 16,
+                  end: 20,
+                  quoted: false,
+                  valueStart: 16,
+                  valueEnd: 20,
+                },
+              ],
+            },
+            {
+              type: "HtmlAttribute",
+              start: 21,
+              end: 34,
+              value: "attr2='a b c'",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "attr2",
+                  start: 21,
+                  end: 26,
+                  value: "attr2",
+                },
+                {
+                  type: "HtmlValue",
+                  start: 27,
+                  end: 34,
+                  value: "'a b c'",
+                  quoted: true,
+                  valueStart: 28,
+                  valueEnd: 33,
+                },
+              ],
+            },
+            {
+              type: "HtmlAttribute",
+              start: 35,
+              end: 53,
+              value: "attr3='\" quoted \"'",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "attr3",
+                  start: 35,
+                  end: 40,
+                  value: "attr3",
+                },
+                {
+                  type: "HtmlValue",
+                  start: 41,
+                  end: 53,
+                  value: "'\" quoted \"'",
+                  quoted: true,
+                  valueStart: 42,
+                  valueEnd: 52,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  {
     input: "<tag ${ code block } x=${y} n='a${c}b' />",
     description: `should read tags with code blocks`,
     expected: {
