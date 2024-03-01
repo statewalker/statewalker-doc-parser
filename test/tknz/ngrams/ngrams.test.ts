@@ -1,5 +1,5 @@
-import { describe, expect, it, beforeEach } from "../deps.ts";
-import { TToken, TokenizerContext } from "../../src/tknz/tokenizer.ts";
+import { describe, expect, it, beforeEach } from "../../deps.ts";
+import { TToken, TokenizerContext } from "../../../src/tknz/base/tokenizer.ts";
 import { gramTestData } from "./ngrams.data.ts";
 import { newNgramsWithCode } from "./newNgramsWithCode.ts";
 

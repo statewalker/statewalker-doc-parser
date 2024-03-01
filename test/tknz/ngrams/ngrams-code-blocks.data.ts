@@ -1,4 +1,4 @@
-import { TTestData } from "./data.types";
+import { TTestData } from "../data.types";
 
 export const testData: TTestData[] = [
   {

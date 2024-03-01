@@ -2,10 +2,10 @@ import {
   TToken,
   TTokenizerMethod,
   TokenizerContext,
-} from "../../src/tknz/tokenizer.ts";
-import { describe, expect, it } from "../deps.ts";
-import { newHtmlValueReader } from "../../src/tknz/html/index.ts";
-import { newCodeReader } from "../../src/tknz/code-readers.ts";
+} from "../../../src/tknz/base/index.ts";
+import { describe, expect, it } from "../../deps.ts";
+import { newHtmlValueReader } from "../../../src/tknz/html/index.ts";
+import { newCodeReader } from "../../../src/tknz/code/index.ts";
 
 describe("readHtmlAttribute", () => {
   function test(str: string, control: Record<string, any>) {
@@ -239,7 +239,6 @@ describe("readHtmlAttribute", () => {
       value: "'a:b c d e f'",
       start: 0,
       end: 13,
-      children: [],
       quoted: true,
       valueStart: 1,
       valueEnd: 12,
@@ -249,7 +248,6 @@ describe("readHtmlAttribute", () => {
       value: '"a:b c d e f"',
       start: 0,
       end: 13,
-      children: [],
       quoted: true,
       valueStart: 1,
       valueEnd: 12,
@@ -259,7 +257,6 @@ describe("readHtmlAttribute", () => {
       value: "`a:b c d e f`",
       start: 0,
       end: 13,
-      children: [],
       quoted: true,
       valueStart: 1,
       valueEnd: 12,

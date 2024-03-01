@@ -13,6 +13,15 @@ export type TTokenizerMethod<T = TToken> = (
   ctx: TokenizerContext
 ) => T | undefined;
 
+/**
+ * Tokenizer fences are used as local "end-of-stream"
+ * markers for tokenizer methods. Each tokenizer method could add
+ * a new fence to the context. If the context reaches a fence then
+ * the tokenizer method should handle it as an "end-of-stream" marker.
+ *
+ * Access to the fences should be done only through the guard method of
+ * the TokenizerContext class.
+ */
 export class TokenizerFences {
   context: TokenizerContext;
 
@@ -30,15 +39,16 @@ export class TokenizerFences {
     this.fences.push(f);
   };
 
-  getFenceToken = (): TToken | undefined => {
+  isFenceBoundary = (): boolean => {
     let result: TToken | undefined;
     const ctx = this.context;
     const start = ctx.i;
+    if (start >= ctx.length) return true;
     for (let i = this.fences.length - 1; !result && i >= 0; i--) {
       result = this.fences[i](ctx);
       ctx.i = start;
     }
-    return result;
+    return result !== undefined;
   };
 
   reset = (level: number): void => {
@@ -48,13 +58,26 @@ export class TokenizerFences {
   };
 }
 
+/**
+ * Tokenizer context is used to keep the state of the tokenization process.
+ * It provides methods to access the tokenized string and to control
+ * the current position in string.
+ * Tokenizers should not access the tokenized string directly but through
+ * the methods of this class.
+ * Each tokenizer method could add a fence to the context. If the context
+ * reaches a fence then the tokenizer method should handle it as a local
+ * "end-of-stream" marker.
+ */
 export class TokenizerContext {
+  // The tokenized string.
   str: string;
 
+  // The length of the tokenized string.
   get length(): number {
     return this.str.length;
   }
 
+  // Current character position.
   private _i: number = 0;
   get i(): number {
     return this._i;
@@ -63,19 +86,13 @@ export class TokenizerContext {
     this._i = Math.max(0, Math.min(value, this.str.length));
   }
 
+  // Fences should not be used outside the guard method.
   private fences = new TokenizerFences(this);
 
   constructor(str: string, i: number = 0) {
     this.str = str;
     this.i = i;
   }
-
-  // match(pattern: string): boolean {
-  //   for (let i = 0; i < pattern.length; i++) {
-  //     if (this.str[this._i + i] !== pattern[i]) return false;
-  //   }
-  //   return true;
-  // }
 
   /**
    * Returns the character at the current position or at the specified shift.
@@ -116,6 +133,8 @@ export class TokenizerContext {
    * Guards the execution of a tokenizer method.
    * If the method returns "undefined" then the position of the tokenized string
    * will be reset to the initial position.
+   * All fences added to the context will be reset to the level they had before.
+   *
    * @param f the tokenizer method to guard
    * @returns the result of the tokenizer method - the resulting token or "undefined"
    */
@@ -134,6 +153,13 @@ export class TokenizerContext {
       }
     }
   }
+
+  // match(pattern: string): boolean {
+  //   for (let i = 0; i < pattern.length; i++) {
+  //     if (this.str[this._i + i] !== pattern[i]) return false;
+  //   }
+  //   return true;
+  // }
 }
 
 export function newCompositeTokenizer(

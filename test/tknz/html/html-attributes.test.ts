@@ -1,7 +1,7 @@
-import { TokenizerContext } from "../../src/tknz/tokenizer.ts";
-import { describe, expect, it } from "../deps.ts";
-import { newHtmlAttributeReader } from "../../src/tknz/html/index.ts";
-import { newCodeReader } from "../../src/tknz/code-readers.ts";
+import { TokenizerContext } from "../../../src/tknz/base/tokenizer.ts";
+import { describe, expect, it } from "../../deps.ts";
+import { newHtmlAttributeReader } from "../../../src/tknz/html/index.ts";
+import { newCodeReader } from "../../../src/tknz/code/code.ts";
 
 describe("readHtmlAttribute", () => {
   function test(str: string, control: Record<string, any>) {

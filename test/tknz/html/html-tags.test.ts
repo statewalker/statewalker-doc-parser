@@ -1,7 +1,7 @@
-import { TokenizerContext } from "../../src/tknz/tokenizer.ts";
-import { describe, expect, it } from "../deps.ts";
-import { newCodeReader } from "../../src/tknz/code-readers.ts";
-import { newHtmlTagReader } from "../../src/tknz/html/index.ts";
+import { TokenizerContext } from "../../../src/tknz/base/tokenizer.ts";
+import { describe, expect, it } from "../../deps.ts";
+import { newCodeReader } from "../../../src/tknz/code/code.ts";
+import { newHtmlTagReader } from "../../../src/tknz/html/index.ts";
 
 describe("readHtmlTag", () => {
   function test(str: string, control?: Record<string, any>) {
@@ -37,7 +37,6 @@ describe("readHtmlTag", () => {
         ],
       },
       value: "<a",
-      children: [],
     });
 
     test("<a b='c'>", {
@@ -79,7 +78,6 @@ describe("readHtmlTag", () => {
               value: "'c'",
               start: 5,
               end: 8,
-              children: [],
               quoted: true,
               valueStart: 6,
               valueEnd: 7,

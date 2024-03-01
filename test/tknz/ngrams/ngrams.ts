@@ -1,4 +1,6 @@
 import {
+  type TToken,
+  type TTokenizerMethod,
   CHAR_ANY,
   CHAR_CONTROL,
   CHAR_DIGIT,
@@ -7,13 +9,9 @@ import {
   CHAR_FORMAT,
   CHAR_SPACE,
   isCharType,
-} from "../../src/tknz/chars.ts";
-import {
-  TToken,
-  TTokenizerMethod,
   TokenizerContext,
   newCompositeTokenizer,
-} from "../../src/tknz/tokenizer.ts";
+} from "../../../src/tknz/base/index.ts";
 
 export function readSequence<T extends TToken>(
   ctx: TokenizerContext,

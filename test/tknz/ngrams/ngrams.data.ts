@@ -1,4 +1,4 @@
-import { TTestData } from "./data.types.ts";
+import { TTestData } from "../data.types.ts";
 
 export type TGramTestData = TTestData & {
   before: string;

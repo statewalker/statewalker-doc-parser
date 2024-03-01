@@ -1,9 +1,11 @@
-import { CHAR_EOL, CHAR_SPACE } from "../chars.ts";
-import { readHtmlName } from "./html-names.ts";
-import { TToken, TTokenizerMethod, TokenizerContext } from "../tokenizer.ts";
-import { newHtmlValueReader } from "./html-values.ts";
-import { newHtmlAttributeReader } from "./html-attributes.ts";
-import { newDynamicFencedBlockReader } from "../blocks-readers.ts";
+import {
+  type TToken,
+  type TTokenizerMethod,
+  type TokenizerContext,
+  newDynamicFencedBlockReader,
+} from "../base/index.ts";
+import { readHtmlName } from "./names.ts";
+import { newHtmlAttributeReader } from "./attributes.ts";
 
 export interface THtmlTagToken extends TToken {
   type: "HtmlTag";

@@ -1,12 +1,11 @@
-import { newCodeReader } from "../code-readers.ts";
-import { newQuotedTextReader } from "./text-readers.ts";
 import {
-  TToken,
-  TTokenizerMethod,
-  TokenizerContext,
+  type TToken,
+  type TTokenizerMethod,
+  type TokenizerContext,
   newCompositeTokenizer,
-} from "../tokenizer.ts";
-import { newCharsReader } from "../chars-readers.ts";
+  newCharsReader,
+  newQuotedTextReader,
+} from "../base/index.ts";
 
 export interface TAttributeValueToken extends TToken {
   type: "HtmlValue";
@@ -20,7 +19,7 @@ export function newHtmlValueReader(
 ): TTokenizerMethod<TAttributeValueToken> {
   const tokenizers: TTokenizerMethod[] = [];
   if (readToken) tokenizers.push(readToken);
-  
+
   const read = newCompositeTokenizer(tokenizers);
   {
     const readQuotedText = newQuotedTextReader(() => readToken);

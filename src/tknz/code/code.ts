@@ -1,4 +1,8 @@
-import { TToken, TTokenizerMethod, TokenizerContext } from "./tokenizer.ts";
+import {
+  type TToken,
+  type TTokenizerMethod,
+  type TokenizerContext,
+} from "../base/index.ts";
 
 export interface TCodeToken extends TToken {
   type: "Code";
@@ -26,7 +30,6 @@ export function newCodeReader(
         let escaped = false;
         let quot = null;
         function updateToken(loadToken: TTokenizerMethod): boolean {
-          const previousPos = ctx.i;
           const token = loadToken(ctx);
           if (!token) return false;
           children = children || [];
@@ -67,7 +70,7 @@ export function newCodeReader(
               if (updateToken(read)) {
                 continue;
               }
-            } else if (fences.getFenceToken()) {
+            } else if (fences.isFenceBoundary()) {
               break;
             } else if (updateToken(readToken)) {
               continue;

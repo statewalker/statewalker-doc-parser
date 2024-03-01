@@ -1,6 +1,6 @@
-import { describe, expect, it, beforeEach } from "../deps.ts";
-import { readHtmlName } from "../../src/tknz/html/index.ts";
-import { TokenizerContext } from "../../src/tknz/tokenizer.ts";
+import { describe, expect, it } from "../../deps.ts";
+import { readHtmlName } from "../../../src/tknz/html/index.ts";
+import { TokenizerContext } from "../../../src/tknz/base/tokenizer.ts";
 
 describe("readHtmlName", () => {
   function test(str: string, control?: Record<string, any>) {

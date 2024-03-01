@@ -1,7 +1,11 @@
-import { CHAR_EOL, CHAR_SPACE, isSpaceOrEol } from "../chars.ts";
-import { readHtmlName } from "./html-names.ts";
-import { TToken, TTokenizerMethod, TokenizerContext } from "../tokenizer.ts";
-import { newHtmlValueReader } from "./html-values.ts";
+import {
+  type TToken,
+  type TTokenizerMethod,
+  type TokenizerContext,
+  isSpaceOrEol,
+} from "../base/index.ts";
+import { readHtmlName } from "./names.ts";
+import { newHtmlValueReader } from "./values.ts";
 
 export interface THtmlAttributeToken extends TToken {
   type: "HtmlAttribute";

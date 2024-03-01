@@ -1,6 +1,6 @@
-import { newCodeReader } from "../../src/tknz/code-readers.ts";
+import { newCodeReader } from "../../../src/tknz/code/code.ts";
 import { newNgramsReader } from "./ngrams.ts";
-import { TTokenizerMethod, newCompositeTokenizer } from "../../src/tknz/tokenizer.ts";
+import { TTokenizerMethod, newCompositeTokenizer } from "../../../src/tknz/base/tokenizer.ts";
 
 export function newNgramsWithCode() {
   const list: TTokenizerMethod[] = [];

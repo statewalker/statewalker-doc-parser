@@ -1,4 +1,4 @@
-import { TToken, TokenizerContext } from "../tokenizer.ts";
+import { type TToken, type TokenizerContext } from "../base/index.ts";
 
 export interface THtmlNameToken extends TToken {
   type: "HtmlName";

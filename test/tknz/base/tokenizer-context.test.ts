@@ -1,28 +1,22 @@
-import { describe, expect, it } from "../deps.ts";
+import { describe, expect, it } from "../../deps.ts";
 import {
   TToken,
   TTokenizerMethod,
   TokenizerContext,
   newCompositeTokenizer,
-} from "../../src/tknz/tokenizer.ts";
+} from "../../../src/tknz/base/tokenizer.ts";
 import {
-  CHAR_ANY,
-  CHAR_EOL,
-  CHAR_PUNCTUATION,
-  CHAR_SPACE,
-  isCharType,
   isEol,
   isPunctuation,
   isSpace,
   isSpaceOrEol,
-} from "../../src/tknz/chars.ts";
-import { readHtmlName } from "../../src/tknz/html/html-names.ts";
+} from "../../../src/tknz/base/chars.ts";
+import { readHtmlName } from "../../../src/tknz/html/names.ts";
 import {
   newDynamicFencedBlockReader,
   newFencedBlockReader,
-} from "../../src/tknz/blocks-readers.ts";
-import { newBlockReader } from "../../src/tknz/blocks-readers.ts";
-import { read } from "fs";
+} from "../../../src/tknz/base/blocks.ts";
+import { newBlockReader } from "../../../src/tknz/base/blocks.ts";
 
 function readCodeStart(ctx: TokenizerContext): TToken | undefined {
   if (ctx.getChar(+0) !== "$" || ctx.getChar(+1) !== "{") return;
@@ -749,7 +743,6 @@ after
                 start: 12,
                 end: 28,
                 value: "\nFirst Js Block\n",
-                children: [],
               },
             ],
             endToken: { type: "JsFence", start: 28, end: 31, value: "```" },
@@ -766,7 +759,6 @@ after
                 start: 43,
                 end: 60,
                 value: "\nSecond Js Block\n",
-                children: [],
               },
             ],
             endToken: { type: "JsFence", start: 60, end: 63, value: "```" },
@@ -888,7 +880,6 @@ after
                         start: 43,
                         end: 70,
                         value: "\nInternal Javascript Block\n",
-                        children: [],
                       },
                     ],
                     endToken: {
@@ -1038,7 +1029,6 @@ Second paragraph
                 start: 3,
                 end: 15,
                 value: "First Header",
-                children: [],
               },
             ],
             endToken: { type: "MdHeaderEnd", start: 15, end: 15, value: "" },
@@ -1061,7 +1051,6 @@ Second paragraph
                 start: 35,
                 end: 48,
                 value: "Second Header",
-                children: [],
               },
             ],
             endToken: { type: "MdHeaderEnd", start: 48, end: 48, value: "" },
@@ -1104,7 +1093,6 @@ Second paragraph
                 start: 5,
                 end: 17,
                 value: "First Header",
-                children: [],
               },
             ],
             endToken: { type: "MdHeaderEnd", start: 17, end: 17, value: "" },
@@ -1127,7 +1115,6 @@ Second paragraph
                 start: 42,
                 end: 55,
                 value: "Second Header",
-                children: [],
               },
             ],
             endToken: { type: "MdHeaderEnd", start: 55, end: 55, value: "" },
@@ -1216,13 +1203,11 @@ Third paragraph
                   start: 3,
                   end: 15,
                   value: "First Header",
-                  children: [],
                 },
               ],
               endToken: { type: "MdHeaderEnd", start: 15, end: 15, value: "" },
             },
             value: "\n# First Header\nFirst paragraph",
-            children: [],
             endToken: { type: "MdSectionEnd", start: 31, end: 31, value: "" },
           },
           {
@@ -1247,7 +1232,6 @@ Third paragraph
                   start: 34,
                   end: 47,
                   value: "Second Header",
-                  children: [],
                 },
               ],
               endToken: { type: "MdHeaderEnd", start: 47, end: 47, value: "" },
@@ -1273,7 +1257,6 @@ Third paragraph
                     start: 68,
                     end: 78,
                     value: "Subsection",
-                    children: [],
                   },
                 ],
                 endToken: {
@@ -1308,7 +1291,6 @@ Third paragraph
                   start: 97,
                   end: 109,
                   value: "Third Header",
-                  children: [],
                 },
               ],
               endToken: {
@@ -1319,7 +1301,6 @@ Third paragraph
               },
             },
             value: "\n# Third Header\nThird paragraph\n",
-            children: [],
           },
         ],
       }
