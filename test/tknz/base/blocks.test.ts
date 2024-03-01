@@ -25,7 +25,10 @@ describe("newBlockReader", () => {
         newCharsReader("Digits", (char) => !!char.match(/[0-9]/u)),
         newCharsReader("Word", (char) => !!char.match(/\w/u)),
         newCharsReader("Eol", (char) => !!char.match(/[\r\n]/u)),
-        newCharsReader("Spaces", (char) => !!char.match(/\s/u)),
+        newCharsReader(
+          "Spaces",
+          (char) => !!char.match(/\s/u) && !char.match(/[\r\n]/u)
+        ),
       ])
     );
     const result = readToken(ctx);

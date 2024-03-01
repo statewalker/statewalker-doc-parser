@@ -17,7 +17,10 @@ describe("newBlockReader", () => {
       newCharsReader("Digits", (char) => !!char.match(/[0-9]/u)),
       newCharsReader("Word", (char) => !!char.match(/\w/u)),
       newCharsReader("Eol", (char) => !!char.match(/[\r\n]/u)),
-      newCharsReader("Spaces", (char) => !!char.match(/\s/u)),
+      newCharsReader(
+        "Spaces",
+        (char) => !!char.match(/\s/u) && !char.match(/[\r\n]/u)
+      ),
     ];
     // This tokenizer reads individual tokens. It uses individual
     // tokenizers from the given array.
@@ -31,7 +34,7 @@ describe("newBlockReader", () => {
     // We add the code tokenizer to the beginning of the tokenizers array.
     tokenizers.unshift(readCode);
 
-    // The main block reader will 
+    // The main block reader will
     const readToken = newBlockReader("Block", readContent);
     const result = readToken(ctx);
     try {

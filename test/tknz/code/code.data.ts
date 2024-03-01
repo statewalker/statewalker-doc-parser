@@ -2,6 +2,32 @@ import { TTestData } from "../data.types.ts";
 
 export const testData: TTestData[] = [
   {
+    input: "before ${code} after",
+    description: "should read text with code blocks",
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 20,
+      value: "before ${code} after",
+      children: [
+        { type: "Word", value: "before", start: 0, end: 6 },
+        { type: "Spaces", value: " ", start: 6, end: 7 },
+        {
+          type: "Code",
+          codeStart: 9,
+          codeEnd: 13,
+          start: 7,
+          end: 14,
+          value: "${code}",
+          children: [{ type: "Word", value: "code", start: 9, end: 13 }],
+        },
+        { type: "Spaces", value: " ", start: 14, end: 15 },
+        { type: "Word", value: "after", start: 15, end: 20 },
+      ],
+    },
+  },
+
+  {
     description: "should read empty code blocks",
     input: "before ${} after",
     expected: {
@@ -94,7 +120,9 @@ export const testData: TTestData[] = [
           children: [
             { type: "Spaces", value: " ", start: 8, end: 9 },
             { type: "Word", value: "inner", start: 9, end: 14 },
-            { type: "Spaces", value: " \n\n\n ", start: 14, end: 19 },
+            { type: "Spaces", value: " ", start: 14, end: 15 },
+            { type: "Eol", value: "\n\n\n", start: 15, end: 18 },
+            { type: "Spaces", value: " ", start: 18, end: 19 },
             { type: "Word", value: "code", start: 19, end: 23 },
             { type: "Spaces", value: " ", start: 23, end: 24 },
           ],
@@ -104,31 +132,7 @@ export const testData: TTestData[] = [
       ],
     },
   },
-  {
-    input: "before ${code} after",
-    description: "should read text with code blocks",
-    expected: {
-      type: "Block",
-      start: 0,
-      end: 20,
-      value: "before ${code} after",
-      children: [
-        { type: "Word", value: "before", start: 0, end: 6 },
-        { type: "Spaces", value: " ", start: 6, end: 7 },
-        {
-          type: "Code",
-          codeStart: 9,
-          codeEnd: 13,
-          start: 7,
-          end: 14,
-          value: "${code}",
-          children: [{ type: "Word", value: "code", start: 9, end: 13 }],
-        },
-        { type: "Spaces", value: " ", start: 14, end: 15 },
-        { type: "Word", value: "after", start: 15, end: 20 },
-      ],
-    },
-  },
+
   {
     input: "before ${A1 `B1 ${C1 `${third level}` C2} B2` A2} after",
     description: "should read hierarchical code blocks",
