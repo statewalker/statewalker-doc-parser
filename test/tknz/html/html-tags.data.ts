@@ -202,7 +202,7 @@ export const testData: TTestData[] = [
 
   {
     input: "before <a attr1=val1 attr2='a b c' attr3='\" quoted \"' > after",
-    description: `should read tags with multiple attributes containing angle brackets`,
+    description: `should read tags with multiple attributes internal quotes`,
     expected: {
       type: "Block",
       start: 0,
@@ -291,6 +291,84 @@ export const testData: TTestData[] = [
                   quoted: true,
                   valueStart: 42,
                   valueEnd: 52,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  {
+    input:
+      "before <a attr='a <b c=`x` d=\"y\"></b>' attr3='\" quoted \"' > after",
+    description: `should read tags with multiple attributes containing angle brackets`,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 65,
+      value:
+        "before <a attr='a <b c=`x` d=\"y\"></b>' attr3='\" quoted \"' > after",
+      children: [
+        {
+          type: "HtmlOpenTag",
+          start: 7,
+          end: 59,
+          autoclosing: false,
+          children: [
+            {
+              type: "HtmlTagName",
+              name: "a",
+              start: 8,
+              end: 9,
+              value: "a",
+            },
+            {
+              type: "HtmlAttribute",
+              start: 10,
+              end: 38,
+              value: "attr='a <b c=`x` d=\"y\"></b>'",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "attr",
+                  start: 10,
+                  end: 14,
+                  value: "attr",
+                },
+                {
+                  type: "HtmlValue",
+                  start: 15,
+                  end: 38,
+                  value: "'a <b c=`x` d=\"y\"></b>'",
+                  quoted: true,
+                  valueStart: 16,
+                  valueEnd: 37,
+                },
+              ],
+            },
+            {
+              type: "HtmlAttribute",
+              start: 39,
+              end: 57,
+              value: "attr3='\" quoted \"'",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "attr3",
+                  start: 39,
+                  end: 44,
+                  value: "attr3",
+                },
+                {
+                  type: "HtmlValue",
+                  start: 45,
+                  end: 57,
+                  value: "'\" quoted \"'",
+                  quoted: true,
+                  valueStart: 46,
+                  valueEnd: 56,
                 },
               ],
             },
