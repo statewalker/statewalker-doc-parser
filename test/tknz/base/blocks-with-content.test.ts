@@ -6,7 +6,7 @@ import {
   newCharsReader,
   newCompositeTokenizer,
 } from "../../../src/tknz/base/index.ts";
-import { testData } from "./block.data.ts";
+import { testData } from "./blocks-with-content.data.ts";
 
 describe("newBlockReader", () => {
   function testPara(str: string, control: TToken) {
