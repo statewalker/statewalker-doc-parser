@@ -23,16 +23,24 @@ export type TTokenizerMethod<T = TToken> = (
  * the TokenizerContext class.
  */
 export class TokenizerFences {
-  context: TokenizerContext;
+  private context: TokenizerContext;
 
-  fences: TTokenizerMethod[] = [];
+  private fences: TTokenizerMethod[] = [];
+
+  private isolations: number[] = [0];
 
   constructor(context: TokenizerContext) {
     this.context = context;
   }
 
-  get level(): number {
+  get _fenceLevel(): number {
     return this.fences.length;
+  }
+
+  _addIsolationLevel() {
+    const level = this.isolations.length;
+    this.isolations.push(this.fences.length);
+    return level;
   }
 
   addFence = (f: TTokenizerMethod) => {
@@ -44,16 +52,23 @@ export class TokenizerFences {
     const ctx = this.context;
     const start = ctx.i;
     if (start >= ctx.length) return true;
-    for (let i = this.fences.length - 1; !result && i >= 0; i--) {
+    const isolationLevel = this.isolations[this.isolations.length - 1];
+    for (let i = this.fences.length - 1; !result && i >= isolationLevel; i--) {
       result = this.fences[i](ctx);
       ctx.i = start;
     }
     return result !== undefined;
   };
 
-  reset = (level: number): void => {
-    while (this.fences.length > level) {
+  _resetFenceLevel = (fenceLevel: number): void => {
+    while (this.fences.length > fenceLevel) {
       this.fences.pop();
+    }
+  };
+
+  _resetIsolationLevel = (isolationLevel: number): void => {
+    while (this.isolations.length > isolationLevel) {
+      this.isolations.pop();
     }
   };
 }
@@ -138,19 +153,35 @@ export class TokenizerContext {
    * @param f the tokenizer method to guard
    * @returns the result of the tokenizer method - the resulting token or "undefined"
    */
-  guard<T = TToken>(
+  guard<T extends TToken>(
     f: (fences: TokenizerFences) => T | undefined
   ): T | undefined {
     const start = this.i;
     let result: T | undefined;
-    const level = this.fences.level;
+    const fenceLevel = this.fences._fenceLevel;
     try {
       return (result = f(this.fences));
     } finally {
-      this.fences.reset(level);
-      if (result === undefined) {
-        this.i = start;
-      }
+      this.fences._resetFenceLevel(fenceLevel);
+      this.i = result !== undefined ? result.end : start;
+    }
+  }
+
+  /**
+   * Isolates the execution of a tokenizer method - it "disables" all parent fences
+   * and the method is executed as if there is no fences installed. This feature is useful
+   * to implement tokenizers that should not be interrupted by other tokenizers.
+   * @param f the tokenizer method to isolate
+   * @returns the token returned by the tokenizer method or "undefined"
+   */
+  isolate<T extends TToken>(
+    f: (fences: TokenizerFences) => T | undefined
+  ): T | undefined {
+    const isolationLevel = this.fences._addIsolationLevel();
+    try {
+      return this.guard(f);
+    } finally {
+      this.fences._resetIsolationLevel(isolationLevel);
     }
   }
 
@@ -160,6 +191,22 @@ export class TokenizerContext {
   //   }
   //   return true;
   // }
+}
+
+/**
+ * Wraps the specified method in a function providing isolation from existing fences
+ * for the given method, ie this method will execute if there is no fences defined
+ * by parent callers.
+ * @param method the method to isolate
+ * @returns an isolated version of the method, running without taking into account
+ * fences defined by the parent callers
+ */
+export function isolate<T extends TToken>(
+  method: TTokenizerMethod<T>
+): TTokenizerMethod<T> {
+  return (ctx: TokenizerContext): T | undefined => {
+    return ctx.isolate<T>(() => method(ctx));
+  };
 }
 
 export function newCompositeTokenizer(

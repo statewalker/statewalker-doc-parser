@@ -3,7 +3,7 @@ import {
   type TTokenizerMethod,
   type TokenizerContext,
   newDynamicFencedBlockReader,
-  TFencedBlockToken,
+  isolate,
 } from "../base/index.ts";
 import { readHtmlName } from "./names.ts";
 import { newHtmlAttributeReader } from "./attributes.ts";
@@ -64,35 +64,39 @@ export interface THtmlOpenTagToken extends TToken {
   type: "HtmlOpenTag";
   autoclosing: boolean;
 }
+
 export function newHtmlOpenTagReader(
   readToken: TTokenizerMethod = () => undefined
 ): TTokenizerMethod<THtmlOpenTagToken> {
   const readAttribute = newHtmlAttributeReader(readToken);
-  const readOpenTag = newDynamicFencedBlockReader(
-    "HtmlOpenTag",
-    readHtmlTagStart,
-    () =>
-      (ctx: TokenizerContext): TToken | undefined => {
-        return readToken(ctx) || readAttribute(ctx);
-      },
-    () => readHtmlTagEnd
+  const readOpenTag = isolate(
+    newDynamicFencedBlockReader(
+      "HtmlOpenTag",
+      readHtmlTagStart,
+      () =>
+        (ctx: TokenizerContext): TToken | undefined => {
+          return readToken(ctx) || readAttribute(ctx);
+        },
+      () => readHtmlTagEnd
+    )
   );
-  return (ctx: TokenizerContext) : THtmlOpenTagToken | undefined => {
+  return (ctx: TokenizerContext): THtmlOpenTagToken | undefined => {
     const token = readOpenTag(ctx);
-    if (!token) return ;
+    if (!token) return;
     const nameToken = token.startToken.children?.[0];
-    if (!nameToken) return ;
+    if (!nameToken) return;
     nameToken.type = "HtmlTagName";
     const closingToken = token.endToken;
     const autoclosing = !!closingToken?.autoclosing;
     const children = [nameToken];
     if (token.children) children.push(...token.children);
     return {
-      type : "HtmlOpenTag",
+      type: "HtmlOpenTag",
       start: token.start,
       end: token.end,
+      value: token.value,
       autoclosing,
-      children
+      children,
     } as THtmlOpenTagToken;
-  }
+  };
 }

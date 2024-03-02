@@ -15,6 +15,7 @@ export const testData: TTestData[] = [
           start: 0,
           end: 2,
           autoclosing: false,
+          value: "<a",
           children: [
             {
               type: "HtmlTagName",
@@ -24,6 +25,95 @@ export const testData: TTestData[] = [
               value: "a",
             },
           ],
+        },
+      ],
+    },
+  },
+
+  {
+    input: "\n\n  <a \n\n b='B' \n\n c='C'\n\n> \n\n",
+    description: `should isolate inner token content from external fences (EOLs)`,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 30,
+      value: "\n\n  <a \n\n b='B' \n\n c='C'\n\n> \n\n",
+      children: [
+        {
+          type: "Eol",
+          value: "\n\n",
+          start: 0,
+          end: 2,
+        },
+        {
+          type: "HtmlOpenTag",
+          start: 4,
+          end: 27,
+          autoclosing: false,
+          value: "<a \n\n b='B' \n\n c='C'\n\n>",
+          children: [
+            {
+              type: "HtmlTagName",
+              name: "a",
+              start: 5,
+              end: 6,
+              value: "a",
+            },
+            {
+              type: "HtmlAttribute",
+              start: 10,
+              end: 15,
+              value: "b='B'",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "b",
+                  start: 10,
+                  end: 11,
+                  value: "b",
+                },
+                {
+                  type: "HtmlValue",
+                  start: 12,
+                  end: 15,
+                  value: "'B'",
+                  quoted: true,
+                  valueStart: 13,
+                  valueEnd: 14,
+                },
+              ],
+            },
+            {
+              type: "HtmlAttribute",
+              start: 19,
+              end: 24,
+              value: "c='C'",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "c",
+                  start: 19,
+                  end: 20,
+                  value: "c",
+                },
+                {
+                  type: "HtmlValue",
+                  start: 21,
+                  end: 24,
+                  value: "'C'",
+                  quoted: true,
+                  valueStart: 22,
+                  valueEnd: 23,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "Eol",
+          value: "\n\n",
+          start: 28,
+          end: 30,
         },
       ],
     },
@@ -43,6 +133,7 @@ export const testData: TTestData[] = [
           start: 0,
           end: 9,
           autoclosing: false,
+          value: "<a b='c'>",
           children: [
             {
               type: "HtmlTagName",
@@ -95,6 +186,7 @@ export const testData: TTestData[] = [
           start: 7,
           end: 14,
           autoclosing: false,
+          value: "<a attr",
           children: [
             {
               type: "HtmlTagName",
@@ -138,6 +230,7 @@ export const testData: TTestData[] = [
           start: 7,
           end: 32,
           autoclosing: false,
+          value: "<a attr1=val1 attr2=val2 ",
           children: [
             {
               type: "HtmlTagName",
@@ -214,6 +307,7 @@ export const testData: TTestData[] = [
           start: 7,
           end: 55,
           autoclosing: false,
+          value: "<a attr1=val1 attr2='a b c' attr3='\" quoted \"' >",
           children: [
             {
               type: "HtmlTagName",
@@ -316,6 +410,7 @@ export const testData: TTestData[] = [
           start: 7,
           end: 59,
           autoclosing: false,
+          value: "<a attr='a <b c=`x` d=\"y\"></b>' attr3='\" quoted \"' >",
           children: [
             {
               type: "HtmlTagName",
@@ -392,6 +487,7 @@ export const testData: TTestData[] = [
           start: 0,
           end: 41,
           autoclosing: true,
+          value: "<tag ${ code block } x=${y} n='a${c}b' />",
           children: [
             {
               type: "HtmlTagName",
@@ -488,6 +584,7 @@ export const testData: TTestData[] = [
           start: 0,
           end: 22,
           autoclosing: true,
+          value: "<tag ${ code block  />",
           children: [
             {
               type: "HtmlTagName",
@@ -523,6 +620,7 @@ export const testData: TTestData[] = [
           type: "HtmlOpenTag",
           start: 0,
           end: 40,
+          value: "<tag attr='x${ code block' attr2=val2 />",
           autoclosing: true,
           children: [
             {
