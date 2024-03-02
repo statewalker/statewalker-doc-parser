@@ -38,9 +38,9 @@ export class TokenizerFences {
   }
 
   _addIsolationLevel() {
-    const level = this.isolations.length;
+    // let level = this.isolations.length;
     this.isolations.push(this.fences.length);
-    return level;
+    return this.isolations.length;
   }
 
   addFence = (f: TTokenizerMethod) => {
@@ -67,7 +67,7 @@ export class TokenizerFences {
   };
 
   _resetIsolationLevel = (isolationLevel: number): void => {
-    while (this.isolations.length > isolationLevel) {
+    while (this.isolations.length >= isolationLevel) {
       this.isolations.pop();
     }
   };

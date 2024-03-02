@@ -829,4 +829,136 @@ export const testData: TTestData[] = [
       ],
     },
   },
+
+  {
+    input:
+      "<div>before <em><a href=http://www.google.com>Google</a> after</em></div>",
+    description: `should read opening and closing tags`,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 73,
+      value:
+        "<div>before <em><a href=http://www.google.com>Google</a> after</em></div>",
+      children: [
+        {
+          type: "HtmlOpenTag",
+          start: 0,
+          end: 5,
+          value: "<div>",
+          autoclosing: false,
+          children: [
+            {
+              type: "HtmlTagName",
+              name: "div",
+              start: 1,
+              end: 4,
+              value: "div",
+            },
+          ],
+        },
+        {
+          type: "HtmlOpenTag",
+          start: 12,
+          end: 16,
+          value: "<em>",
+          autoclosing: false,
+          children: [
+            {
+              type: "HtmlTagName",
+              name: "em",
+              start: 13,
+              end: 15,
+              value: "em",
+            },
+          ],
+        },
+        {
+          type: "HtmlOpenTag",
+          start: 16,
+          end: 46,
+          value: "<a href=http://www.google.com>",
+          autoclosing: false,
+          children: [
+            {
+              type: "HtmlTagName",
+              name: "a",
+              start: 17,
+              end: 18,
+              value: "a",
+            },
+            {
+              type: "HtmlAttribute",
+              start: 19,
+              end: 45,
+              value: "href=http://www.google.com",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "href",
+                  start: 19,
+                  end: 23,
+                  value: "href",
+                },
+                {
+                  type: "HtmlValue",
+                  value: "http://www.google.com",
+                  start: 24,
+                  end: 45,
+                  quoted: false,
+                  valueStart: 24,
+                  valueEnd: 45,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "HtmlCloseTag",
+          start: 52,
+          end: 56,
+          value: "</a>",
+          children: [
+            {
+              type: "HtmlName",
+              name: "a",
+              start: 54,
+              end: 55,
+              value: "a",
+            },
+          ],
+        },
+        {
+          type: "HtmlCloseTag",
+          start: 62,
+          end: 67,
+          value: "</em>",
+          children: [
+            {
+              type: "HtmlName",
+              name: "em",
+              start: 64,
+              end: 66,
+              value: "em",
+            },
+          ],
+        },
+        {
+          type: "HtmlCloseTag",
+          start: 67,
+          end: 73,
+          value: "</div>",
+          children: [
+            {
+              type: "HtmlName",
+              name: "div",
+              start: 69,
+              end: 72,
+              value: "div",
+            },
+          ],
+        },
+      ],
+    },
+  },
 ];

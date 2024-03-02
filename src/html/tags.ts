@@ -71,16 +71,14 @@ export function newHtmlOpenTagReader(
   readToken: TTokenizerMethod = () => undefined
 ): TTokenizerMethod<THtmlOpenTagToken> {
   const readAttribute = newHtmlAttributeReader(readToken);
-  const readOpenTag = isolate(
-    newDynamicFencedBlockReader(
-      "HtmlOpenTag",
-      readHtmlTagStart,
-      () =>
-        (ctx: TokenizerContext): TToken | undefined => {
-          return readToken(ctx) || readAttribute(ctx);
-        },
-      () => readHtmlTagEnd
-    )
+  const readOpenTag = newDynamicFencedBlockReader(
+    "HtmlOpenTag",
+    readHtmlTagStart,
+    () =>
+      (ctx: TokenizerContext): TToken | undefined => {
+        return readToken(ctx) || readAttribute(ctx);
+      },
+    () => readHtmlTagEnd
   );
   return (ctx: TokenizerContext): THtmlOpenTagToken | undefined => {
     const token = readOpenTag(ctx);
