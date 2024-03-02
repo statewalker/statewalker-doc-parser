@@ -1,5 +1,5 @@
 # TKNZ: token-based AST builder for documents
-## Parser for HTML and Markdown documents
+## Parser for HTML and Markdown documents
 
 Small, tolerant and fast MD AST builder.
 
