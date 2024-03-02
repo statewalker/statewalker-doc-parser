@@ -21,15 +21,19 @@ export function newHtmlValueReader(
   if (readToken) tokenizers.push(readToken);
   const read = newCompositeTokenizer(tokenizers);
   {
+    // ------------------------------
+    // Quoted values
     const readQuotedText = newQuotedTextReader(() => readToken);
     tokenizers.push(readQuotedText);
 
-    tokenizers.push(
-      newCharsReader("String", (char) => {
-        return !!char.match(/\S/);
-      })
-    );
+    // ------------------------------
+    // Simple string values, without quotes
+    const readStringValue = newCharsReader("String", (char) => {
+      return !!char.match(/\S/) && char !== ">";
+    });
+    tokenizers.push(readStringValue);
   }
+
   return (ctx: TokenizerContext) => {
     const token = read(ctx);
     if (!token) return;

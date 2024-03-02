@@ -3,7 +3,7 @@ import { type TTestData } from "../data.types.ts";
 export const testData: TTestData[] = [
   {
     input: "<a",
-    description: `should read simple tags`,
+    description: `should read simple opening tags`,
     expected: {
       type: "Block",
       start: 0,
@@ -695,6 +695,134 @@ export const testData: TTestData[] = [
                   valueEnd: 37,
                 },
               ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  // ------------------------------------------------------------
+
+  {
+    input: "</a>",
+    description: `should read simple closing tag`,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 4,
+      value: "</a>",
+      children: [
+        {
+          type: "HtmlCloseTag",
+          start: 0,
+          end: 4,
+          value: "</a>",
+          children: [
+            {
+              type: "HtmlName",
+              name: "a",
+              start: 2,
+              end: 3,
+              value: "a",
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  {
+    input: "</a    \n\n  \n\n  \n>",
+    description: `should read closing tags with spaces and EOLs`,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 17,
+      value: "</a    \n\n  \n\n  \n>",
+      children: [
+        {
+          type: "HtmlCloseTag",
+          start: 0,
+          end: 17,
+          value: "</a    \n\n  \n\n  \n>",
+          children: [
+            {
+              type: "HtmlName",
+              name: "a",
+              start: 2,
+              end: 3,
+              value: "a",
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  // ------------------------------------------------------------
+
+  {
+    input: "before <a href=http://www.google.com>Google</a> after",
+    description: `should read opening and closing tags`,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 53,
+      value: "before <a href=http://www.google.com>Google</a> after",
+      children: [
+        {
+          type: "HtmlOpenTag",
+          start: 7,
+          end: 37,
+          value: "<a href=http://www.google.com>",
+          autoclosing: false,
+          children: [
+            {
+              type: "HtmlTagName",
+              name: "a",
+              start: 8,
+              end: 9,
+              value: "a",
+            },
+            {
+              type: "HtmlAttribute",
+              start: 10,
+              end: 36,
+              value: "href=http://www.google.com",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "href",
+                  start: 10,
+                  end: 14,
+                  value: "href",
+                },
+                {
+                  type: "HtmlValue",
+                  value: "http://www.google.com",
+                  start: 15,
+                  end: 36,
+                  quoted: false,
+                  valueStart: 15,
+                  valueEnd: 36,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "HtmlCloseTag",
+          start: 43,
+          end: 47,
+          value: "</a>",
+          children: [
+            {
+              type: "HtmlName",
+              name: "a",
+              start: 45,
+              end: 46,
+              value: "a",
             },
           ],
         },

@@ -4,6 +4,8 @@ import {
   type TokenizerContext,
   newDynamicFencedBlockReader,
   isolate,
+  isSpace,
+  isSpaceOrEol,
 } from "../base/index.ts";
 import { readHtmlName } from "./names.ts";
 import { newHtmlAttributeReader } from "./attributes.ts";
@@ -98,5 +100,32 @@ export function newHtmlOpenTagReader(
       autoclosing,
       children,
     } as THtmlOpenTagToken;
+  };
+}
+
+export interface THtmlCloseTagToken extends TToken {
+  type: "HtmlCloseTag";
+}
+
+export function newHtmlCloseTagReader(): TTokenizerMethod<THtmlCloseTagToken> {
+  return (ctx: TokenizerContext): THtmlCloseTagToken | undefined => {
+    return ctx.guard(() => {
+      const start = ctx.i;
+      if (ctx.getChar(+0) !== "<" || ctx.getChar(+1) !== "/") return;
+      ctx.i += 2;
+      const name = readHtmlName(ctx);
+      if (!name) return;
+      ctx.skipWhile(isSpaceOrEol);
+      if (ctx.getChar() !== ">") return;
+      ctx.i++;
+      const end = ctx.i;
+      return {
+        type: "HtmlCloseTag",
+        start,
+        end,
+        value: ctx.substring(start, end),
+        children: [name],
+      };
+    });
   };
 }
