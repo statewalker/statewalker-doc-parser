@@ -35,12 +35,25 @@ export function newHtmlValueReader(
     if (!token) return;
     const quoted = token.type === "QuotedText";
     const inc = quoted ? 1 : 0;
-    return {
-      ...token,
-      type: "HtmlValue",
-      quoted,
-      valueStart: token.start + inc,
-      valueEnd: token.end - inc,
-    } as TAttributeValueToken;
+    return (
+      token.type === "String" || token.type === "QuotedText"
+        ? {
+            ...token,
+            type: "HtmlValue",
+            quoted,
+            valueStart: token.start + inc,
+            valueEnd: token.end - inc,
+          }
+        : {
+            type: "HtmlValue",
+            quoted: false,
+            start: token.start,
+            end: token.end,
+            valueStart: token.start,
+            valueEnd: token.end,
+            value: token.value,
+            children: [token],
+          }
+    ) as TAttributeValueToken;
   };
 }

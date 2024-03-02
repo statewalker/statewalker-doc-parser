@@ -486,8 +486,8 @@ export const testData: TTestData[] = [
           type: "HtmlOpenTag",
           start: 0,
           end: 41,
-          autoclosing: true,
           value: "<tag ${ code block } x=${y} n='a${c}b' />",
+          autoclosing: true,
           children: [
             {
               type: "HtmlTagName",
@@ -519,14 +519,22 @@ export const testData: TTestData[] = [
                 },
                 {
                   type: "HtmlValue",
-                  codeStart: 25,
-                  codeEnd: 26,
+                  quoted: false,
                   start: 23,
                   end: 27,
-                  value: "${y}",
-                  quoted: false,
                   valueStart: 23,
                   valueEnd: 27,
+                  value: "${y}",
+                  children: [
+                    {
+                      type: "Code",
+                      codeStart: 25,
+                      codeEnd: 26,
+                      start: 23,
+                      end: 27,
+                      value: "${y}",
+                    },
+                  ],
                 },
               ],
             },

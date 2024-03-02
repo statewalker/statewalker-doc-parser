@@ -46,24 +46,32 @@ describe("readHtmlAttribute", () => {
     // because it is between backticks.
     test("${b `${c d e}` f} XYZ", {
       type: "HtmlValue",
-      codeStart: 2,
-      codeEnd: 16,
+      quoted: false,
       start: 0,
       end: 17,
+      valueStart: 0,
+      valueEnd: 17,
       value: "${b `${c d e}` f}",
       children: [
         {
           type: "Code",
-          codeStart: 7,
-          codeEnd: 12,
-          start: 5,
-          end: 13,
-          value: "${c d e}",
+          codeStart: 2,
+          codeEnd: 16,
+          start: 0,
+          end: 17,
+          value: "${b `${c d e}` f}",
+          children: [
+            {
+              type: "Code",
+              codeStart: 7,
+              codeEnd: 12,
+              start: 5,
+              end: 13,
+              value: "${c d e}",
+            },
+          ],
         },
       ],
-      quoted: false,
-      valueStart: 0,
-      valueEnd: 17,
     });
   });
 
