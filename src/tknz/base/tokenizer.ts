@@ -195,7 +195,7 @@ export class TokenizerContext {
 
 /**
  * Wraps the specified method in a function providing isolation from existing fences
- * for the given method, ie this method will execute if there is no fences defined
+ * for the given method, ie this method will run if there is no fences defined
  * by parent callers.
  * @param method the method to isolate
  * @returns an isolated version of the method, running without taking into account

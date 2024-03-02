@@ -4,6 +4,7 @@ import {
   type TokenizerContext,
   newCompositeTokenizer,
   newCharsReader,
+  newQuotedTextReader,
 } from "../base/index.ts";
 
 export interface TAttributeValueToken extends TToken {
@@ -13,64 +14,6 @@ export interface TAttributeValueToken extends TToken {
   valueEnd: number;
 }
 
-export function newQuotedTextReader(
-  readToken?: TTokenizerMethod
-): TTokenizerMethod {
-  return (ctx: TokenizerContext) => {
-    const quote = ctx.getChar();
-    if (quote !== "'" && quote !== '"' && quote !== "`") return;
-    return ctx.guard((fences) => {
-      const start = ctx.i;
-      fences.addFence(newCharsReader("QuotedText", (char) => char === quote));
-      ctx.i++;
-
-      let escaped = false;
-      let children: TToken[] | undefined;
-      while (ctx.i < ctx.length) {
-        const ch = ctx.getChar();
-        if (escaped) {
-          escaped = false;
-        } else if (ch === quote) {
-          ctx.i++;
-          break;
-        } else if (ch === "\\") {
-          escaped = true;
-        } else if (
-          ch !== "<" &&
-          ch !== ">" &&
-          ch !== "&" &&
-          ch !== "/" &&
-          ch !== '"' &&
-          ch !== "'" &&
-          ch !== "`"
-        ) {
-          if (fences.isFenceBoundary()) {
-            break;
-          } else if (readToken) {
-            const token = readToken(ctx);
-            if (token) {
-              if (!children) children = [];
-              children.push(token);
-              ctx.i = token.end;
-              continue;
-            }
-          }
-        }
-        ctx.i++;
-      }
-      const end = ctx.i;
-      const result: TToken = {
-        type: "QuotedText",
-        start,
-        end,
-        value: ctx.substring(start, end),
-      };
-      if (children) result.children = children;
-      return result;
-    });
-  };
-}
-
 export function newHtmlValueReader(
   readToken?: TTokenizerMethod
 ): TTokenizerMethod<TAttributeValueToken> {
@@ -78,7 +21,7 @@ export function newHtmlValueReader(
   if (readToken) tokenizers.push(readToken);
   const read = newCompositeTokenizer(tokenizers);
   {
-    const readQuotedText = newQuotedTextReader(readToken);
+    const readQuotedText = newQuotedTextReader(() => readToken);
     tokenizers.push(readQuotedText);
 
     tokenizers.push(

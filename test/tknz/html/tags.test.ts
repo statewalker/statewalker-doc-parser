@@ -6,7 +6,7 @@ import { newCodeReader } from "../../../src/tknz/code/index.ts";
 import { newHtmlOpenTagReader } from "../../../src/tknz/html/index.ts";
 import { describe, it } from "../../deps.ts";
 import { newBlockTest } from "./newBlockTest.ts";
-import { testData } from "./html-tags.data.ts";
+import { testData } from "./tags.data.ts";
 
 describe("readHtmlTag", () => {
   const readCode = newCodeReader();

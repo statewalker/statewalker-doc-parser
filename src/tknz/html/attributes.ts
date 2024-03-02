@@ -3,6 +3,7 @@ import {
   type TTokenizerMethod,
   type TokenizerContext,
   isSpaceOrEol,
+  isolate,
 } from "../base/index.ts";
 import { readHtmlName } from "./names.ts";
 import { newHtmlValueReader } from "./values.ts";
@@ -13,7 +14,7 @@ export interface THtmlAttributeToken extends TToken {
 export function newHtmlAttributeReader(
   readToken: TTokenizerMethod = () => undefined
 ): TTokenizerMethod<THtmlAttributeToken> {
-  const readValue = newHtmlValueReader(readToken);
+  const readValue = isolate(newHtmlValueReader(readToken));
   return (ctx: TokenizerContext) =>
     ctx.guard(() => {
       const start = ctx.i;
