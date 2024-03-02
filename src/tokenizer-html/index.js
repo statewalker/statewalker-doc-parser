@@ -1,9 +1,0 @@
-export { default as newHtmlRawTagParser } from "./newHtmlRawTagParser.js";
-export { default as readHtmlAttribute } from "./readHtmlAttribute.js";
-export { default as readHtmlEntity } from "./readHtmlEntity.js";
-export { default as readHtmlInstructions } from "./readHtmlInstructions.js";
-export { default as readHtmlSymbols } from "./readHtmlSymbols.js";
-export { default as readHtmlTag } from "./readHtmlTag.js";
-export { default as readHtmlToken } from "./readHtmlToken.js";
-export { default as readHtmlTokens } from "./readHtmlTokens.js";
-export { default as splitToHtmlTokens } from "./splitToHtmlTokens.js";

@@ -1,7 +1,7 @@
 {
   "name": "@statewalker/parse-mdoc",
   "version": "0.0.1",
-  "description": "A simple HTML Parser",
+  "description": "MD/HTML Parser",
   "keywords": [],
   "homepage": "https://github.com/statewalker/statewalker-parse-mdoc",
   "author": {
@@ -13,31 +13,30 @@
   "files": [
     "dist/**/package.json",
     "dist/**/*.js",
-    "src/**/*.js",
-    "index.js"
+    "src/**/*.ts",
+    "index.ts"
   ],
-  "module": "src/index.js",
-  "main": "src/index.js",
+  "module": "dist/index.js",
+  "main": "dist/index.js",
   "jsdelivr": "dist/index.js",
   "unpkg": "dist/index.js",
   "exports": {
-    "umd": "./dist/index-umd.min.js",
-    "default": "./src/index.js"
+    "default": "./src/index.ts"
   },
-  "dependencies": {
-    "@statewalker/fsm": "^0.16.0",
-    "@statewalker/tree": "^0.10.2",
-    "uc.micro": "^2.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/node": "^20.11.16",
-    "eslint": "^8",
-    "expect.js": "^0.3",
-    "mocha": "^10",
-    "rollup": "^3",
-    "tsup": "^8.0.1",
-    "typescript": "^5.3.3",
-    "vitest": "^1.2.2"
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "fast-deep-equal": "^3.1.3",
+    "prettier": "^3.0.3 <3.1",
+    "tsup": "^8",
+    "typescript": "^5.2.2",
+    "vitest": "^1"
   },
   "repository": {
     "type": "git",
@@ -48,8 +47,8 @@
     "watch": "tsup --watch",
     "clean": "rm -rf dist",
     "lint": "eslint \"**/*.ts\"",
-    "test-vitest": "vitest --watch",
-    "test": "mocha -R spec ./test/index.js && yarn eslint",
+    "test:watch": "vitest --watch",
+    "test": "vitest && yarn lint",
     "prepublishOnly": "rm -rf dist && yarn test && yarn build"
   },
   "sideEffects": false,
