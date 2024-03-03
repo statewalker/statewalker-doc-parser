@@ -27,7 +27,9 @@ export function newBlockTest(
       expect(token.start).toEqual(0);
       expect(token.value).toEqual(str.substring(token.start, token.end));
     } catch (error) {
-      console.log(JSON.stringify(result, null, 2));
+      let str = JSON.stringify(result, null, 2);
+      if (str.length > 1000) str = JSON.stringify(result);
+      console.log(str);
       throw error;
     }
   };

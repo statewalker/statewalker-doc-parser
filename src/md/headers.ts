@@ -5,6 +5,7 @@ import {
   TokenizerContext,
   isEol,
   isSpace,
+  isSpaceOrEol,
   newFencedBlockReader,
   readNewLines,
 } from "../base";
@@ -22,7 +23,7 @@ export function readMdHeaderStart(
     const eolPos = ctx.skipWhile(isEol);
     if (start > 0 && eolPos === start) return;
 
-    ctx.skipWhile(isSpace);
+    ctx.skipWhile(isSpaceOrEol);
     let level = 0;
     for (level = 0; level <= 6; level++) {
       if (ctx.getChar(level) !== "#") break;
@@ -66,7 +67,7 @@ export function readMdHeaderEnd(
 export interface TMdHeaderToken extends TFencedBlockToken {
   type: "MdHeader";
 }
-export function newMdHeaderReader(readToken: TTokenizerMethod) : TTokenizerMethod<TMdHeaderToken> {
+export function newMdHeaderReader(readToken?: TTokenizerMethod) : TTokenizerMethod<TMdHeaderToken> {
   return newFencedBlockReader(
     "MdHeader",
     readMdHeaderStart,
