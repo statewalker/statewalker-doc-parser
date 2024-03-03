@@ -651,4 +651,215 @@ export const testData: TTestData[] = [
       ],
     },
   },
+
+  {
+    description: `should handle non-closed code blocks in tags`,
+    input: "before <div> A ${B C </div> after",
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 33,
+      value: "before <div> A ${B C </div> after",
+      children: [
+        {
+          type: "HtmlTag",
+          start: 7,
+          end: 27,
+          startToken: {
+            type: "HtmlOpenTag",
+            start: 7,
+            end: 12,
+            value: "<div>",
+            autoclosing: false,
+            children: [
+              {
+                type: "HtmlTagName",
+                name: "div",
+                start: 8,
+                end: 11,
+                value: "div",
+              },
+            ],
+          },
+          value: "<div> A ${B C </div>",
+          endToken: {
+            type: "HtmlCloseTag",
+            start: 21,
+            end: 27,
+            value: "</div>",
+            children: [
+              {
+                type: "HtmlName",
+                name: "div",
+                start: 23,
+                end: 26,
+                value: "div",
+              },
+            ],
+          },
+          children: [
+            {
+              type: "Code",
+              codeStart: 17,
+              codeEnd: 21,
+              start: 15,
+              end: 21,
+              value: "${B C ",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    description: `should read non-quoted non-closed code blocks in attribute till the end`,
+    input: "before <div prop=${B C> content </div> after",
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 44,
+      value: "before <div prop=${B C> content </div> after",
+      children: [
+        {
+          type: "HtmlTag",
+          start: 7,
+          end: 44,
+          startToken: {
+            type: "HtmlOpenTag",
+            start: 7,
+            end: 44,
+            value: "<div prop=${B C> content </div> after",
+            autoclosing: false,
+            children: [
+              {
+                type: "HtmlTagName",
+                name: "div",
+                start: 8,
+                end: 11,
+                value: "div",
+              },
+              {
+                type: "HtmlAttribute",
+                start: 12,
+                end: 44,
+                value: "prop=${B C> content </div> after",
+                children: [
+                  {
+                    type: "HtmlName",
+                    name: "prop",
+                    start: 12,
+                    end: 16,
+                    value: "prop",
+                  },
+                  {
+                    type: "HtmlValue",
+                    quoted: false,
+                    start: 17,
+                    end: 44,
+                    valueStart: 17,
+                    valueEnd: 44,
+                    value: "${B C> content </div> after",
+                    children: [
+                      {
+                        type: "Code",
+                        codeStart: 19,
+                        codeEnd: 44,
+                        start: 17,
+                        end: 44,
+                        value: "${B C> content </div> after",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          value: "<div prop=${B C> content </div> after",
+        },
+      ],
+    },
+  },
+  {
+    description: `should automatically close non-closed code blocks in quoted tag attributes`,
+    input: "before <div prop='${B C'> content </div> after",
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 46,
+      value: "before <div prop='${B C'> content </div> after",
+      children: [
+        {
+          type: "HtmlTag",
+          start: 7,
+          end: 40,
+          startToken: {
+            type: "HtmlOpenTag",
+            start: 7,
+            end: 25,
+            value: "<div prop='${B C'>",
+            autoclosing: false,
+            children: [
+              {
+                type: "HtmlTagName",
+                name: "div",
+                start: 8,
+                end: 11,
+                value: "div",
+              },
+              {
+                type: "HtmlAttribute",
+                start: 12,
+                end: 24,
+                value: "prop='${B C'",
+                children: [
+                  {
+                    type: "HtmlName",
+                    name: "prop",
+                    start: 12,
+                    end: 16,
+                    value: "prop",
+                  },
+                  {
+                    type: "HtmlValue",
+                    start: 17,
+                    end: 24,
+                    value: "'${B C'",
+                    children: [
+                      {
+                        type: "Code",
+                        codeStart: 20,
+                        codeEnd: 23,
+                        start: 18,
+                        end: 23,
+                        value: "${B C",
+                      },
+                    ],
+                    quoted: true,
+                    valueStart: 18,
+                    valueEnd: 23,
+                  },
+                ],
+              },
+            ],
+          },
+          value: "<div prop='${B C'> content </div>",
+          endToken: {
+            type: "HtmlCloseTag",
+            start: 34,
+            end: 40,
+            value: "</div>",
+            children: [
+              {
+                type: "HtmlName",
+                name: "div",
+                start: 36,
+                end: 39,
+                value: "div",
+              },
+            ],
+          },
+        },
+      ],
+    },
+  },
 ];

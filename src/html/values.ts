@@ -5,6 +5,7 @@ import {
   newCompositeTokenizer,
   newCharsReader,
   newQuotedTextReader,
+  isolate,
 } from "../base/index.ts";
 
 export interface TAttributeValueToken extends TToken {
@@ -18,7 +19,7 @@ export function newHtmlValueReader(
   readToken?: TTokenizerMethod
 ): TTokenizerMethod<TAttributeValueToken> {
   const tokenizers: TTokenizerMethod[] = [];
-  if (readToken) tokenizers.push(readToken);
+  if (readToken) tokenizers.push(isolate(readToken));
   const read = newCompositeTokenizer(tokenizers);
   {
     // ------------------------------
@@ -29,7 +30,7 @@ export function newHtmlValueReader(
     // ------------------------------
     // Simple string values, without quotes
     const readStringValue = newCharsReader("String", (char) => {
-      return !!char.match(/\S/) && char !== ">";
+      return !!char.match(/\S/) && char !== "<" && char !== ">";
     });
     tokenizers.push(readStringValue);
   }

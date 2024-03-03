@@ -73,24 +73,63 @@ export function newTextFencedBlockReader<T extends TFencedBlockToken>(
 }
 
 export function newQuotedTextReader(
-  newTokensReader: (token: TToken) => TTokenizerMethod | undefined = () =>
+  newTokensReader: (quote: string) => TTokenizerMethod | undefined = () =>
     undefined,
-  isQuote = (char: string) => char === '"' || char === "'" || char === "`",
-  isPairQuote = (char: string, quote: string) => char === quote
+  {
+    isQuote = (char: string) => char === '"' || char === "'" || char === "`",
+    isPairQuote = (char: string, quote: string) => char === quote,
+    isSkipped = (char: string) => char === "<" || char === ">",
+    isEscapeSymbol = (char: string) => char === "\\",
+  }: {
+    isQuote?: (char: string) => boolean;
+    isPairQuote?: (char: string, quote: string) => boolean;
+    isSkipped?: (char: string) => boolean;
+    isEscapeSymbol?: (char: string) => boolean;
+  } = {}
 ): TTokenizerMethod {
-  const readQuotedText = newDynamicFencedBlockReader(
-    "QuotedText",
-    newCharReader("QuoteOpen", isQuote),
-    newTokensReader,
-    (quote: TToken) =>
-      newCharReader("QuoteClose", (char) => isPairQuote(char, quote.value))
-  );
   return (ctx: TokenizerContext) => {
-    const token = readQuotedText(ctx);
-    if (!token) return;
-    const t = token as TToken;
-    delete t.startToken;
-    delete t.endToken;
-    return token;
+    const quote = ctx.getChar();
+    if (!isQuote(quote)) return;
+    return ctx.guard((fences) => {
+      fences.addFence(newCharReader("QuoteClose", (char) => isPairQuote(char, quote)));
+      const readToken = newTokensReader(quote);
+      const start = ctx.i;
+      ctx.i++;
+      let escaped = false;
+      let children: TToken[] | undefined;
+      while (ctx.i < ctx.length) {
+        const ch = ctx.getChar();
+        if (escaped) {
+          escaped = false;
+        } else if (isEscapeSymbol(ch)) {
+          escaped = true;
+        } else if (isPairQuote(ch, quote)) {
+          ctx.i++;
+          break;
+        } else if (!isSkipped(ch)) {
+          if (fences.isFenceBoundary()) {
+            break;
+          } else if (readToken) {
+            const token = readToken(ctx);
+            if (token) {
+              children = children || [];
+              children.push(token);
+              ctx.i = token.end;
+              continue;
+            }
+          }
+        }
+        ctx.i++;
+      }
+      const end = ctx.i;
+      const result: TToken = {
+        type: "QuotedText",
+        start,
+        end,
+        value: ctx.substring(start, end),
+      };
+      if (children) result.children = children;
+      return result;
+    });
   };
 }

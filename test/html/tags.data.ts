@@ -409,8 +409,8 @@ export const testData: TTestData[] = [
           type: "HtmlOpenTag",
           start: 7,
           end: 59,
-          autoclosing: false,
           value: "<a attr='a <b c=`x` d=\"y\"></b>' attr3='\" quoted \"' >",
+          autoclosing: false,
           children: [
             {
               type: "HtmlTagName",
@@ -464,6 +464,186 @@ export const testData: TTestData[] = [
                   quoted: true,
                   valueStart: 46,
                   valueEnd: 56,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  {
+    input:
+      "before <a attr='a <b c=`x` d=\"${code block}\"></b>' attr3='\" quoted \"' > after",
+    description: `should read tags containing attributes with angle brackets and code`,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 77,
+      value:
+        "before <a attr='a <b c=`x` d=\"${code block}\"></b>' attr3='\" quoted \"' > after",
+      children: [
+        {
+          type: "HtmlOpenTag",
+          start: 7,
+          end: 71,
+          value:
+            "<a attr='a <b c=`x` d=\"${code block}\"></b>' attr3='\" quoted \"' >",
+          autoclosing: false,
+          children: [
+            {
+              type: "HtmlTagName",
+              name: "a",
+              start: 8,
+              end: 9,
+              value: "a",
+            },
+            {
+              type: "HtmlAttribute",
+              start: 10,
+              end: 50,
+              value: "attr='a <b c=`x` d=\"${code block}\"></b>'",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "attr",
+                  start: 10,
+                  end: 14,
+                  value: "attr",
+                },
+                {
+                  type: "HtmlValue",
+                  start: 15,
+                  end: 50,
+                  value: "'a <b c=`x` d=\"${code block}\"></b>'",
+                  children: [
+                    {
+                      type: "Code",
+                      codeStart: 32,
+                      codeEnd: 42,
+                      start: 30,
+                      end: 43,
+                      value: "${code block}",
+                    },
+                  ],
+                  quoted: true,
+                  valueStart: 16,
+                  valueEnd: 49,
+                },
+              ],
+            },
+            {
+              type: "HtmlAttribute",
+              start: 51,
+              end: 69,
+              value: "attr3='\" quoted \"'",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "attr3",
+                  start: 51,
+                  end: 56,
+                  value: "attr3",
+                },
+                {
+                  type: "HtmlValue",
+                  start: 57,
+                  end: 69,
+                  value: "'\" quoted \"'",
+                  quoted: true,
+                  valueStart: 58,
+                  valueEnd: 68,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  {
+    input:
+      "before <a attr='a <b c=`x` d=\"${code block\"></b>' attr3='\" quoted \"' > after",
+    description: `should read tags containing attributes with angle brackets and non-closed code blocks`,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 76,
+      value:
+        "before <a attr='a <b c=`x` d=\"${code block\"></b>' attr3='\" quoted \"' > after",
+      children: [
+        {
+          type: "HtmlOpenTag",
+          start: 7,
+          end: 70,
+          value:
+            "<a attr='a <b c=`x` d=\"${code block\"></b>' attr3='\" quoted \"' >",
+          autoclosing: false,
+          children: [
+            {
+              type: "HtmlTagName",
+              name: "a",
+              start: 8,
+              end: 9,
+              value: "a",
+            },
+            {
+              type: "HtmlAttribute",
+              start: 10,
+              end: 49,
+              value: "attr='a <b c=`x` d=\"${code block\"></b>'",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "attr",
+                  start: 10,
+                  end: 14,
+                  value: "attr",
+                },
+                {
+                  type: "HtmlValue",
+                  start: 15,
+                  end: 49,
+                  value: "'a <b c=`x` d=\"${code block\"></b>'",
+                  children: [
+                    {
+                      type: "Code",
+                      codeStart: 32,
+                      codeEnd: 43,
+                      start: 30,
+                      end: 43,
+                      value: '${code block"',
+                    },
+                  ],
+                  quoted: true,
+                  valueStart: 16,
+                  valueEnd: 48,
+                },
+              ],
+            },
+            {
+              type: "HtmlAttribute",
+              start: 50,
+              end: 68,
+              value: "attr3='\" quoted \"'",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "attr3",
+                  start: 50,
+                  end: 55,
+                  value: "attr3",
+                },
+                {
+                  type: "HtmlValue",
+                  start: 56,
+                  end: 68,
+                  value: "'\" quoted \"'",
+                  quoted: true,
+                  valueStart: 57,
+                  valueEnd: 67,
                 },
               ],
             },

@@ -14,7 +14,8 @@ export interface THtmlAttributeToken extends TToken {
 export function newHtmlAttributeReader(
   readToken: TTokenizerMethod = () => undefined
 ): TTokenizerMethod<THtmlAttributeToken> {
-  const readValue = isolate(newHtmlValueReader(readToken));
+  // const readValue = isolate(newHtmlValueReader(readToken));
+  const readValue = newHtmlValueReader(readToken);
   return (ctx: TokenizerContext) =>
     ctx.guard(() => {
       const start = ctx.i;
