@@ -8,7 +8,7 @@ import {
 } from "../base/index.ts";
 import { readHtmlEntity } from "./entities.ts";
 import { newInstructionsBlockReader } from "./instructions.ts";
-import { newHtmlCloseTagReader, newHtmlOpenTagReader } from "./tags.ts";
+import { isHtmlCloseTagToken, newHtmlCloseTagReader, newHtmlOpenTagReader } from "./tags.ts";
 
 export function newHtmlReader(
   readInnerToken?: TTokenizerMethod
@@ -19,7 +19,7 @@ export function newHtmlReader(
   const readOpenTag = newHtmlOpenTagReader(readInnerToken);
   const readCloseTag = newHtmlCloseTagReader();
 
-  function getTagName(token: TToken) {
+  function getTagName1(token: TToken) {
     const tagName = token.children?.[0].name;
     return tagName;
   }
@@ -28,8 +28,8 @@ export function newHtmlReader(
     return (ctx: TokenizerContext) =>
       ctx.guard(() => {
         const token = readCloseTag(ctx);
-        if (!token) return;
-        if (getTagName(token) !== name) return;
+        if (!token || !isHtmlCloseTagToken(token)) return;
+        if (token.tagName !== name) return;
         return token;
       });
   };
@@ -39,7 +39,6 @@ export function newHtmlReader(
     readOpenTag,
     () => readToken,
     (openTagToken) => {
-      const tagName = getTagName(openTagToken);
       if (openTagToken.autoclosing) {
         return (ctx: TokenizerContext) => {
           const start = ctx.i;
@@ -52,7 +51,7 @@ export function newHtmlReader(
           };
         };
       } else {
-        return newNamedHtmlCloseTagReader(tagName);
+        return newNamedHtmlCloseTagReader(openTagToken.tagName);
       }
     }
   );

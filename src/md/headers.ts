@@ -1,5 +1,4 @@
 import {
-  TFencedBlockToken,
   TToken,
   TTokenizerMethod,
   TokenizerContext,
@@ -64,14 +63,30 @@ export function readMdHeaderEnd(
   });
 }
 
-export interface TMdHeaderToken extends TFencedBlockToken {
+export interface TMdHeaderToken extends TToken {
   type: "MdHeader";
+  level: number;
 }
-export function newMdHeaderReader(readToken?: TTokenizerMethod) : TTokenizerMethod<TMdHeaderToken> {
-  return newFencedBlockReader(
+export function isMdHeaderToken(token?: TToken): token is TMdHeaderToken {
+  if (!token) return false;
+  return token.type === "MdHeader";
+}
+export function newMdHeaderReader(
+  readToken?: TTokenizerMethod
+): TTokenizerMethod<TMdHeaderToken> {
+  const readHeader = newFencedBlockReader(
     "MdHeader",
     readMdHeaderStart,
     readToken,
     readMdHeaderEnd
   );
+  return (ctx: TokenizerContext): TMdHeaderToken | undefined =>
+    ctx.guard<TMdHeaderToken>(() => {
+      const token = readHeader(ctx) as TMdHeaderToken;
+      if (!token) return;
+      const startToken = token.children?.[0] as TMdHeaderStartToken;
+      if (!startToken) return;
+      token.level = startToken.level;
+      return token;
+    });
 }

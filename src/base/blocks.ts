@@ -4,11 +4,6 @@ import {
   type TokenizerContext,
 } from "./tokenizer.ts";
 
-export interface TFencedBlockToken extends TToken {
-  startToken: TToken;
-  endToken?: TToken;
-}
-
 /**
  * Generic method to create a reader for a fenced block.
  * This method returns a reader consuming all characters until a fence
@@ -25,9 +20,7 @@ export interface TFencedBlockToken extends TToken {
  * @returns a tokenizer method consuming all characters until the end of the block
  * or a fence is found
  */
-export function newDynamicFencedBlockReader<
-  T extends TFencedBlockToken = TFencedBlockToken,
->(
+export function newDynamicFencedBlockReader<T extends TToken = TToken>(
   type: string,
   readStart: TTokenizerMethod,
   getContentTokenizer: (startToken: TToken) => TTokenizerMethod | undefined,
@@ -39,16 +32,17 @@ export function newDynamicFencedBlockReader<
       const startToken = readStart(ctx);
       let endToken: TToken | undefined;
       if (!startToken) return;
+      const children = [startToken];
       ctx.i = startToken.end;
 
       const readToken = getContentTokenizer(startToken) || (() => undefined);
       const readEnd = getEndTokenizer(startToken);
       if (readEnd) fences.addFence(readEnd);
 
-      let children: TToken[] | undefined;
       while (ctx.i < ctx.length) {
         endToken = readEnd?.(ctx);
         if (endToken) {
+          children.push(endToken);
           ctx.i = endToken.end;
           break;
         }
@@ -57,7 +51,6 @@ export function newDynamicFencedBlockReader<
         }
         const token = readToken(ctx);
         if (token) {
-          if (!children) children = [];
           children.push(token);
           ctx.i = token.end;
         } else {
@@ -65,16 +58,13 @@ export function newDynamicFencedBlockReader<
         }
       }
       const end = ctx.i;
-      const result = {
+      return {
         type,
         start,
         end,
-        startToken,
         value: ctx.substring(start, end),
+        children,
       } as T;
-      if (endToken) result.endToken = endToken;
-      if (children) result.children = children;
-      return result;
     });
 }
 
@@ -93,9 +83,7 @@ export function newDynamicFencedBlockReader<
  * @returns a tokenizer method consuming all characters until
  * the end of the block or a fence is found
  */
-export function newFencedBlockReader<
-  T extends TFencedBlockToken = TFencedBlockToken,
->(
+export function newFencedBlockReader<T extends TToken = TToken>(
   type: string,
   readStart: TTokenizerMethod,
   readToken?: TTokenizerMethod,

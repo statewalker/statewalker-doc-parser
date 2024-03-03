@@ -1,7 +1,7 @@
 import { type TTestData } from "../data.types.ts";
 
 export const testData: TTestData[] = [
-  {
+  { 
     input: " A B C ",
     description: "should read text and spaces",
     expected: {

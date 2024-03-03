@@ -161,9 +161,9 @@ describe("TokenizerContext", () => {
           type: "FencedBlock",
           start: 6,
           end: 18,
-          startToken: { type: "CodeStart", start: 6, end: 8, value: "${" },
           value: "${wonderful}",
           children: [
+            { type: "CodeStart", start: 6, end: 8, value: "${" },
             {
               type: "Text",
               start: 8,
@@ -173,8 +173,8 @@ describe("TokenizerContext", () => {
                 { type: "Word", start: 8, end: 17, value: "wonderful" },
               ],
             },
+            { type: "CodeEnd", start: 17, end: 18, value: "}" },
           ],
-          endToken: { type: "CodeEnd", start: 17, end: 18, value: "}" },
         },
         { type: "Word", start: 19, end: 24, value: "world" },
       ],
@@ -194,9 +194,9 @@ describe("TokenizerContext", () => {
           type: "FencedBlock",
           start: 7,
           end: 18,
-          startToken: { type: "CodeStart", start: 7, end: 9, value: "${" },
           value: "${A ${B} C}",
           children: [
+            { type: "CodeStart", start: 7, end: 9, value: "${" },
             {
               type: "Text",
               start: 9,
@@ -208,14 +208,14 @@ describe("TokenizerContext", () => {
                   type: "FencedBlock",
                   start: 11,
                   end: 15,
-                  startToken: {
-                    type: "CodeStart",
-                    start: 11,
-                    end: 13,
-                    value: "${",
-                  },
                   value: "${B}",
                   children: [
+                    {
+                      type: "CodeStart",
+                      start: 11,
+                      end: 13,
+                      value: "${",
+                    },
                     {
                       type: "Text",
                       start: 13,
@@ -225,14 +225,14 @@ describe("TokenizerContext", () => {
                         { type: "Word", start: 13, end: 14, value: "B" },
                       ],
                     },
+                    { type: "CodeEnd", start: 14, end: 15, value: "}" },
                   ],
-                  endToken: { type: "CodeEnd", start: 14, end: 15, value: "}" },
                 },
                 { type: "Word", start: 16, end: 17, value: "C" },
               ],
             },
+            { type: "CodeEnd", start: 17, end: 18, value: "}" },
           ],
-          endToken: { type: "CodeEnd", start: 17, end: 18, value: "}" },
         },
         { type: "Word", start: 19, end: 24, value: "after" },
       ],
@@ -266,9 +266,9 @@ describe("TokenizerContext", () => {
           type: "Code",
           start: 0,
           end: 9,
-          startToken: { type: "CodeStart", start: 0, end: 2, value: "${" },
           value: "${before}",
           children: [
+            { type: "CodeStart", start: 0, end: 2, value: "${" },
             {
               type: "Text",
               start: 2,
@@ -276,16 +276,16 @@ describe("TokenizerContext", () => {
               value: "before",
               children: [{ type: "Word", start: 2, end: 8, value: "before" }],
             },
+            { type: "CodeEnd", start: 8, end: 9, value: "}" },
           ],
-          endToken: { type: "CodeEnd", start: 8, end: 9, value: "}" },
         },
         {
           type: "Tag",
           start: 10,
           end: 33,
-          startToken: { type: "TagStart", start: 10, end: 16, value: "<code>" },
           value: "<code> A ${B} C </code>",
           children: [
+            { type: "TagStart", start: 10, end: 16, value: "<code>" },
             {
               type: "Text",
               start: 16,
@@ -297,14 +297,14 @@ describe("TokenizerContext", () => {
                   type: "Code",
                   start: 19,
                   end: 23,
-                  startToken: {
-                    type: "CodeStart",
-                    start: 19,
-                    end: 21,
-                    value: "${",
-                  },
                   value: "${B}",
                   children: [
+                    {
+                      type: "CodeStart",
+                      start: 19,
+                      end: 21,
+                      value: "${",
+                    },
                     {
                       type: "Text",
                       start: 21,
@@ -314,22 +314,22 @@ describe("TokenizerContext", () => {
                         { type: "Word", start: 21, end: 22, value: "B" },
                       ],
                     },
+                    { type: "CodeEnd", start: 22, end: 23, value: "}" },
                   ],
-                  endToken: { type: "CodeEnd", start: 22, end: 23, value: "}" },
                 },
                 { type: "Word", start: 24, end: 25, value: "C" },
               ],
             },
+            { type: "TagEnd", start: 26, end: 33, value: "</code>" },
           ],
-          endToken: { type: "TagEnd", start: 26, end: 33, value: "</code>" },
         },
         {
           type: "Code",
           start: 34,
           end: 42,
-          startToken: { type: "CodeStart", start: 34, end: 36, value: "${" },
           value: "${after}",
           children: [
+            { type: "CodeStart", start: 34, end: 36, value: "${" },
             {
               type: "Text",
               start: 36,
@@ -337,8 +337,8 @@ describe("TokenizerContext", () => {
               value: "after",
               children: [{ type: "Word", start: 36, end: 41, value: "after" }],
             },
+            { type: "CodeEnd", start: 41, end: 42, value: "}" },
           ],
-          endToken: { type: "CodeEnd", start: 41, end: 42, value: "}" },
         },
       ],
     });
@@ -356,9 +356,9 @@ describe("TokenizerContext", () => {
           type: "Code",
           start: 0,
           end: 9,
-          startToken: { type: "CodeStart", start: 0, end: 2, value: "${" },
           value: "${before}",
           children: [
+            { type: "CodeStart", start: 0, end: 2, value: "${" },
             {
               type: "Text",
               start: 2,
@@ -366,16 +366,16 @@ describe("TokenizerContext", () => {
               value: "before",
               children: [{ type: "Word", start: 2, end: 8, value: "before" }],
             },
+            { type: "CodeEnd", start: 8, end: 9, value: "}" },
           ],
-          endToken: { type: "CodeEnd", start: 8, end: 9, value: "}" },
         },
         {
           type: "Tag",
           start: 10,
           end: 32,
-          startToken: { type: "TagStart", start: 10, end: 16, value: "<code>" },
           value: "<code> A ${B C </code>",
           children: [
+            { type: "TagStart", start: 10, end: 16, value: "<code>" },
             {
               type: "Text",
               start: 16,
@@ -387,14 +387,14 @@ describe("TokenizerContext", () => {
                   type: "Code",
                   start: 19,
                   end: 25,
-                  startToken: {
-                    type: "CodeStart",
-                    start: 19,
-                    end: 21,
-                    value: "${",
-                  },
                   value: "${B C ",
                   children: [
+                    {
+                      type: "CodeStart",
+                      start: 19,
+                      end: 21,
+                      value: "${",
+                    },
                     {
                       type: "Text",
                       start: 21,
@@ -409,16 +409,16 @@ describe("TokenizerContext", () => {
                 },
               ],
             },
+            { type: "TagEnd", start: 25, end: 32, value: "</code>" },
           ],
-          endToken: { type: "TagEnd", start: 25, end: 32, value: "</code>" },
         },
         {
           type: "Code",
           start: 33,
           end: 41,
-          startToken: { type: "CodeStart", start: 33, end: 35, value: "${" },
           value: "${after}",
           children: [
+            { type: "CodeStart", start: 33, end: 35, value: "${" },
             {
               type: "Text",
               start: 35,
@@ -426,8 +426,8 @@ describe("TokenizerContext", () => {
               value: "after",
               children: [{ type: "Word", start: 35, end: 40, value: "after" }],
             },
+            { type: "CodeEnd", start: 40, end: 41, value: "}" },
           ],
-          endToken: { type: "CodeEnd", start: 40, end: 41, value: "}" },
         },
       ],
     });
@@ -446,9 +446,9 @@ describe("TokenizerContext", () => {
           type: "Code",
           start: 7,
           end: 49,
-          startToken: { type: "CodeStart", start: 7, end: 9, value: "${" },
           value: "${X <code> A ${B <code>C</code> } </code> ",
           children: [
+            { type: "CodeStart", start: 7, end: 9, value: "${" },
             {
               type: "Text",
               start: 9,
@@ -460,14 +460,14 @@ describe("TokenizerContext", () => {
                   type: "Tag",
                   start: 11,
                   end: 48,
-                  startToken: {
-                    type: "TagStart",
-                    start: 11,
-                    end: 17,
-                    value: "<code>",
-                  },
                   value: "<code> A ${B <code>C</code> } </code>",
                   children: [
+                    {
+                      type: "TagStart",
+                      start: 11,
+                      end: 17,
+                      value: "<code>",
+                    },
                     {
                       type: "Text",
                       start: 17,
@@ -479,14 +479,14 @@ describe("TokenizerContext", () => {
                           type: "Code",
                           start: 20,
                           end: 40,
-                          startToken: {
-                            type: "CodeStart",
-                            start: 20,
-                            end: 22,
-                            value: "${",
-                          },
                           value: "${B <code>C</code> }",
                           children: [
+                            {
+                              type: "CodeStart",
+                              start: 20,
+                              end: 22,
+                              value: "${",
+                            },
                             {
                               type: "Text",
                               start: 22,
@@ -503,14 +503,14 @@ describe("TokenizerContext", () => {
                                   type: "Tag",
                                   start: 24,
                                   end: 38,
-                                  startToken: {
-                                    type: "TagStart",
-                                    start: 24,
-                                    end: 30,
-                                    value: "<code>",
-                                  },
                                   value: "<code>C</code>",
                                   children: [
+                                    {
+                                      type: "TagStart",
+                                      start: 24,
+                                      end: 30,
+                                      value: "<code>",
+                                    },
                                     {
                                       type: "Text",
                                       start: 30,
@@ -525,33 +525,33 @@ describe("TokenizerContext", () => {
                                         },
                                       ],
                                     },
+                                    {
+                                      type: "TagEnd",
+                                      start: 31,
+                                      end: 38,
+                                      value: "</code>",
+                                    },
                                   ],
-                                  endToken: {
-                                    type: "TagEnd",
-                                    start: 31,
-                                    end: 38,
-                                    value: "</code>",
-                                  },
                                 },
                               ],
                             },
+                            {
+                              type: "CodeEnd",
+                              start: 39,
+                              end: 40,
+                              value: "}",
+                            },
                           ],
-                          endToken: {
-                            type: "CodeEnd",
-                            start: 39,
-                            end: 40,
-                            value: "}",
-                          },
                         },
                       ],
                     },
+                    {
+                      type: "TagEnd",
+                      start: 41,
+                      end: 48,
+                      value: "</code>",
+                    },
                   ],
-                  endToken: {
-                    type: "TagEnd",
-                    start: 41,
-                    end: 48,
-                    value: "</code>",
-                  },
                 },
               ],
             },
@@ -617,9 +617,9 @@ after
             type: "JsCode",
             start: 9,
             end: 31,
-            startToken: { type: "JsFence", start: 9, end: 12, value: "```" },
             value: "```\nFirst Js Block\n```",
             children: [
+              { type: "JsFence", start: 9, end: 12, value: "```" },
               {
                 type: "Content",
                 start: 12,
@@ -631,17 +631,17 @@ after
                   { type: "Word", start: 22, end: 27, value: "Block" },
                 ],
               },
+              { type: "JsFence", start: 28, end: 31, value: "```" },
             ],
-            endToken: { type: "JsFence", start: 28, end: 31, value: "```" },
           },
           { type: "Word", start: 32, end: 39, value: "between" },
           {
             type: "JsCode",
             start: 40,
             end: 63,
-            startToken: { type: "JsFence", start: 40, end: 43, value: "```" },
             value: "```\nSecond Js Block\n```",
             children: [
+              { type: "JsFence", start: 40, end: 43, value: "```" },
               {
                 type: "Content",
                 start: 43,
@@ -653,8 +653,8 @@ after
                   { type: "Word", start: 54, end: 59, value: "Block" },
                 ],
               },
+              { type: "JsFence", start: 60, end: 63, value: "```" },
             ],
-            endToken: { type: "JsFence", start: 60, end: 63, value: "```" },
           },
           { type: "Word", start: 64, end: 69, value: "after" },
         ],
@@ -714,33 +714,33 @@ after
             type: "JsCode",
             start: 9,
             end: 31,
-            startToken: { type: "JsFence", start: 9, end: 12, value: "```" },
             value: "```\nFirst Js Block\n```",
             children: [
+              { type: "JsFence", start: 9, end: 12, value: "```" },
               {
                 type: "Content",
                 start: 12,
                 end: 28,
                 value: "\nFirst Js Block\n",
               },
+              { type: "JsFence", start: 28, end: 31, value: "```" },
             ],
-            endToken: { type: "JsFence", start: 28, end: 31, value: "```" },
           },
           {
             type: "JsCode",
             start: 40,
             end: 63,
-            startToken: { type: "JsFence", start: 40, end: 43, value: "```" },
             value: "```\nSecond Js Block\n```",
             children: [
+              { type: "JsFence", start: 40, end: 43, value: "```" },
               {
                 type: "Content",
                 start: 43,
                 end: 60,
                 value: "\nSecond Js Block\n",
               },
+              { type: "JsFence", start: 60, end: 63, value: "```" },
             ],
-            endToken: { type: "JsFence", start: 60, end: 63, value: "```" },
           },
         ],
       }
@@ -824,16 +824,16 @@ after
             type: "MdCode",
             start: 9,
             end: 94,
-            startToken: {
-              type: "MdCodeFence",
-              start: 9,
-              end: 14,
-              value: "```ts",
-              name: "ts",
-            },
             value:
               "```ts\nFirst Typescript Block\n```js\nInternal Javascript Block\n```\nTypescript Again\n```",
             children: [
+              {
+                type: "MdCodeFence",
+                start: 9,
+                end: 14,
+                value: "```ts",
+                name: "ts",
+              },
               {
                 type: "Content",
                 start: 14,
@@ -845,40 +845,40 @@ after
                     type: "MdCode",
                     start: 38,
                     end: 73,
-                    startToken: {
-                      type: "MdCodeFence",
-                      start: 38,
-                      end: 43,
-                      value: "```js",
-                      name: "js",
-                    },
                     value: "```js\nInternal Javascript Block\n```",
                     children: [
+                      {
+                        type: "MdCodeFence",
+                        start: 38,
+                        end: 43,
+                        value: "```js",
+                        name: "js",
+                      },
                       {
                         type: "Content",
                         start: 43,
                         end: 70,
                         value: "\nInternal Javascript Block\n",
                       },
+                      {
+                        type: "MdCodeFence",
+                        start: 70,
+                        end: 73,
+                        value: "```",
+                        name: "",
+                      },
                     ],
-                    endToken: {
-                      type: "MdCodeFence",
-                      start: 70,
-                      end: 73,
-                      value: "```",
-                      name: "",
-                    },
                   },
                 ],
               },
+              {
+                type: "MdCodeFence",
+                start: 91,
+                end: 94,
+                value: "```",
+                name: "",
+              },
             ],
-            endToken: {
-              type: "MdCodeFence",
-              start: 91,
-              end: 94,
-              value: "```",
-              name: "",
-            },
           },
         ],
       }
@@ -957,12 +957,19 @@ describe("TokenizerContext", () => {
   }
 
   function newMdHeaderReader(readToken: TTokenizerMethod) {
-    return newFencedBlockReader(
+    const readHeader = newFencedBlockReader(
       "MdHeader",
       readMdHeaderStart,
       readToken,
       readMdHeaderEnd
     );
+    return (ctx: TokenizerContext) => {
+      const token = readHeader(ctx);
+      if (!token) return;
+      const startToken: TToken = token.children?.[0] as TToken;
+      token.level = startToken.level;
+      return token;
+    };
   }
 
   it("should read MD headers", () => {
@@ -994,45 +1001,37 @@ Second paragraph
             type: "MdHeader",
             start: 0,
             end: 15,
-            startToken: {
-              type: "MdHeaderStart",
-              start: 0,
-              end: 3,
-              value: "\n# ",
-              level: 1,
-            },
             value: "\n# First Header",
             children: [
               {
-                type: "MdContent",
-                start: 3,
-                end: 15,
-                value: "First Header",
+                type: "MdHeaderStart",
+                start: 0,
+                end: 3,
+                value: "\n# ",
+                level: 1,
               },
+              { type: "MdContent", start: 3, end: 15, value: "First Header" },
+              { type: "MdHeaderEnd", start: 15, end: 15, value: "" },
             ],
-            endToken: { type: "MdHeaderEnd", start: 15, end: 15, value: "" },
+            level: 1,
           },
           {
             type: "MdHeader",
             start: 31,
             end: 48,
-            startToken: {
-              type: "MdHeaderStart",
-              start: 31,
-              end: 35,
-              value: "\n## ",
-              level: 2,
-            },
             value: "\n## Second Header",
             children: [
               {
-                type: "MdContent",
-                start: 35,
-                end: 48,
-                value: "Second Header",
+                type: "MdHeaderStart",
+                start: 31,
+                end: 35,
+                value: "\n## ",
+                level: 2,
               },
+              { type: "MdContent", start: 35, end: 48, value: "Second Header" },
+              { type: "MdHeaderEnd", start: 48, end: 48, value: "" },
             ],
-            endToken: { type: "MdHeaderEnd", start: 48, end: 48, value: "" },
+            level: 2,
           },
         ],
       }
@@ -1058,45 +1057,37 @@ Second paragraph
             type: "MdHeader",
             start: 0,
             end: 17,
-            startToken: {
-              type: "MdHeaderStart",
-              start: 0,
-              end: 5,
-              value: "\n  # ",
-              level: 1,
-            },
             value: "\n  # First Header",
             children: [
               {
-                type: "MdContent",
-                start: 5,
-                end: 17,
-                value: "First Header",
+                type: "MdHeaderStart",
+                start: 0,
+                end: 5,
+                value: "\n  # ",
+                level: 1,
               },
+              { type: "MdContent", start: 5, end: 17, value: "First Header" },
+              { type: "MdHeaderEnd", start: 17, end: 17, value: "" },
             ],
-            endToken: { type: "MdHeaderEnd", start: 17, end: 17, value: "" },
+            level: 1,
           },
           {
             type: "MdHeader",
             start: 35,
             end: 55,
-            startToken: {
-              type: "MdHeaderStart",
-              start: 35,
-              end: 42,
-              value: "\n\n  ## ",
-              level: 2,
-            },
             value: "\n\n  ## Second Header",
             children: [
               {
-                type: "MdContent",
-                start: 42,
-                end: 55,
-                value: "Second Header",
+                type: "MdHeaderStart",
+                start: 35,
+                end: 42,
+                value: "\n\n  ## ",
+                level: 2,
               },
+              { type: "MdContent", start: 42, end: 55, value: "Second Header" },
+              { type: "MdHeaderEnd", start: 55, end: 55, value: "" },
             ],
-            endToken: { type: "MdHeaderEnd", start: 55, end: 55, value: "" },
+            level: 2,
           },
         ],
       }
@@ -1121,7 +1112,7 @@ Second paragraph
             if (token.type !== "MdHeader") {
               return;
             }
-            const level = token.startToken.level;
+            const level = token.level;
             return (ctx: TokenizerContext) => {
               return ctx.guard(() => {
                 const token = readMdHeaderStart(ctx);
@@ -1164,122 +1155,120 @@ Third paragraph
             type: "MdSection",
             start: 0,
             end: 31,
-            startToken: {
-              type: "MdHeader",
-              start: 0,
-              end: 15,
-              startToken: {
-                type: "MdHeaderStart",
+            value: "\n# First Header\nFirst paragraph",
+            children: [
+              {
+                type: "MdHeader",
                 start: 0,
-                end: 3,
-                value: "\n# ",
+                end: 15,
+                value: "\n# First Header",
+                children: [
+                  {
+                    type: "MdHeaderStart",
+                    start: 0,
+                    end: 3,
+                    value: "\n# ",
+                    level: 1,
+                  },
+                  {
+                    type: "MdContent",
+                    start: 3,
+                    end: 15,
+                    value: "First Header",
+                  },
+                  { type: "MdHeaderEnd", start: 15, end: 15, value: "" },
+                ],
                 level: 1,
               },
-              value: "\n# First Header",
-              children: [
-                {
-                  type: "MdContent",
-                  start: 3,
-                  end: 15,
-                  value: "First Header",
-                },
-              ],
-              endToken: { type: "MdHeaderEnd", start: 15, end: 15, value: "" },
-            },
-            value: "\n# First Header\nFirst paragraph",
-            endToken: { type: "MdSectionEnd", start: 31, end: 31, value: "" },
+              { type: "MdSectionEnd", start: 31, end: 31, value: "" },
+            ],
           },
           {
             type: "MdSection",
             start: 31,
             end: 94,
-            startToken: {
-              type: "MdHeader",
-              start: 31,
-              end: 47,
-              startToken: {
-                type: "MdHeaderStart",
-                start: 31,
-                end: 34,
-                value: "\n# ",
-                level: 1,
-              },
-              value: "\n# Second Header",
-              children: [
-                {
-                  type: "MdContent",
-                  start: 34,
-                  end: 47,
-                  value: "Second Header",
-                },
-              ],
-              endToken: { type: "MdHeaderEnd", start: 47, end: 47, value: "" },
-            },
             value:
               "\n# Second Header\nSecond paragraph\n## Subsection\nInner paragraph",
             children: [
               {
                 type: "MdHeader",
+                start: 31,
+                end: 47,
+                value: "\n# Second Header",
+                children: [
+                  {
+                    type: "MdHeaderStart",
+                    start: 31,
+                    end: 34,
+                    value: "\n# ",
+                    level: 1,
+                  },
+                  {
+                    type: "MdContent",
+                    start: 34,
+                    end: 47,
+                    value: "Second Header",
+                  },
+                  { type: "MdHeaderEnd", start: 47, end: 47, value: "" },
+                ],
+                level: 1,
+              },
+              {
+                type: "MdHeader",
                 start: 64,
                 end: 78,
-                startToken: {
-                  type: "MdHeaderStart",
-                  start: 64,
-                  end: 68,
-                  value: "\n## ",
-                  level: 2,
-                },
                 value: "\n## Subsection",
                 children: [
+                  {
+                    type: "MdHeaderStart",
+                    start: 64,
+                    end: 68,
+                    value: "\n## ",
+                    level: 2,
+                  },
                   {
                     type: "MdContent",
                     start: 68,
                     end: 78,
                     value: "Subsection",
                   },
+                  { type: "MdHeaderEnd", start: 78, end: 78, value: "" },
                 ],
-                endToken: {
-                  type: "MdHeaderEnd",
-                  start: 78,
-                  end: 78,
-                  value: "",
-                },
+                level: 2,
               },
+              { type: "MdSectionEnd", start: 94, end: 94, value: "" },
             ],
-            endToken: { type: "MdSectionEnd", start: 94, end: 94, value: "" },
           },
           {
             type: "MdSection",
             start: 94,
             end: 126,
-            startToken: {
-              type: "MdHeader",
-              start: 94,
-              end: 109,
-              startToken: {
-                type: "MdHeaderStart",
+            value: "\n# Third Header\nThird paragraph\n",
+            children: [
+              {
+                type: "MdHeader",
                 start: 94,
-                end: 97,
-                value: "\n# ",
+                end: 109,
+                value: "\n# Third Header",
+                children: [
+                  {
+                    type: "MdHeaderStart",
+                    start: 94,
+                    end: 97,
+                    value: "\n# ",
+                    level: 1,
+                  },
+                  {
+                    type: "MdContent",
+                    start: 97,
+                    end: 109,
+                    value: "Third Header",
+                  },
+                  { type: "MdHeaderEnd", start: 109, end: 109, value: "" },
+                ],
                 level: 1,
               },
-              value: "\n# Third Header",
-              children: [
-                {
-                  type: "MdContent",
-                  start: 97,
-                  end: 109,
-                  value: "Third Header",
-                },
-              ],
-              endToken: {
-                type: "MdHeaderEnd",
-                start: 109,
-                end: 109,
-                value: "",
-              },
-            },
-            value: "\n# Third Header\nThird paragraph\n",
+            ],
           },
         ],
       }

@@ -12,6 +12,7 @@ import { newHtmlAttributeReader } from "./attributes.ts";
 
 export interface THtmlTagStartToken extends TToken {
   type: "HtmlTagStart";
+  tagName: string;
 }
 function readHtmlTagStart(
   ctx: TokenizerContext
@@ -29,6 +30,7 @@ function readHtmlTagStart(
       end,
       value: ctx.substring(start, end),
       children: [name],
+      tagName: name.value,
     };
   });
 }
@@ -36,6 +38,11 @@ function readHtmlTagStart(
 export interface THtmlTagEndToken extends TToken {
   type: "HtmlTagEnd";
   autoclosing: boolean;
+}
+
+export function isHtmlTagEndToken(token?: TToken): token is THtmlTagEndToken {
+  if (!token) return false;
+  return token.type === "HtmlTagEnd";
 }
 
 function readHtmlTagEnd(ctx: TokenizerContext): THtmlTagEndToken | undefined {
@@ -65,6 +72,12 @@ function readHtmlTagEnd(ctx: TokenizerContext): THtmlTagEndToken | undefined {
 export interface THtmlOpenTagToken extends TToken {
   type: "HtmlOpenTag";
   autoclosing: boolean;
+  tagName: string;
+}
+
+export function isHtmlOpenTagToken(token?: TToken): token is THtmlOpenTagToken {
+  if (!token) return false;
+  return token.type === "HtmlOpenTag";
 }
 
 export function newHtmlOpenTagReader(
@@ -79,32 +92,29 @@ export function newHtmlOpenTagReader(
         return readToken(ctx) || readAttribute(ctx);
       },
     () => readHtmlTagEnd
-  );
-  return (ctx: TokenizerContext): THtmlOpenTagToken | undefined => {
+  ) as TTokenizerMethod<THtmlOpenTagToken>;
+
+  return (ctx: TokenizerContext) => {
     const token = readOpenTag(ctx);
     if (!token) return;
-    const nameToken = token.startToken.children?.[0];
-    if (!nameToken) return;
-    nameToken.type = "HtmlTagName";
-    const closingToken = token.endToken;
-    const autoclosing = !!closingToken?.autoclosing;
-    const children = [nameToken];
-    if (token.children) children.push(...token.children);
-    return {
-      type: "HtmlOpenTag",
-      start: token.start,
-      end: token.end,
-      value: token.value,
-      autoclosing,
-      children,
-    } as THtmlOpenTagToken;
+    // Pull up the "tagName" and "autocolsing" fields from the children
+    const children = token.children || [];
+    const startToken: TToken = children[0] as TToken;
+    token.tagName = startToken.tagName;
+    const endToken = children[children.length - 1];
+    token.autoclosing = isHtmlTagEndToken(endToken) && endToken.autoclosing;
+    return token;
   };
 }
 
 export interface THtmlCloseTagToken extends TToken {
   type: "HtmlCloseTag";
+  tagName: string;
 }
-
+export function isHtmlCloseTagToken(token?: TToken): token is THtmlCloseTagToken {
+  if (!token) return false;
+  return token.type === "HtmlCloseTag";
+}
 export function newHtmlCloseTagReader(): TTokenizerMethod<THtmlCloseTagToken> {
   return (ctx: TokenizerContext): THtmlCloseTagToken | undefined => {
     return ctx.guard(() => {
@@ -123,6 +133,7 @@ export function newHtmlCloseTagReader(): TTokenizerMethod<THtmlCloseTagToken> {
         end,
         value: ctx.substring(start, end),
         children: [name],
+        tagName: name.value,
       };
     });
   };

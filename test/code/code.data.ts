@@ -6,7 +6,7 @@ export const testData: TTestData[] = [
     description: "should read text with code blocks",
     expected: {
       type: "Block",
-      start: 0,
+      start: 0, 
       end: 20,
       value: "before ${code} after",
       children: [
