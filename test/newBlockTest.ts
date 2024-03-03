@@ -1,14 +1,14 @@
-import { expect } from "../deps.ts";
+import { expect } from "./deps.ts";
 import {
   type TToken,
   type TTokenizerMethod,
   TokenizerContext,
   newBlockReader,
-} from "../../src/base/index.ts";
+} from "../src/base/index.ts";
 
 export function newBlockTest(
   tokenize: TTokenizerMethod,
-  showPerformance = false
+  runPerformanceCycles = 0
 ) {
   return (str: string, control: Record<string, any>) => {
     const readToken = newBlockReader("Block", tokenize);
@@ -16,7 +16,9 @@ export function newBlockTest(
       const ctx = new TokenizerContext(str);
       return readToken(ctx);
     };
-    if (showPerformance) run = addPerformanceReport(str, 100000, run);
+    if (runPerformanceCycles > 0) {
+      run = addPerformanceReport(str, runPerformanceCycles, run);
+    }
     const result = run();
     try {
       expect(result !== undefined).toEqual(true);

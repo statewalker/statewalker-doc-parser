@@ -1,6 +1,6 @@
 import { describe, it } from "../deps.ts";
 import { readHtmlEntity } from "../../src/html/index.ts";
-import { newBlockTest } from "./newBlockTest.ts";
+import { newBlockTest } from "../newBlockTest.ts";
 
 describe("readHtmlEntities", () => {
   const test = newBlockTest(readHtmlEntity);

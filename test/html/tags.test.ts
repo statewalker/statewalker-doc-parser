@@ -9,7 +9,7 @@ import {
   newHtmlOpenTagReader,
 } from "../../src/html/index.ts";
 import { describe, it } from "../deps.ts";
-import { newBlockTest } from "./newBlockTest.ts";
+import { newBlockTest } from "../newBlockTest.ts";
 import { testData } from "./tags.data.ts";
 
 describe("readHtmlTag", () => {

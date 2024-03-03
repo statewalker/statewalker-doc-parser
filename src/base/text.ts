@@ -3,11 +3,8 @@ import {
   type TTokenizerMethod,
   type TokenizerContext,
 } from "./tokenizer.ts";
-import {
-  type TFencedBlockToken,
-  newDynamicFencedBlockReader,
-  newFencedBlockReader,
-} from "./blocks.ts";
+import { type TFencedBlockToken, newFencedBlockReader } from "./blocks.ts";
+import { isEol } from "./chars.ts";
 
 export function newCharsReader(type: string, check: (char: string) => boolean) {
   return (ctx: TokenizerContext) => {
@@ -62,7 +59,7 @@ export function newTextFencedBlockReader<T extends TFencedBlockToken>(
   type: string,
   startMask: string,
   endMask: string,
-  readToken: TTokenizerMethod
+  readToken?: TTokenizerMethod
 ): TTokenizerMethod<T> {
   return newFencedBlockReader(
     type,
@@ -91,7 +88,9 @@ export function newQuotedTextReader(
     const quote = ctx.getChar();
     if (!isQuote(quote)) return;
     return ctx.guard((fences) => {
-      fences.addFence(newCharReader("QuoteClose", (char) => isPairQuote(char, quote)));
+      fences.addFence(
+        newCharReader("QuoteClose", (char) => isPairQuote(char, quote))
+      );
       const readToken = newTokensReader(quote);
       const start = ctx.i;
       ctx.i++;
@@ -132,4 +131,19 @@ export function newQuotedTextReader(
       return result;
     });
   };
+}
+
+export function readNewLines(ctx: TokenizerContext): TToken | undefined {
+  return ctx.guard(() => {
+    const start = ctx.i;
+    const eolPos = ctx.skipWhile(isEol);
+    if (start > 0 && eolPos === start) return;
+    return {
+      type: "Eol",
+      start,
+      end: eolPos,
+      value: ctx.substring(start, eolPos),
+      level: 0,
+    };
+  });
 }

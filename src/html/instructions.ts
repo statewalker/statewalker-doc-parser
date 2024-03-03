@@ -5,7 +5,7 @@ import {
 } from "../base/index.ts";
 
 export function newInstructionsBlockReader(
-  readToken: TTokenizerMethod
+  readToken?: TTokenizerMethod
 ): TTokenizerMethod {
   const readHtmlCdataBlock = newHtmlCdataBlockReader(readToken);
   const readHtmlCommentBlock = newHtmlCommentBlockReader(readToken);
@@ -31,7 +31,7 @@ export interface THtmlCdataBlockToken extends TFencedBlockToken {
   type: "HtmlCDATA";
 }
 export function newHtmlCdataBlockReader(
-  readToken: TTokenizerMethod
+  readToken?: TTokenizerMethod
 ): TTokenizerMethod<THtmlCdataBlockToken> {
   return newTextFencedBlockReader("HtmlCDATA", "<![CDATA[", "]]>", readToken);
 }
@@ -40,7 +40,7 @@ export interface THtmlCommentBlockToken extends TFencedBlockToken {
   type: "HtmlComment";
 }
 export function newHtmlCommentBlockReader(
-  readToken: TTokenizerMethod
+  readToken?: TTokenizerMethod
 ): TTokenizerMethod<THtmlCommentBlockToken> {
   return newTextFencedBlockReader("HtmlComment", "<!--", "-->", readToken);
 }
@@ -49,7 +49,7 @@ export interface THtmlInstructionsBlockToken extends TFencedBlockToken {
   type: "HtmlInstructions";
 }
 export function newHtmlInstructionsBlockReader(
-  readToken: TTokenizerMethod
+  readToken?: TTokenizerMethod
 ): TTokenizerMethod<THtmlInstructionsBlockToken> {
   return newTextFencedBlockReader("HtmlInstructions", "<!", ">", readToken);
 }
@@ -58,7 +58,7 @@ export interface TXmlDeclarationsBlockToken extends TFencedBlockToken {
   type: "XmlDeclarations";
 }
 export function newXmlDeclarationsBlockReader(
-  readToken: TTokenizerMethod
+  readToken?: TTokenizerMethod
 ): TTokenizerMethod<TXmlDeclarationsBlockToken> {
   return newTextFencedBlockReader("XmlDeclarations", "<?", ">", readToken);
 }
