@@ -9,7 +9,7 @@ import {
   isMdHeaderToken,
   newMdHeaderReader,
   readMdHeaderStart,
-} from "./headers";
+} from "./headers.ts";
 
 export interface TMdSectionToken extends TToken {
   type: "MdSection";
@@ -19,13 +19,19 @@ export function isMdSectionToken(token?: TToken): token is TMdSectionToken {
   if (!token) return false;
   return token.type === "MdSection";
 }
-export function newMdSectionReader(
-  readToken?: TTokenizerMethod
-): TTokenizerMethod<TMdSectionToken> {
+
+export type TMdSectionTokenizers = {
+  readHeaderTokens?: TTokenizerMethod;
+  readSectionTokens?: TTokenizerMethod;
+};
+export function newMdSectionReader({
+  readHeaderTokens,
+  readSectionTokens,
+}: TMdSectionTokenizers = {}): TTokenizerMethod<TMdSectionToken> {
   const list: TTokenizerMethod[] = [];
-  readToken && list.push(readToken);
+  readSectionTokens && list.push(readSectionTokens);
   const compositeReader = newCompositeTokenizer(list);
-  const readMdHeader = newMdHeaderReader(readToken);
+  const readMdHeader = newMdHeaderReader(readHeaderTokens);
   const readSection = newDynamicFencedBlockReader(
     "MdSection",
     readMdHeader,
@@ -48,10 +54,8 @@ export function newMdSectionReader(
     }
   );
 
-  list.unshift(
-    // readMdHeader,
-    readSection
-  );
+  list.unshift(readSection);
+
   return (ctx: TokenizerContext): TMdSectionToken | undefined =>
     ctx.guard<TMdSectionToken>(() => {
       const token = readSection(ctx) as TMdSectionToken;

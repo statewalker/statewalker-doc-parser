@@ -8,21 +8,25 @@ import {
 } from "../base/index.ts";
 import { readHtmlEntity } from "./entities.ts";
 import { newInstructionsBlockReader } from "./instructions.ts";
-import { isHtmlCloseTagToken, newHtmlCloseTagReader, newHtmlOpenTagReader } from "./tags.ts";
+import {
+  isHtmlCloseTagToken,
+  newHtmlCloseTagReader,
+  newHtmlOpenTagReader,
+} from "./tags.ts";
 
-export function newHtmlReader(
-  readInnerToken?: TTokenizerMethod
-): TTokenizerMethod {
+export type THtmlTokenizers = {
+  readOpenTagTokens?: TTokenizerMethod;
+  // Read tokens in HTML instractions blocks (e.g. CDATA, HTML Comments, etc )
+  readInstructionsTokens?: TTokenizerMethod;
+  readTagContentTokens?: TTokenizerMethod;
+};
+
+export function newHtmlReader(readers: THtmlTokenizers = {}): TTokenizerMethod {
   const tokenizers: TTokenizerMethod[] = [];
   const readToken = newCompositeTokenizer(tokenizers);
 
-  const readOpenTag = newHtmlOpenTagReader(readInnerToken);
+  const readOpenTag = newHtmlOpenTagReader(readers.readOpenTagTokens);
   const readCloseTag = newHtmlCloseTagReader();
-
-  function getTagName1(token: TToken) {
-    const tagName = token.children?.[0].name;
-    return tagName;
-  }
 
   const newNamedHtmlCloseTagReader = (name: string) => {
     return (ctx: TokenizerContext) =>
@@ -55,13 +59,15 @@ export function newHtmlReader(
       }
     }
   );
-  const readHtmlInstructions = newInstructionsBlockReader(readInnerToken);
+  const readHtmlInstructions = newInstructionsBlockReader(
+    readers.readInstructionsTokens
+  );
   const readHtmlSpecialSymbols = newCharsReader(
     "HtmlSpecialSymbol",
     (ch) => ch === "<" || ch === ">" || ch === "&"
   );
   tokenizers.push(readHtmlTag);
-  readInnerToken && tokenizers.push(readInnerToken);
+  readers.readTagContentTokens && tokenizers.push(readers.readTagContentTokens);
   tokenizers.push(readHtmlInstructions, readHtmlEntity, readHtmlSpecialSymbols);
   return readToken;
 }

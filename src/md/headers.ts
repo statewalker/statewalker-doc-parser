@@ -7,7 +7,7 @@ import {
   isSpaceOrEol,
   newFencedBlockReader,
   readNewLines,
-} from "../base";
+} from "../base/index.ts";
 
 export interface TMdHeaderStartToken extends TToken {
   type: "MdHeaderStart";

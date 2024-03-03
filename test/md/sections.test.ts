@@ -6,7 +6,10 @@ import { newMdSectionReader } from "../../src/md/index.ts";
 
 describe("newMdSectionsReader", () => {
   const readCode = newCodeReader();
-  const readToken = newMdSectionReader(readCode);
+  const readToken = newMdSectionReader({
+    readHeaderTokens: readCode,
+    readSectionTokens: readCode,
+  });
   const test = newBlockTest(readToken);
   testData.forEach((data) => {
     it(data.description, () => {
