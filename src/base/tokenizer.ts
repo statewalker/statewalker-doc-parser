@@ -157,13 +157,13 @@ export class TokenizerContext {
     f: (fences: TokenizerFences) => T | undefined
   ): T | undefined {
     const start = this.i;
-    let result: T | undefined;
+    let token: T | undefined;
     const fenceLevel = this.fences._fenceLevel;
     try {
-      return (result = f(this.fences));
+      return (token = f(this.fences));
     } finally {
       this.fences._resetFenceLevel(fenceLevel);
-      this.i = result !== undefined ? result.end : start;
+      this.i = token !== undefined ? token.end : start;
     }
   }
 
