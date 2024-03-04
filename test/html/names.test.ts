@@ -1,6 +1,6 @@
-import { describe, expect, it } from "../deps.ts";
-import { readHtmlName } from "../../src/html/index.ts";
 import { TokenizerContext } from "../../src/base/index.ts";
+import { readHtmlName } from "../../src/html/index.ts";
+import { describe, expect, it } from "../deps.ts";
 
 describe("readHtmlName", () => {
   function test(str: string, control?: Record<string, any>) {
@@ -13,7 +13,7 @@ describe("readHtmlName", () => {
       throw error;
     }
   }
-  it(`should read HTML names (attribute and tag names)`, async () => {
+  it("should read HTML names (attribute and tag names)", async () => {
     test("a", {
       type: "HtmlName",
       name: "a",
@@ -43,7 +43,7 @@ describe("readHtmlName", () => {
       value: "$abc:cde123",
     });
   });
-  it(`should return "undefined" value for wrong names`, async () => {
+  it('should return "undefined" value for wrong names', async () => {
     test(" a", undefined);
     test("#abc", undefined);
     test("-abc:cde123", undefined);

@@ -1,8 +1,12 @@
+import {
+  type TTokenizerMethod,
+  newCodeReader,
+  newCompositeTokenizer,
+} from "../../src/index.ts";
+import { newMdReader } from "../../src/md/index.ts";
 import { describe, it } from "../deps.ts";
 import { newBlockTest } from "../newBlockTest.ts";
 import { testData } from "./md.data.ts";
-import { TTokenizerMethod, newCodeReader, newCompositeTokenizer } from "../../src/index.ts";
-import { newMdReader } from "../../src/md/index.ts";
 
 describe("newMdReader", () => {
   const readCode = newCodeReader();
@@ -19,7 +23,7 @@ describe("newMdReader", () => {
       readHeaderTokens: readCode,
       // readSectionTokens: readContent,
     },
-    readContent: readContent,
+    readContent,
   };
 
   const readToken = newMdReader(readers);

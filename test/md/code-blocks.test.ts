@@ -1,12 +1,15 @@
 import { newCodeReader } from "../../src/index.ts";
-import { newMdHeaderReader } from "../../src/md/index.ts";
+import { newMdCodeBlocksReader } from "../../src/md/code-blocks.ts";
 import { describe, it } from "../deps.ts";
 import { newBlockTest } from "../newBlockTest.ts";
-import { testData } from "./headers.data.ts";
 
-describe("newMdHeaderReader", () => {
+import { testData } from "./code-blocks.data.ts";
+
+describe("newMdCodeBlocksReader", () => {
   const readCode = newCodeReader();
-  const readToken = newMdHeaderReader(readCode);
+  const readToken = newMdCodeBlocksReader({
+    readMdCodeBlockTokens: readCode,
+  });
   const test = newBlockTest(readToken);
   testData.forEach((data) => {
     it(data.description, () => {

@@ -1,9 +1,8 @@
 import {
-  TToken,
-  TTokenizerMethod,
-  TokenizerContext,
+  type TToken,
+  type TTokenizerMethod,
+  type TokenizerContext,
   isEol,
-  isSpace,
   isSpaceOrEol,
   newFencedBlockReader,
   readNewLines,

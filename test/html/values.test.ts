@@ -3,9 +3,9 @@ import {
   type TTokenizerMethod,
   TokenizerContext,
 } from "../../src/base/index.ts";
-import { describe, expect, it } from "../deps.ts";
-import { newHtmlValueReader } from "../../src/html/index.ts";
 import { newCodeReader } from "../../src/code/index.ts";
+import { newHtmlValueReader } from "../../src/html/index.ts";
+import { describe, expect, it } from "../deps.ts";
 
 describe("readHtmlAttribute", () => {
   function test(str: string, control: Record<string, any>) {
@@ -20,7 +20,7 @@ describe("readHtmlAttribute", () => {
       throw error;
     }
   }
-  it(`should read simple string values`, async () => {
+  it("should read simple string values", async () => {
     test("a", {
       type: "HtmlValue",
       value: "a",
@@ -41,7 +41,7 @@ describe("readHtmlAttribute", () => {
     });
   });
 
-  it(`should read code blocks as values`, async () => {
+  it("should read code blocks as values", async () => {
     // In this test the inner block is interpreted as a code
     // because it is between backticks.
     test("${b `${c d e}` f} XYZ", {
@@ -75,7 +75,7 @@ describe("readHtmlAttribute", () => {
     });
   });
 
-  it(`should read quoted values with code`, async () => {
+  it("should read quoted values with code", async () => {
     test("'a:b ${c d e} f' XYZ", {
       type: "HtmlValue",
       value: "'a:b ${c d e} f'",
@@ -138,7 +138,7 @@ describe("readHtmlAttribute", () => {
     });
   });
 
-  it(`should read hierarchical code blocks between backticks`, async () => {
+  it("should read hierarchical code blocks between backticks", async () => {
     // In this test the inner block is interpreted as a code
     // because it is between backticks.
     test("'a:${b `${c d e}` f}g' XYZ", {
@@ -241,7 +241,7 @@ describe("readHtmlAttribute", () => {
     });
   });
 
-  it(`should read quoted values`, async () => {
+  it("should read quoted values", async () => {
     test("'a:b c d e f' XYZ", {
       type: "HtmlValue",
       value: "'a:b c d e f'",
@@ -271,7 +271,7 @@ describe("readHtmlAttribute", () => {
     });
   });
 
-  it(`should detect entities in values with code blocks`, async () => {
+  it("should detect entities in values with code blocks", async () => {
     function testWithEntities(str: string, control: Record<string, any>) {
       const readEntity: TTokenizerMethod = (
         ctx: TokenizerContext

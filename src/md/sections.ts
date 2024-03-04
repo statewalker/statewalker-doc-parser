@@ -1,7 +1,7 @@
 import {
-  TToken,
-  TTokenizerMethod,
-  TokenizerContext,
+  type TToken,
+  type TTokenizerMethod,
+  type TokenizerContext,
   newCompositeTokenizer,
   newDynamicFencedBlockReader,
 } from "../base/index.ts";

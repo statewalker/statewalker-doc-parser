@@ -3,7 +3,7 @@ import { type TTestData } from "../data.types.ts";
 export const testData: TTestData[] = [
   {
     input: "<a",
-    description: `should read simple opening tags`,
+    description: "should read simple opening tags",
     expected: {
       type: "Block",
       start: 0,
@@ -42,7 +42,8 @@ export const testData: TTestData[] = [
 
   {
     input: "\n\n  <a \n\n b='B' \n\n c='C'\n\n> \n\n",
-    description: `should isolate inner token content from external fences (EOLs)`,
+    description:
+      "should isolate inner token content from external fences (EOLs)",
     expected: {
       type: "Block",
       start: 0,
@@ -120,7 +121,7 @@ export const testData: TTestData[] = [
 
   {
     input: "<a b='c'>",
-    description: `should read simple tags with attributes`,
+    description: "should read simple tags with attributes",
     expected: {
       type: "Block",
       start: 0,
@@ -178,7 +179,7 @@ export const testData: TTestData[] = [
 
   {
     input: "before <a attr",
-    description: `should read non-closed tags with attributes`,
+    description: "should read non-closed tags with attributes",
     expected: {
       type: "Block",
       start: 0,
@@ -232,7 +233,7 @@ export const testData: TTestData[] = [
 
   {
     input: "before <a attr1=val1 attr2=val2 ",
-    description: `should read non-closed tags with multiple attributes`,
+    description: "should read non-closed tags with multiple attributes",
     expected: {
       type: "Block",
       start: 0,
@@ -313,7 +314,7 @@ export const testData: TTestData[] = [
 
   {
     input: "before <a attr1=val1 attr2='a b c' attr3='\" quoted \"' > after",
-    description: `should read tags with multiple attributes internal quotes`,
+    description: "should read tags with multiple attributes internal quotes",
     expected: {
       type: "Block",
       start: 0,
@@ -426,7 +427,8 @@ export const testData: TTestData[] = [
   {
     input:
       "before <a attr='a <b c=`x` d=\"y\"></b>' attr3='\" quoted \"' > after",
-    description: `should read tags with multiple attributes containing angle brackets`,
+    description:
+      "should read tags with multiple attributes containing angle brackets",
     expected: {
       type: "Block",
       start: 0,
@@ -516,7 +518,8 @@ export const testData: TTestData[] = [
   {
     input:
       "before <a attr='a <b c=`x` d=\"${code block}\"></b>' attr3='\" quoted \"' > after",
-    description: `should read tags containing attributes with angle brackets and code`,
+    description:
+      "should read tags containing attributes with angle brackets and code",
     expected: {
       type: "Block",
       start: 0,
@@ -617,7 +620,8 @@ export const testData: TTestData[] = [
   {
     input:
       "before <a attr='a <b c=`x` d=\"${code block\"></b>' attr3='\" quoted \"' > after",
-    description: `should read tags containing attributes with angle brackets and non-closed code blocks`,
+    description:
+      "should read tags containing attributes with angle brackets and non-closed code blocks",
     expected: {
       type: "Block",
       start: 0,
@@ -717,7 +721,7 @@ export const testData: TTestData[] = [
 
   {
     input: "<tag ${ code block } x=${y} n='a${c}b' />",
-    description: `should read tags with code blocks`,
+    description: "should read tags with code blocks",
     expected: {
       type: "Block",
       start: 0,
@@ -826,7 +830,7 @@ export const testData: TTestData[] = [
   },
 
   {
-    description: `should read tags with broken code blocks in the opening tag`,
+    description: "should read tags with broken code blocks in the opening tag",
     input: "<tag ${ code block  />",
     expected: {
       type: "Block",
@@ -880,7 +884,7 @@ export const testData: TTestData[] = [
   },
 
   {
-    description: `should tolerate broken block code in tag attributes`,
+    description: "should tolerate broken block code in tag attributes",
     input: "<tag attr='x${ code block' attr2=val2 />",
     expected: {
       type: "Block",
@@ -987,7 +991,7 @@ export const testData: TTestData[] = [
 
   {
     input: "</a>",
-    description: `should read simple closing tag`,
+    description: "should read simple closing tag",
     expected: {
       type: "Block",
       start: 0,
@@ -1016,7 +1020,7 @@ export const testData: TTestData[] = [
 
   {
     input: "</a    \n\n  \n\n  \n>",
-    description: `should read closing tags with spaces and EOLs`,
+    description: "should read closing tags with spaces and EOLs",
     expected: {
       type: "Block",
       start: 0,
@@ -1047,7 +1051,7 @@ export const testData: TTestData[] = [
 
   {
     input: "before <a href=http://www.google.com>Google</a> after",
-    description: `should read opening and closing tags`,
+    description: "should read opening and closing tags",
     expected: {
       type: "Block",
       start: 0,
@@ -1122,7 +1126,7 @@ export const testData: TTestData[] = [
   {
     input:
       "<div>before <em><a href=http://www.google.com>Google</a> after</em></div>",
-    description: `should read opening and closing tags`,
+    description: "should read opening and closing tags",
     expected: {
       type: "Block",
       start: 0,

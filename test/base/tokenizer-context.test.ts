@@ -1,18 +1,18 @@
-import { describe, expect, it } from "../deps.ts";
 import {
   type TToken,
   type TTokenizerMethod,
   TokenizerContext,
-  newCompositeTokenizer,
-  newDynamicFencedBlockReader,
-  newFencedBlockReader,
-  newBlockReader,
   isEol,
   isSpace,
   isSpaceOrEol,
+  newBlockReader,
   newCharsReader,
+  newCompositeTokenizer,
+  newDynamicFencedBlockReader,
+  newFencedBlockReader,
 } from "../../src/base/index.ts";
 import { readHtmlName } from "../../src/html/names.ts";
+import { describe, expect, it } from "../deps.ts";
 
 function readCodeStart(ctx: TokenizerContext): TToken | undefined {
   if (ctx.getChar(+0) !== "$" || ctx.getChar(+1) !== "{") return;
@@ -256,7 +256,7 @@ describe("TokenizerContext", () => {
 
   it("should tokenize heterogenious fenced blocks", () => {
     const readToken = newReaderWithMixedFencedBlocks();
-    test(readToken, `\${before} <code> A \${B} C </code> \${after}`, {
+    test(readToken, "${before} <code> A ${B} C </code> ${after}", {
       type: "Text",
       start: 0,
       end: 42,
@@ -346,7 +346,7 @@ describe("TokenizerContext", () => {
 
   it("should tokenize broken heterogenious fenced blocks", () => {
     const readToken = newReaderWithMixedFencedBlocks();
-    test(readToken, `\${before} <code> A \${B C </code> \${after}`, {
+    test(readToken, "${before} <code> A ${B C </code> ${after}", {
       type: "Text",
       start: 0,
       end: 41,
@@ -435,7 +435,7 @@ describe("TokenizerContext", () => {
 
   it("should tokenize broken heterogenious fenced blocks - 2", () => {
     const readToken = newReaderWithMixedFencedBlocks();
-    test(readToken, `before \${X <code> A \${B <code>C</code> } </code> `, {
+    test(readToken, "before ${X <code> A ${B <code>C</code> } </code> ", {
       type: "Text",
       start: 0,
       end: 49,
@@ -766,7 +766,7 @@ after
       return ctx.guard(() => {
         const start = ctx.i;
         ctx.i += 3;
-        let namesStart = ctx.skipWhile(isSpace);
+        const namesStart = ctx.skipWhile(isSpace);
         for (; ctx.i < ctx.length; ctx.i++) {
           const char = ctx.getChar();
           if (!isAlphaNum(char)) break;

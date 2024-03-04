@@ -1,10 +1,10 @@
-import { expect } from "./deps.ts";
 import {
   type TToken,
   type TTokenizerMethod,
   TokenizerContext,
   newBlockReader,
 } from "../src/base/index.ts";
+import { expect } from "./deps.ts";
 
 export function newBlockTest(
   tokenize: TTokenizerMethod,

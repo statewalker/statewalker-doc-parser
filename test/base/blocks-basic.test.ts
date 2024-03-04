@@ -1,9 +1,9 @@
-import { describe, expect, it } from "../deps.ts";
 import {
   type TToken,
   TokenizerContext,
   newBlockReader,
 } from "../../src/base/index.ts";
+import { describe, expect, it } from "../deps.ts";
 
 describe("newBlockReader", () => {
   // Recognize emojis like :-), :-(, :-|, :-], :-[, ;-), ;-(

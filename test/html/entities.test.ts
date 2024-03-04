@@ -1,11 +1,11 @@
-import { describe, it } from "../deps.ts";
 import { readHtmlEntity } from "../../src/html/index.ts";
+import { describe, it } from "../deps.ts";
 import { newBlockTest } from "../newBlockTest.ts";
 
 describe("readHtmlEntities", () => {
   const test = newBlockTest(readHtmlEntity);
 
-  it(`should read simple HTML entities`, () => {
+  it("should read simple HTML entities", () => {
     test("Hello &amp; World", {
       type: "Block",
       start: 0,

@@ -1,13 +1,13 @@
-import { describe, expect, it } from "../deps.ts";
 import {
   type TToken,
   type TTokenizerMethod,
   TokenizerContext,
   newBlockReader,
+  newCharReader,
   newCompositeTokenizer,
   newFencedBlockReader,
-  newCharReader,
 } from "../../src/base/index.ts";
+import { describe, expect, it } from "../deps.ts";
 import { testData } from "./fences.data.ts";
 
 /**

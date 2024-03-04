@@ -1,14 +1,12 @@
+import { newDynamicFencedBlockReader } from "../base/blocks.ts";
+import { isSpaceOrEol } from "../base/chars.ts";
 import {
   type TToken,
   type TTokenizerMethod,
   type TokenizerContext,
-  newDynamicFencedBlockReader,
-  isolate,
-  isSpace,
-  isSpaceOrEol,
-} from "../base/index.ts";
-import { readHtmlName } from "./names.ts";
+} from "../base/tokenizer.ts";
 import { newHtmlAttributeReader } from "./attributes.ts";
+import { readHtmlName } from "./names.ts";
 
 export interface THtmlTagStartToken extends TToken {
   type: "HtmlTagStart";
@@ -111,7 +109,9 @@ export interface THtmlCloseTagToken extends TToken {
   type: "HtmlCloseTag";
   tagName: string;
 }
-export function isHtmlCloseTagToken(token?: TToken): token is THtmlCloseTagToken {
+export function isHtmlCloseTagToken(
+  token?: TToken
+): token is THtmlCloseTagToken {
   if (!token) return false;
   return token.type === "HtmlCloseTag";
 }

@@ -1,7 +1,7 @@
-import { describe, expect, it } from "../deps.ts";
 import { type TToken, TokenizerContext } from "../../src/base/index.ts";
-import { gramTestData } from "./ngrams.data.ts";
+import { describe, expect, it } from "../deps.ts";
 import { newNgramsWithCode } from "./newNgramsWithCode.ts";
+import { gramTestData } from "./ngrams.data.ts";
 
 describe("ngrams", () => {
   function testGram(

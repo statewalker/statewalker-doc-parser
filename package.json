@@ -48,7 +48,8 @@
     "clean": "rm -rf dist",
     "lint": "eslint \"**/*.ts\"",
     "test:watch": "vitest --watch",
-    "test": "vitest && yarn lint",
+    "test:run": "vitest run && yarn lint",
+    "test": "vitest run",
     "prepublishOnly": "rm -rf dist && yarn test && yarn build"
   },
   "sideEffects": false,

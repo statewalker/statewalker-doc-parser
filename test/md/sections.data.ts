@@ -3,7 +3,7 @@ import { type TTestData } from "../data.types.ts";
 export const testData: TTestData[] = [
   {
     description: "should read document sections",
-    input: `# `,
+    input: "# ",
     expected: {
       type: "Block",
       start: 0,
@@ -40,7 +40,7 @@ export const testData: TTestData[] = [
   },
   {
     description: "should build sections hierarchy",
-    input: `# a\n## b\n### c\n#### d\n##### e\n###### f\n`,
+    input: "# a\n## b\n### c\n#### d\n##### e\n###### f\n",
     expected: {
       type: "Block",
       start: 0,

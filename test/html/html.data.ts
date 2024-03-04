@@ -3,7 +3,7 @@ import { type TTestData } from "../data.types.ts";
 export const testData: TTestData[] = [
   {
     input: "<a",
-    description: `should read simple opening tags`,
+    description: "should read simple opening tags",
     expected: {
       type: "Block",
       start: 0,
@@ -49,7 +49,7 @@ export const testData: TTestData[] = [
   },
   {
     input: "before <div>Hello</div> after",
-    description: `should read simple opening/closing tag pair tags`,
+    description: "should read simple opening/closing tag pair tags",
     expected: {
       type: "Block",
       start: 0,
@@ -119,7 +119,7 @@ export const testData: TTestData[] = [
   {
     input:
       "<div>before <em><a href=http://www.google.com>Google</a> after</em></div>",
-    description: `should read opening and closing tags`,
+    description: "should read opening and closing tags",
     expected: {
       type: "Block",
       start: 0,
@@ -327,7 +327,7 @@ export const testData: TTestData[] = [
     },
   },
   {
-    description: `should properly manage wrong nesting`,
+    description: "should properly manage wrong nesting",
     input: "before <em><strong>text</em></strong> after",
     // In this test, the <em> tag is closed before the <strong> tag
     // So the result is that the <strong> tag is a child of the <em> tag
@@ -444,7 +444,7 @@ export const testData: TTestData[] = [
   },
 
   {
-    description: `should handle autoclosing tags`,
+    description: "should handle autoclosing tags",
     input: "before <img src='./my-dog.jpg' /></img> after",
     // In this test the <img> tag is autoclosed and the closing </img> tag
     // is just ignored and "<" and ">" are interpreted as special symbols.
@@ -527,7 +527,7 @@ export const testData: TTestData[] = [
   },
 
   {
-    description: `should handle HTML comments`,
+    description: "should handle HTML comments",
     input: "before <!-- this is a comment --> after",
     expected: {
       type: "Block",
@@ -560,7 +560,7 @@ export const testData: TTestData[] = [
   },
 
   {
-    description: `should allow code in HTML comments`,
+    description: "should allow code in HTML comments",
     input: "before <!-- A ${this is the code} B --> after",
     expected: {
       type: "Block",
@@ -601,7 +601,7 @@ export const testData: TTestData[] = [
   },
 
   {
-    description: `should allow code in tags, attributes, text etc`,
+    description: "should allow code in tags, attributes, text etc",
     input: `before 
     <div \${{foo : "Foo", bar: "Bar"}} style=\${{ color:"red"}} title="Message: \${'Hello'}">
       Red text: \${"Hello, world"}!
@@ -782,7 +782,7 @@ export const testData: TTestData[] = [
   },
 
   {
-    description: `should handle non-closed code blocks in tags`,
+    description: "should handle non-closed code blocks in tags",
     input: "before <div> A ${B C </div> after",
     expected: {
       type: "Block",
@@ -859,7 +859,8 @@ export const testData: TTestData[] = [
     },
   },
   {
-    description: `should read non-quoted non-closed code blocks in attribute till the end`,
+    description:
+      "should read non-quoted non-closed code blocks in attribute till the end",
     input: "before <div prop=${B C> content </div> after",
     expected: {
       type: "Block",
@@ -939,7 +940,8 @@ export const testData: TTestData[] = [
     },
   },
   {
-    description: `should automatically close non-closed code blocks in quoted tag attributes`,
+    description:
+      "should automatically close non-closed code blocks in quoted tag attributes",
     input: "before <div prop='${B C'> content </div> after",
     expected: {
       type: "Block",

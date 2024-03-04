@@ -1,9 +1,5 @@
+import { newCharsReader, newCompositeTokenizer } from "../../src/base/index.ts";
 import { newCodeReader } from "../../src/code/code.ts";
-import {
-  type TTokenizerMethod,
-  newCompositeTokenizer,
-  newCharsReader,
-} from "../../src/base/index.ts";
 
 export function newNgramsWithCode() {
   return newCompositeTokenizer([

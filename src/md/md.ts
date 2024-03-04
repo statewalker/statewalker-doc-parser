@@ -1,10 +1,10 @@
 import {
+  type TTokenizerMethod,
   isolate,
   newCompositeTokenizer,
-  type TTokenizerMethod,
 } from "../base/index.ts";
-import { THtmlTokenizers, newHtmlReader } from "../html/index.ts";
-import { TMdSectionTokenizers, newMdSectionReader } from "./sections.ts";
+import { type THtmlTokenizers, newHtmlReader } from "../html/index.ts";
+import { type TMdSectionTokenizers, newMdSectionReader } from "./sections.ts";
 
 export type TMdTokenizers = {
   html: THtmlTokenizers;

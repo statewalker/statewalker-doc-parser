@@ -1,4 +1,3 @@
-import { describe, expect, it } from "../deps.ts";
 import {
   type TToken,
   TokenizerContext,
@@ -6,6 +5,7 @@ import {
   newCharsReader,
   newCompositeTokenizer,
 } from "../../src/base/index.ts";
+import { describe, expect, it } from "../deps.ts";
 import { testData } from "./blocks-with-content.data.ts";
 
 describe("newBlockReader", () => {

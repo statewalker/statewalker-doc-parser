@@ -225,7 +225,7 @@ export const testData: TTestData[] = [
   },
 
   {
-    input: `(c) (C) (r) (R) (tm) (TM) (p) (P) +- ?!!.....`,
+    input: "(c) (C) (r) (R) (tm) (TM) (p) (P) +- ?!!.....",
     description: "should read blocks with opening/closing parathesis",
     expected: {
       type: "Block",

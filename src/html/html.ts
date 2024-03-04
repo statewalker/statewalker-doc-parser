@@ -1,7 +1,6 @@
 import {
-  type TToken,
   type TTokenizerMethod,
-  TokenizerContext,
+  type TokenizerContext,
   newCharsReader,
   newCompositeTokenizer,
   newDynamicFencedBlockReader,

@@ -3,7 +3,7 @@ import { type TTestData } from "../data.types.ts";
 export const testData: TTestData[] = [
   {
     input: "before <div a:b:c='FOO ${foo_bar} BAR'>Hello</div> after",
-    description: `should read simple opening/closing tag pair tags`,
+    description: "should read simple opening/closing tag pair tags",
     expected: {
       type: "Block",
       start: 0,

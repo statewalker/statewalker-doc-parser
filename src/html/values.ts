@@ -2,10 +2,10 @@ import {
   type TToken,
   type TTokenizerMethod,
   type TokenizerContext,
-  newCompositeTokenizer,
-  newCharsReader,
-  newQuotedTextReader,
   isolate,
+  newCharsReader,
+  newCompositeTokenizer,
+  newQuotedTextReader,
 } from "../base/index.ts";
 
 export interface TAttributeValueToken extends TToken {

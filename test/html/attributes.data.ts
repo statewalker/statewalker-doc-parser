@@ -2,7 +2,7 @@ import { type TTestData } from "../data.types.ts";
 
 export const testData: TTestData[] = [
   {
-    description: `should read attributes without values`,
+    description: "should read attributes without values",
     input: "a",
     expected: {
       type: "Block",
@@ -30,7 +30,7 @@ export const testData: TTestData[] = [
   },
 
   {
-    description: `should read attributes with undefined values`,
+    description: "should read attributes with undefined values",
     input: "a = ",
     expected: {
       type: "Block",
@@ -58,7 +58,7 @@ export const testData: TTestData[] = [
   },
 
   {
-    description: `should read attributes with undefined values and new lines`,
+    description: "should read attributes with undefined values and new lines",
     input: "a = \n\n\n",
     expected: {
       type: "Block",
@@ -86,7 +86,7 @@ export const testData: TTestData[] = [
   },
 
   {
-    description: `should read attributes with non-quoted values`,
+    description: "should read attributes with non-quoted values",
     input: "a=A",
     expected: {
       type: "Block",
@@ -123,7 +123,7 @@ export const testData: TTestData[] = [
   },
 
   {
-    description: `should read attribute values with special symbols`,
+    description: "should read attribute values with special symbols",
     input: "a    =     b:cd:ef$gh",
     expected: {
       type: "Block",
@@ -197,8 +197,8 @@ export const testData: TTestData[] = [
     },
   },
   {
-    input: `a="b"`,
-    description: `should read simple quoted attribute`,
+    input: 'a="b"',
+    description: "should read simple quoted attribute",
     expected: {
       type: "Block",
       start: 0,
@@ -234,8 +234,8 @@ export const testData: TTestData[] = [
   },
 
   {
-    input: ` a=A b="B" c="C1 C2" d `,
-    description: `should read attributes in the stream`,
+    input: ' a=A b="B" c="C1 C2" d ',
+    description: "should read attributes in the stream",
     expected: {
       type: "Block",
       start: 0,
@@ -334,10 +334,10 @@ export const testData: TTestData[] = [
   },
 
   {
-    description: `should isolate quoted values from tokenization`,
+    description: "should isolate quoted values from tokenization",
     // In this example new line symbols before and after the quoted value
     // are tokenized, but not in the attribute value.
-    input: ` \n\n\n attr="before \n\n\n after" \n\n\n `,
+    input: ' \n\n\n attr="before \n\n\n after" \n\n\n ',
     expected: {
       type: "Block",
       start: 0,
@@ -385,7 +385,7 @@ export const testData: TTestData[] = [
   },
 
   {
-    description: `should read attributes key/values separated by new lines`,
+    description: "should read attributes key/values separated by new lines",
     input: "x \n\n\n a \n\n\n = \n\n\n b \n\n\n y",
     // It corresponds to this object: { x: undefined, a: "b", y: undefined }
     // and it contains "Eol" tokens between attributes.
@@ -465,10 +465,11 @@ export const testData: TTestData[] = [
     },
   },
   {
-    description: `tokenization should not affect the attribute key/value pair recognition`,
+    description:
+      "tokenization should not affect the attribute key/value pair recognition",
     // New lines between the key and value are not interpreted as a separate token.
     // But "\n" symbols before and after the key/value pair are tokenized.
-    input: ` \n\n\n attr \n\n\n = \n\n\n "value1 \n\n\n value2" \n\n\n `,
+    input: ' \n\n\n attr \n\n\n = \n\n\n "value1 \n\n\n value2" \n\n\n ',
     expected: {
       type: "Block",
       start: 0,
@@ -516,7 +517,7 @@ export const testData: TTestData[] = [
   },
 
   {
-    description: `should read attribute name and code values`,
+    description: "should read attribute name and code values",
     input: "x=${y}",
     expected: {
       type: "Block",
@@ -563,7 +564,7 @@ export const testData: TTestData[] = [
   },
 
   {
-    description: `should read attribute values with code`,
+    description: "should read attribute values with code",
     input: "a = 'before ${A `${B}` C} after' XX",
     expected: {
       type: "Block",
@@ -682,7 +683,8 @@ export const testData: TTestData[] = [
   },
 
   {
-    description: `should read attribute values containing non-quoted code blocks`,
+    description:
+      "should read attribute values containing non-quoted code blocks",
     input: "a    =     ${\n foo='Foo' bar=\"Bar\" hello \n}",
     expected: {
       type: "Block",
@@ -728,12 +730,12 @@ export const testData: TTestData[] = [
     },
   },
   {
-    description: `should read attributes key/value pairs on multiple lines`,
+    description: "should read attributes key/value pairs on multiple lines",
     input: `abc:$my-description
        =
         'b:\${
          <MyInternalWidget
-           foo=\`\${<Foo bar=\"Baz\">}\`
+           foo=\`\${<Foo bar="Baz">}\`
            bar="Bar" hello>
         }:c
      '`,
@@ -795,7 +797,7 @@ export const testData: TTestData[] = [
     },
   },
   {
-    description: `should read attribute values containing multiple code blocks`,
+    description: "should read attribute values containing multiple code blocks",
     input: "a = '${x}${y}${z}'",
     expected: {
       type: "Block",

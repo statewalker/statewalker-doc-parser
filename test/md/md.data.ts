@@ -737,7 +737,7 @@ export const testData: TTestData[] = [
   },
   {
     description: "should allow HTML tags in section headers",
-    input: `# Main Content <em>Some text</em>`,
+    input: "# Main Content <em>Some text</em>",
     expected: {
       type: "Block",
       start: 0,
@@ -831,7 +831,7 @@ export const testData: TTestData[] = [
   },
   {
     description: "should allow HTML tags in section headers",
-    input: `# Title: Before <em>Some text\n\n</em> After`,
+    input: "# Title: Before <em>Some text\n\n</em> After",
     expected: {
       type: "Block",
       start: 0,

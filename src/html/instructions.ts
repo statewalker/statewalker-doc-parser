@@ -1,7 +1,7 @@
 import {
+  type TToken,
   type TTokenizerMethod,
   newTextFencedBlockReader,
-  TToken,
 } from "../base/index.ts";
 
 export function newInstructionsBlockReader(

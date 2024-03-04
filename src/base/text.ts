@@ -1,10 +1,10 @@
+import { newFencedBlockReader } from "./blocks.ts";
+import { isEol } from "./chars.ts";
 import {
   type TToken,
   type TTokenizerMethod,
   type TokenizerContext,
 } from "./tokenizer.ts";
-import { type TFencedBlockToken, newFencedBlockReader } from "./blocks.ts";
-import { isEol } from "./chars.ts";
 
 export function newCharsReader(type: string, check: (char: string) => boolean) {
   return (ctx: TokenizerContext) => {
@@ -55,7 +55,7 @@ export function newCharSequenceReader<T extends TToken>(
   };
 }
 
-export function newTextFencedBlockReader<T extends TFencedBlockToken>(
+export function newTextFencedBlockReader<T extends TToken>(
   type: string,
   startMask: string,
   endMask: string,

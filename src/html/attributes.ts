@@ -3,7 +3,6 @@ import {
   type TTokenizerMethod,
   type TokenizerContext,
   isSpaceOrEol,
-  isolate,
 } from "../base/index.ts";
 import { readHtmlName } from "./names.ts";
 import { newHtmlValueReader } from "./values.ts";

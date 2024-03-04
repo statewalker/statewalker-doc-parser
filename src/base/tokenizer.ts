@@ -140,7 +140,7 @@ export class TokenizerContext {
    * @param to the end position
    * @returns the substring
    */
-  substring(from: number, to: number): string {
+  substring(from: number, to?: number): string {
     return this.str.substring(from, to);
   }
 

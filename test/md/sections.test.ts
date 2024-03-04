@@ -1,8 +1,8 @@
+import { newCodeReader } from "../../src/index.ts";
+import { newMdSectionReader } from "../../src/md/index.ts";
 import { describe, it } from "../deps.ts";
 import { newBlockTest } from "../newBlockTest.ts";
 import { testData } from "./sections.data.ts";
-import { newCodeReader } from "../../src/index.ts";
-import { newMdSectionReader } from "../../src/md/index.ts";
 
 describe("newMdSectionsReader", () => {
   const readCode = newCodeReader();

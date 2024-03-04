@@ -3,7 +3,7 @@ import { type TTestData } from "../data.types.ts";
 export const testData: TTestData[] = [
   {
     description: "should read empty MD headers at the beginning of the stream",
-    input: `# `,
+    input: "# ",
     expected: {
       type: "Block",
       start: 0,
@@ -31,7 +31,7 @@ export const testData: TTestData[] = [
   },
   {
     description: "should read empty MD headers starting from a new line",
-    input: `before\n# `,
+    input: "before\n# ",
     expected: {
       type: "Block",
       start: 0,
@@ -59,7 +59,7 @@ export const testData: TTestData[] = [
   },
   {
     description: "should read empty MD headers until the next empty line",
-    input: `before\n# \nafter`,
+    input: "before\n# \nafter",
     expected: {
       type: "Block",
       start: 0,
@@ -94,7 +94,7 @@ export const testData: TTestData[] = [
   {
     description:
       "should read MD headers with content until the next empty line",
-    input: `before\n# Header\nafter`,
+    input: "before\n# Header\nafter",
     expected: {
       type: "Block",
       start: 0,
