@@ -1,6 +1,6 @@
 {
   "name": "@statewalker/tknz",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "TKNZ: token-based AST builder for documents",
   "keywords": [],
   "homepage": "https://github.com/statewalker/statewalker-tknz",
