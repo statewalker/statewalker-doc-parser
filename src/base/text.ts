@@ -147,3 +147,22 @@ export function readNewLines(ctx: TokenizerContext): TToken | undefined {
     };
   });
 }
+
+export function readEmptyLine(ctx: TokenizerContext): TToken | undefined {
+  return ctx.guard(() => {
+    const start = ctx.i;
+    if (ctx.i > 0) {
+      if (!isEol(ctx.getChar())) return;
+      ctx.i++;
+      if (!isEol(ctx.getChar())) return;
+      ctx.i++;
+    }
+    const end = ctx.i;
+    return {
+      type: "EmptyLine",
+      start,
+      end,
+      value: ctx.substring(start, end),
+    };
+  });
+}
