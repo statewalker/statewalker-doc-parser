@@ -14,15 +14,15 @@ describe("newMdReader", () => {
   const readContent = newCompositeTokenizer(contentTokenizers);
 
   const readers = {
-    html: {
-      readOpenTagTokens: readCode,
-      readInstructionsTokens: readCode,
-      // readTagContentTokens: readContent,
-    },
-    md: {
-      readHeaderTokens: readCode,
-      // readSectionTokens: readContent,
-    },
+    // html: {
+    //   readOpenTagTokens: readCode,
+    //   readInstructionsTokens: readCode,
+    //   // readTagContentTokens: readContent,
+    // },
+    // md: {
+    //   readHeaderTokens: readCode,
+    //   // readSectionTokens: readContent,
+    // },
     readContent,
   };
 

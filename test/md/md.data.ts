@@ -1184,4 +1184,291 @@ Text
       ],
     },
   },
+  {
+    input: `# Header
+    
+    - item one 
+      - subitem <sup>1</sup>
+      - subitem <sup>2</sup>
+    - item two
+
+    Hello!
+
+    `,
+    description: "should read lists with code",
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 120,
+      value:
+        "# Header\n    \n    - item one \n      - subitem <sup>1</sup>\n      - subitem <sup>2</sup>\n    - item two\n\n    Hello!\n\n    ",
+      children: [
+        {
+          type: "MdSection",
+          start: 0,
+          end: 120,
+          value:
+            "# Header\n    \n    - item one \n      - subitem <sup>1</sup>\n      - subitem <sup>2</sup>\n    - item two\n\n    Hello!\n\n    ",
+          children: [
+            {
+              type: "MdHeader",
+              start: 0,
+              end: 8,
+              value: "# Header",
+              children: [
+                {
+                  type: "MdHeaderStart",
+                  start: 0,
+                  end: 2,
+                  value: "# ",
+                  level: 1,
+                },
+                { type: "MdHeaderEnd", start: 8, end: 8, value: "" },
+              ],
+              level: 1,
+            },
+            {
+              type: "MdList",
+              start: 13,
+              end: 102,
+              value:
+                "\n    - item one \n      - subitem <sup>1</sup>\n      - subitem <sup>2</sup>\n    - item two",
+              children: [
+                {
+                  type: "MdListItem",
+                  start: 13,
+                  end: 87,
+                  value:
+                    "\n    - item one \n      - subitem <sup>1</sup>\n      - subitem <sup>2</sup>",
+                  children: [
+                    {
+                      type: "MdListItemStart",
+                      start: 13,
+                      end: 20,
+                      value: "\n    - ",
+                      marker: "    -",
+                    },
+                    {
+                      type: "MdListItemContent",
+                      start: 20,
+                      end: 87,
+                      value:
+                        "item one \n      - subitem <sup>1</sup>\n      - subitem <sup>2</sup>",
+                      children: [
+                        {
+                          type: "MdList",
+                          start: 29,
+                          end: 87,
+                          value:
+                            "\n      - subitem <sup>1</sup>\n      - subitem <sup>2</sup>",
+                          children: [
+                            {
+                              type: "MdListItem",
+                              start: 29,
+                              end: 58,
+                              value: "\n      - subitem <sup>1</sup>",
+                              children: [
+                                {
+                                  type: "MdListItemStart",
+                                  start: 29,
+                                  end: 38,
+                                  value: "\n      - ",
+                                  marker: "      -",
+                                },
+                                {
+                                  type: "MdListItemContent",
+                                  start: 38,
+                                  end: 58,
+                                  value: "subitem <sup>1</sup>",
+                                  children: [
+                                    {
+                                      type: "HtmlTag",
+                                      start: 46,
+                                      end: 58,
+                                      value: "<sup>1</sup>",
+                                      children: [
+                                        {
+                                          type: "HtmlOpenTag",
+                                          start: 46,
+                                          end: 51,
+                                          value: "<sup>",
+                                          children: [
+                                            {
+                                              type: "HtmlTagStart",
+                                              start: 46,
+                                              end: 50,
+                                              value: "<sup",
+                                              children: [
+                                                {
+                                                  type: "HtmlName",
+                                                  name: "sup",
+                                                  start: 47,
+                                                  end: 50,
+                                                  value: "sup",
+                                                },
+                                              ],
+                                              tagName: "sup",
+                                            },
+                                            {
+                                              type: "HtmlTagEnd",
+                                              start: 50,
+                                              end: 51,
+                                              value: ">",
+                                              autoclosing: false,
+                                            },
+                                          ],
+                                          tagName: "sup",
+                                          autoclosing: false,
+                                        },
+                                        {
+                                          type: "HtmlCloseTag",
+                                          start: 52,
+                                          end: 58,
+                                          value: "</sup>",
+                                          children: [
+                                            {
+                                              type: "HtmlName",
+                                              name: "sup",
+                                              start: 54,
+                                              end: 57,
+                                              value: "sup",
+                                            },
+                                          ],
+                                          tagName: "sup",
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                },
+                                {
+                                  type: "MdListItemEnd",
+                                  start: 58,
+                                  end: 58,
+                                  value: "",
+                                },
+                              ],
+                            },
+                            {
+                              type: "MdListItem",
+                              start: 58,
+                              end: 87,
+                              value: "\n      - subitem <sup>2</sup>",
+                              children: [
+                                {
+                                  type: "MdListItemStart",
+                                  start: 58,
+                                  end: 67,
+                                  value: "\n      - ",
+                                  marker: "      -",
+                                },
+                                {
+                                  type: "MdListItemContent",
+                                  start: 67,
+                                  end: 87,
+                                  value: "subitem <sup>2</sup>",
+                                  children: [
+                                    {
+                                      type: "HtmlTag",
+                                      start: 75,
+                                      end: 87,
+                                      value: "<sup>2</sup>",
+                                      children: [
+                                        {
+                                          type: "HtmlOpenTag",
+                                          start: 75,
+                                          end: 80,
+                                          value: "<sup>",
+                                          children: [
+                                            {
+                                              type: "HtmlTagStart",
+                                              start: 75,
+                                              end: 79,
+                                              value: "<sup",
+                                              children: [
+                                                {
+                                                  type: "HtmlName",
+                                                  name: "sup",
+                                                  start: 76,
+                                                  end: 79,
+                                                  value: "sup",
+                                                },
+                                              ],
+                                              tagName: "sup",
+                                            },
+                                            {
+                                              type: "HtmlTagEnd",
+                                              start: 79,
+                                              end: 80,
+                                              value: ">",
+                                              autoclosing: false,
+                                            },
+                                          ],
+                                          tagName: "sup",
+                                          autoclosing: false,
+                                        },
+                                        {
+                                          type: "HtmlCloseTag",
+                                          start: 81,
+                                          end: 87,
+                                          value: "</sup>",
+                                          children: [
+                                            {
+                                              type: "HtmlName",
+                                              name: "sup",
+                                              start: 83,
+                                              end: 86,
+                                              value: "sup",
+                                            },
+                                          ],
+                                          tagName: "sup",
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                },
+                                {
+                                  type: "MdListItemEnd",
+                                  start: 87,
+                                  end: 87,
+                                  value: "",
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    { type: "MdListItemEnd", start: 87, end: 87, value: "" },
+                  ],
+                },
+                {
+                  type: "MdListItem",
+                  start: 87,
+                  end: 102,
+                  value: "\n    - item two",
+                  children: [
+                    {
+                      type: "MdListItemStart",
+                      start: 87,
+                      end: 94,
+                      value: "\n    - ",
+                      marker: "    -",
+                    },
+                    {
+                      type: "MdListItemContent",
+                      start: 94,
+                      end: 102,
+                      value: "item two",
+                    },
+                    { type: "MdListItemEnd", start: 102, end: 102, value: "" },
+                  ],
+                },
+              ],
+            },
+          ],
+          level: 1,
+        },
+      ],
+    },
+  },
 ];
