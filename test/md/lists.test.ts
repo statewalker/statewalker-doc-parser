@@ -70,45 +70,82 @@ function readListItemMarker(
 }
 
 function newMdListReader(readContent?: TTokenizerMethod) {
-  const list: TTokenizerMethod[] = [];
-  const compositeReader = newCompositeTokenizer(list);
-  const readToken = newBlockReader("MdList", compositeReader);
+  const tokenizers: TTokenizerMethod[] = [];
   const readEols = newCharsReader("Eol", isEol);
-  list.push(
-    newDynamicFencedBlockReader(
-      "MdListItem",
-      (ctx: TokenizerContext): TToken | undefined =>
-        ctx.guard(() => {
-          const token = readListItemMarker(ctx);
-          return token;
-        }),
-      () => readToken,
-      (token: TToken) => {
-        const startMarker = token as TMdListItemMarker;
-        return (ctx: TokenizerContext): TToken | undefined =>
-          ctx.guard(() => {
-            const start = ctx.i;
-            const eols = readEols(ctx);
-            if (!eols || ctx.i - start < 2) {
-              ctx.i = start;
-              const endMarker = readListItemMarker(ctx);
-              if (!endMarker) return;
-              // Embedded list item
-              if (startMarker.marker.length < endMarker.marker.length) return;
-            }
-            const end = (ctx.i = start);
-            return {
-              type: "MdListItemEnd",
-              start,
-              end,
-              value: ctx.substring(start, end),
-            };
-          });
-      }
-    )
+  const compositeReader = newCompositeTokenizer(tokenizers);
+  const readListItemContent = newBlockReader(
+    "MdListItemContent",
+    compositeReader
   );
-  readContent && list.push(readContent);
-  return readToken;
+  const readListItem = newDynamicFencedBlockReader(
+    "MdListItem",
+    (ctx: TokenizerContext): TToken | undefined =>
+      ctx.guard(() => {
+        const token = readListItemMarker(ctx);
+        if (!token) return;
+        (token as TToken).type = "MdListItemStart";
+        return token;
+      }),
+    () => readListItemContent,
+    (token: TToken) => {
+      const startMarker = token as TMdListItemMarker;
+      return (ctx: TokenizerContext): TToken | undefined =>
+        ctx.guard(() => {
+          const start = ctx.i;
+          const eols = readEols(ctx);
+          if (!eols || ctx.i - start < 2) {
+            ctx.i = start;
+            const endMarker = readListItemMarker(ctx);
+            if (!endMarker) return;
+            // Embedded list item
+            if (startMarker.marker.length < endMarker.marker.length) return;
+          }
+          const end = (ctx.i = start);
+          return {
+            type: "MdListItemEnd",
+            start,
+            end,
+            value: ctx.substring(start, end),
+          };
+        });
+    }
+  );
+  const readListToken = newBlockReader("MdList", readListItem);
+  const readList = (ctx: TokenizerContext): TToken | undefined =>
+    ctx.guard(() => {
+      const start = ctx.i;
+      const listItemMarker = readListItemMarker(ctx);
+      ctx.i = start;
+      if (!listItemMarker) return;
+      const token = readListToken(ctx);
+      if (!token || !token.children) return ;
+      return token;
+      // const start = ctx.i;
+      // let children: TToken[] | undefined;
+      // while (ctx.i < ctx.length) {
+      //   const item = readListItem(ctx);
+      //   if (!item) break;
+      //   children = children || [];
+      //   children.push(item);
+      // }
+      // const end = ctx.i;
+      // if (!children) return;
+      // return {
+      //   type: "MdList",
+      //   start,
+      //   end,
+      //   value: ctx.substring(start, end),
+      //   children,
+      // };
+
+      //   const token = readListToken(ctx);
+      //   if (!token || !token.children) return;
+      //   return token;
+    });
+  tokenizers.push(readList);
+  // tokenizers.push(readListItem);
+  readContent && tokenizers.push(readContent);
+  return readList;
 }
 
 describe("newMdListsReader", () => {
