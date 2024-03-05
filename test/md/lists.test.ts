@@ -4,7 +4,7 @@ import { newBlockTest } from "../newBlockTest.ts";
 
 import { testData } from "./lists.data.ts";
 
-describe("newMdListsReader", () => {
+describe("newMdListReader", () => {
   const readToken = newMdListReader();
   const test = newBlockTest(readToken);
   testData.forEach((data) => {
