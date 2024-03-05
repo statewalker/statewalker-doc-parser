@@ -8,6 +8,8 @@ import {
   newDynamicFencedBlockReader,
   newBlockReader,
   newCharsReader,
+  newCharReader,
+  isSpaceOrEol,
 } from "../../src/index.ts";
 import { describe, it } from "../deps.ts";
 import { newBlockTest } from "../newBlockTest.ts";
@@ -22,20 +24,39 @@ interface TMdListItemMarker extends TToken {
 // function isEndListMarker(marker?: TToken): marker is TMdListItemMarker {
 //   return marker?.type === "MdListItemMarker";
 // }
+function newEmptyLineReader() {
+  // Read one line
+  const readEol = newCharReader("NL", (char) => !!char.match(/\s/u));
+  return (ctx: TokenizerContext): TToken | undefined => {
+    const start = ctx.i;
+    if (ctx.i > 0 && !readEol(ctx)) return;
+    const end = ctx.i;
+    return {
+      type: "NL",
+      start,
+      end,
+      value: ctx.substring(start, end),
+    };
+  };
+}
+
 function readListItemMarker(
   ctx: TokenizerContext
 ): TMdListItemMarker | undefined {
+  // const readEmptyLine = newEmptyLineReader();
   return ctx.guard(() => {
     const start = ctx.i;
     ctx.skipWhile(isEol);
     if (ctx.i > 0 && ctx.i === start) return;
     const markerStart = ctx.i;
-    ctx.skipWhile(isSpace);
-    const prev = ctx.i;
+    ctx.skipWhile(isSpace); // Skip whitespaces at the begining of the line
+    const prevPos = ctx.i;
     ctx.skipWhile((char) => !!char.match(/[-*\d]/u));
-    if (ctx.i === prev) return;
     const markerEnd = ctx.i;
-    ctx.skipWhile(isSpace);
+    if (markerEnd === prevPos) return; // No list item symbols found
+    ctx.skipWhile(isSpace); // Skip spaces after the list item symbols
+    if (ctx.i === markerEnd) return; // No spaces after the "*"
+
     const marker = ctx.substring(markerStart, markerEnd);
     const end = ctx.i;
     return {
@@ -48,13 +69,12 @@ function readListItemMarker(
   });
 }
 
-const readEmptyLines = newCharsReader("Eol", (char) => !!char.match(/\s/u));
 function newMdListReader(readContent?: TTokenizerMethod) {
   const list: TTokenizerMethod[] = [];
-  readContent && list.push(readContent);
   const compositeReader = newCompositeTokenizer(list);
   const readToken = newBlockReader("MdList", compositeReader);
-  list.unshift(
+  const readEols = newCharsReader("Eol", isEol);
+  list.push(
     newDynamicFencedBlockReader(
       "MdListItem",
       (ctx: TokenizerContext): TToken | undefined =>
@@ -68,20 +88,16 @@ function newMdListReader(readContent?: TTokenizerMethod) {
         return (ctx: TokenizerContext): TToken | undefined =>
           ctx.guard(() => {
             const start = ctx.i;
-            const end = start;
-            const endMarker = readListItemMarker(ctx);
-            if (endMarker) {
-              console.log(`***\n[${startMarker.marker}]\n[${endMarker.marker}]`);
+            const eols = readEols(ctx);
+            if (!eols || ctx.i - start < 2) {
+              ctx.i = start;
+              const endMarker = readListItemMarker(ctx);
+              if (!endMarker) return;
+              // Embedded list item
               if (startMarker.marker.length < endMarker.marker.length) return;
-            } else {
-              // const eol = readEmptyLines(ctx);
-              // if (!eol || eol.value.length < 2) return;
-              return ;
             }
-            // Embedded list item
-            // if (startMarker.marker === endMarker.marker) return endMarker;
+            const end = (ctx.i = start);
             return {
-              // ...endMarker,
               type: "MdListItemEnd",
               start,
               end,
@@ -91,6 +107,7 @@ function newMdListReader(readContent?: TTokenizerMethod) {
       }
     )
   );
+  readContent && list.push(readContent);
   return readToken;
 }
 
