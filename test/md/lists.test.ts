@@ -4,12 +4,9 @@ import {
   type TokenizerContext,
   isEol,
   isSpace,
+  newBlockReader,
   newCompositeTokenizer,
   newDynamicFencedBlockReader,
-  newBlockReader,
-  newCharsReader,
-  newCharReader,
-  isSpaceOrEol,
 } from "../../src/index.ts";
 import { describe, it } from "../deps.ts";
 import { newBlockTest } from "../newBlockTest.ts";
@@ -17,37 +14,32 @@ import { newBlockTest } from "../newBlockTest.ts";
 import { testData } from "./lists.data.ts";
 
 // const isAlphaNum = (char: string[0]) => !!char.match(/\S/u);
-interface TMdListItemMarker extends TToken {
-  type: "MdListItemMarker";
-  marker: string;
-}
-// function isEndListMarker(marker?: TToken): marker is TMdListItemMarker {
+// function isEndListMarker(marker?: TToken): marker is TToken {
 //   return marker?.type === "MdListItemMarker";
 // }
-function newEmptyLineReader() {
-  // Read one line
-  const readEol = newCharReader("NL", (char) => !!char.match(/\s/u));
-  return (ctx: TokenizerContext): TToken | undefined => {
-    const start = ctx.i;
-    if (ctx.i > 0 && !readEol(ctx)) return;
-    const end = ctx.i;
-    return {
-      type: "NL",
-      start,
-      end,
-      value: ctx.substring(start, end),
-    };
+
+function readEmptyLine(ctx: TokenizerContext): TToken | undefined {
+  const start = ctx.i;
+  if (ctx.i > 0) {
+    if (!isEol(ctx.getChar())) return;
+    ctx.i++;
+    if (!isEol(ctx.getChar())) return;
+    ctx.i++;
+  }
+  const end = ctx.i;
+  return {
+    type: "EmptyLine",
+    start,
+    end,
+    value: ctx.substring(start, end),
   };
 }
 
-function readListItemMarker(
-  ctx: TokenizerContext
-): TMdListItemMarker | undefined {
-  // const readEmptyLine = newEmptyLineReader();
+function readListItemMarker(ctx: TokenizerContext): TToken | undefined {
   return ctx.guard(() => {
     const start = ctx.i;
     ctx.skipWhile(isEol);
-    if (ctx.i > 0 && ctx.i === start) return;
+    if (ctx.i > 0 && ctx.i - start > 1) return;
     const markerStart = ctx.i;
     ctx.skipWhile(isSpace); // Skip whitespaces at the begining of the line
     const prevPos = ctx.i;
@@ -65,13 +57,12 @@ function readListItemMarker(
       end,
       value: ctx.substring(start, end),
       marker,
-    } as TMdListItemMarker;
+    } as TToken;
   });
 }
 
 function newMdListReader(readContent?: TTokenizerMethod) {
   const tokenizers: TTokenizerMethod[] = [];
-  const readEols = newCharsReader("Eol", isEol);
   const compositeReader = newCompositeTokenizer(tokenizers);
   const readListItemContent = newBlockReader(
     "MdListItemContent",
@@ -88,12 +79,12 @@ function newMdListReader(readContent?: TTokenizerMethod) {
       }),
     () => readListItemContent,
     (token: TToken) => {
-      const startMarker = token as TMdListItemMarker;
+      const startMarker = token as TToken;
       return (ctx: TokenizerContext): TToken | undefined =>
         ctx.guard(() => {
           const start = ctx.i;
-          const eols = readEols(ctx);
-          if (!eols || ctx.i - start < 2) {
+          const emptyLine = readEmptyLine(ctx);
+          if (!emptyLine) {
             ctx.i = start;
             const endMarker = readListItemMarker(ctx);
             if (!endMarker) return;
@@ -110,40 +101,22 @@ function newMdListReader(readContent?: TTokenizerMethod) {
         });
     }
   );
+
   const readListToken = newBlockReader("MdList", readListItem);
   const readList = (ctx: TokenizerContext): TToken | undefined =>
-    ctx.guard(() => {
+    ctx.guard((fences) => {
       const start = ctx.i;
+      fences.addFence(readEmptyLine);
+      if (ctx.i > 0 && ctx.i - start > 1) return;
+
       const listItemMarker = readListItemMarker(ctx);
       ctx.i = start;
       if (!listItemMarker) return;
       const token = readListToken(ctx);
-      if (!token || !token.children) return ;
+      if (!token || !token.children) return;
       return token;
-      // const start = ctx.i;
-      // let children: TToken[] | undefined;
-      // while (ctx.i < ctx.length) {
-      //   const item = readListItem(ctx);
-      //   if (!item) break;
-      //   children = children || [];
-      //   children.push(item);
-      // }
-      // const end = ctx.i;
-      // if (!children) return;
-      // return {
-      //   type: "MdList",
-      //   start,
-      //   end,
-      //   value: ctx.substring(start, end),
-      //   children,
-      // };
-
-      //   const token = readListToken(ctx);
-      //   if (!token || !token.children) return;
-      //   return token;
     });
   tokenizers.push(readList);
-  // tokenizers.push(readListItem);
   readContent && tokenizers.push(readContent);
   return readList;
 }

@@ -2,6 +2,231 @@ import { type TTestData } from "../data.types.ts";
 
 export const testData: TTestData[] = [
   {
+    description: "should tokenize a one-element list",
+    input: `
+    - one
+    `,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 15,
+      value: "\n    - one\n    ",
+      children: [
+        {
+          type: "MdList",
+          start: 1,
+          end: 15,
+          value: "    - one\n    ",
+          children: [
+            {
+              type: "MdListItem",
+              start: 1,
+              end: 15,
+              value: "    - one\n    ",
+              children: [
+                {
+                  type: "MdListItemStart",
+                  start: 1,
+                  end: 7,
+                  value: "    - ",
+                  marker: "    -",
+                },
+                {
+                  type: "MdListItemContent",
+                  start: 7,
+                  end: 15,
+                  value: "one\n    ",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    description:
+      "should tokenize a one-element list terminated by an empty line",
+    input: `
+    - one
+
+`,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 12,
+      value: "\n    - one\n\n",
+      children: [
+        {
+          type: "MdList",
+          start: 1,
+          end: 10,
+          value: "    - one",
+          children: [
+            {
+              type: "MdListItem",
+              start: 1,
+              end: 10,
+              value: "    - one",
+              children: [
+                {
+                  type: "MdListItemStart",
+                  start: 1,
+                  end: 7,
+                  value: "    - ",
+                  marker: "    -",
+                },
+                {
+                  type: "MdListItemContent",
+                  start: 7,
+                  end: 10,
+                  value: "one",
+                },
+                {
+                  type: "MdListItemEnd",
+                  start: 10,
+                  end: 10,
+                  value: "",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    description:
+      "should tokenize a one-element list terminated by an empty line with content before/after the list",
+    input: `
+before
+- one
+
+after`,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 20,
+      value: "\nbefore\n- one\n\nafter",
+      children: [
+        {
+          type: "MdList",
+          start: 7,
+          end: 13,
+          value: "\n- one",
+          children: [
+            {
+              type: "MdListItem",
+              start: 7,
+              end: 13,
+              value: "\n- one",
+              children: [
+                {
+                  type: "MdListItemStart",
+                  start: 7,
+                  end: 10,
+                  value: "\n- ",
+                  marker: "-",
+                },
+                {
+                  type: "MdListItemContent",
+                  start: 10,
+                  end: 13,
+                  value: "one",
+                },
+                {
+                  type: "MdListItemEnd",
+                  start: 13,
+                  end: 13,
+                  value: "",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    description: "should tokenize simple lists",
+    input: `
+    - one
+    - two
+    - three
+    `,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 37,
+      value: "\n    - one\n    - two\n    - three\n    ",
+      children: [
+        {
+          type: "MdList",
+          start: 1,
+          end: 37,
+          value: "    - one\n    - two\n    - three\n    ",
+          children: [
+            {
+              type: "MdListItem",
+              start: 1,
+              end: 10,
+              value: "    - one",
+              children: [
+                {
+                  type: "MdListItemStart",
+                  start: 1,
+                  end: 7,
+                  value: "    - ",
+                  marker: "    -",
+                },
+                { type: "MdListItemContent", start: 7, end: 10, value: "one" },
+                { type: "MdListItemEnd", start: 10, end: 10, value: "" },
+              ],
+            },
+            {
+              type: "MdListItem",
+              start: 10,
+              end: 20,
+              value: "\n    - two",
+              children: [
+                {
+                  type: "MdListItemStart",
+                  start: 10,
+                  end: 17,
+                  value: "\n    - ",
+                  marker: "    -",
+                },
+                { type: "MdListItemContent", start: 17, end: 20, value: "two" },
+                { type: "MdListItemEnd", start: 20, end: 20, value: "" },
+              ],
+            },
+            {
+              type: "MdListItem",
+              start: 20,
+              end: 37,
+              value: "\n    - three\n    ",
+              children: [
+                {
+                  type: "MdListItemStart",
+                  start: 20,
+                  end: 27,
+                  value: "\n    - ",
+                  marker: "    -",
+                },
+                {
+                  type: "MdListItemContent",
+                  start: 27,
+                  end: 37,
+                  value: "three\n    ",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
     description: "should tokenize simple hierarchical list",
     input: `
     - item one 
@@ -18,23 +243,22 @@ export const testData: TTestData[] = [
       children: [
         {
           type: "MdList",
-          start: 0,
+          start: 1,
           end: 74,
           value:
-            "\n    - item one \n      - sub-item 1\n      - sub-item 2\n    - item two\n    ",
+            "    - item one \n      - sub-item 1\n      - sub-item 2\n    - item two\n    ",
           children: [
             {
               type: "MdListItem",
-              start: 0,
+              start: 1,
               end: 54,
-              value:
-                "\n    - item one \n      - sub-item 1\n      - sub-item 2",
+              value: "    - item one \n      - sub-item 1\n      - sub-item 2",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 0,
+                  start: 1,
                   end: 7,
-                  value: "\n    - ",
+                  value: "    - ",
                   marker: "    -",
                 },
                 {
@@ -137,85 +361,6 @@ export const testData: TTestData[] = [
     },
   },
   {
-    description: "should tokenize simple list",
-    input: `
-    - one
-    - two
-    - three
-    `,
-    expected: {
-      type: "Block",
-      start: 0,
-      end: 37,
-      value: "\n    - one\n    - two\n    - three\n    ",
-      children: [
-        {
-          type: "MdList",
-          start: 0,
-          end: 37,
-          value: "\n    - one\n    - two\n    - three\n    ",
-          children: [
-            {
-              type: "MdListItem",
-              start: 0,
-              end: 10,
-              value: "\n    - one",
-              children: [
-                {
-                  type: "MdListItemStart",
-                  start: 0,
-                  end: 7,
-                  value: "\n    - ",
-                  marker: "    -",
-                },
-                { type: "MdListItemContent", start: 7, end: 10, value: "one" },
-                { type: "MdListItemEnd", start: 10, end: 10, value: "" },
-              ],
-            },
-            {
-              type: "MdListItem",
-              start: 10,
-              end: 20,
-              value: "\n    - two",
-              children: [
-                {
-                  type: "MdListItemStart",
-                  start: 10,
-                  end: 17,
-                  value: "\n    - ",
-                  marker: "    -",
-                },
-                { type: "MdListItemContent", start: 17, end: 20, value: "two" },
-                { type: "MdListItemEnd", start: 20, end: 20, value: "" },
-              ],
-            },
-            {
-              type: "MdListItem",
-              start: 20,
-              end: 37,
-              value: "\n    - three\n    ",
-              children: [
-                {
-                  type: "MdListItemStart",
-                  start: 20,
-                  end: 27,
-                  value: "\n    - ",
-                  marker: "    -",
-                },
-                {
-                  type: "MdListItemContent",
-                  start: 27,
-                  end: 37,
-                  value: "three\n    ",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-  },
-  {
     description: "should read lists separated by white lines",
     input: `
     - one
@@ -232,21 +377,21 @@ export const testData: TTestData[] = [
       children: [
         {
           type: "MdList",
-          start: 0,
-          end: 49,
-          value: "\n    - one\n    - two\n\n    - three\n    - four\n    ",
+          start: 1,
+          end: 20,
+          value: "    - one\n    - two",
           children: [
             {
               type: "MdListItem",
-              start: 0,
+              start: 1,
               end: 10,
-              value: "\n    - one",
+              value: "    - one",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 0,
+                  start: 1,
                   end: 7,
-                  value: "\n    - ",
+                  value: "    - ",
                   marker: "    -",
                 },
                 { type: "MdListItemContent", start: 7, end: 10, value: "one" },
@@ -270,17 +415,25 @@ export const testData: TTestData[] = [
                 { type: "MdListItemEnd", start: 20, end: 20, value: "" },
               ],
             },
+          ],
+        },
+        {
+          type: "MdList",
+          start: 21,
+          end: 49,
+          value: "\n    - three\n    - four\n    ",
+          children: [
             {
               type: "MdListItem",
-              start: 20,
+              start: 21,
               end: 33,
-              value: "\n\n    - three",
+              value: "\n    - three",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 20,
+                  start: 21,
                   end: 28,
-                  value: "\n\n    - ",
+                  value: "\n    - ",
                   marker: "    -",
                 },
                 {
@@ -319,7 +472,7 @@ export const testData: TTestData[] = [
     },
   },
   {
-    description: "should read lists separated by white lines",
+    description: "should read items separated by lines with spaces as one list",
     input: `
     - one
     - two
@@ -335,21 +488,21 @@ export const testData: TTestData[] = [
       children: [
         {
           type: "MdList",
-          start: 0,
+          start: 1,
           end: 51,
-          value: "\n    - one\n    - two\n  \n    - three\n    - four\n    ",
+          value: "    - one\n    - two\n  \n    - three\n    - four\n    ",
           children: [
             {
               type: "MdListItem",
-              start: 0,
+              start: 1,
               end: 10,
-              value: "\n    - one",
+              value: "    - one",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 0,
+                  start: 1,
                   end: 7,
-                  value: "\n    - ",
+                  value: "    - ",
                   marker: "    -",
                 },
                 { type: "MdListItemContent", start: 7, end: 10, value: "one" },
