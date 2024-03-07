@@ -2,6 +2,16 @@ import { type TTestData } from "../data.types.ts";
 
 export const testData: TTestData[] = [
   {
+    description: "should properly read empty documents",
+    input: "",
+    expected: {
+      "type": "Block",
+      "start": 0,
+      "end": 0,
+      "value": ""
+    },
+  },
+  {
     description: "should read MD document with sections and tags",
     input: `# Header
 <span>Some text</span>
@@ -1467,6 +1477,616 @@ Text
             },
           ],
           level: 1,
+        },
+      ],
+    },
+  },
+  {
+    description: "should tokenize simple hierarchical list",
+    input: `
+    - item one 
+      - sub-item 1
+      - sub-item 2
+    - item two
+    `,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 74,
+      value:
+        "\n    - item one \n      - sub-item 1\n      - sub-item 2\n    - item two\n    ",
+      children: [
+        {
+          type: "MdList",
+          start: 1,
+          end: 74,
+          value:
+            "    - item one \n      - sub-item 1\n      - sub-item 2\n    - item two\n    ",
+          children: [
+            {
+              type: "MdListItem",
+              start: 1,
+              end: 54,
+              value: "    - item one \n      - sub-item 1\n      - sub-item 2",
+              children: [
+                {
+                  type: "MdListItemStart",
+                  start: 1,
+                  end: 7,
+                  value: "    - ",
+                  marker: "    -",
+                },
+                {
+                  type: "MdListItemContent",
+                  start: 7,
+                  end: 54,
+                  value: "item one \n      - sub-item 1\n      - sub-item 2",
+                  children: [
+                    {
+                      type: "MdList",
+                      start: 16,
+                      end: 54,
+                      value: "\n      - sub-item 1\n      - sub-item 2",
+                      children: [
+                        {
+                          type: "MdListItem",
+                          start: 16,
+                          end: 35,
+                          value: "\n      - sub-item 1",
+                          children: [
+                            {
+                              type: "MdListItemStart",
+                              start: 16,
+                              end: 25,
+                              value: "\n      - ",
+                              marker: "      -",
+                            },
+                            {
+                              type: "MdListItemContent",
+                              start: 25,
+                              end: 35,
+                              value: "sub-item 1",
+                            },
+                            {
+                              type: "MdListItemEnd",
+                              start: 35,
+                              end: 35,
+                              value: "",
+                            },
+                          ],
+                        },
+                        {
+                          type: "MdListItem",
+                          start: 35,
+                          end: 54,
+                          value: "\n      - sub-item 2",
+                          children: [
+                            {
+                              type: "MdListItemStart",
+                              start: 35,
+                              end: 44,
+                              value: "\n      - ",
+                              marker: "      -",
+                            },
+                            {
+                              type: "MdListItemContent",
+                              start: 44,
+                              end: 54,
+                              value: "sub-item 2",
+                            },
+                            {
+                              type: "MdListItemEnd",
+                              start: 54,
+                              end: 54,
+                              value: "",
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                { type: "MdListItemEnd", start: 54, end: 54, value: "" },
+              ],
+            },
+            {
+              type: "MdListItem",
+              start: 54,
+              end: 74,
+              value: "\n    - item two\n    ",
+              children: [
+                {
+                  type: "MdListItemStart",
+                  start: 54,
+                  end: 61,
+                  value: "\n    - ",
+                  marker: "    -",
+                },
+                {
+                  type: "MdListItemContent",
+                  start: 61,
+                  end: 74,
+                  value: "item two\n    ",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    description: "should tokenize document sections with lists",
+    input: `
+    # Header 1
+    - item one 
+      - sub-item 1
+      - sub-item 2
+        the rest of sub-item 2
+    - item two
+    `,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 120,
+      value:
+        "\n    # Header 1\n    - item one \n      - sub-item 1\n      - sub-item 2\n        the rest of sub-item 2\n    - item two\n    ",
+      children: [
+        {
+          type: "MdSection",
+          start: 0,
+          end: 120,
+          value:
+            "\n    # Header 1\n    - item one \n      - sub-item 1\n      - sub-item 2\n        the rest of sub-item 2\n    - item two\n    ",
+          children: [
+            {
+              type: "MdHeader",
+              start: 0,
+              end: 15,
+              value: "\n    # Header 1",
+              children: [
+                {
+                  type: "MdHeaderStart",
+                  start: 0,
+                  end: 7,
+                  value: "\n    # ",
+                  level: 1,
+                },
+                { type: "MdHeaderEnd", start: 15, end: 15, value: "" },
+              ],
+              level: 1,
+            },
+            {
+              type: "MdList",
+              start: 15,
+              end: 120,
+              value:
+                "\n    - item one \n      - sub-item 1\n      - sub-item 2\n        the rest of sub-item 2\n    - item two\n    ",
+              children: [
+                {
+                  type: "MdListItem",
+                  start: 15,
+                  end: 100,
+                  value:
+                    "\n    - item one \n      - sub-item 1\n      - sub-item 2\n        the rest of sub-item 2",
+                  children: [
+                    {
+                      type: "MdListItemStart",
+                      start: 15,
+                      end: 22,
+                      value: "\n    - ",
+                      marker: "    -",
+                    },
+                    {
+                      type: "MdListItemContent",
+                      start: 22,
+                      end: 100,
+                      value:
+                        "item one \n      - sub-item 1\n      - sub-item 2\n        the rest of sub-item 2",
+                      children: [
+                        {
+                          type: "MdList",
+                          start: 31,
+                          end: 100,
+                          value:
+                            "\n      - sub-item 1\n      - sub-item 2\n        the rest of sub-item 2",
+                          children: [
+                            {
+                              type: "MdListItem",
+                              start: 31,
+                              end: 50,
+                              value: "\n      - sub-item 1",
+                              children: [
+                                {
+                                  type: "MdListItemStart",
+                                  start: 31,
+                                  end: 40,
+                                  value: "\n      - ",
+                                  marker: "      -",
+                                },
+                                {
+                                  type: "MdListItemContent",
+                                  start: 40,
+                                  end: 50,
+                                  value: "sub-item 1",
+                                },
+                                {
+                                  type: "MdListItemEnd",
+                                  start: 50,
+                                  end: 50,
+                                  value: "",
+                                },
+                              ],
+                            },
+                            {
+                              type: "MdListItem",
+                              start: 50,
+                              end: 100,
+                              value:
+                                "\n      - sub-item 2\n        the rest of sub-item 2",
+                              children: [
+                                {
+                                  type: "MdListItemStart",
+                                  start: 50,
+                                  end: 59,
+                                  value: "\n      - ",
+                                  marker: "      -",
+                                },
+                                {
+                                  type: "MdListItemContent",
+                                  start: 59,
+                                  end: 100,
+                                  value:
+                                    "sub-item 2\n        the rest of sub-item 2",
+                                },
+                                {
+                                  type: "MdListItemEnd",
+                                  start: 100,
+                                  end: 100,
+                                  value: "",
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    { type: "MdListItemEnd", start: 100, end: 100, value: "" },
+                  ],
+                },
+                {
+                  type: "MdListItem",
+                  start: 100,
+                  end: 120,
+                  value: "\n    - item two\n    ",
+                  children: [
+                    {
+                      type: "MdListItemStart",
+                      start: 100,
+                      end: 107,
+                      value: "\n    - ",
+                      marker: "    -",
+                    },
+                    {
+                      type: "MdListItemContent",
+                      start: 107,
+                      end: 120,
+                      value: "item two\n    ",
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          level: 1,
+        },
+      ],
+    },
+  },
+  {
+    description: "should tokenize document with tags, headers with lists",
+    input: `
+    <div className="note">
+      * item one
+      * item two
+    </div>
+    `,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 77,
+      value:
+        '\n    <div className="note">\n      * item one\n      * item two\n    </div>\n    ',
+      children: [
+        {
+          type: "HtmlTag",
+          start: 5,
+          end: 72,
+          value:
+            '<div className="note">\n      * item one\n      * item two\n    </div>',
+          children: [
+            {
+              type: "HtmlOpenTag",
+              start: 5,
+              end: 27,
+              value: '<div className="note">',
+              children: [
+                {
+                  type: "HtmlTagStart",
+                  start: 5,
+                  end: 9,
+                  value: "<div",
+                  children: [
+                    {
+                      type: "HtmlName",
+                      name: "div",
+                      start: 6,
+                      end: 9,
+                      value: "div",
+                    },
+                  ],
+                  tagName: "div",
+                },
+                {
+                  type: "HtmlAttribute",
+                  start: 10,
+                  end: 26,
+                  value: 'className="note"',
+                  children: [
+                    {
+                      type: "HtmlName",
+                      name: "className",
+                      start: 10,
+                      end: 19,
+                      value: "className",
+                    },
+                    {
+                      type: "HtmlValue",
+                      start: 20,
+                      end: 26,
+                      value: '"note"',
+                      quoted: true,
+                      valueStart: 21,
+                      valueEnd: 25,
+                    },
+                  ],
+                },
+                {
+                  type: "HtmlTagEnd",
+                  start: 26,
+                  end: 27,
+                  value: ">",
+                  autoclosing: false,
+                },
+              ],
+              tagName: "div",
+              autoclosing: false,
+            },
+            {
+              type: "MdList",
+              start: 27,
+              end: 66,
+              value: "\n      * item one\n      * item two\n    ",
+              children: [
+                {
+                  type: "MdListItem",
+                  start: 27,
+                  end: 44,
+                  value: "\n      * item one",
+                  children: [
+                    {
+                      type: "MdListItemStart",
+                      start: 27,
+                      end: 36,
+                      value: "\n      * ",
+                      marker: "      *",
+                    },
+                    {
+                      type: "MdListItemContent",
+                      start: 36,
+                      end: 44,
+                      value: "item one",
+                    },
+                    { type: "MdListItemEnd", start: 44, end: 44, value: "" },
+                  ],
+                },
+                {
+                  type: "MdListItem",
+                  start: 44,
+                  end: 66,
+                  value: "\n      * item two\n    ",
+                  children: [
+                    {
+                      type: "MdListItemStart",
+                      start: 44,
+                      end: 53,
+                      value: "\n      * ",
+                      marker: "      *",
+                    },
+                    {
+                      type: "MdListItemContent",
+                      start: 53,
+                      end: 66,
+                      value: "item two\n    ",
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: "HtmlCloseTag",
+              start: 66,
+              end: 72,
+              value: "</div>",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "div",
+                  start: 68,
+                  end: 71,
+                  value: "div",
+                },
+              ],
+              tagName: "div",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    description: "should tokenize document with tags, headers with lists",
+    input: `
+    <div className="note">
+      #  Header
+      * Some notable things in a block quote!
+    </div>
+    `,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 105,
+      value:
+        '\n    <div className="note">\n      #  Header\n      * Some notable things in a block quote!\n    </div>\n    ',
+      children: [
+        {
+          type: "HtmlTag",
+          start: 5,
+          end: 105,
+          value:
+            '<div className="note">\n      #  Header\n      * Some notable things in a block quote!\n    </div>\n    ',
+          children: [
+            {
+              type: "HtmlOpenTag",
+              start: 5,
+              end: 27,
+              value: '<div className="note">',
+              children: [
+                {
+                  type: "HtmlTagStart",
+                  start: 5,
+                  end: 9,
+                  value: "<div",
+                  children: [
+                    {
+                      type: "HtmlName",
+                      name: "div",
+                      start: 6,
+                      end: 9,
+                      value: "div",
+                    },
+                  ],
+                  tagName: "div",
+                },
+                {
+                  type: "HtmlAttribute",
+                  start: 10,
+                  end: 26,
+                  value: 'className="note"',
+                  children: [
+                    {
+                      type: "HtmlName",
+                      name: "className",
+                      start: 10,
+                      end: 19,
+                      value: "className",
+                    },
+                    {
+                      type: "HtmlValue",
+                      start: 20,
+                      end: 26,
+                      value: '"note"',
+                      quoted: true,
+                      valueStart: 21,
+                      valueEnd: 25,
+                    },
+                  ],
+                },
+                {
+                  type: "HtmlTagEnd",
+                  start: 26,
+                  end: 27,
+                  value: ">",
+                  autoclosing: false,
+                },
+              ],
+              tagName: "div",
+              autoclosing: false,
+            },
+            {
+              type: "MdSection",
+              start: 27,
+              end: 105,
+              value:
+                "\n      #  Header\n      * Some notable things in a block quote!\n    </div>\n    ",
+              children: [
+                {
+                  type: "MdHeader",
+                  start: 27,
+                  end: 43,
+                  value: "\n      #  Header",
+                  children: [
+                    {
+                      type: "MdHeaderStart",
+                      start: 27,
+                      end: 36,
+                      value: "\n      # ",
+                      level: 1,
+                    },
+                    { type: "MdHeaderEnd", start: 43, end: 43, value: "" },
+                  ],
+                  level: 1,
+                },
+                {
+                  type: "MdList",
+                  start: 43,
+                  end: 105,
+                  value:
+                    "\n      * Some notable things in a block quote!\n    </div>\n    ",
+                  children: [
+                    {
+                      type: "MdListItem",
+                      start: 43,
+                      end: 105,
+                      value:
+                        "\n      * Some notable things in a block quote!\n    </div>\n    ",
+                      children: [
+                        {
+                          type: "MdListItemStart",
+                          start: 43,
+                          end: 52,
+                          value: "\n      * ",
+                          marker: "      *",
+                        },
+                        {
+                          type: "MdListItemContent",
+                          start: 52,
+                          end: 105,
+                          value:
+                            "Some notable things in a block quote!\n    </div>\n    ",
+                          children: [
+                            {
+                              type: "HtmlSpecialSymbol",
+                              value: "<",
+                              start: 94,
+                              end: 95,
+                            },
+                            {
+                              type: "HtmlSpecialSymbol",
+                              value: ">",
+                              start: 99,
+                              end: 100,
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+              level: 1,
+            },
+          ],
         },
       ],
     },

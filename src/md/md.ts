@@ -15,7 +15,6 @@ export type TMdTokenizers = {
 
 export function newMdReader(readers: TMdTokenizers): TTokenizerMethod {
   const tagContentTokenizers: TTokenizerMethod[] = [];
-  if (readers.readContent) tagContentTokenizers.push(readers.readContent);
   const readTagContent = newCompositeTokenizer(tagContentTokenizers);
 
   // const readMarkdown = newMdSectionReader(readers.md);
@@ -33,20 +32,20 @@ export function newMdReader(readers: TMdTokenizers): TTokenizerMethod {
 
   const blockTokenizers = [readHtml];
   const readBlockTokens = newCompositeTokenizer(blockTokenizers);
-  if (readers.readContent) {
-    blockTokenizers.push(readers.readContent);
-  }
 
+  const readMdLists = newMdListReader(readBlockTokens);
   const readMdSections = newMdSectionReader({
     ...readers.md,
     readHeaderTokens: isolate(readInlineTokens),
     readSectionTokens: isolate(readBlockTokens),
   });
-  tagContentTokenizers.push(readMdSections);
-  blockTokenizers.push(readMdSections);
-  blockTokenizers.push(newMdListReader(readBlockTokens));
 
-  const mainTokenizers = [readMdSections, readHtml];
-  const readTokens = newCompositeTokenizer(mainTokenizers);
-  return readTokens;
+  if (readers.readContent) tagContentTokenizers.push(readers.readContent);
+  tagContentTokenizers.push(readMdSections);
+  tagContentTokenizers.push(readMdLists);
+
+  // Add all tagContentTokenizers to blockTokenizers
+  blockTokenizers.push(...tagContentTokenizers);
+
+  return readBlockTokens;
 }

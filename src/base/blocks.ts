@@ -128,7 +128,7 @@ export function newBlockReader(
         }
       }
       const end = ctx.i;
-      if (end === start) return;
+      if (end === start && ctx.length > 0) return;
       const result: TToken = {
         type,
         start,

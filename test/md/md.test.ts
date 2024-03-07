@@ -10,8 +10,8 @@ import { testData } from "./md.data.ts";
 
 describe("newMdReader", () => {
   const readCode = newCodeReader();
-  const contentTokenizers: TTokenizerMethod[] = [readCode];
-  const readContent = newCompositeTokenizer(contentTokenizers);
+  // const contentTokenizers: TTokenizerMethod[] = [readCode];
+  // const readContent = newCompositeTokenizer(contentTokenizers);
 
   const readers = {
     // html: {
@@ -23,7 +23,7 @@ describe("newMdReader", () => {
     //   readHeaderTokens: readCode,
     //   // readSectionTokens: readContent,
     // },
-    readContent,
+    readContent : readCode,
   };
 
   const readToken = newMdReader(readers);
