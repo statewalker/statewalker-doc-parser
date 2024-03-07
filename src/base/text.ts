@@ -63,9 +63,9 @@ export function newTextFencedBlockReader<T extends TToken>(
 ): TTokenizerMethod<T> {
   return newFencedBlockReader(
     type,
-    newCharSequenceReader(`Start${type}`, startMask),
+    newCharSequenceReader(`${type}Start`, startMask),
     readToken,
-    newCharSequenceReader(`End${type}`, endMask)
+    newCharSequenceReader(`${type}End`, endMask)
   );
 }
 

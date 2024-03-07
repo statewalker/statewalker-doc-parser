@@ -5,10 +5,10 @@ export const testData: TTestData[] = [
     description: "should properly read empty documents",
     input: "",
     expected: {
-      "type": "Block",
-      "start": 0,
-      "end": 0,
-      "value": ""
+      type: "Block",
+      start: 0,
+      end: 0,
+      value: "",
     },
   },
   {
@@ -2085,6 +2085,106 @@ Text
                 },
               ],
               level: 1,
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  {
+    description: "should tokenize MD code blocks",
+    input: `
+    before 
+    \`\`\`ts
+    First Typescript Block
+    \`\`\`
+
+    \`\`\`js
+    Javascript Block
+    \`\`\`
+
+    \`\`\`
+    Simple Fenced Block
+    \`\`\`
+    after
+    `,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 153,
+      value:
+        "\n    before \n    ```ts\n    First Typescript Block\n    ```\n\n    ```js\n    Javascript Block\n    ```\n\n    ```\n    Simple Fenced Block\n    ```\n    after\n    ",
+      children: [
+        {
+          type: "MdCodeBlock",
+          start: 12,
+          end: 57,
+          value: "\n    ```ts\n    First Typescript Block\n    ```",
+          children: [
+            {
+              type: "MdCodeBlockStart",
+              start: 12,
+              end: 22,
+              value: "\n    ```ts",
+              name: "ts",
+              depth: 4,
+            },
+            {
+              type: "MdCodeBlockEnd",
+              start: 49,
+              end: 57,
+              value: "\n    ```",
+              name: "",
+              depth: 4,
+            },
+          ],
+        },
+        {
+          type: "MdCodeBlock",
+          start: 58,
+          end: 97,
+          value: "\n    ```js\n    Javascript Block\n    ```",
+          children: [
+            {
+              type: "MdCodeBlockStart",
+              start: 58,
+              end: 68,
+              value: "\n    ```js",
+              name: "js",
+              depth: 4,
+            },
+            {
+              type: "MdCodeBlockEnd",
+              start: 89,
+              end: 97,
+              value: "\n    ```",
+              name: "",
+              depth: 4,
+            },
+          ],
+        },
+        {
+          type: "MdCodeBlock",
+          start: 98,
+          end: 138,
+          value: "\n    ```\n    Simple Fenced Block\n    ```",
+          children: [
+            {
+              type: "MdCodeBlockStart",
+              start: 98,
+              end: 106,
+              value: "\n    ```",
+              name: "",
+              depth: 4,
+            },
+            {
+              type: "MdCodeBlockEnd",
+              start: 130,
+              end: 138,
+              value: "\n    ```",
+              name: "",
+              depth: 4,
             },
           ],
         },

@@ -18,7 +18,7 @@ export function readListItemMarker(ctx: TokenizerContext): TToken | undefined {
     const markerStart = ctx.i;
     ctx.skipWhile(isSpace); // Skip whitespaces at the begining of the line
     const prevPos = ctx.i;
-    ctx.skipWhile((char) => !!char.match(/[-*\d]/u));
+    ctx.skipWhile((char) => !!char.match(/[-*\d>]/u));
     const markerEnd = ctx.i;
     if (markerEnd === prevPos) return; // No list item symbols found
     ctx.skipWhile(isSpace); // Skip spaces after the list item symbols

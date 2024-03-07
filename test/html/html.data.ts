@@ -542,13 +542,13 @@ export const testData: TTestData[] = [
           value: "<!-- this is a comment -->",
           children: [
             {
-              type: "StartHtmlComment",
+              type: "HtmlCommentStart",
               start: 7,
               end: 11,
               value: "<!--",
             },
             {
-              type: "EndHtmlComment",
+              type: "HtmlCommentEnd",
               start: 30,
               end: 33,
               value: "-->",
@@ -575,7 +575,7 @@ export const testData: TTestData[] = [
           value: "<!-- A ${this is the code} B -->",
           children: [
             {
-              type: "StartHtmlComment",
+              type: "HtmlCommentStart",
               start: 7,
               end: 11,
               value: "<!--",
@@ -589,7 +589,7 @@ export const testData: TTestData[] = [
               value: "${this is the code}",
             },
             {
-              type: "EndHtmlComment",
+              type: "HtmlCommentEnd",
               start: 36,
               end: 39,
               value: "-->",
@@ -765,7 +765,7 @@ export const testData: TTestData[] = [
           end: 181,
           value: "<!-- A ${this is the code} B -->",
           children: [
-            { type: "StartHtmlComment", start: 149, end: 153, value: "<!--" },
+            { type: "HtmlCommentStart", start: 149, end: 153, value: "<!--" },
             {
               type: "Code",
               codeStart: 158,
@@ -774,7 +774,7 @@ export const testData: TTestData[] = [
               end: 175,
               value: "${this is the code}",
             },
-            { type: "EndHtmlComment", start: 178, end: 181, value: "-->" },
+            { type: "HtmlCommentEnd", start: 178, end: 181, value: "-->" },
           ],
         },
       ],

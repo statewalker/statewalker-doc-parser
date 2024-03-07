@@ -4,12 +4,17 @@ import {
   newCompositeTokenizer,
 } from "../base/index.ts";
 import { type THtmlTokenizers, newHtmlReader } from "../html/index.ts";
+import {
+  newMdCodeBlockReader,
+  type TMdCodeBlockTokenizers,
+} from "./code-blocks.ts";
 import type { TMdListTokenizers } from "./lists.ts";
 import { newMdListReader, readListItemMarker } from "./lists.ts";
 import { type TMdSectionTokenizers, newMdSectionReader } from "./sections.ts";
 
 export type TMdTokenizers = THtmlTokenizers &
   TMdSectionTokenizers &
+  TMdCodeBlockTokenizers &
   (Omit<TMdListTokenizers, "readListItemMarker"> & {
     readListItemMarker?: TTokenizerMethod;
   }) & {
@@ -45,6 +50,12 @@ export function newMdReader(readers: TMdTokenizers = {}): TTokenizerMethod {
       ? newCompositeTokenizer([readers.readListItemContent, readBlockTokens])
       : readBlockTokens,
   });
+
+  const readMdCodeBlocks = newMdCodeBlockReader({
+    ...readers,
+    readCodeBlockContent: readers.readCodeBlockContent || readers.readContent,
+  });
+
   const readMdSections = newMdSectionReader({
     ...readers,
     readHeaderTokens: isolate(readInlineTokens),
@@ -53,6 +64,7 @@ export function newMdReader(readers: TMdTokenizers = {}): TTokenizerMethod {
 
   if (readers.readContent) tagContentTokenizers.push(readers.readContent);
   tagContentTokenizers.push(readMdSections);
+  tagContentTokenizers.push(readMdCodeBlocks);
   tagContentTokenizers.push(readMdLists);
 
   // Add all tagContentTokenizers to blockTokenizers
