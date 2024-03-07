@@ -36,13 +36,21 @@ export function readListItemMarker(ctx: TokenizerContext): TToken | undefined {
   });
 }
 
-export function newMdListReader(readContent?: TTokenizerMethod) {
+export type TMdListTokenizers = {
+  readListItemMarker: TTokenizerMethod;
+  readListItemContent?: TTokenizerMethod;
+  compareListItemMarkers?: (startMarker: TToken, endMarker: TToken) => number;
+};
+export function newMdListReader({
+  readListItemMarker,
+  readListItemContent,
+  compareListItemMarkers = (startMarker, endMarker) => {
+    return startMarker.marker.length < endMarker.marker.length ? -1 : 1;
+  },
+}: TMdListTokenizers) {
   const tokenizers: TTokenizerMethod[] = [];
   const compositeReader = newCompositeTokenizer(tokenizers);
-  const readListItemContent = newBlockReader(
-    "MdListItemContent",
-    compositeReader
-  );
+  const readContent = newBlockReader("MdListItemContent", compositeReader);
   const readListItem = newDynamicFencedBlockReader(
     "MdListItem",
     (ctx: TokenizerContext): TToken | undefined =>
@@ -52,7 +60,7 @@ export function newMdListReader(readContent?: TTokenizerMethod) {
         (token as TToken).type = "MdListItemStart";
         return token;
       }),
-    () => readListItemContent,
+    () => readContent,
     (token: TToken) => {
       const startMarker = token as TToken;
       return (ctx: TokenizerContext): TToken | undefined =>
@@ -64,7 +72,7 @@ export function newMdListReader(readContent?: TTokenizerMethod) {
             const endMarker = readListItemMarker(ctx);
             if (!endMarker) return;
             // Embedded list item
-            if (startMarker.marker.length < endMarker.marker.length) return;
+            if (compareListItemMarkers(startMarker, endMarker) < 0) return;
           }
           const end = (ctx.i = start);
           return {
@@ -92,6 +100,6 @@ export function newMdListReader(readContent?: TTokenizerMethod) {
       return token;
     });
   tokenizers.push(readList);
-  readContent && tokenizers.push(readContent);
+  readListItemContent && tokenizers.push(readListItemContent);
   return readList;
 }
