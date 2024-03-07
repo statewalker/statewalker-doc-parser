@@ -1,6 +1,8 @@
 # TKNZ: token-based AST builder for documents
 ## Parser for HTML and Markdown documents
 
+See https://observablehq.com/@kotelnikov/statewalker-tknz
+
 Small, tolerant and fast MD AST builder.
 
 * Generates clean AST with exact token positions
