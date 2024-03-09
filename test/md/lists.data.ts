@@ -14,21 +14,21 @@ export const testData: TTestData[] = [
       children: [
         {
           type: "MdList",
-          start: 1,
+          start: 0,
           end: 15,
-          value: "    - one\n    ",
+          value: "\n    - one\n    ",
           children: [
             {
               type: "MdListItem",
-              start: 1,
+              start: 0,
               end: 15,
-              value: "    - one\n    ",
+              value: "\n    - one\n    ",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 1,
+                  start: 0,
                   end: 7,
-                  value: "    - ",
+                  value: "\n    - ",
                   marker: "    -",
                 },
                 {
@@ -48,44 +48,44 @@ export const testData: TTestData[] = [
     description:
       "should tokenize a one-element list terminated by an empty line",
     input: `
-    - one
+      - one
 
-`,
+  `,
     expected: {
       type: "Block",
       start: 0,
-      end: 12,
-      value: "\n    - one\n\n",
+      end: 16,
+      value: "\n      - one\n\n  ",
       children: [
         {
           type: "MdList",
-          start: 1,
-          end: 10,
-          value: "    - one",
+          start: 0,
+          end: 12,
+          value: "\n      - one",
           children: [
             {
               type: "MdListItem",
-              start: 1,
-              end: 10,
-              value: "    - one",
+              start: 0,
+              end: 12,
+              value: "\n      - one",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 1,
-                  end: 7,
-                  value: "    - ",
-                  marker: "    -",
+                  start: 0,
+                  end: 9,
+                  value: "\n      - ",
+                  marker: "      -",
                 },
                 {
                   type: "MdListItemContent",
-                  start: 7,
-                  end: 10,
+                  start: 9,
+                  end: 12,
                   value: "one",
                 },
                 {
                   type: "MdListItemEnd",
-                  start: 10,
-                  end: 10,
+                  start: 12,
+                  end: 12,
                   value: "",
                 },
               ],
@@ -99,45 +99,45 @@ export const testData: TTestData[] = [
     description:
       "should tokenize a one-element list terminated by an empty line with content before/after the list",
     input: `
-before
-- one
+  before
+  - one
 
-after`,
+  after`,
     expected: {
       type: "Block",
       start: 0,
-      end: 20,
-      value: "\nbefore\n- one\n\nafter",
+      end: 26,
+      value: "\n  before\n  - one\n\n  after",
       children: [
         {
           type: "MdList",
-          start: 7,
-          end: 13,
-          value: "\n- one",
+          start: 9,
+          end: 17,
+          value: "\n  - one",
           children: [
             {
               type: "MdListItem",
-              start: 7,
-              end: 13,
-              value: "\n- one",
+              start: 9,
+              end: 17,
+              value: "\n  - one",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 7,
-                  end: 10,
-                  value: "\n- ",
-                  marker: "-",
+                  start: 9,
+                  end: 14,
+                  value: "\n  - ",
+                  marker: "  -",
                 },
                 {
                   type: "MdListItemContent",
-                  start: 10,
-                  end: 13,
+                  start: 14,
+                  end: 17,
                   value: "one",
                 },
                 {
                   type: "MdListItemEnd",
-                  start: 13,
-                  end: 13,
+                  start: 17,
+                  end: 17,
                   value: "",
                 },
               ],
@@ -150,74 +150,74 @@ after`,
   {
     description: "should tokenize simple lists",
     input: `
-    - one
-    - two
-    - three
-    `,
+      - one
+      - two
+      - three
+      `,
     expected: {
       type: "Block",
       start: 0,
-      end: 37,
-      value: "\n    - one\n    - two\n    - three\n    ",
+      end: 45,
+      value: "\n      - one\n      - two\n      - three\n      ",
       children: [
         {
           type: "MdList",
-          start: 1,
-          end: 37,
-          value: "    - one\n    - two\n    - three\n    ",
+          start: 0,
+          end: 45,
+          value: "\n      - one\n      - two\n      - three\n      ",
           children: [
             {
               type: "MdListItem",
-              start: 1,
-              end: 10,
-              value: "    - one",
+              start: 0,
+              end: 12,
+              value: "\n      - one",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 1,
-                  end: 7,
-                  value: "    - ",
-                  marker: "    -",
+                  start: 0,
+                  end: 9,
+                  value: "\n      - ",
+                  marker: "      -",
                 },
-                { type: "MdListItemContent", start: 7, end: 10, value: "one" },
-                { type: "MdListItemEnd", start: 10, end: 10, value: "" },
+                { type: "MdListItemContent", start: 9, end: 12, value: "one" },
+                { type: "MdListItemEnd", start: 12, end: 12, value: "" },
               ],
             },
             {
               type: "MdListItem",
-              start: 10,
-              end: 20,
-              value: "\n    - two",
+              start: 12,
+              end: 24,
+              value: "\n      - two",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 10,
-                  end: 17,
-                  value: "\n    - ",
-                  marker: "    -",
+                  start: 12,
+                  end: 21,
+                  value: "\n      - ",
+                  marker: "      -",
                 },
-                { type: "MdListItemContent", start: 17, end: 20, value: "two" },
-                { type: "MdListItemEnd", start: 20, end: 20, value: "" },
+                { type: "MdListItemContent", start: 21, end: 24, value: "two" },
+                { type: "MdListItemEnd", start: 24, end: 24, value: "" },
               ],
             },
             {
               type: "MdListItem",
-              start: 20,
-              end: 37,
-              value: "\n    - three\n    ",
+              start: 24,
+              end: 45,
+              value: "\n      - three\n      ",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 20,
-                  end: 27,
-                  value: "\n    - ",
-                  marker: "    -",
+                  start: 24,
+                  end: 33,
+                  value: "\n      - ",
+                  marker: "      -",
                 },
                 {
                   type: "MdListItemContent",
-                  start: 27,
-                  end: 37,
-                  value: "three\n    ",
+                  start: 33,
+                  end: 45,
+                  value: "three\n      ",
                 },
               ],
             },
@@ -229,100 +229,101 @@ after`,
   {
     description: "should tokenize simple hierarchical list",
     input: `
-    - item one 
-      - sub-item 1
-      - sub-item 2
-    - item two
-    `,
+      - item one
+        - sub-item 1
+        - sub-item 2
+      - item two
+      `,
     expected: {
       type: "Block",
       start: 0,
-      end: 74,
+      end: 83,
       value:
-        "\n    - item one \n      - sub-item 1\n      - sub-item 2\n    - item two\n    ",
+        "\n      - item one\n        - sub-item 1\n        - sub-item 2\n      - item two\n      ",
       children: [
         {
           type: "MdList",
-          start: 1,
-          end: 74,
+          start: 0,
+          end: 83,
           value:
-            "    - item one \n      - sub-item 1\n      - sub-item 2\n    - item two\n    ",
+            "\n      - item one\n        - sub-item 1\n        - sub-item 2\n      - item two\n      ",
           children: [
             {
               type: "MdListItem",
-              start: 1,
-              end: 54,
-              value: "    - item one \n      - sub-item 1\n      - sub-item 2",
+              start: 0,
+              end: 59,
+              value:
+                "\n      - item one\n        - sub-item 1\n        - sub-item 2",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 1,
-                  end: 7,
-                  value: "    - ",
-                  marker: "    -",
+                  start: 0,
+                  end: 9,
+                  value: "\n      - ",
+                  marker: "      -",
                 },
                 {
                   type: "MdListItemContent",
-                  start: 7,
-                  end: 54,
-                  value: "item one \n      - sub-item 1\n      - sub-item 2",
+                  start: 9,
+                  end: 59,
+                  value: "item one\n        - sub-item 1\n        - sub-item 2",
                   children: [
                     {
                       type: "MdList",
-                      start: 16,
-                      end: 54,
-                      value: "\n      - sub-item 1\n      - sub-item 2",
+                      start: 17,
+                      end: 59,
+                      value: "\n        - sub-item 1\n        - sub-item 2",
                       children: [
                         {
                           type: "MdListItem",
-                          start: 16,
-                          end: 35,
-                          value: "\n      - sub-item 1",
+                          start: 17,
+                          end: 38,
+                          value: "\n        - sub-item 1",
                           children: [
                             {
                               type: "MdListItemStart",
-                              start: 16,
-                              end: 25,
-                              value: "\n      - ",
-                              marker: "      -",
+                              start: 17,
+                              end: 28,
+                              value: "\n        - ",
+                              marker: "        -",
                             },
                             {
                               type: "MdListItemContent",
-                              start: 25,
-                              end: 35,
+                              start: 28,
+                              end: 38,
                               value: "sub-item 1",
                             },
                             {
                               type: "MdListItemEnd",
-                              start: 35,
-                              end: 35,
+                              start: 38,
+                              end: 38,
                               value: "",
                             },
                           ],
                         },
                         {
                           type: "MdListItem",
-                          start: 35,
-                          end: 54,
-                          value: "\n      - sub-item 2",
+                          start: 38,
+                          end: 59,
+                          value: "\n        - sub-item 2",
                           children: [
                             {
                               type: "MdListItemStart",
-                              start: 35,
-                              end: 44,
-                              value: "\n      - ",
-                              marker: "      -",
+                              start: 38,
+                              end: 49,
+                              value: "\n        - ",
+                              marker: "        -",
                             },
                             {
                               type: "MdListItemContent",
-                              start: 44,
-                              end: 54,
+                              start: 49,
+                              end: 59,
                               value: "sub-item 2",
                             },
                             {
                               type: "MdListItemEnd",
-                              start: 54,
-                              end: 54,
+                              start: 59,
+                              end: 59,
                               value: "",
                             },
                           ],
@@ -331,27 +332,27 @@ after`,
                     },
                   ],
                 },
-                { type: "MdListItemEnd", start: 54, end: 54, value: "" },
+                { type: "MdListItemEnd", start: 59, end: 59, value: "" },
               ],
             },
             {
               type: "MdListItem",
-              start: 54,
-              end: 74,
-              value: "\n    - item two\n    ",
+              start: 59,
+              end: 83,
+              value: "\n      - item two\n      ",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 54,
-                  end: 61,
-                  value: "\n    - ",
-                  marker: "    -",
+                  start: 59,
+                  end: 68,
+                  value: "\n      - ",
+                  marker: "      -",
                 },
                 {
                   type: "MdListItemContent",
-                  start: 61,
-                  end: 74,
-                  value: "item two\n    ",
+                  start: 68,
+                  end: 83,
+                  value: "item two\n      ",
                 },
               ],
             },
@@ -363,106 +364,107 @@ after`,
   {
     description: "should read lists separated by white lines",
     input: `
-    - one
-    - two
+      - one
+      - two
 
-    - three
-    - four
-    `,
+      - three
+      - four
+      `,
     expected: {
       type: "Block",
       start: 0,
-      end: 49,
-      value: "\n    - one\n    - two\n\n    - three\n    - four\n    ",
+      end: 59,
+      value:
+        "\n      - one\n      - two\n\n      - three\n      - four\n      ",
       children: [
         {
           type: "MdList",
-          start: 1,
-          end: 20,
-          value: "    - one\n    - two",
+          start: 0,
+          end: 24,
+          value: "\n      - one\n      - two",
           children: [
             {
               type: "MdListItem",
-              start: 1,
-              end: 10,
-              value: "    - one",
+              start: 0,
+              end: 12,
+              value: "\n      - one",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 1,
-                  end: 7,
-                  value: "    - ",
-                  marker: "    -",
+                  start: 0,
+                  end: 9,
+                  value: "\n      - ",
+                  marker: "      -",
                 },
-                { type: "MdListItemContent", start: 7, end: 10, value: "one" },
-                { type: "MdListItemEnd", start: 10, end: 10, value: "" },
+                { type: "MdListItemContent", start: 9, end: 12, value: "one" },
+                { type: "MdListItemEnd", start: 12, end: 12, value: "" },
               ],
             },
             {
               type: "MdListItem",
-              start: 10,
-              end: 20,
-              value: "\n    - two",
+              start: 12,
+              end: 24,
+              value: "\n      - two",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 10,
-                  end: 17,
-                  value: "\n    - ",
-                  marker: "    -",
+                  start: 12,
+                  end: 21,
+                  value: "\n      - ",
+                  marker: "      -",
                 },
-                { type: "MdListItemContent", start: 17, end: 20, value: "two" },
-                { type: "MdListItemEnd", start: 20, end: 20, value: "" },
+                { type: "MdListItemContent", start: 21, end: 24, value: "two" },
+                { type: "MdListItemEnd", start: 24, end: 24, value: "" },
               ],
             },
           ],
         },
         {
           type: "MdList",
-          start: 21,
-          end: 49,
-          value: "\n    - three\n    - four\n    ",
+          start: 25,
+          end: 59,
+          value: "\n      - three\n      - four\n      ",
           children: [
             {
               type: "MdListItem",
-              start: 21,
-              end: 33,
-              value: "\n    - three",
+              start: 25,
+              end: 39,
+              value: "\n      - three",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 21,
-                  end: 28,
-                  value: "\n    - ",
-                  marker: "    -",
+                  start: 25,
+                  end: 34,
+                  value: "\n      - ",
+                  marker: "      -",
                 },
                 {
                   type: "MdListItemContent",
-                  start: 28,
-                  end: 33,
+                  start: 34,
+                  end: 39,
                   value: "three",
                 },
-                { type: "MdListItemEnd", start: 33, end: 33, value: "" },
+                { type: "MdListItemEnd", start: 39, end: 39, value: "" },
               ],
             },
             {
               type: "MdListItem",
-              start: 33,
-              end: 49,
-              value: "\n    - four\n    ",
+              start: 39,
+              end: 59,
+              value: "\n      - four\n      ",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 33,
-                  end: 40,
-                  value: "\n    - ",
-                  marker: "    -",
+                  start: 39,
+                  end: 48,
+                  value: "\n      - ",
+                  marker: "      -",
                 },
                 {
                   type: "MdListItemContent",
-                  start: 40,
-                  end: 49,
-                  value: "four\n    ",
+                  start: 48,
+                  end: 59,
+                  value: "four\n      ",
                 },
               ],
             },
@@ -474,109 +476,123 @@ after`,
   {
     description: "should read items separated by lines with spaces as one list",
     input: `
-    - one
-    - two
-  
-    - three
-    - four
-    `,
+      - one
+      - two
+
+      - three
+      - four
+      `,
     expected: {
       type: "Block",
       start: 0,
-      end: 51,
-      value: "\n    - one\n    - two\n  \n    - three\n    - four\n    ",
+      end: 59,
+      value:
+        "\n      - one\n      - two\n\n      - three\n      - four\n      ",
       children: [
         {
           type: "MdList",
-          start: 1,
-          end: 51,
-          value: "    - one\n    - two\n  \n    - three\n    - four\n    ",
+          start: 0,
+          end: 24,
+          value: "\n      - one\n      - two",
           children: [
             {
               type: "MdListItem",
-              start: 1,
-              end: 10,
-              value: "    - one",
+              start: 0,
+              end: 12,
+              value: "\n      - one",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 1,
-                  end: 7,
-                  value: "    - ",
-                  marker: "    -",
+                  start: 0,
+                  end: 9,
+                  value: "\n      - ",
+                  marker: "      -",
                 },
-                { type: "MdListItemContent", start: 7, end: 10, value: "one" },
-                { type: "MdListItemEnd", start: 10, end: 10, value: "" },
+                { type: "MdListItemContent", start: 9, end: 12, value: "one" },
+                { type: "MdListItemEnd", start: 12, end: 12, value: "" },
               ],
             },
             {
               type: "MdListItem",
-              start: 10,
-              end: 23,
-              value: "\n    - two\n  ",
+              start: 12,
+              end: 24,
+              value: "\n      - two",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 10,
-                  end: 17,
-                  value: "\n    - ",
-                  marker: "    -",
+                  start: 12,
+                  end: 21,
+                  value: "\n      - ",
+                  marker: "      -",
                 },
-                {
-                  type: "MdListItemContent",
-                  start: 17,
-                  end: 23,
-                  value: "two\n  ",
-                },
-                { type: "MdListItemEnd", start: 23, end: 23, value: "" },
+                { type: "MdListItemContent", start: 21, end: 24, value: "two" },
+                { type: "MdListItemEnd", start: 24, end: 24, value: "" },
               ],
             },
+          ],
+        },
+        {
+          type: "MdList",
+          start: 25,
+          end: 59,
+          value: "\n      - three\n      - four\n      ",
+          children: [
             {
               type: "MdListItem",
-              start: 23,
-              end: 35,
-              value: "\n    - three",
+              start: 25,
+              end: 39,
+              value: "\n      - three",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 23,
-                  end: 30,
-                  value: "\n    - ",
-                  marker: "    -",
+                  start: 25,
+                  end: 34,
+                  value: "\n      - ",
+                  marker: "      -",
                 },
                 {
                   type: "MdListItemContent",
-                  start: 30,
-                  end: 35,
+                  start: 34,
+                  end: 39,
                   value: "three",
                 },
-                { type: "MdListItemEnd", start: 35, end: 35, value: "" },
+                { type: "MdListItemEnd", start: 39, end: 39, value: "" },
               ],
             },
             {
               type: "MdListItem",
-              start: 35,
-              end: 51,
-              value: "\n    - four\n    ",
+              start: 39,
+              end: 59,
+              value: "\n      - four\n      ",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 35,
-                  end: 42,
-                  value: "\n    - ",
-                  marker: "    -",
+                  start: 39,
+                  end: 48,
+                  value: "\n      - ",
+                  marker: "      -",
                 },
                 {
                   type: "MdListItemContent",
-                  start: 42,
-                  end: 51,
-                  value: "four\n    ",
+                  start: 48,
+                  end: 59,
+                  value: "four\n      ",
                 },
               ],
             },
           ],
         },
       ],
+    },
+  },
+  {
+    description: "should not interpret item markers in the middle of strings",
+    input: "one - two",
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 9,
+      value: "one - two",
     },
   },
 ];

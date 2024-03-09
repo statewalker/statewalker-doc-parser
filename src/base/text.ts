@@ -151,12 +151,10 @@ export function readNewLines(ctx: TokenizerContext): TToken | undefined {
 export function readEmptyLine(ctx: TokenizerContext): TToken | undefined {
   return ctx.guard(() => {
     const start = ctx.i;
-    if (ctx.i > 0) {
-      if (!isEol(ctx.getChar())) return;
-      ctx.i++;
-      if (!isEol(ctx.getChar())) return;
-      ctx.i++;
-    }
+    // if (ctx.i > 0) {
+    if (!isEol(ctx.getChar(+0)) || !isEol(ctx.getChar(+1))) return;
+    ctx.i += 2;
+    // }
     const end = ctx.i;
     return {
       type: "EmptyLine",

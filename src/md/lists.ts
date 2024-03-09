@@ -10,19 +10,19 @@ import {
   readEmptyLine,
 } from "../base/index.ts";
 
-export function readListItemMarker(ctx: TokenizerContext): TToken | undefined {
+export function readMdListItemMarker(
+  ctx: TokenizerContext
+): TToken | undefined {
   return ctx.guard(() => {
     const start = ctx.i;
-    ctx.skipWhile(isEol);
-    if (ctx.i > 0 && ctx.i - start > 1) return;
+    if (ctx.skipWhile(isEol, 1) === start && start > 0) return;
+
     const markerStart = ctx.i;
     ctx.skipWhile(isSpace); // Skip whitespaces at the begining of the line
     const prevPos = ctx.i;
-    ctx.skipWhile((char) => !!char.match(/[-*\d>]/u));
-    const markerEnd = ctx.i;
+    const markerEnd = ctx.skipWhile((char) => !!char.match(/[-*\d>]/u));
     if (markerEnd === prevPos) return; // No list item symbols found
-    ctx.skipWhile(isSpace); // Skip spaces after the list item symbols
-    if (ctx.i === markerEnd) return; // No spaces after the "*"
+    if (ctx.skipWhile(isSpace) === markerEnd) return; // No spaces after the "*"
 
     const marker = ctx.substring(markerStart, markerEnd);
     const end = ctx.i;
@@ -42,7 +42,7 @@ export type TMdListTokenizers = {
   compareListItemMarkers?: (startMarker: TToken, endMarker: TToken) => number;
 };
 export function newMdListReader({
-  readListItemMarker,
+  readListItemMarker = readMdListItemMarker,
   readListItemContent,
   compareListItemMarkers = (startMarker, endMarker) => {
     return startMarker.marker.length < endMarker.marker.length ? -1 : 1;
@@ -90,12 +90,13 @@ export function newMdListReader({
     ctx.guard((fences) => {
       const start = ctx.i;
       fences.addFence(readEmptyLine);
-      if (ctx.i > 0 && ctx.i - start > 1) return;
 
       const listItemMarker = readListItemMarker(ctx);
       ctx.i = start;
       if (!listItemMarker) return;
+
       const token = readListToken(ctx);
+
       if (!token || !token.children) return;
       return token;
     });

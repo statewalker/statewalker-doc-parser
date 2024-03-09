@@ -1498,22 +1498,23 @@ Text
       children: [
         {
           type: "MdList",
-          start: 1,
+          start: 0,
           end: 74,
           value:
-            "    - item one \n      - sub-item 1\n      - sub-item 2\n    - item two\n    ",
+            "\n    - item one \n      - sub-item 1\n      - sub-item 2\n    - item two\n    ",
           children: [
             {
               type: "MdListItem",
-              start: 1,
+              start: 0,
               end: 54,
-              value: "    - item one \n      - sub-item 1\n      - sub-item 2",
+              value:
+                "\n    - item one \n      - sub-item 1\n      - sub-item 2",
               children: [
                 {
                   type: "MdListItemStart",
-                  start: 1,
+                  start: 0,
                   end: 7,
-                  value: "    - ",
+                  value: "\n    - ",
                   marker: "    -",
                 },
                 {
@@ -2188,6 +2189,120 @@ Text
             },
           ],
         },
+      ],
+    },
+  },
+  {
+    description: "should tokenize MD code blocks with tags",
+    input:
+      "before <TagOne> hello <TagTwo> wonderful </TagOne> world!</TagTwo> after ",
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 73,
+      value:
+        "before <TagOne> hello <TagTwo> wonderful </TagOne> world!</TagTwo> after ",
+      children: [
+        {
+          type: "HtmlTag",
+          start: 7,
+          end: 50,
+          value: "<TagOne> hello <TagTwo> wonderful </TagOne>",
+          children: [
+            {
+              type: "HtmlOpenTag",
+              start: 7,
+              end: 15,
+              value: "<TagOne>",
+              children: [
+                {
+                  type: "HtmlTagStart",
+                  start: 7,
+                  end: 14,
+                  value: "<TagOne",
+                  children: [
+                    {
+                      type: "HtmlName",
+                      name: "TagOne",
+                      start: 8,
+                      end: 14,
+                      value: "TagOne",
+                    },
+                  ],
+                  tagName: "TagOne",
+                },
+                {
+                  type: "HtmlTagEnd",
+                  start: 14,
+                  end: 15,
+                  value: ">",
+                  autoclosing: false,
+                },
+              ],
+              tagName: "TagOne",
+              autoclosing: false,
+            },
+            {
+              type: "HtmlTag",
+              start: 22,
+              end: 41,
+              value: "<TagTwo> wonderful ",
+              children: [
+                {
+                  type: "HtmlOpenTag",
+                  start: 22,
+                  end: 30,
+                  value: "<TagTwo>",
+                  children: [
+                    {
+                      type: "HtmlTagStart",
+                      start: 22,
+                      end: 29,
+                      value: "<TagTwo",
+                      children: [
+                        {
+                          type: "HtmlName",
+                          name: "TagTwo",
+                          start: 23,
+                          end: 29,
+                          value: "TagTwo",
+                        },
+                      ],
+                      tagName: "TagTwo",
+                    },
+                    {
+                      type: "HtmlTagEnd",
+                      start: 29,
+                      end: 30,
+                      value: ">",
+                      autoclosing: false,
+                    },
+                  ],
+                  tagName: "TagTwo",
+                  autoclosing: false,
+                },
+              ],
+            },
+            {
+              type: "HtmlCloseTag",
+              start: 41,
+              end: 50,
+              value: "</TagOne>",
+              children: [
+                {
+                  type: "HtmlName",
+                  name: "TagOne",
+                  start: 43,
+                  end: 49,
+                  value: "TagOne",
+                },
+              ],
+              tagName: "TagOne",
+            },
+          ],
+        },
+        { type: "HtmlSpecialSymbol", value: "<", start: 57, end: 58 },
+        { type: "HtmlSpecialSymbol", value: ">", start: 65, end: 66 },
       ],
     },
   },
