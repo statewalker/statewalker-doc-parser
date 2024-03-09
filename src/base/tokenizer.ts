@@ -122,12 +122,20 @@ export class TokenizerContext {
    * Skips all characters for which the given check method returns true. The last position
    * will be the first character for which the check method returns false.
    * @param check the method to check the characters
-   * @returns the position of the first character for which the check method returns false
+   * @param count the maximum number of characters to skip; +Infinity by default
+   * @returns the current position
    */
-  skipWhile(check: (char: string[1]) => boolean): number {
+  skipWhile(
+    check: (char: string[1]) => boolean,
+    count: number = +Infinity
+  ): number {
     const len = this.str.length;
     let i = 0;
-    for (i = this._i; i < len && check(this.str[i]); i++) {
+    for (
+      i = this._i;
+      i < len && i - this._i < count && check(this.str[i]);
+      i++
+    ) {
       /* */
     }
     this.i = i;
