@@ -19,18 +19,25 @@ export function readMdListItemMarker(
 
     const markerStart = ctx.i;
     ctx.skipWhile(isSpace); // Skip whitespaces at the begining of the line
-    const prevPos = ctx.i;
-    const markerEnd = ctx.skipWhile((char) => !!char.match(/[-*\d>]/u));
-    if (markerEnd === prevPos) return; // No list item symbols found
+    const prefixEnd = ctx.i;
+    let markerEnd = ctx.skipWhile((char) => !!char.match(/[-*>]/u));
+    if (markerEnd === prefixEnd) {
+      markerEnd = ctx.skipWhile((char) => !!char.match(/\d/u));
+      if (markerEnd === prefixEnd || ctx.getChar() !== ".") return;
+      ctx.i++;
+    }
+    if (markerEnd === prefixEnd) return; // No list item symbols found
     if (ctx.skipWhile(isSpace) === markerEnd) return; // No spaces after the "*"
 
     const marker = ctx.substring(markerStart, markerEnd);
+    const depth = prefixEnd - markerStart;
     const end = ctx.i;
     return {
       type: "MdListItemMarker",
       start,
       end,
       value: ctx.substring(start, end),
+      depth,
       marker,
     } as TToken;
   });
@@ -45,7 +52,7 @@ export function newMdListReader({
   readListItemMarker = readMdListItemMarker,
   readListItemContent,
   compareListItemMarkers = (startMarker, endMarker) => {
-    return startMarker.marker.length < endMarker.marker.length ? -1 : 1;
+    return startMarker.depth - endMarker.depth;
   },
 }: TMdListTokenizers) {
   const tokenizers: TTokenizerMethod[] = [];
