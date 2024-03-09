@@ -1195,16 +1195,8 @@ Text
     },
   },
   {
-    input: `# Header
-    
-    - item one 
-      - subitem <sup>1</sup>
-      - subitem <sup>2</sup>
-    - item two
-
-    Hello!
-
-    `,
+    input:
+      "# Header\n    \n    - item one \n      - subitem <sup>1</sup>\n      - subitem <sup>2</sup>\n    - item two\n\n    Hello!\n\n    ",
     description: "should read lists with code",
     expected: {
       type: "Block",
@@ -1233,7 +1225,12 @@ Text
                   value: "# ",
                   level: 1,
                 },
-                { type: "MdHeaderEnd", start: 8, end: 8, value: "" },
+                {
+                  type: "MdHeaderEnd",
+                  start: 8,
+                  end: 8,
+                  value: "",
+                },
               ],
               level: 1,
             },
@@ -1256,6 +1253,7 @@ Text
                       start: 13,
                       end: 20,
                       value: "\n    - ",
+                      depth: 4,
                       marker: "    -",
                     },
                     {
@@ -1283,6 +1281,7 @@ Text
                                   start: 29,
                                   end: 38,
                                   value: "\n      - ",
+                                  depth: 6,
                                   marker: "      -",
                                 },
                                 {
@@ -1369,6 +1368,7 @@ Text
                                   start: 58,
                                   end: 67,
                                   value: "\n      - ",
+                                  depth: 6,
                                   marker: "      -",
                                 },
                                 {
@@ -1448,7 +1448,12 @@ Text
                         },
                       ],
                     },
-                    { type: "MdListItemEnd", start: 87, end: 87, value: "" },
+                    {
+                      type: "MdListItemEnd",
+                      start: 87,
+                      end: 87,
+                      value: "",
+                    },
                   ],
                 },
                 {
@@ -1462,6 +1467,7 @@ Text
                       start: 87,
                       end: 94,
                       value: "\n    - ",
+                      depth: 4,
                       marker: "    -",
                     },
                     {
@@ -1470,7 +1476,12 @@ Text
                       end: 102,
                       value: "item two",
                     },
-                    { type: "MdListItemEnd", start: 102, end: 102, value: "" },
+                    {
+                      type: "MdListItemEnd",
+                      start: 102,
+                      end: 102,
+                      value: "",
+                    },
                   ],
                 },
               ],
@@ -1483,12 +1494,8 @@ Text
   },
   {
     description: "should tokenize simple hierarchical list",
-    input: `
-    - item one 
-      - sub-item 1
-      - sub-item 2
-    - item two
-    `,
+    input:
+      "\n    - item one \n      - sub-item 1\n      - sub-item 2\n    - item two\n    ",
     expected: {
       type: "Block",
       start: 0,
@@ -1515,6 +1522,7 @@ Text
                   start: 0,
                   end: 7,
                   value: "\n    - ",
+                  depth: 4,
                   marker: "    -",
                 },
                 {
@@ -1540,6 +1548,7 @@ Text
                               start: 16,
                               end: 25,
                               value: "\n      - ",
+                              depth: 6,
                               marker: "      -",
                             },
                             {
@@ -1567,6 +1576,7 @@ Text
                               start: 35,
                               end: 44,
                               value: "\n      - ",
+                              depth: 6,
                               marker: "      -",
                             },
                             {
@@ -1587,7 +1597,12 @@ Text
                     },
                   ],
                 },
-                { type: "MdListItemEnd", start: 54, end: 54, value: "" },
+                {
+                  type: "MdListItemEnd",
+                  start: 54,
+                  end: 54,
+                  value: "",
+                },
               ],
             },
             {
@@ -1601,6 +1616,7 @@ Text
                   start: 54,
                   end: 61,
                   value: "\n    - ",
+                  depth: 4,
                   marker: "    -",
                 },
                 {
@@ -1618,14 +1634,8 @@ Text
   },
   {
     description: "should tokenize document sections with lists",
-    input: `
-    # Header 1
-    - item one 
-      - sub-item 1
-      - sub-item 2
-        the rest of sub-item 2
-    - item two
-    `,
+    input:
+      "\n    # Header 1\n    - item one \n      - sub-item 1\n      - sub-item 2\n        the rest of sub-item 2\n    - item two\n    ",
     expected: {
       type: "Block",
       start: 0,
@@ -1653,7 +1663,12 @@ Text
                   value: "\n    # ",
                   level: 1,
                 },
-                { type: "MdHeaderEnd", start: 15, end: 15, value: "" },
+                {
+                  type: "MdHeaderEnd",
+                  start: 15,
+                  end: 15,
+                  value: "",
+                },
               ],
               level: 1,
             },
@@ -1676,6 +1691,7 @@ Text
                       start: 15,
                       end: 22,
                       value: "\n    - ",
+                      depth: 4,
                       marker: "    -",
                     },
                     {
@@ -1703,6 +1719,7 @@ Text
                                   start: 31,
                                   end: 40,
                                   value: "\n      - ",
+                                  depth: 6,
                                   marker: "      -",
                                 },
                                 {
@@ -1731,6 +1748,7 @@ Text
                                   start: 50,
                                   end: 59,
                                   value: "\n      - ",
+                                  depth: 6,
                                   marker: "      -",
                                 },
                                 {
@@ -1752,7 +1770,12 @@ Text
                         },
                       ],
                     },
-                    { type: "MdListItemEnd", start: 100, end: 100, value: "" },
+                    {
+                      type: "MdListItemEnd",
+                      start: 100,
+                      end: 100,
+                      value: "",
+                    },
                   ],
                 },
                 {
@@ -1766,6 +1789,7 @@ Text
                       start: 100,
                       end: 107,
                       value: "\n    - ",
+                      depth: 4,
                       marker: "    -",
                     },
                     {
@@ -1786,12 +1810,8 @@ Text
   },
   {
     description: "should tokenize document with tags, headers with lists",
-    input: `
-    <div className="note">
-      * item one
-      * item two
-    </div>
-    `,
+    input:
+      '\n    <div className="note">\n      * item one\n      * item two\n    </div>\n    ',
     expected: {
       type: "Block",
       start: 0,
@@ -1880,6 +1900,7 @@ Text
                       start: 27,
                       end: 36,
                       value: "\n      * ",
+                      depth: 6,
                       marker: "      *",
                     },
                     {
@@ -1888,7 +1909,12 @@ Text
                       end: 44,
                       value: "item one",
                     },
-                    { type: "MdListItemEnd", start: 44, end: 44, value: "" },
+                    {
+                      type: "MdListItemEnd",
+                      start: 44,
+                      end: 44,
+                      value: "",
+                    },
                   ],
                 },
                 {
@@ -1902,6 +1928,7 @@ Text
                       start: 44,
                       end: 53,
                       value: "\n      * ",
+                      depth: 6,
                       marker: "      *",
                     },
                     {
@@ -1937,12 +1964,8 @@ Text
   },
   {
     description: "should tokenize document with tags, headers with lists",
-    input: `
-    <div className="note">
-      #  Header
-      * Some notable things in a block quote!
-    </div>
-    `,
+    input:
+      '\n    <div className="note">\n      #  Header\n      * Some notable things in a block quote!\n    </div>\n    ',
     expected: {
       type: "Block",
       start: 0,
@@ -2034,7 +2057,12 @@ Text
                       value: "\n      # ",
                       level: 1,
                     },
-                    { type: "MdHeaderEnd", start: 43, end: 43, value: "" },
+                    {
+                      type: "MdHeaderEnd",
+                      start: 43,
+                      end: 43,
+                      value: "",
+                    },
                   ],
                   level: 1,
                 },
@@ -2057,6 +2085,7 @@ Text
                           start: 43,
                           end: 52,
                           value: "\n      * ",
+                          depth: 6,
                           marker: "      *",
                         },
                         {

@@ -29,6 +29,7 @@ export const testData: TTestData[] = [
                   start: 0,
                   end: 7,
                   value: "\n    - ",
+                  depth: 4,
                   marker: "    -",
                 },
                 {
@@ -74,6 +75,7 @@ export const testData: TTestData[] = [
                   start: 0,
                   end: 9,
                   value: "\n      - ",
+                  depth: 6,
                   marker: "      -",
                 },
                 {
@@ -126,6 +128,7 @@ export const testData: TTestData[] = [
                   start: 9,
                   end: 14,
                   value: "\n  - ",
+                  depth: 2,
                   marker: "  -",
                 },
                 {
@@ -177,6 +180,7 @@ export const testData: TTestData[] = [
                   start: 0,
                   end: 9,
                   value: "\n      - ",
+                  depth: 6,
                   marker: "      -",
                 },
                 { type: "MdListItemContent", start: 9, end: 12, value: "one" },
@@ -194,6 +198,7 @@ export const testData: TTestData[] = [
                   start: 12,
                   end: 21,
                   value: "\n      - ",
+                  depth: 6,
                   marker: "      -",
                 },
                 { type: "MdListItemContent", start: 21, end: 24, value: "two" },
@@ -211,6 +216,7 @@ export const testData: TTestData[] = [
                   start: 24,
                   end: 33,
                   value: "\n      - ",
+                  depth: 6,
                   marker: "      -",
                 },
                 {
@@ -260,6 +266,7 @@ export const testData: TTestData[] = [
                   start: 0,
                   end: 9,
                   value: "\n      - ",
+                  depth: 6,
                   marker: "      -",
                 },
                 {
@@ -285,6 +292,7 @@ export const testData: TTestData[] = [
                               start: 17,
                               end: 28,
                               value: "\n        - ",
+                              depth: 8,
                               marker: "        -",
                             },
                             {
@@ -312,6 +320,7 @@ export const testData: TTestData[] = [
                               start: 38,
                               end: 49,
                               value: "\n        - ",
+                              depth: 8,
                               marker: "        -",
                             },
                             {
@@ -346,6 +355,7 @@ export const testData: TTestData[] = [
                   start: 59,
                   end: 68,
                   value: "\n      - ",
+                  depth: 6,
                   marker: "      -",
                 },
                 {
@@ -394,6 +404,7 @@ export const testData: TTestData[] = [
                   start: 0,
                   end: 9,
                   value: "\n      - ",
+                  depth: 6,
                   marker: "      -",
                 },
                 { type: "MdListItemContent", start: 9, end: 12, value: "one" },
@@ -411,6 +422,7 @@ export const testData: TTestData[] = [
                   start: 12,
                   end: 21,
                   value: "\n      - ",
+                  depth: 6,
                   marker: "      -",
                 },
                 { type: "MdListItemContent", start: 21, end: 24, value: "two" },
@@ -436,6 +448,7 @@ export const testData: TTestData[] = [
                   start: 25,
                   end: 34,
                   value: "\n      - ",
+                  depth: 6,
                   marker: "      -",
                 },
                 {
@@ -458,6 +471,7 @@ export const testData: TTestData[] = [
                   start: 39,
                   end: 48,
                   value: "\n      - ",
+                  depth: 6,
                   marker: "      -",
                 },
                 {
@@ -506,6 +520,7 @@ export const testData: TTestData[] = [
                   start: 0,
                   end: 9,
                   value: "\n      - ",
+                  depth: 6,
                   marker: "      -",
                 },
                 { type: "MdListItemContent", start: 9, end: 12, value: "one" },
@@ -523,6 +538,7 @@ export const testData: TTestData[] = [
                   start: 12,
                   end: 21,
                   value: "\n      - ",
+                  depth: 6,
                   marker: "      -",
                 },
                 { type: "MdListItemContent", start: 21, end: 24, value: "two" },
@@ -548,6 +564,7 @@ export const testData: TTestData[] = [
                   start: 25,
                   end: 34,
                   value: "\n      - ",
+                  depth: 6,
                   marker: "      -",
                 },
                 {
@@ -570,6 +587,7 @@ export const testData: TTestData[] = [
                   start: 39,
                   end: 48,
                   value: "\n      - ",
+                  depth: 6,
                   marker: "      -",
                 },
                 {
@@ -593,6 +611,122 @@ export const testData: TTestData[] = [
       start: 0,
       end: 9,
       value: "one - two",
+    },
+  },
+  {
+    description: "should read number list and ",
+    input: `
+      - one
+      - two
+
+      - three
+      - four
+      `,
+    expected: {
+      type: "Block",
+      start: 0,
+      end: 59,
+      value:
+        "\n      - one\n      - two\n\n      - three\n      - four\n      ",
+      children: [
+        {
+          type: "MdList",
+          start: 0,
+          end: 24,
+          value: "\n      - one\n      - two",
+          children: [
+            {
+              type: "MdListItem",
+              start: 0,
+              end: 12,
+              value: "\n      - one",
+              children: [
+                {
+                  type: "MdListItemStart",
+                  start: 0,
+                  end: 9,
+                  value: "\n      - ",
+                  depth: 6,
+                  marker: "      -",
+                },
+                { type: "MdListItemContent", start: 9, end: 12, value: "one" },
+                { type: "MdListItemEnd", start: 12, end: 12, value: "" },
+              ],
+            },
+            {
+              type: "MdListItem",
+              start: 12,
+              end: 24,
+              value: "\n      - two",
+              children: [
+                {
+                  type: "MdListItemStart",
+                  start: 12,
+                  end: 21,
+                  value: "\n      - ",
+                  depth: 6,
+                  marker: "      -",
+                },
+                { type: "MdListItemContent", start: 21, end: 24, value: "two" },
+                { type: "MdListItemEnd", start: 24, end: 24, value: "" },
+              ],
+            },
+          ],
+        },
+        {
+          type: "MdList",
+          start: 25,
+          end: 59,
+          value: "\n      - three\n      - four\n      ",
+          children: [
+            {
+              type: "MdListItem",
+              start: 25,
+              end: 39,
+              value: "\n      - three",
+              children: [
+                {
+                  type: "MdListItemStart",
+                  start: 25,
+                  end: 34,
+                  value: "\n      - ",
+                  depth: 6,
+                  marker: "      -",
+                },
+                {
+                  type: "MdListItemContent",
+                  start: 34,
+                  end: 39,
+                  value: "three",
+                },
+                { type: "MdListItemEnd", start: 39, end: 39, value: "" },
+              ],
+            },
+            {
+              type: "MdListItem",
+              start: 39,
+              end: 59,
+              value: "\n      - four\n      ",
+              children: [
+                {
+                  type: "MdListItemStart",
+                  start: 39,
+                  end: 48,
+                  value: "\n      - ",
+                  depth: 6,
+                  marker: "      -",
+                },
+                {
+                  type: "MdListItemContent",
+                  start: 48,
+                  end: 59,
+                  value: "four\n      ",
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
   },
 ];
