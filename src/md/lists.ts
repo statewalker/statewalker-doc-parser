@@ -47,6 +47,13 @@ export type TMdListTokenizers = {
   readListItemMarker: TTokenizerMethod;
   readListItemContent?: TTokenizerMethod;
   compareListItemMarkers?: (startMarker: TToken, endMarker: TToken) => number;
+  listTokenNames?: {
+    List: string;
+    ListItem: string;
+    ListItemStart: string;
+    ListItemContent: string;
+    ListItemEnd: string;
+  };
 };
 export function newMdListReader({
   readListItemMarker = readMdListItemMarker,
@@ -54,45 +61,55 @@ export function newMdListReader({
   compareListItemMarkers = (startMarker, endMarker) => {
     return startMarker.depth - endMarker.depth;
   },
+  listTokenNames: names = {
+    List: "MdList",
+    ListItem: "MdListItem",
+    ListItemStart: "MdListItemStart",
+    ListItemContent: "MdListItemContent",
+    ListItemEnd: "MdListItemEnd",
+  },
 }: TMdListTokenizers) {
   const tokenizers: TTokenizerMethod[] = [];
   const compositeReader = newCompositeTokenizer(tokenizers);
-  const readContent = newBlockReader("MdListItemContent", compositeReader);
+  const readContent = newBlockReader(names.ListItemContent, compositeReader);
+  function newListItemEndReader(startMarker: TToken) {
+    return (ctx: TokenizerContext): TToken | undefined =>
+      ctx.guard(() => {
+        const start = ctx.i;
+        const emptyLine = readEmptyLine(ctx);
+        if (!emptyLine) {
+          ctx.i = start;
+          const endMarker = readListItemMarker(ctx);
+          if (!endMarker) return;
+          // Embedded list item
+          if (compareListItemMarkers(startMarker, endMarker) < 0) return;
+        }
+        const end = (ctx.i = start);
+        return {
+          type: names.ListItemEnd,
+          start,
+          end,
+          value: ctx.substring(start, end),
+        };
+      });
+  }
   const readListItem = newDynamicFencedBlockReader(
-    "MdListItem",
+    names.ListItem,
     (ctx: TokenizerContext): TToken | undefined =>
       ctx.guard(() => {
         const token = readListItemMarker(ctx);
         if (!token) return;
-        (token as TToken).type = "MdListItemStart";
+        (token as TToken).type = names.ListItemStart;
         return token;
       }),
     () => readContent,
     (token: TToken) => {
-      const startMarker = token as TToken;
-      return (ctx: TokenizerContext): TToken | undefined =>
-        ctx.guard(() => {
-          const start = ctx.i;
-          const emptyLine = readEmptyLine(ctx);
-          if (!emptyLine) {
-            ctx.i = start;
-            const endMarker = readListItemMarker(ctx);
-            if (!endMarker) return;
-            // Embedded list item
-            if (compareListItemMarkers(startMarker, endMarker) < 0) return;
-          }
-          const end = (ctx.i = start);
-          return {
-            type: "MdListItemEnd",
-            start,
-            end,
-            value: ctx.substring(start, end),
-          };
-        });
+      const readEndToken = newListItemEndReader(token);
+      return readEndToken;
     }
   );
 
-  const readListToken = newBlockReader("MdList", readListItem);
+  const readListToken = newBlockReader(names.List, readListItem);
   const readList = (ctx: TokenizerContext): TToken | undefined =>
     ctx.guard((fences) => {
       const start = ctx.i;

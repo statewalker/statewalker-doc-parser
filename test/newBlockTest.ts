@@ -54,6 +54,7 @@ export function newBlockTest(
     } catch (error) {
       let str = JSON.stringify(result, null, 2);
       if (str.length > 1000) str = JSON.stringify(result);
+      console.log(str);
       (error as any).result = result;
       throw error;
     }

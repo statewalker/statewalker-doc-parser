@@ -133,10 +133,13 @@ export function newQuotedTextReader(
   };
 }
 
-export function readNewLines(ctx: TokenizerContext): TToken | undefined {
+export function readNewLines(
+  ctx: TokenizerContext,
+  count?: number
+): TToken | undefined {
   return ctx.guard(() => {
     const start = ctx.i;
-    const eolPos = ctx.skipWhile(isEol);
+    const eolPos = ctx.skipWhile(isEol, count);
     if (start > 0 && eolPos === start) return;
     return {
       type: "Eol",
