@@ -1,0 +1,26 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 13,
+  "value": "first\n\nsecond",
+  "children": [
+    {
+      "type": "Word",
+      "value": "first",
+      "start": 0,
+      "end": 5
+    },
+    {
+      "type": "Eol",
+      "value": "\n\n",
+      "start": 5,
+      "end": 7
+    },
+    {
+      "type": "Word",
+      "value": "second",
+      "start": 7,
+      "end": 13
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 22,
+  "value": "<tag ${ code block  />",
+  "children": [
+    {
+      "type": "HtmlOpenTag",
+      "start": 0,
+      "end": 22,
+      "value": "<tag ${ code block  />",
+      "children": [
+        {
+          "type": "HtmlTagStart",
+          "start": 0,
+          "end": 4,
+          "value": "<tag",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "tag",
+              "start": 1,
+              "end": 4,
+              "value": "tag"
+            }
+          ],
+          "tagName": "tag"
+        },
+        {
+          "type": "Code",
+          "codeStart": 7,
+          "codeEnd": 20,
+          "start": 5,
+          "end": 20,
+          "value": "${ code block  "
+        },
+        {
+          "type": "HtmlTagEnd",
+          "start": 20,
+          "end": 22,
+          "value": "/>",
+          "autoclosing": true
+        }
+      ],
+      "tagName": "tag",
+      "autoclosing": true
+    }
+  ]
+}

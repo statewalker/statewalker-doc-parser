@@ -1,0 +1,42 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 49,
+  "value": "a    =     'b:${\n foo=\"Foo\" bar=\"Bar\" hello \n}:c'",
+  "children": [
+    {
+      "type": "HtmlAttribute",
+      "start": 0,
+      "end": 49,
+      "value": "a    =     'b:${\n foo=\"Foo\" bar=\"Bar\" hello \n}:c'",
+      "children": [
+        {
+          "type": "HtmlName",
+          "name": "a",
+          "start": 0,
+          "end": 1,
+          "value": "a"
+        },
+        {
+          "type": "HtmlValue",
+          "start": 11,
+          "end": 49,
+          "value": "'b:${\n foo=\"Foo\" bar=\"Bar\" hello \n}:c'",
+          "children": [
+            {
+              "type": "Code",
+              "codeStart": 16,
+              "codeEnd": 45,
+              "start": 14,
+              "end": 46,
+              "value": "${\n foo=\"Foo\" bar=\"Bar\" hello \n}"
+            }
+          ],
+          "quoted": true,
+          "valueStart": 12,
+          "valueEnd": 48
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 20,
+  "value": "before ${code} after",
+  "children": [
+    {
+      "type": "Word",
+      "value": "before",
+      "start": 0,
+      "end": 6
+    },
+    {
+      "type": "Spaces",
+      "value": " ",
+      "start": 6,
+      "end": 7
+    },
+    {
+      "type": "Code",
+      "codeStart": 9,
+      "codeEnd": 13,
+      "start": 7,
+      "end": 14,
+      "value": "${code}",
+      "children": [
+        {
+          "type": "Word",
+          "value": "code",
+          "start": 9,
+          "end": 13
+        }
+      ]
+    },
+    {
+      "type": "Spaces",
+      "value": " ",
+      "start": 14,
+      "end": 15
+    },
+    {
+      "type": "Word",
+      "value": "after",
+      "start": 15,
+      "end": 20
+    }
+  ]
+}

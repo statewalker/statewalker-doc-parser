@@ -1,19 +1,16 @@
 import { newCharsReader, newCompositeTokenizer } from "../../src/base/index.ts";
 import { newCodeReader } from "../../src/code/index.ts";
 import { newHtmlAttributeReader } from "../../src/html/index.ts";
-import { describe, it } from "../deps.ts";
-import { newBlockTest } from "../newBlockTest.ts";
-import { testData } from "./attributes.data.ts";
+import { newTestRunner } from "../utils/newTestRunner.ts";
+import { newTokenizerTest } from "../utils/newTokenizerTest.ts";
 
-describe("readHtmlTag", () => {
+Promise.resolve().then(main).catch(console.error);
+
+async function main() {
   const readCode = newCodeReader();
-  const readToken = newHtmlAttributeReader(readCode);
+  const readAttribute = newHtmlAttributeReader(readCode);
   const readEol = newCharsReader("Eol", (ch) => ch === "\n" || ch === "\r");
-  const test = newBlockTest(newCompositeTokenizer([readEol, readToken]));
-
-  testData.forEach((data) => {
-    it(data.description, () => {
-      test(data.input, data.expected);
-    });
-  });
-});
+  const readToken = newCompositeTokenizer([readEol, readAttribute]);
+  const runTests = newTestRunner(newTokenizerTest(readToken));
+  runTests(`${import.meta.dirname}/data/attributes`);
+}

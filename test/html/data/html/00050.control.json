@@ -1,0 +1,91 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 45,
+  "value": "before <img src='./my-dog.jpg' /></img> after",
+  "children": [
+    {
+      "type": "HtmlTag",
+      "start": 7,
+      "end": 33,
+      "value": "<img src='./my-dog.jpg' />",
+      "children": [
+        {
+          "type": "HtmlOpenTag",
+          "start": 7,
+          "end": 33,
+          "value": "<img src='./my-dog.jpg' />",
+          "children": [
+            {
+              "type": "HtmlTagStart",
+              "start": 7,
+              "end": 11,
+              "value": "<img",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "img",
+                  "start": 8,
+                  "end": 11,
+                  "value": "img"
+                }
+              ],
+              "tagName": "img"
+            },
+            {
+              "type": "HtmlAttribute",
+              "start": 12,
+              "end": 30,
+              "value": "src='./my-dog.jpg'",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "src",
+                  "start": 12,
+                  "end": 15,
+                  "value": "src"
+                },
+                {
+                  "type": "HtmlValue",
+                  "start": 16,
+                  "end": 30,
+                  "value": "'./my-dog.jpg'",
+                  "quoted": true,
+                  "valueStart": 17,
+                  "valueEnd": 29
+                }
+              ]
+            },
+            {
+              "type": "HtmlTagEnd",
+              "start": 31,
+              "end": 33,
+              "value": "/>",
+              "autoclosing": true
+            }
+          ],
+          "tagName": "img",
+          "autoclosing": true
+        },
+        {
+          "type": "HtmlCloseTag",
+          "start": 33,
+          "end": 33,
+          "value": ""
+        }
+      ]
+    },
+    {
+      "type": "HtmlSpecialSymbol",
+      "value": "<",
+      "start": 33,
+      "end": 34
+    },
+    {
+      "type": "HtmlSpecialSymbol",
+      "value": ">",
+      "start": 38,
+      "end": 39
+    }
+  ]
+}

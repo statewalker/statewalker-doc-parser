@@ -1,0 +1,76 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 44,
+  "value": "before <div prop=${B C> content </div> after",
+  "children": [
+    {
+      "type": "HtmlTag",
+      "start": 7,
+      "end": 44,
+      "value": "<div prop=${B C> content </div> after",
+      "children": [
+        {
+          "type": "HtmlOpenTag",
+          "start": 7,
+          "end": 44,
+          "value": "<div prop=${B C> content </div> after",
+          "children": [
+            {
+              "type": "HtmlTagStart",
+              "start": 7,
+              "end": 11,
+              "value": "<div",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "div",
+                  "start": 8,
+                  "end": 11,
+                  "value": "div"
+                }
+              ],
+              "tagName": "div"
+            },
+            {
+              "type": "HtmlAttribute",
+              "start": 12,
+              "end": 44,
+              "value": "prop=${B C> content </div> after",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "prop",
+                  "start": 12,
+                  "end": 16,
+                  "value": "prop"
+                },
+                {
+                  "type": "HtmlValue",
+                  "quoted": false,
+                  "start": 17,
+                  "end": 44,
+                  "valueStart": 17,
+                  "valueEnd": 44,
+                  "value": "${B C> content </div> after",
+                  "children": [
+                    {
+                      "type": "Code",
+                      "codeStart": 19,
+                      "codeEnd": 44,
+                      "start": 17,
+                      "end": 44,
+                      "value": "${B C> content </div> after"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "tagName": "div",
+          "autoclosing": false
+        }
+      ]
+    }
+  ]
+}

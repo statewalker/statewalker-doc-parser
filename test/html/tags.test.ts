@@ -3,28 +3,24 @@ import {
   newCharsReader,
   newCompositeTokenizer,
 } from "../../src/base/index.ts";
-import { newCodeReader } from "../../src/code/index.ts";
 import {
   newHtmlCloseTagReader,
   newHtmlOpenTagReader,
 } from "../../src/html/index.ts";
-import { describe, it } from "../deps.ts";
-import { newBlockTest } from "../newBlockTest.ts";
-import { testData } from "./tags.data.ts";
+import { newCodeReader } from "../../src/index.ts";
 
-describe("readHtmlTag", () => {
+import { newTestRunner } from "../utils/newTestRunner.ts";
+import { newTokenizerTest } from "../utils/newTokenizerTest.ts";
+
+Promise.resolve().then(main).catch(console.error);
+
+async function main() {
   const readCode = newCodeReader();
-  const test = newBlockTest(
-    newCompositeTokenizer([
-      newCharsReader("Eol", isEol),
-      newHtmlOpenTagReader(readCode),
-      newHtmlCloseTagReader(),
-    ])
-  );
-
-  testData.forEach((data) => {
-    it(data.description, () => {
-      test(data.input, data.expected);
-    });
-  });
-});
+  const readToken = newCompositeTokenizer([
+    newCharsReader("Eol", isEol),
+    newHtmlOpenTagReader(readCode),
+    newHtmlCloseTagReader(),
+  ]);
+  const runTests = newTestRunner(newTokenizerTest(readToken));
+  runTests(`${import.meta.dirname}/data/tags`);
+}

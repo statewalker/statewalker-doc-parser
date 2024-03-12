@@ -1,0 +1,118 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 43,
+  "value": "before <em><strong>text</em></strong> after",
+  "children": [
+    {
+      "type": "HtmlTag",
+      "start": 7,
+      "end": 28,
+      "value": "<em><strong>text</em>",
+      "children": [
+        {
+          "type": "HtmlOpenTag",
+          "start": 7,
+          "end": 11,
+          "value": "<em>",
+          "children": [
+            {
+              "type": "HtmlTagStart",
+              "start": 7,
+              "end": 10,
+              "value": "<em",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "em",
+                  "start": 8,
+                  "end": 10,
+                  "value": "em"
+                }
+              ],
+              "tagName": "em"
+            },
+            {
+              "type": "HtmlTagEnd",
+              "start": 10,
+              "end": 11,
+              "value": ">",
+              "autoclosing": false
+            }
+          ],
+          "tagName": "em",
+          "autoclosing": false
+        },
+        {
+          "type": "HtmlTag",
+          "start": 11,
+          "end": 23,
+          "value": "<strong>text",
+          "children": [
+            {
+              "type": "HtmlOpenTag",
+              "start": 11,
+              "end": 19,
+              "value": "<strong>",
+              "children": [
+                {
+                  "type": "HtmlTagStart",
+                  "start": 11,
+                  "end": 18,
+                  "value": "<strong",
+                  "children": [
+                    {
+                      "type": "HtmlName",
+                      "name": "strong",
+                      "start": 12,
+                      "end": 18,
+                      "value": "strong"
+                    }
+                  ],
+                  "tagName": "strong"
+                },
+                {
+                  "type": "HtmlTagEnd",
+                  "start": 18,
+                  "end": 19,
+                  "value": ">",
+                  "autoclosing": false
+                }
+              ],
+              "tagName": "strong",
+              "autoclosing": false
+            }
+          ]
+        },
+        {
+          "type": "HtmlCloseTag",
+          "start": 23,
+          "end": 28,
+          "value": "</em>",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "em",
+              "start": 25,
+              "end": 27,
+              "value": "em"
+            }
+          ],
+          "tagName": "em"
+        }
+      ]
+    },
+    {
+      "type": "HtmlSpecialSymbol",
+      "value": "<",
+      "start": 28,
+      "end": 29
+    },
+    {
+      "type": "HtmlSpecialSymbol",
+      "value": ">",
+      "start": 36,
+      "end": 37
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 16,
+  "value": "before ${} after",
+  "children": [
+    {
+      "type": "Word",
+      "value": "before",
+      "start": 0,
+      "end": 6
+    },
+    {
+      "type": "Spaces",
+      "value": " ",
+      "start": 6,
+      "end": 7
+    },
+    {
+      "type": "Code",
+      "codeStart": 9,
+      "codeEnd": 9,
+      "start": 7,
+      "end": 10,
+      "value": "${}"
+    },
+    {
+      "type": "Spaces",
+      "value": " ",
+      "start": 10,
+      "end": 11
+    },
+    {
+      "type": "Word",
+      "value": "after",
+      "start": 11,
+      "end": 16
+    }
+  ]
+}

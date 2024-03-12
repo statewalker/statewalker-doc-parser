@@ -1,0 +1,23 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 4,
+  "value": "a = ",
+  "children": [
+    {
+      "type": "HtmlAttribute",
+      "start": 0,
+      "end": 4,
+      "value": "a = ",
+      "children": [
+        {
+          "type": "HtmlName",
+          "name": "a",
+          "start": 0,
+          "end": 1,
+          "value": "a"
+        }
+      ]
+    }
+  ]
+}

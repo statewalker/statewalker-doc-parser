@@ -1,0 +1,113 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 61,
+  "value": "before <a attr1=val1 attr2='a b c' attr3='\" quoted \"' > after",
+  "children": [
+    {
+      "type": "HtmlOpenTag",
+      "start": 7,
+      "end": 55,
+      "value": "<a attr1=val1 attr2='a b c' attr3='\" quoted \"' >",
+      "children": [
+        {
+          "type": "HtmlTagStart",
+          "start": 7,
+          "end": 9,
+          "value": "<a",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "a",
+              "start": 8,
+              "end": 9,
+              "value": "a"
+            }
+          ],
+          "tagName": "a"
+        },
+        {
+          "type": "HtmlAttribute",
+          "start": 10,
+          "end": 20,
+          "value": "attr1=val1",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "attr1",
+              "start": 10,
+              "end": 15,
+              "value": "attr1"
+            },
+            {
+              "type": "HtmlValue",
+              "value": "val1",
+              "start": 16,
+              "end": 20,
+              "quoted": false,
+              "valueStart": 16,
+              "valueEnd": 20
+            }
+          ]
+        },
+        {
+          "type": "HtmlAttribute",
+          "start": 21,
+          "end": 34,
+          "value": "attr2='a b c'",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "attr2",
+              "start": 21,
+              "end": 26,
+              "value": "attr2"
+            },
+            {
+              "type": "HtmlValue",
+              "start": 27,
+              "end": 34,
+              "value": "'a b c'",
+              "quoted": true,
+              "valueStart": 28,
+              "valueEnd": 33
+            }
+          ]
+        },
+        {
+          "type": "HtmlAttribute",
+          "start": 35,
+          "end": 53,
+          "value": "attr3='\" quoted \"'",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "attr3",
+              "start": 35,
+              "end": 40,
+              "value": "attr3"
+            },
+            {
+              "type": "HtmlValue",
+              "start": 41,
+              "end": 53,
+              "value": "'\" quoted \"'",
+              "quoted": true,
+              "valueStart": 42,
+              "valueEnd": 52
+            }
+          ]
+        },
+        {
+          "type": "HtmlTagEnd",
+          "start": 54,
+          "end": 55,
+          "value": ">",
+          "autoclosing": false
+        }
+      ],
+      "tagName": "a",
+      "autoclosing": false
+    }
+  ]
+}

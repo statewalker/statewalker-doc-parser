@@ -1,10 +1,12 @@
 import { newCodeReader } from "../../src/index.ts";
 import { newMdReader } from "../../src/md/index.ts";
-import { describe } from "../deps.ts";
-import { newBlockTest, runBlockTests } from "../newBlockTest.ts";
-import { testData } from "./md.data.ts";
 
-describe("newMdReader", async () => {
+import { newTestRunner } from "../utils/newTestRunner.ts";
+import { newTokenizerTest } from "../utils/newTokenizerTest.ts";
+
+Promise.resolve().then(main).catch(console.error);
+
+async function main() {
   const readCode = newCodeReader();
   // const contentTokenizers: TTokenizerMethod[] = [readCode];
   // const readContent = newCompositeTokenizer(contentTokenizers);
@@ -19,10 +21,7 @@ describe("newMdReader", async () => {
     // },
     readContent: readCode,
   };
-
-
   const readToken = newMdReader(readers);
-  // contentTokenizers.push(readToken);
-  const test = newBlockTest(readToken);
-  runBlockTests(test, testData);
-});
+  const runTests = newTestRunner(newTokenizerTest(readToken));
+  runTests(`${import.meta.dirname}/data/md`);
+}

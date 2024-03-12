@@ -1,0 +1,177 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 197,
+  "value": "before \n    <div ${{foo : \"Foo\", bar: \"Bar\"}} style=${{ color:\"red\"}} title=\"Message: ${'Hello'}\">\n      Red text: ${\"Hello, world\"}!\n    </div>\n    <!-- A ${this is the code} B --> \n    after\n    ",
+  "children": [
+    {
+      "type": "HtmlTag",
+      "start": 12,
+      "end": 144,
+      "value": "<div ${{foo : \"Foo\", bar: \"Bar\"}} style=${{ color:\"red\"}} title=\"Message: ${'Hello'}\">\n      Red text: ${\"Hello, world\"}!\n    </div>",
+      "children": [
+        {
+          "type": "HtmlOpenTag",
+          "start": 12,
+          "end": 98,
+          "value": "<div ${{foo : \"Foo\", bar: \"Bar\"}} style=${{ color:\"red\"}} title=\"Message: ${'Hello'}\">",
+          "children": [
+            {
+              "type": "HtmlTagStart",
+              "start": 12,
+              "end": 16,
+              "value": "<div",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "div",
+                  "start": 13,
+                  "end": 16,
+                  "value": "div"
+                }
+              ],
+              "tagName": "div"
+            },
+            {
+              "type": "Code",
+              "codeStart": 19,
+              "codeEnd": 44,
+              "start": 17,
+              "end": 45,
+              "value": "${{foo : \"Foo\", bar: \"Bar\"}}"
+            },
+            {
+              "type": "HtmlAttribute",
+              "start": 46,
+              "end": 69,
+              "value": "style=${{ color:\"red\"}}",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "style",
+                  "start": 46,
+                  "end": 51,
+                  "value": "style"
+                },
+                {
+                  "type": "HtmlValue",
+                  "quoted": false,
+                  "start": 52,
+                  "end": 69,
+                  "valueStart": 52,
+                  "valueEnd": 69,
+                  "value": "${{ color:\"red\"}}",
+                  "children": [
+                    {
+                      "type": "Code",
+                      "codeStart": 54,
+                      "codeEnd": 68,
+                      "start": 52,
+                      "end": 69,
+                      "value": "${{ color:\"red\"}}"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "HtmlAttribute",
+              "start": 70,
+              "end": 97,
+              "value": "title=\"Message: ${'Hello'}\"",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "title",
+                  "start": 70,
+                  "end": 75,
+                  "value": "title"
+                },
+                {
+                  "type": "HtmlValue",
+                  "start": 76,
+                  "end": 97,
+                  "value": "\"Message: ${'Hello'}\"",
+                  "children": [
+                    {
+                      "type": "Code",
+                      "codeStart": 88,
+                      "codeEnd": 95,
+                      "start": 86,
+                      "end": 96,
+                      "value": "${'Hello'}"
+                    }
+                  ],
+                  "quoted": true,
+                  "valueStart": 77,
+                  "valueEnd": 96
+                }
+              ]
+            },
+            {
+              "type": "HtmlTagEnd",
+              "start": 97,
+              "end": 98,
+              "value": ">",
+              "autoclosing": false
+            }
+          ],
+          "tagName": "div",
+          "autoclosing": false
+        },
+        {
+          "type": "Code",
+          "codeStart": 117,
+          "codeEnd": 131,
+          "start": 115,
+          "end": 132,
+          "value": "${\"Hello, world\"}"
+        },
+        {
+          "type": "HtmlCloseTag",
+          "start": 138,
+          "end": 144,
+          "value": "</div>",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "div",
+              "start": 140,
+              "end": 143,
+              "value": "div"
+            }
+          ],
+          "tagName": "div"
+        }
+      ]
+    },
+    {
+      "type": "HtmlComment",
+      "start": 149,
+      "end": 181,
+      "value": "<!-- A ${this is the code} B -->",
+      "children": [
+        {
+          "type": "HtmlCommentStart",
+          "start": 149,
+          "end": 153,
+          "value": "<!--"
+        },
+        {
+          "type": "Code",
+          "codeStart": 158,
+          "codeEnd": 174,
+          "start": 156,
+          "end": 175,
+          "value": "${this is the code}"
+        },
+        {
+          "type": "HtmlCommentEnd",
+          "start": 178,
+          "end": 181,
+          "value": "-->"
+        }
+      ]
+    }
+  ]
+}

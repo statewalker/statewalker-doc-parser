@@ -1,0 +1,94 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 45,
+  "value": "\n      - one\n      - two\n      - three\n      ",
+  "children": [
+    {
+      "type": "MdList",
+      "start": 0,
+      "end": 45,
+      "value": "\n      - one\n      - two\n      - three\n      ",
+      "children": [
+        {
+          "type": "MdListItem",
+          "start": 0,
+          "end": 12,
+          "value": "\n      - one",
+          "children": [
+            {
+              "type": "MdListItemStart",
+              "start": 0,
+              "end": 9,
+              "value": "\n      - ",
+              "depth": 6,
+              "marker": "      -"
+            },
+            {
+              "type": "MdListItemContent",
+              "start": 9,
+              "end": 12,
+              "value": "one"
+            },
+            {
+              "type": "MdListItemEnd",
+              "start": 12,
+              "end": 12,
+              "value": ""
+            }
+          ]
+        },
+        {
+          "type": "MdListItem",
+          "start": 12,
+          "end": 24,
+          "value": "\n      - two",
+          "children": [
+            {
+              "type": "MdListItemStart",
+              "start": 12,
+              "end": 21,
+              "value": "\n      - ",
+              "depth": 6,
+              "marker": "      -"
+            },
+            {
+              "type": "MdListItemContent",
+              "start": 21,
+              "end": 24,
+              "value": "two"
+            },
+            {
+              "type": "MdListItemEnd",
+              "start": 24,
+              "end": 24,
+              "value": ""
+            }
+          ]
+        },
+        {
+          "type": "MdListItem",
+          "start": 24,
+          "end": 45,
+          "value": "\n      - three\n      ",
+          "children": [
+            {
+              "type": "MdListItemStart",
+              "start": 24,
+              "end": 33,
+              "value": "\n      - ",
+              "depth": 6,
+              "marker": "      -"
+            },
+            {
+              "type": "MdListItemContent",
+              "start": 33,
+              "end": 45,
+              "value": "three\n      "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

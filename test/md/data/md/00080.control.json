@@ -1,0 +1,73 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 71,
+  "value": "<style>\n\n    body {\n      background: ${color};\n    }\n    \n    </style>",
+  "children": [
+    {
+      "type": "HtmlTag",
+      "start": 0,
+      "end": 71,
+      "value": "<style>\n\n    body {\n      background: ${color};\n    }\n    \n    </style>",
+      "children": [
+        {
+          "type": "HtmlOpenTag",
+          "start": 0,
+          "end": 7,
+          "value": "<style>",
+          "children": [
+            {
+              "type": "HtmlTagStart",
+              "start": 0,
+              "end": 6,
+              "value": "<style",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "style",
+                  "start": 1,
+                  "end": 6,
+                  "value": "style"
+                }
+              ],
+              "tagName": "style"
+            },
+            {
+              "type": "HtmlTagEnd",
+              "start": 6,
+              "end": 7,
+              "value": ">",
+              "autoclosing": false
+            }
+          ],
+          "tagName": "style",
+          "autoclosing": false
+        },
+        {
+          "type": "Code",
+          "codeStart": 40,
+          "codeEnd": 45,
+          "start": 38,
+          "end": 46,
+          "value": "${color}"
+        },
+        {
+          "type": "HtmlCloseTag",
+          "start": 63,
+          "end": 71,
+          "value": "</style>",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "style",
+              "start": 65,
+              "end": 70,
+              "value": "style"
+            }
+          ],
+          "tagName": "style"
+        }
+      ]
+    }
+  ]
+}

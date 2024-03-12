@@ -1,0 +1,52 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 76,
+  "value": "\n  # First Header\n  First paragraph\n  ## Second Header\n  Second paragraph\n  ",
+  "children": [
+    {
+      "type": "MdHeader",
+      "start": 0,
+      "end": 17,
+      "value": "\n  # First Header",
+      "children": [
+        {
+          "type": "MdHeaderStart",
+          "start": 0,
+          "end": 5,
+          "value": "\n  # ",
+          "level": 1
+        },
+        {
+          "type": "MdHeaderEnd",
+          "start": 17,
+          "end": 17,
+          "value": ""
+        }
+      ],
+      "level": 1
+    },
+    {
+      "type": "MdHeader",
+      "start": 35,
+      "end": 54,
+      "value": "\n  ## Second Header",
+      "children": [
+        {
+          "type": "MdHeaderStart",
+          "start": 35,
+          "end": 41,
+          "value": "\n  ## ",
+          "level": 2
+        },
+        {
+          "type": "MdHeaderEnd",
+          "start": 54,
+          "end": 54,
+          "value": ""
+        }
+      ],
+      "level": 2
+    }
+  ]
+}

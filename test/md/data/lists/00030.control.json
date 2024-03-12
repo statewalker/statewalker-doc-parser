@@ -1,0 +1,44 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 26,
+  "value": "\n  before\n  - one\n\n  after",
+  "children": [
+    {
+      "type": "MdList",
+      "start": 9,
+      "end": 17,
+      "value": "\n  - one",
+      "children": [
+        {
+          "type": "MdListItem",
+          "start": 9,
+          "end": 17,
+          "value": "\n  - one",
+          "children": [
+            {
+              "type": "MdListItemStart",
+              "start": 9,
+              "end": 14,
+              "value": "\n  - ",
+              "depth": 2,
+              "marker": "  -"
+            },
+            {
+              "type": "MdListItemContent",
+              "start": 14,
+              "end": 17,
+              "value": "one"
+            },
+            {
+              "type": "MdListItemEnd",
+              "start": 17,
+              "end": 17,
+              "value": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

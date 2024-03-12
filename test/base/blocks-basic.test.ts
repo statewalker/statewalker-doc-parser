@@ -40,7 +40,7 @@ describe("newBlockReader", () => {
     }
   }
 
-  it(`should read the text and recognize emojis`, () => {
+  it("should read the text and recognize emojis", () => {
     test("Hello World :-)!", {
       type: "Block",
       start: 0,
@@ -50,7 +50,7 @@ describe("newBlockReader", () => {
     });
   });
 
-  it(`should read the text and recognize multiple emojis`, () => {
+  it("should read the text and recognize multiple emojis", () => {
     test("A:-)B:-|C:-(D", {
       type: "Block",
       start: 0,

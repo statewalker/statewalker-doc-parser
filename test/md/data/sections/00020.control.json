@@ -1,0 +1,189 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 39,
+  "value": "# a\n## b\n### c\n#### d\n##### e\n###### f\n",
+  "children": [
+    {
+      "type": "MdSection",
+      "start": 0,
+      "end": 39,
+      "value": "# a\n## b\n### c\n#### d\n##### e\n###### f\n",
+      "children": [
+        {
+          "type": "MdHeader",
+          "start": 0,
+          "end": 3,
+          "value": "# a",
+          "children": [
+            {
+              "type": "MdHeaderStart",
+              "start": 0,
+              "end": 2,
+              "value": "# ",
+              "level": 1
+            },
+            {
+              "type": "MdHeaderEnd",
+              "start": 3,
+              "end": 3,
+              "value": ""
+            }
+          ],
+          "level": 1
+        },
+        {
+          "type": "MdSection",
+          "start": 3,
+          "end": 39,
+          "value": "\n## b\n### c\n#### d\n##### e\n###### f\n",
+          "children": [
+            {
+              "type": "MdHeader",
+              "start": 3,
+              "end": 8,
+              "value": "\n## b",
+              "children": [
+                {
+                  "type": "MdHeaderStart",
+                  "start": 3,
+                  "end": 7,
+                  "value": "\n## ",
+                  "level": 2
+                },
+                {
+                  "type": "MdHeaderEnd",
+                  "start": 8,
+                  "end": 8,
+                  "value": ""
+                }
+              ],
+              "level": 2
+            },
+            {
+              "type": "MdSection",
+              "start": 8,
+              "end": 39,
+              "value": "\n### c\n#### d\n##### e\n###### f\n",
+              "children": [
+                {
+                  "type": "MdHeader",
+                  "start": 8,
+                  "end": 14,
+                  "value": "\n### c",
+                  "children": [
+                    {
+                      "type": "MdHeaderStart",
+                      "start": 8,
+                      "end": 13,
+                      "value": "\n### ",
+                      "level": 3
+                    },
+                    {
+                      "type": "MdHeaderEnd",
+                      "start": 14,
+                      "end": 14,
+                      "value": ""
+                    }
+                  ],
+                  "level": 3
+                },
+                {
+                  "type": "MdSection",
+                  "start": 14,
+                  "end": 39,
+                  "value": "\n#### d\n##### e\n###### f\n",
+                  "children": [
+                    {
+                      "type": "MdHeader",
+                      "start": 14,
+                      "end": 21,
+                      "value": "\n#### d",
+                      "children": [
+                        {
+                          "type": "MdHeaderStart",
+                          "start": 14,
+                          "end": 20,
+                          "value": "\n#### ",
+                          "level": 4
+                        },
+                        {
+                          "type": "MdHeaderEnd",
+                          "start": 21,
+                          "end": 21,
+                          "value": ""
+                        }
+                      ],
+                      "level": 4
+                    },
+                    {
+                      "type": "MdSection",
+                      "start": 21,
+                      "end": 39,
+                      "value": "\n##### e\n###### f\n",
+                      "children": [
+                        {
+                          "type": "MdHeader",
+                          "start": 21,
+                          "end": 29,
+                          "value": "\n##### e",
+                          "children": [
+                            {
+                              "type": "MdHeaderStart",
+                              "start": 21,
+                              "end": 28,
+                              "value": "\n##### ",
+                              "level": 5
+                            },
+                            {
+                              "type": "MdHeaderEnd",
+                              "start": 29,
+                              "end": 29,
+                              "value": ""
+                            }
+                          ],
+                          "level": 5
+                        },
+                        {
+                          "type": "MdSection",
+                          "start": 29,
+                          "end": 39,
+                          "value": "\n###### f\n",
+                          "children": [
+                            {
+                              "type": "MdHeader",
+                              "start": 29,
+                              "end": 38,
+                              "value": "\n###### f",
+                              "children": [
+                                {
+                                  "type": "MdHeaderStart",
+                                  "start": 29,
+                                  "end": 37,
+                                  "value": "\n###### ",
+                                  "level": 6
+                                },
+                                {
+                                  "type": "MdHeaderEnd",
+                                  "start": 38,
+                                  "end": 38,
+                                  "value": ""
+                                }
+                              ],
+                              "level": 6
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "level": 1
+    }
+  ]
+}

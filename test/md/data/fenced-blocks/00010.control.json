@@ -1,0 +1,88 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 46,
+  "value": "::: attr1=value1 attr2=value2\n    Content\n    ",
+  "children": [
+    {
+      "type": "MdFencedBlock",
+      "start": 0,
+      "end": 46,
+      "value": "::: attr1=value1 attr2=value2\n    Content\n    ",
+      "children": [
+        {
+          "type": "MdFencedSection",
+          "start": 0,
+          "end": 46,
+          "value": "::: attr1=value1 attr2=value2\n    Content\n    ",
+          "children": [
+            {
+              "type": "MdFencedSectionStart",
+              "start": 0,
+              "end": 29,
+              "value": "::: attr1=value1 attr2=value2",
+              "depth": 0,
+              "marker": ":::",
+              "children": [
+                {
+                  "type": "HtmlAttribute",
+                  "start": 4,
+                  "end": 16,
+                  "value": "attr1=value1",
+                  "children": [
+                    {
+                      "type": "HtmlName",
+                      "name": "attr1",
+                      "start": 4,
+                      "end": 9,
+                      "value": "attr1"
+                    },
+                    {
+                      "type": "HtmlValue",
+                      "value": "value1",
+                      "start": 10,
+                      "end": 16,
+                      "quoted": false,
+                      "valueStart": 10,
+                      "valueEnd": 16
+                    }
+                  ]
+                },
+                {
+                  "type": "HtmlAttribute",
+                  "start": 17,
+                  "end": 29,
+                  "value": "attr2=value2",
+                  "children": [
+                    {
+                      "type": "HtmlName",
+                      "name": "attr2",
+                      "start": 17,
+                      "end": 22,
+                      "value": "attr2"
+                    },
+                    {
+                      "type": "HtmlValue",
+                      "value": "value2",
+                      "start": 23,
+                      "end": 29,
+                      "quoted": false,
+                      "valueStart": 23,
+                      "valueEnd": 29
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "MdFencedSectionContent",
+              "start": 29,
+              "end": 46,
+              "value": "\n    Content\n    "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

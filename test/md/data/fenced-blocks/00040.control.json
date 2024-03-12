@@ -1,0 +1,100 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 123,
+  "value": "\n    First paragraph\n\n    :::\n    First block\n    :::\n    Second block\",\n    :::\n    Third block\",\n\n    Next paragraph\n    ",
+  "children": [
+    {
+      "type": "MdFencedBlock",
+      "start": 21,
+      "end": 98,
+      "value": "\n    :::\n    First block\n    :::\n    Second block\",\n    :::\n    Third block\",",
+      "children": [
+        {
+          "type": "MdFencedSection",
+          "start": 21,
+          "end": 45,
+          "value": "\n    :::\n    First block",
+          "children": [
+            {
+              "type": "MdFencedSectionStart",
+              "start": 21,
+              "end": 29,
+              "value": "\n    :::",
+              "depth": 4,
+              "marker": "    :::"
+            },
+            {
+              "type": "MdFencedSectionContent",
+              "start": 29,
+              "end": 45,
+              "value": "\n    First block"
+            },
+            {
+              "type": "MdFencedSectionEnd",
+              "start": 45,
+              "end": 45,
+              "value": ""
+            }
+          ]
+        },
+        {
+          "type": "MdFencedSection",
+          "start": 45,
+          "end": 72,
+          "value": "\n    :::\n    Second block\",",
+          "children": [
+            {
+              "type": "MdFencedSectionStart",
+              "start": 45,
+              "end": 53,
+              "value": "\n    :::",
+              "depth": 4,
+              "marker": "    :::"
+            },
+            {
+              "type": "MdFencedSectionContent",
+              "start": 53,
+              "end": 72,
+              "value": "\n    Second block\","
+            },
+            {
+              "type": "MdFencedSectionEnd",
+              "start": 72,
+              "end": 72,
+              "value": ""
+            }
+          ]
+        },
+        {
+          "type": "MdFencedSection",
+          "start": 72,
+          "end": 98,
+          "value": "\n    :::\n    Third block\",",
+          "children": [
+            {
+              "type": "MdFencedSectionStart",
+              "start": 72,
+              "end": 80,
+              "value": "\n    :::",
+              "depth": 4,
+              "marker": "    :::"
+            },
+            {
+              "type": "MdFencedSectionContent",
+              "start": 80,
+              "end": 98,
+              "value": "\n    Third block\","
+            },
+            {
+              "type": "MdFencedSectionEnd",
+              "start": 98,
+              "end": 98,
+              "value": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

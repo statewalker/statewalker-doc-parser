@@ -1,0 +1,26 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 16,
+  "value": "before     after",
+  "children": [
+    {
+      "type": "Word",
+      "start": 0,
+      "end": 6,
+      "value": "before"
+    },
+    {
+      "type": "Spaces",
+      "start": 6,
+      "end": 11,
+      "value": "     "
+    },
+    {
+      "type": "Word",
+      "start": 11,
+      "end": 16,
+      "value": "after"
+    }
+  ]
+}

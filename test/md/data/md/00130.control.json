@@ -1,0 +1,148 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 105,
+  "value": "\n    <div className=\"note\">\n      #  Header\n      * Some notable things in a block quote!\n    </div>\n    ",
+  "children": [
+    {
+      "type": "HtmlTag",
+      "start": 5,
+      "end": 105,
+      "value": "<div className=\"note\">\n      #  Header\n      * Some notable things in a block quote!\n    </div>\n    ",
+      "children": [
+        {
+          "type": "HtmlOpenTag",
+          "start": 5,
+          "end": 27,
+          "value": "<div className=\"note\">",
+          "children": [
+            {
+              "type": "HtmlTagStart",
+              "start": 5,
+              "end": 9,
+              "value": "<div",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "div",
+                  "start": 6,
+                  "end": 9,
+                  "value": "div"
+                }
+              ],
+              "tagName": "div"
+            },
+            {
+              "type": "HtmlAttribute",
+              "start": 10,
+              "end": 26,
+              "value": "className=\"note\"",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "className",
+                  "start": 10,
+                  "end": 19,
+                  "value": "className"
+                },
+                {
+                  "type": "HtmlValue",
+                  "start": 20,
+                  "end": 26,
+                  "value": "\"note\"",
+                  "quoted": true,
+                  "valueStart": 21,
+                  "valueEnd": 25
+                }
+              ]
+            },
+            {
+              "type": "HtmlTagEnd",
+              "start": 26,
+              "end": 27,
+              "value": ">",
+              "autoclosing": false
+            }
+          ],
+          "tagName": "div",
+          "autoclosing": false
+        },
+        {
+          "type": "MdSection",
+          "start": 27,
+          "end": 105,
+          "value": "\n      #  Header\n      * Some notable things in a block quote!\n    </div>\n    ",
+          "children": [
+            {
+              "type": "MdHeader",
+              "start": 27,
+              "end": 43,
+              "value": "\n      #  Header",
+              "children": [
+                {
+                  "type": "MdHeaderStart",
+                  "start": 27,
+                  "end": 36,
+                  "value": "\n      # ",
+                  "level": 1
+                },
+                {
+                  "type": "MdHeaderEnd",
+                  "start": 43,
+                  "end": 43,
+                  "value": ""
+                }
+              ],
+              "level": 1
+            },
+            {
+              "type": "MdList",
+              "start": 43,
+              "end": 105,
+              "value": "\n      * Some notable things in a block quote!\n    </div>\n    ",
+              "children": [
+                {
+                  "type": "MdListItem",
+                  "start": 43,
+                  "end": 105,
+                  "value": "\n      * Some notable things in a block quote!\n    </div>\n    ",
+                  "children": [
+                    {
+                      "type": "MdListItemStart",
+                      "start": 43,
+                      "end": 52,
+                      "value": "\n      * ",
+                      "depth": 6,
+                      "marker": "      *"
+                    },
+                    {
+                      "type": "MdListItemContent",
+                      "start": 52,
+                      "end": 105,
+                      "value": "Some notable things in a block quote!\n    </div>\n    ",
+                      "children": [
+                        {
+                          "type": "HtmlSpecialSymbol",
+                          "value": "<",
+                          "start": 94,
+                          "end": 95
+                        },
+                        {
+                          "type": "HtmlSpecialSymbol",
+                          "value": ">",
+                          "start": 99,
+                          "end": 100
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "level": 1
+        }
+      ]
+    }
+  ]
+}

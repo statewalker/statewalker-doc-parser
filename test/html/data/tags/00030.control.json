@@ -1,0 +1,65 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 9,
+  "value": "<a b='c'>",
+  "children": [
+    {
+      "type": "HtmlOpenTag",
+      "start": 0,
+      "end": 9,
+      "value": "<a b='c'>",
+      "children": [
+        {
+          "type": "HtmlTagStart",
+          "start": 0,
+          "end": 2,
+          "value": "<a",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "a",
+              "start": 1,
+              "end": 2,
+              "value": "a"
+            }
+          ],
+          "tagName": "a"
+        },
+        {
+          "type": "HtmlAttribute",
+          "start": 3,
+          "end": 8,
+          "value": "b='c'",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "b",
+              "start": 3,
+              "end": 4,
+              "value": "b"
+            },
+            {
+              "type": "HtmlValue",
+              "start": 5,
+              "end": 8,
+              "value": "'c'",
+              "quoted": true,
+              "valueStart": 6,
+              "valueEnd": 7
+            }
+          ]
+        },
+        {
+          "type": "HtmlTagEnd",
+          "start": 8,
+          "end": 9,
+          "value": ">",
+          "autoclosing": false
+        }
+      ],
+      "tagName": "a",
+      "autoclosing": false
+    }
+  ]
+}

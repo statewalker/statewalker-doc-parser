@@ -1,0 +1,147 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 77,
+  "value": "\n    <div className=\"note\">\n      * item one\n      * item two\n    </div>\n    ",
+  "children": [
+    {
+      "type": "HtmlTag",
+      "start": 5,
+      "end": 72,
+      "value": "<div className=\"note\">\n      * item one\n      * item two\n    </div>",
+      "children": [
+        {
+          "type": "HtmlOpenTag",
+          "start": 5,
+          "end": 27,
+          "value": "<div className=\"note\">",
+          "children": [
+            {
+              "type": "HtmlTagStart",
+              "start": 5,
+              "end": 9,
+              "value": "<div",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "div",
+                  "start": 6,
+                  "end": 9,
+                  "value": "div"
+                }
+              ],
+              "tagName": "div"
+            },
+            {
+              "type": "HtmlAttribute",
+              "start": 10,
+              "end": 26,
+              "value": "className=\"note\"",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "className",
+                  "start": 10,
+                  "end": 19,
+                  "value": "className"
+                },
+                {
+                  "type": "HtmlValue",
+                  "start": 20,
+                  "end": 26,
+                  "value": "\"note\"",
+                  "quoted": true,
+                  "valueStart": 21,
+                  "valueEnd": 25
+                }
+              ]
+            },
+            {
+              "type": "HtmlTagEnd",
+              "start": 26,
+              "end": 27,
+              "value": ">",
+              "autoclosing": false
+            }
+          ],
+          "tagName": "div",
+          "autoclosing": false
+        },
+        {
+          "type": "MdList",
+          "start": 27,
+          "end": 66,
+          "value": "\n      * item one\n      * item two\n    ",
+          "children": [
+            {
+              "type": "MdListItem",
+              "start": 27,
+              "end": 44,
+              "value": "\n      * item one",
+              "children": [
+                {
+                  "type": "MdListItemStart",
+                  "start": 27,
+                  "end": 36,
+                  "value": "\n      * ",
+                  "depth": 6,
+                  "marker": "      *"
+                },
+                {
+                  "type": "MdListItemContent",
+                  "start": 36,
+                  "end": 44,
+                  "value": "item one"
+                },
+                {
+                  "type": "MdListItemEnd",
+                  "start": 44,
+                  "end": 44,
+                  "value": ""
+                }
+              ]
+            },
+            {
+              "type": "MdListItem",
+              "start": 44,
+              "end": 66,
+              "value": "\n      * item two\n    ",
+              "children": [
+                {
+                  "type": "MdListItemStart",
+                  "start": 44,
+                  "end": 53,
+                  "value": "\n      * ",
+                  "depth": 6,
+                  "marker": "      *"
+                },
+                {
+                  "type": "MdListItemContent",
+                  "start": 53,
+                  "end": 66,
+                  "value": "item two\n    "
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "HtmlCloseTag",
+          "start": 66,
+          "end": 72,
+          "value": "</div>",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "div",
+              "start": 68,
+              "end": 71,
+              "value": "div"
+            }
+          ],
+          "tagName": "div"
+        }
+      ]
+    }
+  ]
+}

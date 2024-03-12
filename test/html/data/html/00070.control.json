@@ -1,0 +1,36 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 45,
+  "value": "before <!-- A ${this is the code} B --> after",
+  "children": [
+    {
+      "type": "HtmlComment",
+      "start": 7,
+      "end": 39,
+      "value": "<!-- A ${this is the code} B -->",
+      "children": [
+        {
+          "type": "HtmlCommentStart",
+          "start": 7,
+          "end": 11,
+          "value": "<!--"
+        },
+        {
+          "type": "Code",
+          "codeStart": 16,
+          "codeEnd": 32,
+          "start": 14,
+          "end": 33,
+          "value": "${this is the code}"
+        },
+        {
+          "type": "HtmlCommentEnd",
+          "start": 36,
+          "end": 39,
+          "value": "-->"
+        }
+      ]
+    }
+  ]
+}

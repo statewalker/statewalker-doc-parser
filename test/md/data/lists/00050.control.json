@@ -1,0 +1,132 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 83,
+  "value": "\n      - item one\n        - sub-item 1\n        - sub-item 2\n      - item two\n      ",
+  "children": [
+    {
+      "type": "MdList",
+      "start": 0,
+      "end": 83,
+      "value": "\n      - item one\n        - sub-item 1\n        - sub-item 2\n      - item two\n      ",
+      "children": [
+        {
+          "type": "MdListItem",
+          "start": 0,
+          "end": 59,
+          "value": "\n      - item one\n        - sub-item 1\n        - sub-item 2",
+          "children": [
+            {
+              "type": "MdListItemStart",
+              "start": 0,
+              "end": 9,
+              "value": "\n      - ",
+              "depth": 6,
+              "marker": "      -"
+            },
+            {
+              "type": "MdListItemContent",
+              "start": 9,
+              "end": 59,
+              "value": "item one\n        - sub-item 1\n        - sub-item 2",
+              "children": [
+                {
+                  "type": "MdList",
+                  "start": 17,
+                  "end": 59,
+                  "value": "\n        - sub-item 1\n        - sub-item 2",
+                  "children": [
+                    {
+                      "type": "MdListItem",
+                      "start": 17,
+                      "end": 38,
+                      "value": "\n        - sub-item 1",
+                      "children": [
+                        {
+                          "type": "MdListItemStart",
+                          "start": 17,
+                          "end": 28,
+                          "value": "\n        - ",
+                          "depth": 8,
+                          "marker": "        -"
+                        },
+                        {
+                          "type": "MdListItemContent",
+                          "start": 28,
+                          "end": 38,
+                          "value": "sub-item 1"
+                        },
+                        {
+                          "type": "MdListItemEnd",
+                          "start": 38,
+                          "end": 38,
+                          "value": ""
+                        }
+                      ]
+                    },
+                    {
+                      "type": "MdListItem",
+                      "start": 38,
+                      "end": 59,
+                      "value": "\n        - sub-item 2",
+                      "children": [
+                        {
+                          "type": "MdListItemStart",
+                          "start": 38,
+                          "end": 49,
+                          "value": "\n        - ",
+                          "depth": 8,
+                          "marker": "        -"
+                        },
+                        {
+                          "type": "MdListItemContent",
+                          "start": 49,
+                          "end": 59,
+                          "value": "sub-item 2"
+                        },
+                        {
+                          "type": "MdListItemEnd",
+                          "start": 59,
+                          "end": 59,
+                          "value": ""
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "MdListItemEnd",
+              "start": 59,
+              "end": 59,
+              "value": ""
+            }
+          ]
+        },
+        {
+          "type": "MdListItem",
+          "start": 59,
+          "end": 83,
+          "value": "\n      - item two\n      ",
+          "children": [
+            {
+              "type": "MdListItemStart",
+              "start": 59,
+              "end": 68,
+              "value": "\n      - ",
+              "depth": 6,
+              "marker": "      -"
+            },
+            {
+              "type": "MdListItemContent",
+              "start": 68,
+              "end": 83,
+              "value": "item two\n      "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

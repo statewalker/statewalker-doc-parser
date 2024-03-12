@@ -1,0 +1,95 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 23,
+  "value": " a=A b=\"B\" c=\"C1 C2\" d ",
+  "children": [
+    {
+      "type": "HtmlAttribute",
+      "start": 1,
+      "end": 4,
+      "value": "a=A",
+      "children": [
+        {
+          "type": "HtmlName",
+          "name": "a",
+          "start": 1,
+          "end": 2,
+          "value": "a"
+        },
+        {
+          "type": "HtmlValue",
+          "value": "A",
+          "start": 3,
+          "end": 4,
+          "quoted": false,
+          "valueStart": 3,
+          "valueEnd": 4
+        }
+      ]
+    },
+    {
+      "type": "HtmlAttribute",
+      "start": 5,
+      "end": 10,
+      "value": "b=\"B\"",
+      "children": [
+        {
+          "type": "HtmlName",
+          "name": "b",
+          "start": 5,
+          "end": 6,
+          "value": "b"
+        },
+        {
+          "type": "HtmlValue",
+          "start": 7,
+          "end": 10,
+          "value": "\"B\"",
+          "quoted": true,
+          "valueStart": 8,
+          "valueEnd": 9
+        }
+      ]
+    },
+    {
+      "type": "HtmlAttribute",
+      "start": 11,
+      "end": 20,
+      "value": "c=\"C1 C2\"",
+      "children": [
+        {
+          "type": "HtmlName",
+          "name": "c",
+          "start": 11,
+          "end": 12,
+          "value": "c"
+        },
+        {
+          "type": "HtmlValue",
+          "start": 13,
+          "end": 20,
+          "value": "\"C1 C2\"",
+          "quoted": true,
+          "valueStart": 14,
+          "valueEnd": 19
+        }
+      ]
+    },
+    {
+      "type": "HtmlAttribute",
+      "start": 21,
+      "end": 22,
+      "value": "d",
+      "children": [
+        {
+          "type": "HtmlName",
+          "name": "d",
+          "start": 21,
+          "end": 22,
+          "value": "d"
+        }
+      ]
+    }
+  ]
+}

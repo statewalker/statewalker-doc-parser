@@ -1,0 +1,110 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 56,
+  "value": "\n    - item 1\n\n    ::: \n    section\n\n    - item 2\n      ",
+  "children": [
+    {
+      "type": "MdList",
+      "start": 0,
+      "end": 13,
+      "value": "\n    - item 1",
+      "children": [
+        {
+          "type": "MdListItem",
+          "start": 0,
+          "end": 13,
+          "value": "\n    - item 1",
+          "children": [
+            {
+              "type": "MdListItemStart",
+              "start": 0,
+              "end": 7,
+              "value": "\n    - ",
+              "depth": 4,
+              "marker": "    -"
+            },
+            {
+              "type": "MdListItemContent",
+              "start": 7,
+              "end": 13,
+              "value": "item 1"
+            },
+            {
+              "type": "MdListItemEnd",
+              "start": 13,
+              "end": 13,
+              "value": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "MdFencedBlock",
+      "start": 14,
+      "end": 35,
+      "value": "\n    ::: \n    section",
+      "children": [
+        {
+          "type": "MdFencedSection",
+          "start": 14,
+          "end": 35,
+          "value": "\n    ::: \n    section",
+          "children": [
+            {
+              "type": "MdFencedSectionStart",
+              "start": 14,
+              "end": 23,
+              "value": "\n    ::: ",
+              "depth": 4,
+              "marker": "    :::"
+            },
+            {
+              "type": "MdFencedSectionContent",
+              "start": 23,
+              "end": 35,
+              "value": "\n    section"
+            },
+            {
+              "type": "MdFencedSectionEnd",
+              "start": 35,
+              "end": 35,
+              "value": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "MdList",
+      "start": 36,
+      "end": 56,
+      "value": "\n    - item 2\n      ",
+      "children": [
+        {
+          "type": "MdListItem",
+          "start": 36,
+          "end": 56,
+          "value": "\n    - item 2\n      ",
+          "children": [
+            {
+              "type": "MdListItemStart",
+              "start": 36,
+              "end": 43,
+              "value": "\n    - ",
+              "depth": 4,
+              "marker": "    -"
+            },
+            {
+              "type": "MdListItemContent",
+              "start": 43,
+              "end": 56,
+              "value": "item 2\n      "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

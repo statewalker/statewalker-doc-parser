@@ -1,0 +1,99 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 56,
+  "value": "before <div a:b:c='FOO ${foo_bar} BAR'>Hello</div> after",
+  "children": [
+    {
+      "type": "HtmlTag",
+      "start": 7,
+      "end": 50,
+      "value": "<div a:b:c='FOO ${foo_bar} BAR'>Hello</div>",
+      "children": [
+        {
+          "type": "HtmlOpenTag",
+          "start": 7,
+          "end": 39,
+          "value": "<div a:b:c='FOO ${foo_bar} BAR'>",
+          "children": [
+            {
+              "type": "HtmlTagStart",
+              "start": 7,
+              "end": 11,
+              "value": "<div",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "div",
+                  "start": 8,
+                  "end": 11,
+                  "value": "div"
+                }
+              ],
+              "tagName": "div"
+            },
+            {
+              "type": "HtmlAttribute",
+              "start": 12,
+              "end": 38,
+              "value": "a:b:c='FOO ${foo_bar} BAR'",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "a:b:c",
+                  "start": 12,
+                  "end": 17,
+                  "value": "a:b:c"
+                },
+                {
+                  "type": "HtmlValue",
+                  "start": 18,
+                  "end": 38,
+                  "value": "'FOO ${foo_bar} BAR'",
+                  "children": [
+                    {
+                      "type": "Code",
+                      "codeStart": 25,
+                      "codeEnd": 32,
+                      "start": 23,
+                      "end": 33,
+                      "value": "${foo_bar}"
+                    }
+                  ],
+                  "quoted": true,
+                  "valueStart": 19,
+                  "valueEnd": 37
+                }
+              ]
+            },
+            {
+              "type": "HtmlTagEnd",
+              "start": 38,
+              "end": 39,
+              "value": ">",
+              "autoclosing": false
+            }
+          ],
+          "tagName": "div",
+          "autoclosing": false
+        },
+        {
+          "type": "HtmlCloseTag",
+          "start": 44,
+          "end": 50,
+          "value": "</div>",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "div",
+              "start": 46,
+              "end": 49,
+              "value": "div"
+            }
+          ],
+          "tagName": "div"
+        }
+      ]
+    }
+  ]
+}

@@ -1,19 +1,15 @@
 import { newCodeReader } from "../../src/index.ts";
 import { newMdCodeBlockReader } from "../../src/md/code-blocks.ts";
-import { describe, it } from "../deps.ts";
-import { newBlockTest } from "../newBlockTest.ts";
+import { newTestRunner } from "../utils/newTestRunner.ts";
+import { newTokenizerTest } from "../utils/newTokenizerTest.ts";
 
-import { testData } from "./code-blocks.data.ts";
+Promise.resolve().then(main).catch(console.error);
 
-describe("newMdCodeBlocksReader", () => {
+async function main() {
   const readContent = newCodeReader();
   const readToken = newMdCodeBlockReader({
     readCodeBlockContent: readContent,
   });
-  const test = newBlockTest(readToken);
-  testData.forEach((data) => {
-    it(data.description, () => {
-      test(data.input, data.expected);
-    });
-  });
-});
+  const runTests = newTestRunner(newTokenizerTest(readToken));
+  runTests(`${import.meta.dirname}/data/code-blocks`);
+}

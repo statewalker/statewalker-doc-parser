@@ -1,0 +1,89 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 65,
+  "value": "before <a attr='a <b c=`x` d=\"y\"></b>' attr3='\" quoted \"' > after",
+  "children": [
+    {
+      "type": "HtmlOpenTag",
+      "start": 7,
+      "end": 59,
+      "value": "<a attr='a <b c=`x` d=\"y\"></b>' attr3='\" quoted \"' >",
+      "children": [
+        {
+          "type": "HtmlTagStart",
+          "start": 7,
+          "end": 9,
+          "value": "<a",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "a",
+              "start": 8,
+              "end": 9,
+              "value": "a"
+            }
+          ],
+          "tagName": "a"
+        },
+        {
+          "type": "HtmlAttribute",
+          "start": 10,
+          "end": 38,
+          "value": "attr='a <b c=`x` d=\"y\"></b>'",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "attr",
+              "start": 10,
+              "end": 14,
+              "value": "attr"
+            },
+            {
+              "type": "HtmlValue",
+              "start": 15,
+              "end": 38,
+              "value": "'a <b c=`x` d=\"y\"></b>'",
+              "quoted": true,
+              "valueStart": 16,
+              "valueEnd": 37
+            }
+          ]
+        },
+        {
+          "type": "HtmlAttribute",
+          "start": 39,
+          "end": 57,
+          "value": "attr3='\" quoted \"'",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "attr3",
+              "start": 39,
+              "end": 44,
+              "value": "attr3"
+            },
+            {
+              "type": "HtmlValue",
+              "start": 45,
+              "end": 57,
+              "value": "'\" quoted \"'",
+              "quoted": true,
+              "valueStart": 46,
+              "valueEnd": 56
+            }
+          ]
+        },
+        {
+          "type": "HtmlTagEnd",
+          "start": 58,
+          "end": 59,
+          "value": ">",
+          "autoclosing": false
+        }
+      ],
+      "tagName": "a",
+      "autoclosing": false
+    }
+  ]
+}

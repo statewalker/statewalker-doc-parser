@@ -1,0 +1,97 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 233,
+  "value": "\n  <div style=\"display: grid; grid-auto-rows: 1fr; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 1rem;\">\n    ${Promise.all(muybridge.filenames.map((f) => muybridge.file(f).image({style: \"width: 100%;\"})))}\n  </div>\n    ",
+  "children": [
+    {
+      "type": "HtmlTag",
+      "start": 3,
+      "end": 228,
+      "value": "<div style=\"display: grid; grid-auto-rows: 1fr; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 1rem;\">\n    ${Promise.all(muybridge.filenames.map((f) => muybridge.file(f).image({style: \"width: 100%;\"})))}\n  </div>",
+      "children": [
+        {
+          "type": "HtmlOpenTag",
+          "start": 3,
+          "end": 118,
+          "value": "<div style=\"display: grid; grid-auto-rows: 1fr; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 1rem;\">",
+          "children": [
+            {
+              "type": "HtmlTagStart",
+              "start": 3,
+              "end": 7,
+              "value": "<div",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "div",
+                  "start": 4,
+                  "end": 7,
+                  "value": "div"
+                }
+              ],
+              "tagName": "div"
+            },
+            {
+              "type": "HtmlAttribute",
+              "start": 8,
+              "end": 117,
+              "value": "style=\"display: grid; grid-auto-rows: 1fr; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 1rem;\"",
+              "children": [
+                {
+                  "type": "HtmlName",
+                  "name": "style",
+                  "start": 8,
+                  "end": 13,
+                  "value": "style"
+                },
+                {
+                  "type": "HtmlValue",
+                  "start": 14,
+                  "end": 117,
+                  "value": "\"display: grid; grid-auto-rows: 1fr; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 1rem;\"",
+                  "quoted": true,
+                  "valueStart": 15,
+                  "valueEnd": 116
+                }
+              ]
+            },
+            {
+              "type": "HtmlTagEnd",
+              "start": 117,
+              "end": 118,
+              "value": ">",
+              "autoclosing": false
+            }
+          ],
+          "tagName": "div",
+          "autoclosing": false
+        },
+        {
+          "type": "Code",
+          "codeStart": 125,
+          "codeEnd": 218,
+          "start": 123,
+          "end": 219,
+          "value": "${Promise.all(muybridge.filenames.map((f) => muybridge.file(f).image({style: \"width: 100%;\"})))}"
+        },
+        {
+          "type": "HtmlCloseTag",
+          "start": 222,
+          "end": 228,
+          "value": "</div>",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "div",
+              "start": 224,
+              "end": 227,
+              "value": "div"
+            }
+          ],
+          "tagName": "div"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 13,
+  "value": "A{B(C[D)E]F}G",
+  "children": [
+    {
+      "type": "CurlyBrackets",
+      "start": 1,
+      "end": 12,
+      "value": "{B(C[D)E]F}",
+      "children": [
+        {
+          "type": "OpenCurlyBrackets",
+          "value": "{",
+          "start": 1,
+          "end": 2
+        },
+        {
+          "type": "Paranthesis",
+          "start": 3,
+          "end": 8,
+          "value": "(C[D)",
+          "children": [
+            {
+              "type": "OpenParathesis",
+              "value": "(",
+              "start": 3,
+              "end": 4
+            },
+            {
+              "type": "Brackets",
+              "start": 5,
+              "end": 7,
+              "children": [
+                {
+                  "type": "OpenBrackets",
+                  "value": "[",
+                  "start": 5,
+                  "end": 6
+                }
+              ],
+              "value": "[D"
+            },
+            {
+              "type": "CloseParathesis",
+              "value": ")",
+              "start": 7,
+              "end": 8
+            }
+          ]
+        },
+        {
+          "type": "CloseCurlyBrackets",
+          "value": "}",
+          "start": 11,
+          "end": 12
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 9,
+  "value": " A (B) C ",
+  "children": [
+    {
+      "type": "Spaces",
+      "value": " ",
+      "start": 0,
+      "end": 1
+    },
+    {
+      "type": "Word",
+      "value": "A",
+      "start": 1,
+      "end": 2
+    },
+    {
+      "type": "Spaces",
+      "value": " ",
+      "start": 2,
+      "end": 3
+    },
+    {
+      "type": "Paranthesis",
+      "start": 3,
+      "end": 6,
+      "value": "(B)",
+      "children": [
+        {
+          "type": "OpenParathesis",
+          "value": "(",
+          "start": 3,
+          "end": 4
+        },
+        {
+          "type": "Word",
+          "value": "B",
+          "start": 4,
+          "end": 5
+        },
+        {
+          "type": "CloseParathesis",
+          "value": ")",
+          "start": 5,
+          "end": 6
+        }
+      ]
+    },
+    {
+      "type": "Spaces",
+      "value": " ",
+      "start": 6,
+      "end": 7
+    },
+    {
+      "type": "Word",
+      "value": "C",
+      "start": 7,
+      "end": 8
+    },
+    {
+      "type": "Spaces",
+      "value": " ",
+      "start": 8,
+      "end": 9
+    }
+  ]
+}

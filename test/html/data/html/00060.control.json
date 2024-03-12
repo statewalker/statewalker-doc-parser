@@ -1,0 +1,28 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 39,
+  "value": "before <!-- this is a comment --> after",
+  "children": [
+    {
+      "type": "HtmlComment",
+      "start": 7,
+      "end": 33,
+      "value": "<!-- this is a comment -->",
+      "children": [
+        {
+          "type": "HtmlCommentStart",
+          "start": 7,
+          "end": 11,
+          "value": "<!--"
+        },
+        {
+          "type": "HtmlCommentEnd",
+          "start": 30,
+          "end": 33,
+          "value": "-->"
+        }
+      ]
+    }
+  ]
+}

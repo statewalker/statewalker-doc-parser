@@ -1,6 +1,6 @@
 import { readHtmlEntity } from "../../src/html/index.ts";
 import { describe, it } from "../deps.ts";
-import { newBlockTest } from "../newBlockTest.ts";
+import { newBlockTest } from "./newBlockTest.ts";
 
 describe("readHtmlEntities", () => {
   const test = newBlockTest(readHtmlEntity);
@@ -22,7 +22,7 @@ describe("readHtmlEntities", () => {
     });
   });
 
-  it(`should read HTML entities with digits`, () => {
+  it("should read HTML entities with digits", () => {
     test("Hello &#150; World", {
       type: "Block",
       start: 0,

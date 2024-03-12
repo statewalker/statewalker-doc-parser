@@ -1,0 +1,165 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 274,
+  "value": "\n# Header 1: Before <div style=\"display: grid; grid-auto-rows: 1fr; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 1rem;\">\n\n    ${Promise.all(muybridge.filenames.map((f) => muybridge.file(f).image({style: \"width: 100%;\"})))}\n\n</div> After\n\n# Header 2\n\nText\n    ",
+  "children": [
+    {
+      "type": "MdSection",
+      "start": 0,
+      "end": 251,
+      "value": "\n# Header 1: Before <div style=\"display: grid; grid-auto-rows: 1fr; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 1rem;\">\n\n    ${Promise.all(muybridge.filenames.map((f) => muybridge.file(f).image({style: \"width: 100%;\"})))}\n\n</div> After",
+      "children": [
+        {
+          "type": "MdHeader",
+          "start": 0,
+          "end": 251,
+          "value": "\n# Header 1: Before <div style=\"display: grid; grid-auto-rows: 1fr; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 1rem;\">\n\n    ${Promise.all(muybridge.filenames.map((f) => muybridge.file(f).image({style: \"width: 100%;\"})))}\n\n</div> After",
+          "children": [
+            {
+              "type": "MdHeaderStart",
+              "start": 0,
+              "end": 3,
+              "value": "\n# ",
+              "level": 1
+            },
+            {
+              "type": "HtmlTag",
+              "start": 20,
+              "end": 245,
+              "value": "<div style=\"display: grid; grid-auto-rows: 1fr; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 1rem;\">\n\n    ${Promise.all(muybridge.filenames.map((f) => muybridge.file(f).image({style: \"width: 100%;\"})))}\n\n</div>",
+              "children": [
+                {
+                  "type": "HtmlOpenTag",
+                  "start": 20,
+                  "end": 135,
+                  "value": "<div style=\"display: grid; grid-auto-rows: 1fr; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 1rem;\">",
+                  "children": [
+                    {
+                      "type": "HtmlTagStart",
+                      "start": 20,
+                      "end": 24,
+                      "value": "<div",
+                      "children": [
+                        {
+                          "type": "HtmlName",
+                          "name": "div",
+                          "start": 21,
+                          "end": 24,
+                          "value": "div"
+                        }
+                      ],
+                      "tagName": "div"
+                    },
+                    {
+                      "type": "HtmlAttribute",
+                      "start": 25,
+                      "end": 134,
+                      "value": "style=\"display: grid; grid-auto-rows: 1fr; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 1rem;\"",
+                      "children": [
+                        {
+                          "type": "HtmlName",
+                          "name": "style",
+                          "start": 25,
+                          "end": 30,
+                          "value": "style"
+                        },
+                        {
+                          "type": "HtmlValue",
+                          "start": 31,
+                          "end": 134,
+                          "value": "\"display: grid; grid-auto-rows: 1fr; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-gap: 1rem;\"",
+                          "quoted": true,
+                          "valueStart": 32,
+                          "valueEnd": 133
+                        }
+                      ]
+                    },
+                    {
+                      "type": "HtmlTagEnd",
+                      "start": 134,
+                      "end": 135,
+                      "value": ">",
+                      "autoclosing": false
+                    }
+                  ],
+                  "tagName": "div",
+                  "autoclosing": false
+                },
+                {
+                  "type": "Code",
+                  "codeStart": 143,
+                  "codeEnd": 236,
+                  "start": 141,
+                  "end": 237,
+                  "value": "${Promise.all(muybridge.filenames.map((f) => muybridge.file(f).image({style: \"width: 100%;\"})))}"
+                },
+                {
+                  "type": "HtmlCloseTag",
+                  "start": 239,
+                  "end": 245,
+                  "value": "</div>",
+                  "children": [
+                    {
+                      "type": "HtmlName",
+                      "name": "div",
+                      "start": 241,
+                      "end": 244,
+                      "value": "div"
+                    }
+                  ],
+                  "tagName": "div"
+                }
+              ]
+            },
+            {
+              "type": "MdHeaderEnd",
+              "start": 251,
+              "end": 251,
+              "value": ""
+            }
+          ],
+          "level": 1
+        },
+        {
+          "type": "MdSectionEnd",
+          "start": 251,
+          "end": 251,
+          "value": ""
+        }
+      ],
+      "level": 1
+    },
+    {
+      "type": "MdSection",
+      "start": 251,
+      "end": 274,
+      "value": "\n\n# Header 2\n\nText\n    ",
+      "children": [
+        {
+          "type": "MdHeader",
+          "start": 251,
+          "end": 263,
+          "value": "\n\n# Header 2",
+          "children": [
+            {
+              "type": "MdHeaderStart",
+              "start": 251,
+              "end": 255,
+              "value": "\n\n# ",
+              "level": 1
+            },
+            {
+              "type": "MdHeaderEnd",
+              "start": 263,
+              "end": 263,
+              "value": ""
+            }
+          ],
+          "level": 1
+        }
+      ],
+      "level": 1
+    }
+  ]
+}

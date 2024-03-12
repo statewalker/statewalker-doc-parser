@@ -1,16 +1,12 @@
 import { newMdFencedBlocksReader } from "../../src/md/fenced-blocks.ts";
-import { describe } from "../deps.ts";
-import { newBlockTest, runBlockTests } from "../newBlockTest.ts";
+import { newTestRunner } from "../utils/newTestRunner.ts";
+import { newTokenizerTest } from "../utils/newTokenizerTest.ts";
 
-import { testData } from "./fenced-blocks.data.ts";
+Promise.resolve().then(main).catch(console.error);
 
-describe("newMdFencedList", () => {
+async function main() {
   const readToken = newMdFencedBlocksReader();
-  const test = newBlockTest(readToken);
-  runBlockTests(test, testData);
-  // testData.forEach((data) => {
-  //   it(data.description, () => {
-  //     test(data.input, data.expected);
-  //   });
-  // });
-});
+
+  const runTests = newTestRunner(newTokenizerTest(readToken));
+  runTests(`${import.meta.dirname}/data/fenced-blocks`);
+}

@@ -1,0 +1,90 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 42,
+  "value": "# Title: Before <em>Some text\n\n</em> After",
+  "children": [
+    {
+      "type": "MdSection",
+      "start": 0,
+      "end": 42,
+      "value": "# Title: Before <em>Some text\n\n</em> After",
+      "children": [
+        {
+          "type": "MdHeader",
+          "start": 0,
+          "end": 42,
+          "value": "# Title: Before <em>Some text\n\n</em> After",
+          "children": [
+            {
+              "type": "MdHeaderStart",
+              "start": 0,
+              "end": 2,
+              "value": "# ",
+              "level": 1
+            },
+            {
+              "type": "HtmlTag",
+              "start": 16,
+              "end": 36,
+              "value": "<em>Some text\n\n</em>",
+              "children": [
+                {
+                  "type": "HtmlOpenTag",
+                  "start": 16,
+                  "end": 20,
+                  "value": "<em>",
+                  "children": [
+                    {
+                      "type": "HtmlTagStart",
+                      "start": 16,
+                      "end": 19,
+                      "value": "<em",
+                      "children": [
+                        {
+                          "type": "HtmlName",
+                          "name": "em",
+                          "start": 17,
+                          "end": 19,
+                          "value": "em"
+                        }
+                      ],
+                      "tagName": "em"
+                    },
+                    {
+                      "type": "HtmlTagEnd",
+                      "start": 19,
+                      "end": 20,
+                      "value": ">",
+                      "autoclosing": false
+                    }
+                  ],
+                  "tagName": "em",
+                  "autoclosing": false
+                },
+                {
+                  "type": "HtmlCloseTag",
+                  "start": 31,
+                  "end": 36,
+                  "value": "</em>",
+                  "children": [
+                    {
+                      "type": "HtmlName",
+                      "name": "em",
+                      "start": 33,
+                      "end": 35,
+                      "value": "em"
+                    }
+                  ],
+                  "tagName": "em"
+                }
+              ]
+            }
+          ],
+          "level": 1
+        }
+      ],
+      "level": 1
+    }
+  ]
+}

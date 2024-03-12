@@ -1,0 +1,101 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 30,
+  "value": "\n\n  <a \n\n b='B' \n\n c='C'\n\n> \n\n",
+  "children": [
+    {
+      "type": "Eol",
+      "value": "\n\n",
+      "start": 0,
+      "end": 2
+    },
+    {
+      "type": "HtmlOpenTag",
+      "start": 4,
+      "end": 27,
+      "value": "<a \n\n b='B' \n\n c='C'\n\n>",
+      "children": [
+        {
+          "type": "HtmlTagStart",
+          "start": 4,
+          "end": 6,
+          "value": "<a",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "a",
+              "start": 5,
+              "end": 6,
+              "value": "a"
+            }
+          ],
+          "tagName": "a"
+        },
+        {
+          "type": "HtmlAttribute",
+          "start": 10,
+          "end": 15,
+          "value": "b='B'",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "b",
+              "start": 10,
+              "end": 11,
+              "value": "b"
+            },
+            {
+              "type": "HtmlValue",
+              "start": 12,
+              "end": 15,
+              "value": "'B'",
+              "quoted": true,
+              "valueStart": 13,
+              "valueEnd": 14
+            }
+          ]
+        },
+        {
+          "type": "HtmlAttribute",
+          "start": 19,
+          "end": 24,
+          "value": "c='C'",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "c",
+              "start": 19,
+              "end": 20,
+              "value": "c"
+            },
+            {
+              "type": "HtmlValue",
+              "start": 21,
+              "end": 24,
+              "value": "'C'",
+              "quoted": true,
+              "valueStart": 22,
+              "valueEnd": 23
+            }
+          ]
+        },
+        {
+          "type": "HtmlTagEnd",
+          "start": 26,
+          "end": 27,
+          "value": ">",
+          "autoclosing": false
+        }
+      ],
+      "tagName": "a",
+      "autoclosing": false
+    },
+    {
+      "type": "Eol",
+      "value": "\n\n",
+      "start": 28,
+      "end": 30
+    }
+  ]
+}

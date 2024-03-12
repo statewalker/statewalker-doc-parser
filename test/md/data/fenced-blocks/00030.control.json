@@ -1,0 +1,32 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 4,
+  "value": "\n:::",
+  "children": [
+    {
+      "type": "MdFencedBlock",
+      "start": 0,
+      "end": 4,
+      "value": "\n:::",
+      "children": [
+        {
+          "type": "MdFencedSection",
+          "start": 0,
+          "end": 4,
+          "value": "\n:::",
+          "children": [
+            {
+              "type": "MdFencedSectionStart",
+              "start": 0,
+              "end": 4,
+              "value": "\n:::",
+              "depth": 0,
+              "marker": ":::"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 44,
+  "value": " \n\n\n attr \n\n\n = \n\n\n \"value1 \n\n\n value2\" \n\n\n ",
+  "children": [
+    {
+      "type": "Eol",
+      "value": "\n\n\n",
+      "start": 1,
+      "end": 4
+    },
+    {
+      "type": "HtmlAttribute",
+      "start": 5,
+      "end": 39,
+      "value": "attr \n\n\n = \n\n\n \"value1 \n\n\n value2\"",
+      "children": [
+        {
+          "type": "HtmlName",
+          "name": "attr",
+          "start": 5,
+          "end": 9,
+          "value": "attr"
+        },
+        {
+          "type": "HtmlValue",
+          "start": 20,
+          "end": 39,
+          "value": "\"value1 \n\n\n value2\"",
+          "quoted": true,
+          "valueStart": 21,
+          "valueEnd": 38
+        }
+      ]
+    },
+    {
+      "type": "Eol",
+      "value": "\n\n\n",
+      "start": 40,
+      "end": 43
+    }
+  ]
+}

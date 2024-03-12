@@ -1,0 +1,32 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 3,
+  "value": "a=A",
+  "children": [
+    {
+      "type": "HtmlAttribute",
+      "start": 0,
+      "end": 3,
+      "value": "a=A",
+      "children": [
+        {
+          "type": "HtmlName",
+          "name": "a",
+          "start": 0,
+          "end": 1,
+          "value": "a"
+        },
+        {
+          "type": "HtmlValue",
+          "value": "A",
+          "start": 2,
+          "end": 3,
+          "quoted": false,
+          "valueStart": 2,
+          "valueEnd": 3
+        }
+      ]
+    }
+  ]
+}

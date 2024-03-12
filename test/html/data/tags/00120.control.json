@@ -1,0 +1,99 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 40,
+  "value": "<tag attr='x${ code block' attr2=val2 />",
+  "children": [
+    {
+      "type": "HtmlOpenTag",
+      "start": 0,
+      "end": 40,
+      "value": "<tag attr='x${ code block' attr2=val2 />",
+      "children": [
+        {
+          "type": "HtmlTagStart",
+          "start": 0,
+          "end": 4,
+          "value": "<tag",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "tag",
+              "start": 1,
+              "end": 4,
+              "value": "tag"
+            }
+          ],
+          "tagName": "tag"
+        },
+        {
+          "type": "HtmlAttribute",
+          "start": 5,
+          "end": 26,
+          "value": "attr='x${ code block'",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "attr",
+              "start": 5,
+              "end": 9,
+              "value": "attr"
+            },
+            {
+              "type": "HtmlValue",
+              "start": 10,
+              "end": 26,
+              "value": "'x${ code block'",
+              "children": [
+                {
+                  "type": "Code",
+                  "codeStart": 14,
+                  "codeEnd": 25,
+                  "start": 12,
+                  "end": 25,
+                  "value": "${ code block"
+                }
+              ],
+              "quoted": true,
+              "valueStart": 11,
+              "valueEnd": 25
+            }
+          ]
+        },
+        {
+          "type": "HtmlAttribute",
+          "start": 27,
+          "end": 37,
+          "value": "attr2=val2",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "attr2",
+              "start": 27,
+              "end": 32,
+              "value": "attr2"
+            },
+            {
+              "type": "HtmlValue",
+              "value": "val2",
+              "start": 33,
+              "end": 37,
+              "quoted": false,
+              "valueStart": 33,
+              "valueEnd": 37
+            }
+          ]
+        },
+        {
+          "type": "HtmlTagEnd",
+          "start": 38,
+          "end": 40,
+          "value": "/>",
+          "autoclosing": true
+        }
+      ],
+      "tagName": "tag",
+      "autoclosing": true
+    }
+  ]
+}

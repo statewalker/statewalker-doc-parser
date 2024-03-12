@@ -1,0 +1,52 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 152,
+  "value": "abc:$my-description\n       =\n        'b:${\n         <MyInternalWidget\n           foo=`${<Foo bar=\"Baz\">}`\n           bar=\"Bar\" hello>\n        }:c\n     '",
+  "children": [
+    {
+      "type": "HtmlAttribute",
+      "start": 0,
+      "end": 152,
+      "value": "abc:$my-description\n       =\n        'b:${\n         <MyInternalWidget\n           foo=`${<Foo bar=\"Baz\">}`\n           bar=\"Bar\" hello>\n        }:c\n     '",
+      "children": [
+        {
+          "type": "HtmlName",
+          "name": "abc:$my-description",
+          "start": 0,
+          "end": 19,
+          "value": "abc:$my-description"
+        },
+        {
+          "type": "HtmlValue",
+          "start": 37,
+          "end": 152,
+          "value": "'b:${\n         <MyInternalWidget\n           foo=`${<Foo bar=\"Baz\">}`\n           bar=\"Bar\" hello>\n        }:c\n     '",
+          "children": [
+            {
+              "type": "Code",
+              "codeStart": 42,
+              "codeEnd": 142,
+              "start": 40,
+              "end": 143,
+              "value": "${\n         <MyInternalWidget\n           foo=`${<Foo bar=\"Baz\">}`\n           bar=\"Bar\" hello>\n        }",
+              "children": [
+                {
+                  "type": "Code",
+                  "codeStart": 88,
+                  "codeEnd": 103,
+                  "start": 86,
+                  "end": 104,
+                  "value": "${<Foo bar=\"Baz\">}"
+                }
+              ]
+            }
+          ],
+          "quoted": true,
+          "valueStart": 38,
+          "valueEnd": 151
+        }
+      ]
+    }
+  ]
+}

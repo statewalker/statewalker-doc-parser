@@ -1,21 +1,17 @@
 import { newCodeReader } from "../../src/code/index.ts";
 import { newHtmlReader } from "../../src/html/index.ts";
-import { describe, it } from "../deps.ts";
-import { newBlockTest } from "../newBlockTest.ts";
-import { testData } from "./observable-framework.data.ts";
+import { newTestRunner } from "../utils/newTestRunner.ts";
+import { newTokenizerTest } from "../utils/newTokenizerTest.ts";
 
-describe("newHtmlReader", () => {
+Promise.resolve().then(main).catch(console.error);
+
+async function main() {
   const readCode = newCodeReader();
-  const test = newBlockTest(
-    newHtmlReader({
-      readOpenTagTokens: readCode,
-      readInstructionsTokens: readCode,
-      readTagContentTokens: readCode,
-    })
-  );
-  testData.forEach((data) => {
-    it(data.description, () => {
-      test(data.input, data.expected);
-    });
+  const readToken = newHtmlReader({
+    readOpenTagTokens: readCode,
+    readInstructionsTokens: readCode,
+    readTagContentTokens: readCode,
   });
-});
+  const runTests = newTestRunner(newTokenizerTest(readToken));
+  runTests(`${import.meta.dirname}/data/observable-framework`);
+}

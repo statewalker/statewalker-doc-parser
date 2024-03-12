@@ -1,0 +1,82 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 32,
+  "value": "before <a attr1=val1 attr2=val2 ",
+  "children": [
+    {
+      "type": "HtmlOpenTag",
+      "start": 7,
+      "end": 32,
+      "value": "<a attr1=val1 attr2=val2 ",
+      "children": [
+        {
+          "type": "HtmlTagStart",
+          "start": 7,
+          "end": 9,
+          "value": "<a",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "a",
+              "start": 8,
+              "end": 9,
+              "value": "a"
+            }
+          ],
+          "tagName": "a"
+        },
+        {
+          "type": "HtmlAttribute",
+          "start": 10,
+          "end": 20,
+          "value": "attr1=val1",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "attr1",
+              "start": 10,
+              "end": 15,
+              "value": "attr1"
+            },
+            {
+              "type": "HtmlValue",
+              "value": "val1",
+              "start": 16,
+              "end": 20,
+              "quoted": false,
+              "valueStart": 16,
+              "valueEnd": 20
+            }
+          ]
+        },
+        {
+          "type": "HtmlAttribute",
+          "start": 21,
+          "end": 31,
+          "value": "attr2=val2",
+          "children": [
+            {
+              "type": "HtmlName",
+              "name": "attr2",
+              "start": 21,
+              "end": 26,
+              "value": "attr2"
+            },
+            {
+              "type": "HtmlValue",
+              "value": "val2",
+              "start": 27,
+              "end": 31,
+              "quoted": false,
+              "valueStart": 27,
+              "valueEnd": 31
+            }
+          ]
+        }
+      ],
+      "tagName": "a",
+      "autoclosing": false
+    }
+  ]
+}

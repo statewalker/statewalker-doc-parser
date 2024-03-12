@@ -1,0 +1,24 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 9,
+  "value": "before\n# ",
+  "children": [
+    {
+      "type": "MdHeader",
+      "start": 6,
+      "end": 9,
+      "value": "\n# ",
+      "children": [
+        {
+          "type": "MdHeaderStart",
+          "start": 6,
+          "end": 9,
+          "value": "\n# ",
+          "level": 1
+        }
+      ],
+      "level": 1
+    }
+  ]
+}
