@@ -7,6 +7,7 @@ import {
   isEol,
   isolate,
   newBlockReader,
+  newBlocksSequenceReader,
   newCharReader,
   newCodeReader,
 } from "../../src/index.ts";
@@ -51,12 +52,7 @@ function newSeparateBlocksReader(
     (char) => char === "\n" || char === "\r"
   );
   const readEmptyLines = newTokensReader("EmptyLines", readEol, 2);
-  const readBlock = newBlockReader("TextBlock", readToken);
-  return (ctx: TokenizerContext): TToken | undefined =>
-    ctx.guard((fences) => {
-      fences.addFence(readEmptyLines);
-      return readBlock(ctx);
-    });
+  return newBlocksSequenceReader("TextBlock", readEmptyLines, readToken);
 }
 
 async function main() {
