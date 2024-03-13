@@ -1,0 +1,36 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 115,
+  "value": "\n  First paragraph\n\n  Second paragraph... ${\n\n    code line\n\n  }\n  ...seond paragraph continues\n\n  Third paragraph\n",
+  "children": [
+    {
+      "type": "TextBlock",
+      "start": 0,
+      "end": 18,
+      "value": "\n  First paragraph"
+    },
+    {
+      "type": "TextBlock",
+      "start": 19,
+      "end": 95,
+      "value": "\n  Second paragraph... ${\n\n    code line\n\n  }\n  ...seond paragraph continues",
+      "children": [
+        {
+          "type": "Code",
+          "codeStart": 44,
+          "codeEnd": 63,
+          "start": 42,
+          "end": 64,
+          "value": "${\n\n    code line\n\n  }"
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "start": 96,
+      "end": 115,
+      "value": "\n  Third paragraph\n"
+    }
+  ]
+}

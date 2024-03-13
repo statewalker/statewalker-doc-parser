@@ -1,0 +1,26 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 62,
+  "value": "\n  First paragraph\n\n\n\n  Second paragraph\n\n\n\n  Third paragraph\n",
+  "children": [
+    {
+      "type": "TextBlock",
+      "start": 0,
+      "end": 18,
+      "value": "\n  First paragraph"
+    },
+    {
+      "type": "TextBlock",
+      "start": 21,
+      "end": 40,
+      "value": "\n  Second paragraph"
+    },
+    {
+      "type": "TextBlock",
+      "start": 43,
+      "end": 62,
+      "value": "\n  Third paragraph\n"
+    }
+  ]
+}

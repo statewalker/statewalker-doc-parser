@@ -1,0 +1,26 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 100,
+  "value": "First paragraph\n  with multiple\n  lines.\n\n  Second paragraph\n  on multiple lines.\n\n  Third paragraph",
+  "children": [
+    {
+      "type": "TextBlock",
+      "start": 0,
+      "end": 40,
+      "value": "First paragraph\n  with multiple\n  lines."
+    },
+    {
+      "type": "TextBlock",
+      "start": 41,
+      "end": 81,
+      "value": "\n  Second paragraph\n  on multiple lines."
+    },
+    {
+      "type": "TextBlock",
+      "start": 82,
+      "end": 100,
+      "value": "\n  Third paragraph"
+    }
+  ]
+}

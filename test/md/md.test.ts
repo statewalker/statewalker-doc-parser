@@ -11,14 +11,33 @@ async function main() {
   // const contentTokenizers: TTokenizerMethod[] = [readCode];
   // const readContent = newCompositeTokenizer(contentTokenizers);
   const readers = {
-    // html:
-    //   readOpenTagTokens: readCode,
-    //   readInstructionsTokens: readCode,
-    //   // readTagContentTokens: readContent,
-    // md:
-    //   readHeaderTokens: readCode,
-    //   // readSectionTokens: readContent,
-    // },
+    // * html:
+    //   - readOpenTagTokens: readCode,
+    //   - readInstructionsTokens: readCode,
+    //   - readTagContentTokens: readContent,
+    // * md:
+    //   - readHeaderTokens: readCode,
+    //   - readSectionTokens: readContent,
+    // * list:
+    //   - readListItemMarker: TTokenizerMethod;
+    //   - readListItemContent?: TTokenizerMethod;
+    // * codeblock:
+    //   - readCodeBlockContent?: TTokenizerMethod;
+    // * fencedblock:
+    //   - readFencedContent?: TTokenizerMethod;
+    //   - readFencedAttributes?: TTokenizerMethod;
+    
+    //// compareListItemMarkers?: (startMarker: TToken, endMarker: TToken) => number;
+    //// listTokenNames?: {
+    ////    List: string;
+    ////    ListItem: string;
+    ////    ListItemStart: string;
+    ////    ListItemContent: string;
+    ////    ListItemEnd: string;
+    ////  };
+    //// },
+
+
     readContent: readCode,
   };
   const readToken = newMdReader(readers);

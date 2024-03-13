@@ -1,0 +1,36 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 108,
+  "value": "First paragraph\n  with multiple\n  lines.\n\n${\n\n  Code\n\n  Block\n\n}\n\n  Third paragraph\n  with multiple\n  lines.",
+  "children": [
+    {
+      "type": "TextBlock",
+      "start": 0,
+      "end": 40,
+      "value": "First paragraph\n  with multiple\n  lines."
+    },
+    {
+      "type": "TextBlock",
+      "start": 41,
+      "end": 64,
+      "value": "\n${\n\n  Code\n\n  Block\n\n}",
+      "children": [
+        {
+          "type": "Code",
+          "codeStart": 44,
+          "codeEnd": 63,
+          "start": 42,
+          "end": 64,
+          "value": "${\n\n  Code\n\n  Block\n\n}"
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "start": 65,
+      "end": 108,
+      "value": "\n  Third paragraph\n  with multiple\n  lines."
+    }
+  ]
+}
