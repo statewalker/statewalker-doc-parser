@@ -52,7 +52,7 @@ export type TMdListTokenizers = {
     ListItem: string;
     ListItemStart: string;
     ListItemContent: string;
-    ListItemEnd: string;
+    // ListItemEnd: string;
   };
 };
 export function newMdListReader({
@@ -66,7 +66,7 @@ export function newMdListReader({
     ListItem: "MdListItem",
     ListItemStart: "MdListItemStart",
     ListItemContent: "MdListItemContent",
-    ListItemEnd: "MdListItemEnd",
+    // ListItemEnd: "MdListItemEnd",
   },
 }: TMdListTokenizers) {
   const tokenizers: TTokenizerMethod[] = [];
@@ -86,7 +86,7 @@ export function newMdListReader({
         // }
         const end = (ctx.i = start);
         return {
-          type: names.ListItemEnd,
+          type: "ListItemEnd",
           start,
           end,
           value: ctx.substring(start, end),
@@ -103,7 +103,8 @@ export function newMdListReader({
         return token;
       }),
     () => readContent,
-    newListItemEndReader
+    newListItemEndReader,
+    false // don't include the end marker
   );
 
   const readListToken = newBlockReader(names.List, readListItem);

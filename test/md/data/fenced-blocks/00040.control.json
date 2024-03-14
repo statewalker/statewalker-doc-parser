@@ -29,12 +29,6 @@
               "start": 29,
               "end": 45,
               "value": "\n    First block"
-            },
-            {
-              "type": "MdFencedSectionEnd",
-              "start": 45,
-              "end": 45,
-              "value": ""
             }
           ]
         },
@@ -57,12 +51,6 @@
               "start": 53,
               "end": 72,
               "value": "\n    Second block\","
-            },
-            {
-              "type": "MdFencedSectionEnd",
-              "start": 72,
-              "end": 72,
-              "value": ""
             }
           ]
         },
@@ -85,12 +73,6 @@
               "start": 80,
               "end": 98,
               "value": "\n    Third block\","
-            },
-            {
-              "type": "MdFencedSectionEnd",
-              "start": 98,
-              "end": 98,
-              "value": ""
             }
           ]
         }

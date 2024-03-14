@@ -29,12 +29,6 @@
               "start": 7,
               "end": 13,
               "value": "item 1"
-            },
-            {
-              "type": "MdListItemEnd",
-              "start": 13,
-              "end": 13,
-              "value": ""
             }
           ]
         }
@@ -65,12 +59,6 @@
               "start": 23,
               "end": 35,
               "value": "\n    section"
-            },
-            {
-              "type": "MdFencedSectionEnd",
-              "start": 35,
-              "end": 35,
-              "value": ""
             }
           ]
         }

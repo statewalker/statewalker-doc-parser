@@ -55,12 +55,6 @@
                           "start": 25,
                           "end": 35,
                           "value": "sub-item 1"
-                        },
-                        {
-                          "type": "MdListItemEnd",
-                          "start": 35,
-                          "end": 35,
-                          "value": ""
                         }
                       ]
                     },
@@ -83,24 +77,12 @@
                           "start": 44,
                           "end": 54,
                           "value": "sub-item 2"
-                        },
-                        {
-                          "type": "MdListItemEnd",
-                          "start": 54,
-                          "end": 54,
-                          "value": ""
                         }
                       ]
                     }
                   ]
                 }
               ]
-            },
-            {
-              "type": "MdListItemEnd",
-              "start": 54,
-              "end": 54,
-              "value": ""
             }
           ]
         },

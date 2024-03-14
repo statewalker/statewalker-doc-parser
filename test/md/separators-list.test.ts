@@ -17,10 +17,7 @@ import {
   newMdSectionReader,
   newTokensSequenceReader,
 } from "../../src/index.ts";
-import {
-  newMdFencedBlocksReader,
-  newMdFencesReader,
-} from "../../src/md/fenced-blocks.ts";
+import { newMdFencedBlocksReader } from "../../src/md/fenced-blocks.ts";
 import { newTestRunner } from "../utils/newTestRunner.ts";
 import { newTokenizerTest } from "../utils/newTokenizerTest.ts";
 
@@ -61,21 +58,21 @@ function readMdListItemMarker(ctx: TokenizerContext): TToken | undefined {
 //   return newBlocksSequenceReader("MdListItem", readMdListItemMarker, readToken);
 // }
 
-function newListReader(readToken: TTokenizerMethod): TTokenizerMethod {
-  // const readListItem = newListItemReader(readToken);
-  const readEmptyLines = newEmptyLinesReader();
-  const readEndOfList = newCompositeTokenizer([
-    readEmptyLines,
-    readMdListItemMarker,
-  ]);
-  const readListItem = newFencedBlockReader(
-    "MdListItem",
-    readMdListItemMarker,
-    readToken,
-    readMdListItemMarker
-  );
-  return newBlockReader("MdList", readListItem);
-}
+// function newListReader(readToken: TTokenizerMethod): TTokenizerMethod {
+//   // const readListItem = newListItemReader(readToken);
+//   const readEmptyLines = newEmptyLinesReader();
+//   const readEndOfList = newCompositeTokenizer([
+//     readEmptyLines,
+//     readMdListItemMarker,
+//   ]);
+//   const readListItem = newFencedBlockReader(
+//     "MdListItem",
+//     readMdListItemMarker,
+//     readToken,
+//     readMdListItemMarker
+//   );
+//   return newBlockReader("MdList", readListItem);
+// }
 
 function newEmptyLinesReader(count: number = 1) {
   const readEol = newCharReader(

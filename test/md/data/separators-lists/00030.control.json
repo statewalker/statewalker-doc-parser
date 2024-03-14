@@ -105,12 +105,6 @@
                                   "start": 96,
                                   "end": 97,
                                   "value": "A"
-                                },
-                                {
-                                  "type": "MdListItemEnd",
-                                  "start": 97,
-                                  "end": 97,
-                                  "value": ""
                                 }
                               ]
                             },
@@ -133,24 +127,12 @@
                                   "start": 104,
                                   "end": 105,
                                   "value": "B"
-                                },
-                                {
-                                  "type": "MdListItemEnd",
-                                  "start": 105,
-                                  "end": 105,
-                                  "value": ""
                                 }
                               ]
                             }
                           ]
                         }
                       ]
-                    },
-                    {
-                      "type": "MdListItemEnd",
-                      "start": 105,
-                      "end": 105,
-                      "value": ""
                     }
                   ]
                 },
@@ -257,12 +239,6 @@
                               "value": "${with  code}"
                             }
                           ]
-                        },
-                        {
-                          "type": "MdFencedSectionEnd",
-                          "start": 187,
-                          "end": 187,
-                          "value": ""
                         }
                       ]
                     },

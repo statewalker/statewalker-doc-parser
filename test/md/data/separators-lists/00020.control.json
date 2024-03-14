@@ -69,12 +69,6 @@
                       "start": 62,
                       "end": 68,
                       "value": "item 1"
-                    },
-                    {
-                      "type": "MdListItemEnd",
-                      "start": 68,
-                      "end": 68,
-                      "value": ""
                     }
                   ]
                 },
@@ -195,12 +189,6 @@
                                       "start": 158,
                                       "end": 172,
                                       "value": "inner item one"
-                                    },
-                                    {
-                                      "type": "MdListItemEnd",
-                                      "start": 172,
-                                      "end": 172,
-                                      "value": ""
                                     }
                                   ]
                                 },
@@ -229,12 +217,6 @@
                               ]
                             }
                           ]
-                        },
-                        {
-                          "type": "MdFencedSectionEnd",
-                          "start": 193,
-                          "end": 193,
-                          "value": ""
                         }
                       ]
                     },
@@ -295,12 +277,6 @@
                           "start": 234,
                           "end": 256,
                           "value": "separate list item one"
-                        },
-                        {
-                          "type": "MdListItemEnd",
-                          "start": 256,
-                          "end": 256,
-                          "value": ""
                         }
                       ]
                     },
@@ -397,12 +373,6 @@
                           "start": 330,
                           "end": 336,
                           "value": "item 3"
-                        },
-                        {
-                          "type": "MdListItemEnd",
-                          "start": 336,
-                          "end": 336,
-                          "value": ""
                         }
                       ]
                     },

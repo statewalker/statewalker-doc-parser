@@ -24,7 +24,8 @@ export function newDynamicFencedBlockReader<T extends TToken = TToken>(
   type: string,
   readStart: TTokenizerMethod,
   getContentTokenizer: (startToken: TToken) => TTokenizerMethod | undefined,
-  getEndTokenizer: (startToken: TToken) => TTokenizerMethod | undefined
+  getEndTokenizer: (startToken: TToken) => TTokenizerMethod | undefined,
+  includeEndToken = true
 ): TTokenizerMethod<T> {
   return (ctx: TokenizerContext): T | undefined =>
     ctx.guard((fences) => {
@@ -42,7 +43,7 @@ export function newDynamicFencedBlockReader<T extends TToken = TToken>(
       while (ctx.i < ctx.length) {
         endToken = readEnd?.(ctx);
         if (endToken) {
-          children.push(endToken);
+          includeEndToken && children.push(endToken);
           ctx.i = endToken.end;
           break;
         }

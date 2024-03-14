@@ -29,12 +29,6 @@
               "start": 14,
               "end": 17,
               "value": "one"
-            },
-            {
-              "type": "MdListItemEnd",
-              "start": 17,
-              "end": 17,
-              "value": ""
             }
           ]
         }

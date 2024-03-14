@@ -109,12 +109,6 @@
                               "start": 74,
                               "end": 93,
                               "value": "\n      First column"
-                            },
-                            {
-                              "type": "MdFencedSectionEnd",
-                              "start": 93,
-                              "end": 93,
-                              "value": ""
                             }
                           ]
                         },
@@ -137,12 +131,6 @@
                               "start": 104,
                               "end": 124,
                               "value": "\n      Second column"
-                            },
-                            {
-                              "type": "MdFencedSectionEnd",
-                              "start": 124,
-                              "end": 124,
-                              "value": ""
                             }
                           ]
                         },
@@ -165,24 +153,12 @@
                               "start": 135,
                               "end": 154,
                               "value": "\n      Third column"
-                            },
-                            {
-                              "type": "MdFencedSectionEnd",
-                              "start": 154,
-                              "end": 154,
-                              "value": ""
                             }
                           ]
                         }
                       ]
                     }
                   ]
-                },
-                {
-                  "type": "MdFencedSectionEnd",
-                  "start": 154,
-                  "end": 154,
-                  "value": ""
                 }
               ]
             },
@@ -264,12 +240,6 @@
                                   "level": 2
                                 }
                               ]
-                            },
-                            {
-                              "type": "MdFencedSectionEnd",
-                              "start": 238,
-                              "end": 238,
-                              "value": ""
                             }
                           ]
                         },
@@ -346,12 +316,6 @@
                                               "start": 319,
                                               "end": 327,
                                               "value": "item one"
-                                            },
-                                            {
-                                              "type": "MdListItemEnd",
-                                              "start": 327,
-                                              "end": 327,
-                                              "value": ""
                                             }
                                           ]
                                         },
@@ -433,24 +397,12 @@
                                                               "level": 2
                                                             }
                                                           ]
-                                                        },
-                                                        {
-                                                          "type": "MdFencedSectionEnd",
-                                                          "start": 420,
-                                                          "end": 420,
-                                                          "value": ""
                                                         }
                                                       ]
                                                     }
                                                   ]
                                                 }
                                               ]
-                                            },
-                                            {
-                                              "type": "MdListItemEnd",
-                                              "start": 420,
-                                              "end": 420,
-                                              "value": ""
                                             }
                                           ]
                                         }
@@ -460,24 +412,12 @@
                                   "level": 2
                                 }
                               ]
-                            },
-                            {
-                              "type": "MdFencedSectionEnd",
-                              "start": 420,
-                              "end": 420,
-                              "value": ""
                             }
                           ]
                         }
                       ]
                     }
                   ]
-                },
-                {
-                  "type": "MdFencedSectionEnd",
-                  "start": 420,
-                  "end": 420,
-                  "value": ""
                 }
               ]
             }

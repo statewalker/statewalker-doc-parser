@@ -92,12 +92,6 @@
                   "start": 36,
                   "end": 44,
                   "value": "item one"
-                },
-                {
-                  "type": "MdListItemEnd",
-                  "start": 44,
-                  "end": 44,
-                  "value": ""
                 }
               ]
             },

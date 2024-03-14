@@ -29,12 +29,6 @@
               "start": 9,
               "end": 12,
               "value": "one"
-            },
-            {
-              "type": "MdListItemEnd",
-              "start": 12,
-              "end": 12,
-              "value": ""
             }
           ]
         },
@@ -57,12 +51,6 @@
               "start": 21,
               "end": 24,
               "value": "two"
-            },
-            {
-              "type": "MdListItemEnd",
-              "start": 24,
-              "end": 24,
-              "value": ""
             }
           ]
         },
