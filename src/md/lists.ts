@@ -7,7 +7,7 @@ import {
   newBlockReader,
   newCompositeTokenizer,
   newDynamicFencedBlockReader,
-  readEmptyLine,
+  newEmptyLinesReader,
 } from "../base/index.ts";
 
 export function readMdListItemMarker(
@@ -78,11 +78,11 @@ export function newMdListReader({
         const start = ctx.i;
         // const emptyLine = readEmptyLine(ctx);
         // if (!emptyLine) {
-          ctx.i = start;
-          const endMarker = readListItemMarker(ctx);
-          if (!endMarker) return;
-          // Embedded list item
-          if (compareListItemMarkers(startMarker, endMarker) < 0) return;
+        ctx.i = start;
+        const endMarker = readListItemMarker(ctx);
+        if (!endMarker) return;
+        // Embedded list item
+        if (compareListItemMarkers(startMarker, endMarker) < 0) return;
         // }
         const end = (ctx.i = start);
         return {
@@ -107,6 +107,7 @@ export function newMdListReader({
     false // don't include the end marker
   );
 
+  const readEmptyLine = newEmptyLinesReader(1);
   const readListToken = newBlockReader(names.List, readListItem);
   const readList = (ctx: TokenizerContext): TToken | undefined =>
     ctx.guard((fences) => {

@@ -1,4 +1,4 @@
-import { newFencedBlockReader } from "./blocks.ts";
+import { newFencedBlockReader, newTokensSequenceReader } from "./blocks.ts";
 import { isEol } from "./chars.ts";
 import {
   type TToken,
@@ -133,6 +133,25 @@ export function newQuotedTextReader(
   };
 }
 
+/**
+ * Returns a tokenizer reading the specified number of empty lines
+ * @param count the number of empty lines to return
+ * @returns a tokenizer reading the specified number of empty lines
+ */
+export function newEmptyLinesReader(count: number = 1) {
+  const readEol = newCharReader(
+    "Eol",
+    (char) => char === "\n" || char === "\r"
+  );
+  const readEmptyLines = newTokensSequenceReader(
+    "EmptyLines",
+    readEol,
+    1 + count
+  );
+  return readEmptyLines;
+}
+
+// FIXME: should be replaced by the newEmptyLinesReader.
 export function readNewLines(
   ctx: TokenizerContext,
   count?: number
@@ -147,23 +166,6 @@ export function readNewLines(
       end: eolPos,
       value: ctx.substring(start, eolPos),
       level: 0,
-    };
-  });
-}
-
-export function readEmptyLine(ctx: TokenizerContext): TToken | undefined {
-  return ctx.guard(() => {
-    const start = ctx.i;
-    // if (ctx.i > 0) {
-    if (!isEol(ctx.getChar(+0)) || !isEol(ctx.getChar(+1))) return;
-    ctx.i += 2;
-    // }
-    const end = ctx.i;
-    return {
-      type: "EmptyLine",
-      start,
-      end,
-      value: ctx.substring(start, end),
     };
   });
 }
