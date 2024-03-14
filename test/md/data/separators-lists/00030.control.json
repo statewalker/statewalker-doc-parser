@@ -1,0 +1,351 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 267,
+  "value": "\n\n  # Title\n\n  Paragrah starts...\n${\n\n  code \n\n  block\n\n}\n  ...and continues.\n\n  - item 1\n    - A\n    - B\n  - item 2\n\n\n  ## Sub-section ${One}\n\n  ::::\n    This is a note\n    ${with  code}\n  ::::\n    The second fenced block\n\n  ## Sub-section ${Two}\n  Second paragraph\n",
+  "children": [
+    {
+      "type": "MdSection",
+      "start": 0,
+      "end": 267,
+      "value": "\n\n  # Title\n\n  Paragrah starts...\n${\n\n  code \n\n  block\n\n}\n  ...and continues.\n\n  - item 1\n    - A\n    - B\n  - item 2\n\n\n  ## Sub-section ${One}\n\n  ::::\n    This is a note\n    ${with  code}\n  ::::\n    The second fenced block\n\n  ## Sub-section ${Two}\n  Second paragraph\n",
+      "children": [
+        {
+          "type": "MdHeader",
+          "start": 0,
+          "end": 11,
+          "value": "\n\n  # Title",
+          "children": [
+            {
+              "type": "MdHeaderStart",
+              "start": 0,
+              "end": 6,
+              "value": "\n\n  # ",
+              "level": 1
+            },
+            {
+              "type": "MdHeaderEnd",
+              "start": 11,
+              "end": 11,
+              "value": ""
+            }
+          ],
+          "level": 1
+        },
+        {
+          "type": "MdTextBlock",
+          "start": 12,
+          "end": 77,
+          "value": "\n  Paragrah starts...\n${\n\n  code \n\n  block\n\n}\n  ...and continues.",
+          "children": [
+            {
+              "type": "Code",
+              "codeStart": 36,
+              "codeEnd": 56,
+              "start": 34,
+              "end": 57,
+              "value": "${\n\n  code \n\n  block\n\n}"
+            }
+          ]
+        },
+        {
+          "type": "MdTextBlock",
+          "start": 78,
+          "end": 116,
+          "value": "\n  - item 1\n    - A\n    - B\n  - item 2",
+          "children": [
+            {
+              "type": "MdList",
+              "start": 78,
+              "end": 116,
+              "value": "\n  - item 1\n    - A\n    - B\n  - item 2",
+              "children": [
+                {
+                  "type": "MdListItem",
+                  "start": 78,
+                  "end": 105,
+                  "value": "\n  - item 1\n    - A\n    - B",
+                  "children": [
+                    {
+                      "type": "MdListItemStart",
+                      "start": 78,
+                      "end": 83,
+                      "value": "\n  - ",
+                      "depth": 2,
+                      "marker": "  -"
+                    },
+                    {
+                      "type": "MdListItemContent",
+                      "start": 83,
+                      "end": 105,
+                      "value": "item 1\n    - A\n    - B",
+                      "children": [
+                        {
+                          "type": "MdList",
+                          "start": 89,
+                          "end": 105,
+                          "value": "\n    - A\n    - B",
+                          "children": [
+                            {
+                              "type": "MdListItem",
+                              "start": 89,
+                              "end": 97,
+                              "value": "\n    - A",
+                              "children": [
+                                {
+                                  "type": "MdListItemStart",
+                                  "start": 89,
+                                  "end": 96,
+                                  "value": "\n    - ",
+                                  "depth": 4,
+                                  "marker": "    -"
+                                },
+                                {
+                                  "type": "MdListItemContent",
+                                  "start": 96,
+                                  "end": 97,
+                                  "value": "A"
+                                },
+                                {
+                                  "type": "MdListItemEnd",
+                                  "start": 97,
+                                  "end": 97,
+                                  "value": ""
+                                }
+                              ]
+                            },
+                            {
+                              "type": "MdListItem",
+                              "start": 97,
+                              "end": 105,
+                              "value": "\n    - B",
+                              "children": [
+                                {
+                                  "type": "MdListItemStart",
+                                  "start": 97,
+                                  "end": 104,
+                                  "value": "\n    - ",
+                                  "depth": 4,
+                                  "marker": "    -"
+                                },
+                                {
+                                  "type": "MdListItemContent",
+                                  "start": 104,
+                                  "end": 105,
+                                  "value": "B"
+                                },
+                                {
+                                  "type": "MdListItemEnd",
+                                  "start": 105,
+                                  "end": 105,
+                                  "value": ""
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "MdListItemEnd",
+                      "start": 105,
+                      "end": 105,
+                      "value": ""
+                    }
+                  ]
+                },
+                {
+                  "type": "MdListItem",
+                  "start": 105,
+                  "end": 116,
+                  "value": "\n  - item 2",
+                  "children": [
+                    {
+                      "type": "MdListItemStart",
+                      "start": 105,
+                      "end": 110,
+                      "value": "\n  - ",
+                      "depth": 2,
+                      "marker": "  -"
+                    },
+                    {
+                      "type": "MdListItemContent",
+                      "start": 110,
+                      "end": 116,
+                      "value": "item 2"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "MdSection",
+          "start": 116,
+          "end": 222,
+          "value": "\n\n\n  ## Sub-section ${One}\n\n  ::::\n    This is a note\n    ${with  code}\n  ::::\n    The second fenced block",
+          "children": [
+            {
+              "type": "MdHeader",
+              "start": 116,
+              "end": 142,
+              "value": "\n\n\n  ## Sub-section ${One}",
+              "children": [
+                {
+                  "type": "MdHeaderStart",
+                  "start": 116,
+                  "end": 124,
+                  "value": "\n\n\n  ## ",
+                  "level": 2
+                },
+                {
+                  "type": "Code",
+                  "codeStart": 138,
+                  "codeEnd": 141,
+                  "start": 136,
+                  "end": 142,
+                  "value": "${One}"
+                },
+                {
+                  "type": "MdHeaderEnd",
+                  "start": 142,
+                  "end": 142,
+                  "value": ""
+                }
+              ],
+              "level": 2
+            },
+            {
+              "type": "MdTextBlock",
+              "start": 143,
+              "end": 222,
+              "value": "\n  ::::\n    This is a note\n    ${with  code}\n  ::::\n    The second fenced block",
+              "children": [
+                {
+                  "type": "MdFencedBlock",
+                  "start": 143,
+                  "end": 222,
+                  "value": "\n  ::::\n    This is a note\n    ${with  code}\n  ::::\n    The second fenced block",
+                  "children": [
+                    {
+                      "type": "MdFencedSection",
+                      "start": 143,
+                      "end": 187,
+                      "value": "\n  ::::\n    This is a note\n    ${with  code}",
+                      "children": [
+                        {
+                          "type": "MdFencedSectionStart",
+                          "start": 143,
+                          "end": 150,
+                          "value": "\n  ::::",
+                          "depth": 2,
+                          "marker": "  ::::"
+                        },
+                        {
+                          "type": "MdFencedSectionContent",
+                          "start": 150,
+                          "end": 187,
+                          "value": "\n    This is a note\n    ${with  code}",
+                          "children": [
+                            {
+                              "type": "Code",
+                              "codeStart": 176,
+                              "codeEnd": 186,
+                              "start": 174,
+                              "end": 187,
+                              "value": "${with  code}"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "MdFencedSectionEnd",
+                          "start": 187,
+                          "end": 187,
+                          "value": ""
+                        }
+                      ]
+                    },
+                    {
+                      "type": "MdFencedSection",
+                      "start": 187,
+                      "end": 222,
+                      "value": "\n  ::::\n    The second fenced block",
+                      "children": [
+                        {
+                          "type": "MdFencedSectionStart",
+                          "start": 187,
+                          "end": 194,
+                          "value": "\n  ::::",
+                          "depth": 2,
+                          "marker": "  ::::"
+                        },
+                        {
+                          "type": "MdFencedSectionContent",
+                          "start": 194,
+                          "end": 222,
+                          "value": "\n    The second fenced block"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "MdSectionEnd",
+              "start": 222,
+              "end": 222,
+              "value": ""
+            }
+          ]
+        },
+        {
+          "type": "MdSection",
+          "start": 222,
+          "end": 267,
+          "value": "\n\n  ## Sub-section ${Two}\n  Second paragraph\n",
+          "children": [
+            {
+              "type": "MdHeader",
+              "start": 222,
+              "end": 247,
+              "value": "\n\n  ## Sub-section ${Two}",
+              "children": [
+                {
+                  "type": "MdHeaderStart",
+                  "start": 222,
+                  "end": 229,
+                  "value": "\n\n  ## ",
+                  "level": 2
+                },
+                {
+                  "type": "Code",
+                  "codeStart": 243,
+                  "codeEnd": 246,
+                  "start": 241,
+                  "end": 247,
+                  "value": "${Two}"
+                },
+                {
+                  "type": "MdHeaderEnd",
+                  "start": 247,
+                  "end": 247,
+                  "value": ""
+                }
+              ],
+              "level": 2
+            },
+            {
+              "type": "MdTextBlock",
+              "start": 247,
+              "end": 267,
+              "value": "\n  Second paragraph\n"
+            }
+          ]
+        }
+      ],
+      "level": 1
+    }
+  ]
+}

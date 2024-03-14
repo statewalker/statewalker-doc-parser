@@ -44,7 +44,7 @@ export function readMdListItemMarker(
 }
 
 export type TMdListTokenizers = {
-  readListItemMarker: TTokenizerMethod;
+  readListItemMarker?: TTokenizerMethod;
   readListItemContent?: TTokenizerMethod;
   compareListItemMarkers?: (startMarker: TToken, endMarker: TToken) => number;
   listTokenNames?: {
@@ -76,14 +76,14 @@ export function newMdListReader({
     return (ctx: TokenizerContext): TToken | undefined =>
       ctx.guard(() => {
         const start = ctx.i;
-        const emptyLine = readEmptyLine(ctx);
-        if (!emptyLine) {
+        // const emptyLine = readEmptyLine(ctx);
+        // if (!emptyLine) {
           ctx.i = start;
           const endMarker = readListItemMarker(ctx);
           if (!endMarker) return;
           // Embedded list item
           if (compareListItemMarkers(startMarker, endMarker) < 0) return;
-        }
+        // }
         const end = (ctx.i = start);
         return {
           type: names.ListItemEnd,
@@ -103,10 +103,7 @@ export function newMdListReader({
         return token;
       }),
     () => readContent,
-    (token: TToken) => {
-      const readEndToken = newListItemEndReader(token);
-      return readEndToken;
-    }
+    newListItemEndReader
   );
 
   const readListToken = newBlockReader(names.List, readListItem);

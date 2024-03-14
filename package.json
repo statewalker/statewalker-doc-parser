@@ -47,6 +47,7 @@
     "watch": "tsup --watch",
     "clean": "rm -rf dist",
     "lint": "eslint \"**/*.ts\"",
+    "test:one": "vitest --watch ./test/md/separators-list.test.ts",
     "test:watch": "vitest --watch",
     "test:run": "vitest run && yarn lint",
     "test": "vitest run",

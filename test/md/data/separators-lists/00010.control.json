@@ -1,0 +1,212 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 99,
+  "value": "\n  First block\n  - item 1\n  - item 2\n\n  Second block\n  - item 3\n  - item 4\n\n  - item 5\n  - item 6\n\n",
+  "children": [
+    {
+      "type": "MdTextBlock",
+      "start": 0,
+      "end": 36,
+      "value": "\n  First block\n  - item 1\n  - item 2",
+      "children": [
+        {
+          "type": "MdList",
+          "start": 14,
+          "end": 36,
+          "value": "\n  - item 1\n  - item 2",
+          "children": [
+            {
+              "type": "MdListItem",
+              "start": 14,
+              "end": 25,
+              "value": "\n  - item 1",
+              "children": [
+                {
+                  "type": "MdListItemStart",
+                  "start": 14,
+                  "end": 19,
+                  "value": "\n  - ",
+                  "depth": 2,
+                  "marker": "  -"
+                },
+                {
+                  "type": "MdListItemContent",
+                  "start": 19,
+                  "end": 25,
+                  "value": "item 1"
+                },
+                {
+                  "type": "MdListItemEnd",
+                  "start": 25,
+                  "end": 25,
+                  "value": ""
+                }
+              ]
+            },
+            {
+              "type": "MdListItem",
+              "start": 25,
+              "end": 36,
+              "value": "\n  - item 2",
+              "children": [
+                {
+                  "type": "MdListItemStart",
+                  "start": 25,
+                  "end": 30,
+                  "value": "\n  - ",
+                  "depth": 2,
+                  "marker": "  -"
+                },
+                {
+                  "type": "MdListItemContent",
+                  "start": 30,
+                  "end": 36,
+                  "value": "item 2"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "MdTextBlock",
+      "start": 37,
+      "end": 74,
+      "value": "\n  Second block\n  - item 3\n  - item 4",
+      "children": [
+        {
+          "type": "MdList",
+          "start": 52,
+          "end": 74,
+          "value": "\n  - item 3\n  - item 4",
+          "children": [
+            {
+              "type": "MdListItem",
+              "start": 52,
+              "end": 63,
+              "value": "\n  - item 3",
+              "children": [
+                {
+                  "type": "MdListItemStart",
+                  "start": 52,
+                  "end": 57,
+                  "value": "\n  - ",
+                  "depth": 2,
+                  "marker": "  -"
+                },
+                {
+                  "type": "MdListItemContent",
+                  "start": 57,
+                  "end": 63,
+                  "value": "item 3"
+                },
+                {
+                  "type": "MdListItemEnd",
+                  "start": 63,
+                  "end": 63,
+                  "value": ""
+                }
+              ]
+            },
+            {
+              "type": "MdListItem",
+              "start": 63,
+              "end": 74,
+              "value": "\n  - item 4",
+              "children": [
+                {
+                  "type": "MdListItemStart",
+                  "start": 63,
+                  "end": 68,
+                  "value": "\n  - ",
+                  "depth": 2,
+                  "marker": "  -"
+                },
+                {
+                  "type": "MdListItemContent",
+                  "start": 68,
+                  "end": 74,
+                  "value": "item 4"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "MdTextBlock",
+      "start": 75,
+      "end": 97,
+      "value": "\n  - item 5\n  - item 6",
+      "children": [
+        {
+          "type": "MdList",
+          "start": 75,
+          "end": 97,
+          "value": "\n  - item 5\n  - item 6",
+          "children": [
+            {
+              "type": "MdListItem",
+              "start": 75,
+              "end": 86,
+              "value": "\n  - item 5",
+              "children": [
+                {
+                  "type": "MdListItemStart",
+                  "start": 75,
+                  "end": 80,
+                  "value": "\n  - ",
+                  "depth": 2,
+                  "marker": "  -"
+                },
+                {
+                  "type": "MdListItemContent",
+                  "start": 80,
+                  "end": 86,
+                  "value": "item 5"
+                },
+                {
+                  "type": "MdListItemEnd",
+                  "start": 86,
+                  "end": 86,
+                  "value": ""
+                }
+              ]
+            },
+            {
+              "type": "MdListItem",
+              "start": 86,
+              "end": 97,
+              "value": "\n  - item 6",
+              "children": [
+                {
+                  "type": "MdListItemStart",
+                  "start": 86,
+                  "end": 91,
+                  "value": "\n  - ",
+                  "depth": 2,
+                  "marker": "  -"
+                },
+                {
+                  "type": "MdListItemContent",
+                  "start": 91,
+                  "end": 97,
+                  "value": "item 6"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "MdTextBlock",
+      "start": 98,
+      "end": 99,
+      "value": "\n"
+    }
+  ]
+}
