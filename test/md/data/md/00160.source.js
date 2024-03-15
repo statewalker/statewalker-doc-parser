@@ -5,7 +5,7 @@ export default {
 
     Paragraph one.
 
-    :::::: columns=\"1 2 2\"
+    :::::: columns="1 2 2"
       ::: 
       First column
       ::: 

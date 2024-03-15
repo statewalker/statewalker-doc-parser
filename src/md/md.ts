@@ -1,16 +1,19 @@
 import {
   type TTokenizerMethod,
   isolate,
+  newBlocksSequenceReader,
   newCompositeTokenizer,
   newEmptyLinesReader,
-  newBlocksSequenceReader,
 } from "../base/index.ts";
 import { type THtmlTokenizers, newHtmlReader } from "../html/index.ts";
-import { type TMdCodeBlockTokenizers } from "./code-blocks.ts";
+
+import type { TMdCodeBlockTokenizers } from "./code-blocks.ts";
+import { newMdCodeBlockReader } from "./code-blocks.ts";
+
 import type { TMdFencedBlockTokenizers } from "./fenced-blocks.ts";
 import { newMdFencedBlocksReader } from "./fenced-blocks.ts";
 import type { TMdListTokenizers } from "./lists.ts";
-import { newMdListReader, readMdListItemMarker } from "./lists.ts";
+import { newMdListReader } from "./lists.ts";
 import { type TMdSectionTokenizers, newMdSectionReader } from "./sections.ts";
 
 export type TMdTokenizers = THtmlTokenizers &
@@ -51,6 +54,14 @@ export function newMdReader(readers: TMdTokenizers = {}): TTokenizerMethod {
     readFencedAttributes: readers.readInlineCode,
   });
   blockTokenizers.push(readMdFencedBlocks);
+
+  // -------------------------------------------------------
+
+  const readMdCodeBlocks = newMdCodeBlockReader({
+    ...readers,
+    readCodeBlockContent: readers.readCodeBlockContent,
+  });
+  blockTokenizers.push(readMdCodeBlocks);
 
   // -------------------------------------------------------
 
@@ -106,10 +117,6 @@ export function newMdReader(readers: TMdTokenizers = {}): TTokenizerMethod {
   blockTokenizers.push(readMdSections);
 
   return readBlockContent;
-
-  // const readToken = newCompositeTokenizer([readMdSections, readMdTextBlocks]);
-  // return readToken;
-
   // -------------------------------------------------------
 }
 

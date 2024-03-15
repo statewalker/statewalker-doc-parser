@@ -33,372 +33,335 @@
           "level": 1
         },
         {
-          "type": "MdFencedBlock",
+          "type": "MdTextBlock",
+          "start": 16,
+          "end": 35,
+          "value": "\n    Paragraph one."
+        },
+        {
+          "type": "MdTextBlock",
           "start": 36,
           "end": 420,
           "value": "\n    :::::: columns=\"1 2 2\"\n      ::: \n      First column\n      ::: \n      Second column\n      ::: \n      Third column\n    ::::::\n      ::: \n      ## Sub-header in  cell one\n      Paragraph in cell one.\n      :::\n      ## Sub-header in  cell two\n      Paragraph in cell two.\n      - item one\n      - item two\n      :::\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
           "children": [
             {
-              "type": "MdFencedSection",
+              "type": "MdFencedBlock",
               "start": 36,
-              "end": 154,
-              "value": "\n    :::::: columns=\"1 2 2\"\n      ::: \n      First column\n      ::: \n      Second column\n      ::: \n      Third column",
+              "end": 420,
+              "value": "\n    :::::: columns=\"1 2 2\"\n      ::: \n      First column\n      ::: \n      Second column\n      ::: \n      Third column\n    ::::::\n      ::: \n      ## Sub-header in  cell one\n      Paragraph in cell one.\n      :::\n      ## Sub-header in  cell two\n      Paragraph in cell two.\n      - item one\n      - item two\n      :::\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
               "children": [
                 {
-                  "type": "MdFencedSectionStart",
+                  "type": "MdFencedSection",
                   "start": 36,
-                  "end": 63,
-                  "value": "\n    :::::: columns=\"1 2 2\"",
-                  "depth": 4,
-                  "marker": "    ::::::",
+                  "end": 154,
+                  "value": "\n    :::::: columns=\"1 2 2\"\n      ::: \n      First column\n      ::: \n      Second column\n      ::: \n      Third column",
                   "children": [
                     {
-                      "type": "HtmlAttribute",
-                      "start": 48,
+                      "type": "MdFencedSectionStart",
+                      "start": 36,
                       "end": 63,
-                      "value": "columns=\"1 2 2\"",
+                      "value": "\n    :::::: columns=\"1 2 2\"",
+                      "depth": 4,
+                      "marker": "    ::::::",
                       "children": [
                         {
-                          "type": "HtmlName",
-                          "name": "columns",
+                          "type": "HtmlAttribute",
                           "start": 48,
-                          "end": 55,
-                          "value": "columns"
-                        },
-                        {
-                          "type": "HtmlValue",
-                          "start": 56,
                           "end": 63,
-                          "value": "\"1 2 2\"",
-                          "quoted": true,
-                          "valueStart": 57,
-                          "valueEnd": 62
+                          "value": "columns=\"1 2 2\"",
+                          "children": [
+                            {
+                              "type": "HtmlName",
+                              "name": "columns",
+                              "start": 48,
+                              "end": 55,
+                              "value": "columns"
+                            },
+                            {
+                              "type": "HtmlValue",
+                              "start": 56,
+                              "end": 63,
+                              "value": "\"1 2 2\"",
+                              "quoted": true,
+                              "valueStart": 57,
+                              "valueEnd": 62
+                            }
+                          ]
                         }
                       ]
-                    }
-                  ]
-                },
-                {
-                  "type": "MdFencedSectionContent",
-                  "start": 63,
-                  "end": 154,
-                  "value": "\n      ::: \n      First column\n      ::: \n      Second column\n      ::: \n      Third column",
-                  "children": [
+                    },
                     {
-                      "type": "MdFencedBlock",
+                      "type": "MdFencedSectionContent",
                       "start": 63,
                       "end": 154,
                       "value": "\n      ::: \n      First column\n      ::: \n      Second column\n      ::: \n      Third column",
                       "children": [
                         {
-                          "type": "MdFencedSection",
+                          "type": "MdFencedBlock",
                           "start": 63,
-                          "end": 93,
-                          "value": "\n      ::: \n      First column",
-                          "children": [
-                            {
-                              "type": "MdFencedSectionStart",
-                              "start": 63,
-                              "end": 74,
-                              "value": "\n      ::: ",
-                              "depth": 6,
-                              "marker": "      :::"
-                            },
-                            {
-                              "type": "MdFencedSectionContent",
-                              "start": 74,
-                              "end": 93,
-                              "value": "\n      First column"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "MdFencedSection",
-                          "start": 93,
-                          "end": 124,
-                          "value": "\n      ::: \n      Second column",
-                          "children": [
-                            {
-                              "type": "MdFencedSectionStart",
-                              "start": 93,
-                              "end": 104,
-                              "value": "\n      ::: ",
-                              "depth": 6,
-                              "marker": "      :::"
-                            },
-                            {
-                              "type": "MdFencedSectionContent",
-                              "start": 104,
-                              "end": 124,
-                              "value": "\n      Second column"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "MdFencedSection",
-                          "start": 124,
                           "end": 154,
-                          "value": "\n      ::: \n      Third column",
+                          "value": "\n      ::: \n      First column\n      ::: \n      Second column\n      ::: \n      Third column",
                           "children": [
                             {
-                              "type": "MdFencedSectionStart",
-                              "start": 124,
-                              "end": 135,
-                              "value": "\n      ::: ",
-                              "depth": 6,
-                              "marker": "      :::"
+                              "type": "MdFencedSection",
+                              "start": 63,
+                              "end": 93,
+                              "value": "\n      ::: \n      First column",
+                              "children": [
+                                {
+                                  "type": "MdFencedSectionStart",
+                                  "start": 63,
+                                  "end": 74,
+                                  "value": "\n      ::: ",
+                                  "depth": 6,
+                                  "marker": "      :::"
+                                },
+                                {
+                                  "type": "MdFencedSectionContent",
+                                  "start": 74,
+                                  "end": 93,
+                                  "value": "\n      First column"
+                                }
+                              ]
                             },
                             {
-                              "type": "MdFencedSectionContent",
-                              "start": 135,
+                              "type": "MdFencedSection",
+                              "start": 93,
+                              "end": 124,
+                              "value": "\n      ::: \n      Second column",
+                              "children": [
+                                {
+                                  "type": "MdFencedSectionStart",
+                                  "start": 93,
+                                  "end": 104,
+                                  "value": "\n      ::: ",
+                                  "depth": 6,
+                                  "marker": "      :::"
+                                },
+                                {
+                                  "type": "MdFencedSectionContent",
+                                  "start": 104,
+                                  "end": 124,
+                                  "value": "\n      Second column"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "MdFencedSection",
+                              "start": 124,
                               "end": 154,
-                              "value": "\n      Third column"
+                              "value": "\n      ::: \n      Third column",
+                              "children": [
+                                {
+                                  "type": "MdFencedSectionStart",
+                                  "start": 124,
+                                  "end": 135,
+                                  "value": "\n      ::: ",
+                                  "depth": 6,
+                                  "marker": "      :::"
+                                },
+                                {
+                                  "type": "MdFencedSectionContent",
+                                  "start": 135,
+                                  "end": 154,
+                                  "value": "\n      Third column"
+                                }
+                              ]
                             }
                           ]
                         }
                       ]
                     }
                   ]
-                }
-              ]
-            },
-            {
-              "type": "MdFencedSection",
-              "start": 154,
-              "end": 420,
-              "value": "\n    ::::::\n      ::: \n      ## Sub-header in  cell one\n      Paragraph in cell one.\n      :::\n      ## Sub-header in  cell two\n      Paragraph in cell two.\n      - item one\n      - item two\n      :::\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
-              "children": [
-                {
-                  "type": "MdFencedSectionStart",
-                  "start": 154,
-                  "end": 165,
-                  "value": "\n    ::::::",
-                  "depth": 4,
-                  "marker": "    ::::::"
                 },
                 {
-                  "type": "MdFencedSectionContent",
-                  "start": 165,
+                  "type": "MdFencedSection",
+                  "start": 154,
                   "end": 420,
-                  "value": "\n      ::: \n      ## Sub-header in  cell one\n      Paragraph in cell one.\n      :::\n      ## Sub-header in  cell two\n      Paragraph in cell two.\n      - item one\n      - item two\n      :::\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
+                  "value": "\n    ::::::\n      ::: \n      ## Sub-header in  cell one\n      Paragraph in cell one.\n      :::\n      ## Sub-header in  cell two\n      Paragraph in cell two.\n      - item one\n      - item two\n      :::\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
                   "children": [
                     {
-                      "type": "MdFencedBlock",
+                      "type": "MdFencedSectionStart",
+                      "start": 154,
+                      "end": 165,
+                      "value": "\n    ::::::",
+                      "depth": 4,
+                      "marker": "    ::::::"
+                    },
+                    {
+                      "type": "MdFencedSectionContent",
                       "start": 165,
                       "end": 420,
                       "value": "\n      ::: \n      ## Sub-header in  cell one\n      Paragraph in cell one.\n      :::\n      ## Sub-header in  cell two\n      Paragraph in cell two.\n      - item one\n      - item two\n      :::\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
                       "children": [
                         {
-                          "type": "MdFencedSection",
+                          "type": "MdFencedBlock",
                           "start": 165,
-                          "end": 238,
-                          "value": "\n      ::: \n      ## Sub-header in  cell one\n      Paragraph in cell one.",
+                          "end": 420,
+                          "value": "\n      ::: \n      ## Sub-header in  cell one\n      Paragraph in cell one.\n      :::\n      ## Sub-header in  cell two\n      Paragraph in cell two.\n      - item one\n      - item two\n      :::\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
                           "children": [
                             {
-                              "type": "MdFencedSectionStart",
+                              "type": "MdFencedSection",
                               "start": 165,
-                              "end": 176,
-                              "value": "\n      ::: ",
-                              "depth": 6,
-                              "marker": "      :::"
-                            },
-                            {
-                              "type": "MdFencedSectionContent",
-                              "start": 176,
                               "end": 238,
-                              "value": "\n      ## Sub-header in  cell one\n      Paragraph in cell one.",
+                              "value": "\n      ::: \n      ## Sub-header in  cell one\n      Paragraph in cell one.",
                               "children": [
                                 {
-                                  "type": "MdSection",
+                                  "type": "MdFencedSectionStart",
+                                  "start": 165,
+                                  "end": 176,
+                                  "value": "\n      ::: ",
+                                  "depth": 6,
+                                  "marker": "      :::"
+                                },
+                                {
+                                  "type": "MdFencedSectionContent",
                                   "start": 176,
                                   "end": 238,
                                   "value": "\n      ## Sub-header in  cell one\n      Paragraph in cell one.",
                                   "children": [
                                     {
-                                      "type": "MdHeader",
+                                      "type": "MdSection",
                                       "start": 176,
-                                      "end": 209,
-                                      "value": "\n      ## Sub-header in  cell one",
+                                      "end": 238,
+                                      "value": "\n      ## Sub-header in  cell one\n      Paragraph in cell one.",
                                       "children": [
                                         {
-                                          "type": "MdHeaderStart",
+                                          "type": "MdHeader",
                                           "start": 176,
-                                          "end": 186,
-                                          "value": "\n      ## ",
+                                          "end": 209,
+                                          "value": "\n      ## Sub-header in  cell one",
+                                          "children": [
+                                            {
+                                              "type": "MdHeaderStart",
+                                              "start": 176,
+                                              "end": 186,
+                                              "value": "\n      ## ",
+                                              "level": 2
+                                            },
+                                            {
+                                              "type": "MdHeaderEnd",
+                                              "start": 209,
+                                              "end": 209,
+                                              "value": ""
+                                            }
+                                          ],
                                           "level": 2
                                         },
                                         {
-                                          "type": "MdHeaderEnd",
+                                          "type": "MdTextBlock",
                                           "start": 209,
-                                          "end": 209,
-                                          "value": ""
+                                          "end": 238,
+                                          "value": "\n      Paragraph in cell one."
                                         }
                                       ],
                                       "level": 2
                                     }
-                                  ],
-                                  "level": 2
+                                  ]
                                 }
                               ]
-                            }
-                          ]
-                        },
-                        {
-                          "type": "MdFencedSection",
-                          "start": 238,
-                          "end": 420,
-                          "value": "\n      :::\n      ## Sub-header in  cell two\n      Paragraph in cell two.\n      - item one\n      - item two\n      :::\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
-                          "children": [
-                            {
-                              "type": "MdFencedSectionStart",
-                              "start": 238,
-                              "end": 248,
-                              "value": "\n      :::",
-                              "depth": 6,
-                              "marker": "      :::"
                             },
                             {
-                              "type": "MdFencedSectionContent",
-                              "start": 248,
-                              "end": 420,
-                              "value": "\n      ## Sub-header in  cell two\n      Paragraph in cell two.\n      - item one\n      - item two\n      :::\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
+                              "type": "MdFencedSection",
+                              "start": 238,
+                              "end": 344,
+                              "value": "\n      :::\n      ## Sub-header in  cell two\n      Paragraph in cell two.\n      - item one\n      - item two",
                               "children": [
                                 {
-                                  "type": "MdSection",
+                                  "type": "MdFencedSectionStart",
+                                  "start": 238,
+                                  "end": 248,
+                                  "value": "\n      :::",
+                                  "depth": 6,
+                                  "marker": "      :::"
+                                },
+                                {
+                                  "type": "MdFencedSectionContent",
                                   "start": 248,
-                                  "end": 420,
-                                  "value": "\n      ## Sub-header in  cell two\n      Paragraph in cell two.\n      - item one\n      - item two\n      :::\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
+                                  "end": 344,
+                                  "value": "\n      ## Sub-header in  cell two\n      Paragraph in cell two.\n      - item one\n      - item two",
                                   "children": [
                                     {
-                                      "type": "MdHeader",
+                                      "type": "MdSection",
                                       "start": 248,
-                                      "end": 281,
-                                      "value": "\n      ## Sub-header in  cell two",
+                                      "end": 344,
+                                      "value": "\n      ## Sub-header in  cell two\n      Paragraph in cell two.\n      - item one\n      - item two",
                                       "children": [
                                         {
-                                          "type": "MdHeaderStart",
+                                          "type": "MdHeader",
                                           "start": 248,
-                                          "end": 258,
-                                          "value": "\n      ## ",
+                                          "end": 281,
+                                          "value": "\n      ## Sub-header in  cell two",
+                                          "children": [
+                                            {
+                                              "type": "MdHeaderStart",
+                                              "start": 248,
+                                              "end": 258,
+                                              "value": "\n      ## ",
+                                              "level": 2
+                                            },
+                                            {
+                                              "type": "MdHeaderEnd",
+                                              "start": 281,
+                                              "end": 281,
+                                              "value": ""
+                                            }
+                                          ],
                                           "level": 2
                                         },
                                         {
-                                          "type": "MdHeaderEnd",
+                                          "type": "MdTextBlock",
                                           "start": 281,
-                                          "end": 281,
-                                          "value": ""
-                                        }
-                                      ],
-                                      "level": 2
-                                    },
-                                    {
-                                      "type": "MdList",
-                                      "start": 310,
-                                      "end": 420,
-                                      "value": "\n      - item one\n      - item two\n      :::\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
-                                      "children": [
-                                        {
-                                          "type": "MdListItem",
-                                          "start": 310,
-                                          "end": 327,
-                                          "value": "\n      - item one",
+                                          "end": 344,
+                                          "value": "\n      Paragraph in cell two.\n      - item one\n      - item two",
                                           "children": [
                                             {
-                                              "type": "MdListItemStart",
+                                              "type": "MdList",
                                               "start": 310,
-                                              "end": 319,
-                                              "value": "\n      - ",
-                                              "depth": 6,
-                                              "marker": "      -"
-                                            },
-                                            {
-                                              "type": "MdListItemContent",
-                                              "start": 319,
-                                              "end": 327,
-                                              "value": "item one"
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "MdListItem",
-                                          "start": 327,
-                                          "end": 420,
-                                          "value": "\n      - item two\n      :::\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
-                                          "children": [
-                                            {
-                                              "type": "MdListItemStart",
-                                              "start": 327,
-                                              "end": 336,
-                                              "value": "\n      - ",
-                                              "depth": 6,
-                                              "marker": "      -"
-                                            },
-                                            {
-                                              "type": "MdListItemContent",
-                                              "start": 336,
-                                              "end": 420,
-                                              "value": "item two\n      :::\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
+                                              "end": 344,
+                                              "value": "\n      - item one\n      - item two",
                                               "children": [
                                                 {
-                                                  "type": "MdFencedBlock",
-                                                  "start": 344,
-                                                  "end": 420,
-                                                  "value": "\n      :::\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
+                                                  "type": "MdListItem",
+                                                  "start": 310,
+                                                  "end": 327,
+                                                  "value": "\n      - item one",
                                                   "children": [
                                                     {
-                                                      "type": "MdFencedSection",
-                                                      "start": 344,
-                                                      "end": 420,
-                                                      "value": "\n      :::\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
-                                                      "children": [
-                                                        {
-                                                          "type": "MdFencedSectionStart",
-                                                          "start": 344,
-                                                          "end": 354,
-                                                          "value": "\n      :::",
-                                                          "depth": 6,
-                                                          "marker": "      :::"
-                                                        },
-                                                        {
-                                                          "type": "MdFencedSectionContent",
-                                                          "start": 354,
-                                                          "end": 420,
-                                                          "value": "\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
-                                                          "children": [
-                                                            {
-                                                              "type": "MdSection",
-                                                              "start": 354,
-                                                              "end": 420,
-                                                              "value": "\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
-                                                              "children": [
-                                                                {
-                                                                  "type": "MdHeader",
-                                                                  "start": 354,
-                                                                  "end": 389,
-                                                                  "value": "\n      ## Sub-header in  cell three",
-                                                                  "children": [
-                                                                    {
-                                                                      "type": "MdHeaderStart",
-                                                                      "start": 354,
-                                                                      "end": 364,
-                                                                      "value": "\n      ## ",
-                                                                      "level": 2
-                                                                    },
-                                                                    {
-                                                                      "type": "MdHeaderEnd",
-                                                                      "start": 389,
-                                                                      "end": 389,
-                                                                      "value": ""
-                                                                    }
-                                                                  ],
-                                                                  "level": 2
-                                                                }
-                                                              ],
-                                                              "level": 2
-                                                            }
-                                                          ]
-                                                        }
-                                                      ]
+                                                      "type": "MdListItemStart",
+                                                      "start": 310,
+                                                      "end": 319,
+                                                      "value": "\n      - ",
+                                                      "depth": 6,
+                                                      "marker": "      -"
+                                                    },
+                                                    {
+                                                      "type": "MdListItemContent",
+                                                      "start": 319,
+                                                      "end": 327,
+                                                      "value": "item one"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "MdListItem",
+                                                  "start": 327,
+                                                  "end": 344,
+                                                  "value": "\n      - item two",
+                                                  "children": [
+                                                    {
+                                                      "type": "MdListItemStart",
+                                                      "start": 327,
+                                                      "end": 336,
+                                                      "value": "\n      - ",
+                                                      "depth": 6,
+                                                      "marker": "      -"
+                                                    },
+                                                    {
+                                                      "type": "MdListItemContent",
+                                                      "start": 336,
+                                                      "end": 344,
+                                                      "value": "item two"
                                                     }
                                                   ]
                                                 }
@@ -406,10 +369,71 @@
                                             }
                                           ]
                                         }
-                                      ]
+                                      ],
+                                      "level": 2
                                     }
-                                  ],
-                                  "level": 2
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "MdFencedSection",
+                              "start": 344,
+                              "end": 420,
+                              "value": "\n      :::\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
+                              "children": [
+                                {
+                                  "type": "MdFencedSectionStart",
+                                  "start": 344,
+                                  "end": 354,
+                                  "value": "\n      :::",
+                                  "depth": 6,
+                                  "marker": "      :::"
+                                },
+                                {
+                                  "type": "MdFencedSectionContent",
+                                  "start": 354,
+                                  "end": 420,
+                                  "value": "\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
+                                  "children": [
+                                    {
+                                      "type": "MdSection",
+                                      "start": 354,
+                                      "end": 420,
+                                      "value": "\n      ## Sub-header in  cell three\n      Paragraph in cell three.",
+                                      "children": [
+                                        {
+                                          "type": "MdHeader",
+                                          "start": 354,
+                                          "end": 389,
+                                          "value": "\n      ## Sub-header in  cell three",
+                                          "children": [
+                                            {
+                                              "type": "MdHeaderStart",
+                                              "start": 354,
+                                              "end": 364,
+                                              "value": "\n      ## ",
+                                              "level": 2
+                                            },
+                                            {
+                                              "type": "MdHeaderEnd",
+                                              "start": 389,
+                                              "end": 389,
+                                              "value": ""
+                                            }
+                                          ],
+                                          "level": 2
+                                        },
+                                        {
+                                          "type": "MdTextBlock",
+                                          "start": 389,
+                                          "end": 420,
+                                          "value": "\n      Paragraph in cell three."
+                                        }
+                                      ],
+                                      "level": 2
+                                    }
+                                  ]
                                 }
                               ]
                             }
@@ -422,6 +446,12 @@
               ]
             }
           ]
+        },
+        {
+          "type": "MdTextBlock",
+          "start": 421,
+          "end": 445,
+          "value": "\n    Paragraph two.\n    "
         }
       ],
       "level": 1

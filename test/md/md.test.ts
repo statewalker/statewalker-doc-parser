@@ -12,9 +12,9 @@ async function main() {
   // const readContent = newCompositeTokenizer(contentTokenizers);
   const readers = {
     // * html:
-      readOpenTagTokens: readCode,
-      readInstructionsTokens: readCode,
-      readTagContentTokens: readCode,
+    readOpenTagTokens: readCode,
+    readInstructionsTokens: readCode,
+    readTagContentTokens: readCode,
     // * md:
     //   - readHeaderTokens: readCode,
     //   - readSectionTokens: readContent,
@@ -39,6 +39,7 @@ async function main() {
 
     readBlockContent: readCode,
   };
+
   const readToken = newMdReader(readers);
   const runTests = newTestRunner(newTokenizerTest(readToken));
   runTests(`${import.meta.dirname}/data/md`);

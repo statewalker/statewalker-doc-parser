@@ -66,7 +66,7 @@ export function newMdFencedBlocksReader({
       ListItem: "MdFencedSection",
       ListItemStart: "MdFencedSectionStart",
       ListItemContent: "MdFencedSectionContent",
-      ListItemEnd: "MdFencedSectionEnd",
+      // ListItemEnd: "MdFencedSectionEnd",
     },
   });
   return readList;
