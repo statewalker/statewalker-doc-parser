@@ -12,9 +12,9 @@ async function main() {
   // const readContent = newCompositeTokenizer(contentTokenizers);
   const readers = {
     // * html:
-    //   - readOpenTagTokens: readCode,
-    //   - readInstructionsTokens: readCode,
-    //   - readTagContentTokens: readContent,
+      readOpenTagTokens: readCode,
+      readInstructionsTokens: readCode,
+      readTagContentTokens: readCode,
     // * md:
     //   - readHeaderTokens: readCode,
     //   - readSectionTokens: readContent,
@@ -26,7 +26,7 @@ async function main() {
     // * fencedblock:
     //   - readFencedContent?: TTokenizerMethod;
     //   - readFencedAttributes?: TTokenizerMethod;
-    
+
     //// compareListItemMarkers?: (startMarker: TToken, endMarker: TToken) => number;
     //// listTokenNames?: {
     ////    List: string;
@@ -37,8 +37,7 @@ async function main() {
     ////  };
     //// },
 
-
-    readContent: readCode,
+    readBlockContent: readCode,
   };
   const readToken = newMdReader(readers);
   const runTests = newTestRunner(newTokenizerTest(readToken));

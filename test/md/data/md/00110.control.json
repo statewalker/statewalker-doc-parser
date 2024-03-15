@@ -33,106 +33,114 @@
           "level": 1
         },
         {
-          "type": "MdList",
+          "type": "MdTextBlock",
           "start": 15,
           "end": 120,
           "value": "\n    - item one \n      - sub-item 1\n      - sub-item 2\n        the rest of sub-item 2\n    - item two\n    ",
           "children": [
             {
-              "type": "MdListItem",
+              "type": "MdList",
               "start": 15,
-              "end": 100,
-              "value": "\n    - item one \n      - sub-item 1\n      - sub-item 2\n        the rest of sub-item 2",
+              "end": 120,
+              "value": "\n    - item one \n      - sub-item 1\n      - sub-item 2\n        the rest of sub-item 2\n    - item two\n    ",
               "children": [
                 {
-                  "type": "MdListItemStart",
+                  "type": "MdListItem",
                   "start": 15,
-                  "end": 22,
-                  "value": "\n    - ",
-                  "depth": 4,
-                  "marker": "    -"
-                },
-                {
-                  "type": "MdListItemContent",
-                  "start": 22,
                   "end": 100,
-                  "value": "item one \n      - sub-item 1\n      - sub-item 2\n        the rest of sub-item 2",
+                  "value": "\n    - item one \n      - sub-item 1\n      - sub-item 2\n        the rest of sub-item 2",
                   "children": [
                     {
-                      "type": "MdList",
-                      "start": 31,
+                      "type": "MdListItemStart",
+                      "start": 15,
+                      "end": 22,
+                      "value": "\n    - ",
+                      "depth": 4,
+                      "marker": "    -"
+                    },
+                    {
+                      "type": "MdListItemContent",
+                      "start": 22,
                       "end": 100,
-                      "value": "\n      - sub-item 1\n      - sub-item 2\n        the rest of sub-item 2",
+                      "value": "item one \n      - sub-item 1\n      - sub-item 2\n        the rest of sub-item 2",
                       "children": [
                         {
-                          "type": "MdListItem",
+                          "type": "MdList",
                           "start": 31,
-                          "end": 50,
-                          "value": "\n      - sub-item 1",
-                          "children": [
-                            {
-                              "type": "MdListItemStart",
-                              "start": 31,
-                              "end": 40,
-                              "value": "\n      - ",
-                              "depth": 6,
-                              "marker": "      -"
-                            },
-                            {
-                              "type": "MdListItemContent",
-                              "start": 40,
-                              "end": 50,
-                              "value": "sub-item 1"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "MdListItem",
-                          "start": 50,
                           "end": 100,
-                          "value": "\n      - sub-item 2\n        the rest of sub-item 2",
+                          "value": "\n      - sub-item 1\n      - sub-item 2\n        the rest of sub-item 2",
                           "children": [
                             {
-                              "type": "MdListItemStart",
-                              "start": 50,
-                              "end": 59,
-                              "value": "\n      - ",
-                              "depth": 6,
-                              "marker": "      -"
+                              "type": "MdListItem",
+                              "start": 31,
+                              "end": 50,
+                              "value": "\n      - sub-item 1",
+                              "children": [
+                                {
+                                  "type": "MdListItemStart",
+                                  "start": 31,
+                                  "end": 40,
+                                  "value": "\n      - ",
+                                  "depth": 6,
+                                  "marker": "      -"
+                                },
+                                {
+                                  "type": "MdListItemContent",
+                                  "start": 40,
+                                  "end": 50,
+                                  "value": "sub-item 1"
+                                }
+                              ]
                             },
                             {
-                              "type": "MdListItemContent",
-                              "start": 59,
+                              "type": "MdListItem",
+                              "start": 50,
                               "end": 100,
-                              "value": "sub-item 2\n        the rest of sub-item 2"
+                              "value": "\n      - sub-item 2\n        the rest of sub-item 2",
+                              "children": [
+                                {
+                                  "type": "MdListItemStart",
+                                  "start": 50,
+                                  "end": 59,
+                                  "value": "\n      - ",
+                                  "depth": 6,
+                                  "marker": "      -"
+                                },
+                                {
+                                  "type": "MdListItemContent",
+                                  "start": 59,
+                                  "end": 100,
+                                  "value": "sub-item 2\n        the rest of sub-item 2"
+                                }
+                              ]
                             }
                           ]
                         }
                       ]
                     }
                   ]
-                }
-              ]
-            },
-            {
-              "type": "MdListItem",
-              "start": 100,
-              "end": 120,
-              "value": "\n    - item two\n    ",
-              "children": [
-                {
-                  "type": "MdListItemStart",
-                  "start": 100,
-                  "end": 107,
-                  "value": "\n    - ",
-                  "depth": 4,
-                  "marker": "    -"
                 },
                 {
-                  "type": "MdListItemContent",
-                  "start": 107,
+                  "type": "MdListItem",
+                  "start": 100,
                   "end": 120,
-                  "value": "item two\n    "
+                  "value": "\n    - item two\n    ",
+                  "children": [
+                    {
+                      "type": "MdListItemStart",
+                      "start": 100,
+                      "end": 107,
+                      "value": "\n    - ",
+                      "depth": 4,
+                      "marker": "    -"
+                    },
+                    {
+                      "type": "MdListItemContent",
+                      "start": 107,
+                      "end": 120,
+                      "value": "item two\n    "
+                    }
+                  ]
                 }
               ]
             }

@@ -33,241 +33,271 @@
           "level": 1
         },
         {
-          "type": "HtmlTag",
-          "start": 15,
-          "end": 113,
-          "value": "<div>\n\n## Sub-Section 1\n\n<p>First paragraph</p>\n\n## Sub-Section 2\n\n<p>Second paragraph</p>\n\n</div>",
+          "type": "MdTextBlock",
+          "start": 14,
+          "end": 114,
+          "value": "\n<div>\n\n## Sub-Section 1\n\n<p>First paragraph</p>\n\n## Sub-Section 2\n\n<p>Second paragraph</p>\n\n</div>\n",
           "children": [
             {
-              "type": "HtmlOpenTag",
+              "type": "HtmlTag",
               "start": 15,
-              "end": 20,
-              "value": "<div>",
+              "end": 113,
+              "value": "<div>\n\n## Sub-Section 1\n\n<p>First paragraph</p>\n\n## Sub-Section 2\n\n<p>Second paragraph</p>\n\n</div>",
               "children": [
                 {
-                  "type": "HtmlTagStart",
+                  "type": "HtmlOpenTag",
                   "start": 15,
-                  "end": 19,
-                  "value": "<div",
+                  "end": 20,
+                  "value": "<div>",
+                  "children": [
+                    {
+                      "type": "HtmlTagStart",
+                      "start": 15,
+                      "end": 19,
+                      "value": "<div",
+                      "children": [
+                        {
+                          "type": "HtmlName",
+                          "name": "div",
+                          "start": 16,
+                          "end": 19,
+                          "value": "div"
+                        }
+                      ],
+                      "tagName": "div"
+                    },
+                    {
+                      "type": "HtmlTagEnd",
+                      "start": 19,
+                      "end": 20,
+                      "value": ">",
+                      "autoclosing": false
+                    }
+                  ],
+                  "tagName": "div",
+                  "autoclosing": false
+                },
+                {
+                  "type": "MdSection",
+                  "start": 20,
+                  "end": 62,
+                  "value": "\n\n## Sub-Section 1\n\n<p>First paragraph</p>",
+                  "children": [
+                    {
+                      "type": "MdHeader",
+                      "start": 20,
+                      "end": 38,
+                      "value": "\n\n## Sub-Section 1",
+                      "children": [
+                        {
+                          "type": "MdHeaderStart",
+                          "start": 20,
+                          "end": 25,
+                          "value": "\n\n## ",
+                          "level": 2
+                        },
+                        {
+                          "type": "MdHeaderEnd",
+                          "start": 38,
+                          "end": 38,
+                          "value": ""
+                        }
+                      ],
+                      "level": 2
+                    },
+                    {
+                      "type": "MdTextBlock",
+                      "start": 39,
+                      "end": 62,
+                      "value": "\n<p>First paragraph</p>",
+                      "children": [
+                        {
+                          "type": "HtmlTag",
+                          "start": 40,
+                          "end": 62,
+                          "value": "<p>First paragraph</p>",
+                          "children": [
+                            {
+                              "type": "HtmlOpenTag",
+                              "start": 40,
+                              "end": 43,
+                              "value": "<p>",
+                              "children": [
+                                {
+                                  "type": "HtmlTagStart",
+                                  "start": 40,
+                                  "end": 42,
+                                  "value": "<p",
+                                  "children": [
+                                    {
+                                      "type": "HtmlName",
+                                      "name": "p",
+                                      "start": 41,
+                                      "end": 42,
+                                      "value": "p"
+                                    }
+                                  ],
+                                  "tagName": "p"
+                                },
+                                {
+                                  "type": "HtmlTagEnd",
+                                  "start": 42,
+                                  "end": 43,
+                                  "value": ">",
+                                  "autoclosing": false
+                                }
+                              ],
+                              "tagName": "p",
+                              "autoclosing": false
+                            },
+                            {
+                              "type": "HtmlCloseTag",
+                              "start": 58,
+                              "end": 62,
+                              "value": "</p>",
+                              "children": [
+                                {
+                                  "type": "HtmlName",
+                                  "name": "p",
+                                  "start": 60,
+                                  "end": 61,
+                                  "value": "p"
+                                }
+                              ],
+                              "tagName": "p"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "MdSectionEnd",
+                      "start": 62,
+                      "end": 62,
+                      "value": ""
+                    }
+                  ],
+                  "level": 2
+                },
+                {
+                  "type": "MdSection",
+                  "start": 62,
+                  "end": 107,
+                  "value": "\n\n## Sub-Section 2\n\n<p>Second paragraph</p>\n\n",
+                  "children": [
+                    {
+                      "type": "MdHeader",
+                      "start": 62,
+                      "end": 80,
+                      "value": "\n\n## Sub-Section 2",
+                      "children": [
+                        {
+                          "type": "MdHeaderStart",
+                          "start": 62,
+                          "end": 67,
+                          "value": "\n\n## ",
+                          "level": 2
+                        },
+                        {
+                          "type": "MdHeaderEnd",
+                          "start": 80,
+                          "end": 80,
+                          "value": ""
+                        }
+                      ],
+                      "level": 2
+                    },
+                    {
+                      "type": "MdTextBlock",
+                      "start": 81,
+                      "end": 105,
+                      "value": "\n<p>Second paragraph</p>",
+                      "children": [
+                        {
+                          "type": "HtmlTag",
+                          "start": 82,
+                          "end": 105,
+                          "value": "<p>Second paragraph</p>",
+                          "children": [
+                            {
+                              "type": "HtmlOpenTag",
+                              "start": 82,
+                              "end": 85,
+                              "value": "<p>",
+                              "children": [
+                                {
+                                  "type": "HtmlTagStart",
+                                  "start": 82,
+                                  "end": 84,
+                                  "value": "<p",
+                                  "children": [
+                                    {
+                                      "type": "HtmlName",
+                                      "name": "p",
+                                      "start": 83,
+                                      "end": 84,
+                                      "value": "p"
+                                    }
+                                  ],
+                                  "tagName": "p"
+                                },
+                                {
+                                  "type": "HtmlTagEnd",
+                                  "start": 84,
+                                  "end": 85,
+                                  "value": ">",
+                                  "autoclosing": false
+                                }
+                              ],
+                              "tagName": "p",
+                              "autoclosing": false
+                            },
+                            {
+                              "type": "HtmlCloseTag",
+                              "start": 101,
+                              "end": 105,
+                              "value": "</p>",
+                              "children": [
+                                {
+                                  "type": "HtmlName",
+                                  "name": "p",
+                                  "start": 103,
+                                  "end": 104,
+                                  "value": "p"
+                                }
+                              ],
+                              "tagName": "p"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "MdTextBlock",
+                      "start": 106,
+                      "end": 107,
+                      "value": "\n"
+                    }
+                  ],
+                  "level": 2
+                },
+                {
+                  "type": "HtmlCloseTag",
+                  "start": 107,
+                  "end": 113,
+                  "value": "</div>",
                   "children": [
                     {
                       "type": "HtmlName",
                       "name": "div",
-                      "start": 16,
-                      "end": 19,
+                      "start": 109,
+                      "end": 112,
                       "value": "div"
                     }
                   ],
                   "tagName": "div"
-                },
-                {
-                  "type": "HtmlTagEnd",
-                  "start": 19,
-                  "end": 20,
-                  "value": ">",
-                  "autoclosing": false
                 }
-              ],
-              "tagName": "div",
-              "autoclosing": false
-            },
-            {
-              "type": "MdSection",
-              "start": 20,
-              "end": 62,
-              "value": "\n\n## Sub-Section 1\n\n<p>First paragraph</p>",
-              "children": [
-                {
-                  "type": "MdHeader",
-                  "start": 20,
-                  "end": 38,
-                  "value": "\n\n## Sub-Section 1",
-                  "children": [
-                    {
-                      "type": "MdHeaderStart",
-                      "start": 20,
-                      "end": 25,
-                      "value": "\n\n## ",
-                      "level": 2
-                    },
-                    {
-                      "type": "MdHeaderEnd",
-                      "start": 38,
-                      "end": 38,
-                      "value": ""
-                    }
-                  ],
-                  "level": 2
-                },
-                {
-                  "type": "HtmlTag",
-                  "start": 40,
-                  "end": 62,
-                  "value": "<p>First paragraph</p>",
-                  "children": [
-                    {
-                      "type": "HtmlOpenTag",
-                      "start": 40,
-                      "end": 43,
-                      "value": "<p>",
-                      "children": [
-                        {
-                          "type": "HtmlTagStart",
-                          "start": 40,
-                          "end": 42,
-                          "value": "<p",
-                          "children": [
-                            {
-                              "type": "HtmlName",
-                              "name": "p",
-                              "start": 41,
-                              "end": 42,
-                              "value": "p"
-                            }
-                          ],
-                          "tagName": "p"
-                        },
-                        {
-                          "type": "HtmlTagEnd",
-                          "start": 42,
-                          "end": 43,
-                          "value": ">",
-                          "autoclosing": false
-                        }
-                      ],
-                      "tagName": "p",
-                      "autoclosing": false
-                    },
-                    {
-                      "type": "HtmlCloseTag",
-                      "start": 58,
-                      "end": 62,
-                      "value": "</p>",
-                      "children": [
-                        {
-                          "type": "HtmlName",
-                          "name": "p",
-                          "start": 60,
-                          "end": 61,
-                          "value": "p"
-                        }
-                      ],
-                      "tagName": "p"
-                    }
-                  ]
-                },
-                {
-                  "type": "MdSectionEnd",
-                  "start": 62,
-                  "end": 62,
-                  "value": ""
-                }
-              ],
-              "level": 2
-            },
-            {
-              "type": "MdSection",
-              "start": 62,
-              "end": 107,
-              "value": "\n\n## Sub-Section 2\n\n<p>Second paragraph</p>\n\n",
-              "children": [
-                {
-                  "type": "MdHeader",
-                  "start": 62,
-                  "end": 80,
-                  "value": "\n\n## Sub-Section 2",
-                  "children": [
-                    {
-                      "type": "MdHeaderStart",
-                      "start": 62,
-                      "end": 67,
-                      "value": "\n\n## ",
-                      "level": 2
-                    },
-                    {
-                      "type": "MdHeaderEnd",
-                      "start": 80,
-                      "end": 80,
-                      "value": ""
-                    }
-                  ],
-                  "level": 2
-                },
-                {
-                  "type": "HtmlTag",
-                  "start": 82,
-                  "end": 105,
-                  "value": "<p>Second paragraph</p>",
-                  "children": [
-                    {
-                      "type": "HtmlOpenTag",
-                      "start": 82,
-                      "end": 85,
-                      "value": "<p>",
-                      "children": [
-                        {
-                          "type": "HtmlTagStart",
-                          "start": 82,
-                          "end": 84,
-                          "value": "<p",
-                          "children": [
-                            {
-                              "type": "HtmlName",
-                              "name": "p",
-                              "start": 83,
-                              "end": 84,
-                              "value": "p"
-                            }
-                          ],
-                          "tagName": "p"
-                        },
-                        {
-                          "type": "HtmlTagEnd",
-                          "start": 84,
-                          "end": 85,
-                          "value": ">",
-                          "autoclosing": false
-                        }
-                      ],
-                      "tagName": "p",
-                      "autoclosing": false
-                    },
-                    {
-                      "type": "HtmlCloseTag",
-                      "start": 101,
-                      "end": 105,
-                      "value": "</p>",
-                      "children": [
-                        {
-                          "type": "HtmlName",
-                          "name": "p",
-                          "start": 103,
-                          "end": 104,
-                          "value": "p"
-                        }
-                      ],
-                      "tagName": "p"
-                    }
-                  ]
-                }
-              ],
-              "level": 2
-            },
-            {
-              "type": "HtmlCloseTag",
-              "start": 107,
-              "end": 113,
-              "value": "</div>",
-              "children": [
-                {
-                  "type": "HtmlName",
-                  "name": "div",
-                  "start": 109,
-                  "end": 112,
-                  "value": "div"
-                }
-              ],
-              "tagName": "div"
+              ]
             }
           ]
         }

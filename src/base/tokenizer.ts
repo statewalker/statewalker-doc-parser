@@ -217,6 +217,30 @@ export function isolate<T extends TToken>(
   };
 }
 
+function getTokenizerId(tokenizer: TTokenizerMethod): number {
+  const t = tokenizer as any;
+  return (t.__id =
+    t.__id ||
+    ((getTokenizerId as any).__id = ((getTokenizerId as any).__id || 0) + 1));
+}
+
+function readToken(
+  ctx: TokenizerContext,
+  tokenizer: TTokenizerMethod
+): TToken | undefined {
+  const o = ctx as any;
+  const index: Record<number, number> = (o.__tokenizersIndex =
+    o.__tokenizersIndex || {});
+  const id = (getTokenizerId(tokenizer) << 24) | ctx.i;
+  if (id in index) return;
+  try {
+    index[id] = 1;
+    return tokenizer(ctx);
+  } finally {
+    delete index[id];
+  }
+}
+
 export function newCompositeTokenizer(
   tokenizers: TTokenizerMethod[]
 ): TTokenizerMethod {
@@ -224,7 +248,7 @@ export function newCompositeTokenizer(
     let result: TToken | undefined;
     const start = ctx.i;
     for (let i = 0; i < tokenizers.length; i++) {
-      result = tokenizers[i](ctx);
+      result = readToken(ctx, tokenizers[i]);
       if (result) {
         break;
       }

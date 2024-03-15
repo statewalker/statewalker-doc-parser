@@ -1,38 +1,18 @@
-import type {
-  TToken,
-  TTokenizerMethod,
-  TokenizerContext,
-} from "../../src/index.ts";
+import type { TTokenizerMethod } from "../../src/index.ts";
 import {
-  isEol,
-  isSpace,
   isolate,
   newBlocksSequenceReader,
-  newCharReader,
   newCodeReader,
   newCompositeTokenizer,
+  newEmptyLinesReader,
   newMdListReader,
   newMdSectionReader,
-  newTokensSequenceReader,
 } from "../../src/index.ts";
 import { newMdFencedBlocksReader } from "../../src/md/fenced-blocks.ts";
 import { newTestRunner } from "../utils/newTestRunner.ts";
 import { newTokenizerTest } from "../utils/newTokenizerTest.ts";
 
 Promise.resolve().then(main).catch(console.error);
-
-function newEmptyLinesReader(count: number = 1) {
-  const readEol = newCharReader(
-    "Eol",
-    (char) => char === "\n" || char === "\r"
-  );
-  const readEmptyLines = newTokensSequenceReader(
-    "EmptyLines",
-    readEol,
-    1 + count
-  );
-  return readEmptyLines;
-}
 
 function newSeparateBlocksReader(
   readToken: TTokenizerMethod

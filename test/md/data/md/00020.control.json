@@ -33,59 +33,67 @@
           "level": 1
         },
         {
-          "type": "HtmlTag",
-          "start": 9,
-          "end": 31,
-          "value": "<span>Some text</span>",
+          "type": "MdTextBlock",
+          "start": 8,
+          "end": 34,
+          "value": "\n<span>Some text</span>\n  ",
           "children": [
             {
-              "type": "HtmlOpenTag",
+              "type": "HtmlTag",
               "start": 9,
-              "end": 15,
-              "value": "<span>",
+              "end": 31,
+              "value": "<span>Some text</span>",
               "children": [
                 {
-                  "type": "HtmlTagStart",
+                  "type": "HtmlOpenTag",
                   "start": 9,
-                  "end": 14,
-                  "value": "<span",
+                  "end": 15,
+                  "value": "<span>",
+                  "children": [
+                    {
+                      "type": "HtmlTagStart",
+                      "start": 9,
+                      "end": 14,
+                      "value": "<span",
+                      "children": [
+                        {
+                          "type": "HtmlName",
+                          "name": "span",
+                          "start": 10,
+                          "end": 14,
+                          "value": "span"
+                        }
+                      ],
+                      "tagName": "span"
+                    },
+                    {
+                      "type": "HtmlTagEnd",
+                      "start": 14,
+                      "end": 15,
+                      "value": ">",
+                      "autoclosing": false
+                    }
+                  ],
+                  "tagName": "span",
+                  "autoclosing": false
+                },
+                {
+                  "type": "HtmlCloseTag",
+                  "start": 24,
+                  "end": 31,
+                  "value": "</span>",
                   "children": [
                     {
                       "type": "HtmlName",
                       "name": "span",
-                      "start": 10,
-                      "end": 14,
+                      "start": 26,
+                      "end": 30,
                       "value": "span"
                     }
                   ],
                   "tagName": "span"
-                },
-                {
-                  "type": "HtmlTagEnd",
-                  "start": 14,
-                  "end": 15,
-                  "value": ">",
-                  "autoclosing": false
                 }
-              ],
-              "tagName": "span",
-              "autoclosing": false
-            },
-            {
-              "type": "HtmlCloseTag",
-              "start": 24,
-              "end": 31,
-              "value": "</span>",
-              "children": [
-                {
-                  "type": "HtmlName",
-                  "name": "span",
-                  "start": 26,
-                  "end": 30,
-                  "value": "span"
-                }
-              ],
-              "tagName": "span"
+              ]
             }
           ]
         }

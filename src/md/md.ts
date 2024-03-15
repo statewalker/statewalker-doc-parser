@@ -2,12 +2,11 @@ import {
   type TTokenizerMethod,
   isolate,
   newCompositeTokenizer,
+  newEmptyLinesReader,
+  newBlocksSequenceReader,
 } from "../base/index.ts";
 import { type THtmlTokenizers, newHtmlReader } from "../html/index.ts";
-import {
-  type TMdCodeBlockTokenizers,
-  newMdCodeBlockReader,
-} from "./code-blocks.ts";
+import { type TMdCodeBlockTokenizers } from "./code-blocks.ts";
 import type { TMdFencedBlockTokenizers } from "./fenced-blocks.ts";
 import { newMdFencedBlocksReader } from "./fenced-blocks.ts";
 import type { TMdListTokenizers } from "./lists.ts";
@@ -21,85 +20,97 @@ export type TMdTokenizers = THtmlTokenizers &
     readListItemMarker?: TTokenizerMethod;
   }) &
   TMdFencedBlockTokenizers & {
+    readInlineCode?: TTokenizerMethod;
+    readBlockCode?: TTokenizerMethod;
+
+    readInlineContent?: TTokenizerMethod;
+    readBlockContent?: TTokenizerMethod;
     readContent?: TTokenizerMethod;
   };
 
 export function newMdReader(readers: TMdTokenizers = {}): TTokenizerMethod {
-  const tagContentTokenizers: TTokenizerMethod[] = [];
-  if (readers.readContent) tagContentTokenizers.push(readers.readContent);
+  // readers.readInlineContent = readers.readInlineContent || readers.readContent;
+  readers.readBlockContent = readers.readBlockContent || readers.readContent;
 
-  const readTagContent = newCompositeTokenizer(tagContentTokenizers);
+  const inlineTokenizers: TTokenizerMethod[] = [];
+  const readInlineContent = newCompositeTokenizer(inlineTokenizers);
+  readers.readInlineCode && inlineTokenizers.push(readers.readInlineCode);
+  readers.readInlineContent && inlineTokenizers.push(readers.readInlineContent);
 
-  // const readMarkdown = newMdSectionReader(readers.md);
-  const readHtml = newHtmlReader({
-    ...readers,
-    readTagContentTokens: readTagContent,
-  });
-
-  // -------------------------------------------------------
-
-  const inlineTokenizers = [readHtml];
-  const readInlineTokens = newCompositeTokenizer(inlineTokenizers);
-  if (readers.readContent) {
-    inlineTokenizers.push(readers.readContent);
-  }
-
-  const blockTokenizers = [readHtml];
-  const readBlockTokens = newCompositeTokenizer(blockTokenizers);
-
-  // -------------------------------------------------------
-
-  const readMdSections = newMdSectionReader({
-    ...readers,
-    readHeaderTokens: isolate(readInlineTokens),
-    readSectionTokens: isolate(readBlockTokens),
-  });
-  tagContentTokenizers.push(readMdSections);
+  const blockTokenizers: TTokenizerMethod[] = [];
+  const readBlockContent = newCompositeTokenizer(blockTokenizers);
+  readers.readBlockContent && blockTokenizers.push(readers.readBlockContent);
+  readers.readBlockCode && blockTokenizers.push(readers.readBlockCode);
 
   // -------------------------------------------------------
 
   const readMdFencedBlocks = newMdFencedBlocksReader({
     ...readers,
     // Allow to add the list content reading markers
-    readFencedContent: composeReaders(
-      readers.readFencedContent,
-      readBlockTokens
-    ),
-    readFencedAttributes: composeReaders(
-      readers.readFencedAttributes,
-      readBlockTokens // FIXME: It should be a code reader
-    ),
+    readFencedContent: readBlockContent,
+    readFencedAttributes: readers.readInlineCode,
   });
-  tagContentTokenizers.push(readMdFencedBlocks);
+  blockTokenizers.push(readMdFencedBlocks);
 
   // -------------------------------------------------------
 
   const readMdLists = newMdListReader({
-    readListItemMarker: readMdListItemMarker,
-    // Allow to override the list markers
+    readListItemContent: readBlockContent,
+    // readListItemMarker: readMdListItemMarker,
+
+    // ------
+    // // Allow to override the list markers
+    // ...readers,
+    // // Allow to add the list content reading markers
+    // readListItemContent: composeReaders(
+    //   readers.readListItemContent,
+    //   readBlockContent
+    // ),
+  });
+  blockTokenizers.push(readMdLists);
+
+  // -------------------------------------------------------
+
+  const readInlineTags = newHtmlReader({
     ...readers,
-    // Allow to add the list content reading markers
-    readListItemContent: composeReaders(
-      readers.readListItemContent,
-      readBlockTokens
+    readTagContentTokens: composeReaders(
+      readers.readTagContentTokens,
+      readInlineContent
     ),
   });
-  tagContentTokenizers.push(readMdLists);
+  inlineTokenizers.push(isolate(readInlineTags));
 
   // -------------------------------------------------------
 
-  const readMdCodeBlocks = newMdCodeBlockReader({
+  const readBlockTags = newHtmlReader({
     ...readers,
-    readCodeBlockContent: readers.readCodeBlockContent || readers.readContent,
+    readTagContentTokens: composeReaders(
+      readers.readTagContentTokens,
+      readBlockContent
+    ),
   });
-  tagContentTokenizers.push(readMdCodeBlocks);
+  blockTokenizers.push(isolate(readBlockTags));
 
   // -------------------------------------------------------
 
-  // Add all tagContentTokenizers to blockTokenizers
-  blockTokenizers.push(...tagContentTokenizers);
+  const readEmptyLines = newEmptyLinesReader();
+  const readMdTextBlocks = newBlocksSequenceReader(
+    "MdTextBlock",
+    readEmptyLines,
+    readBlockContent
+  );
+  const readMdSections = newMdSectionReader({
+    readHeaderTokens: readInlineContent,
+    readSectionTokens: readMdTextBlocks,
+  });
+  blockTokenizers.push(readMdSections);
 
-  return readBlockTokens;
+  return readBlockContent;
+
+  // const readToken = newCompositeTokenizer([readMdSections, readMdTextBlocks]);
+  // return readToken;
+
+  // -------------------------------------------------------
 }
 
 function composeReaders(

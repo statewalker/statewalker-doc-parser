@@ -33,59 +33,67 @@
           "level": 1
         },
         {
-          "type": "HtmlTag",
-          "start": 11,
+          "type": "MdTextBlock",
+          "start": 10,
           "end": 30,
-          "value": "<p>Introduction</p>",
+          "value": "\n<p>Introduction</p>",
           "children": [
             {
-              "type": "HtmlOpenTag",
+              "type": "HtmlTag",
               "start": 11,
-              "end": 14,
-              "value": "<p>",
+              "end": 30,
+              "value": "<p>Introduction</p>",
               "children": [
                 {
-                  "type": "HtmlTagStart",
+                  "type": "HtmlOpenTag",
                   "start": 11,
-                  "end": 13,
-                  "value": "<p",
+                  "end": 14,
+                  "value": "<p>",
+                  "children": [
+                    {
+                      "type": "HtmlTagStart",
+                      "start": 11,
+                      "end": 13,
+                      "value": "<p",
+                      "children": [
+                        {
+                          "type": "HtmlName",
+                          "name": "p",
+                          "start": 12,
+                          "end": 13,
+                          "value": "p"
+                        }
+                      ],
+                      "tagName": "p"
+                    },
+                    {
+                      "type": "HtmlTagEnd",
+                      "start": 13,
+                      "end": 14,
+                      "value": ">",
+                      "autoclosing": false
+                    }
+                  ],
+                  "tagName": "p",
+                  "autoclosing": false
+                },
+                {
+                  "type": "HtmlCloseTag",
+                  "start": 26,
+                  "end": 30,
+                  "value": "</p>",
                   "children": [
                     {
                       "type": "HtmlName",
                       "name": "p",
-                      "start": 12,
-                      "end": 13,
+                      "start": 28,
+                      "end": 29,
                       "value": "p"
                     }
                   ],
                   "tagName": "p"
-                },
-                {
-                  "type": "HtmlTagEnd",
-                  "start": 13,
-                  "end": 14,
-                  "value": ">",
-                  "autoclosing": false
                 }
-              ],
-              "tagName": "p",
-              "autoclosing": false
-            },
-            {
-              "type": "HtmlCloseTag",
-              "start": 26,
-              "end": 30,
-              "value": "</p>",
-              "children": [
-                {
-                  "type": "HtmlName",
-                  "name": "p",
-                  "start": 28,
-                  "end": 29,
-                  "value": "p"
-                }
-              ],
-              "tagName": "p"
+              ]
             }
           ]
         },
@@ -118,59 +126,67 @@
               "level": 2
             },
             {
-              "type": "HtmlTag",
-              "start": 46,
+              "type": "MdTextBlock",
+              "start": 45,
               "end": 68,
-              "value": "<p>First paragraph</p>",
+              "value": "\n<p>First paragraph</p>",
               "children": [
                 {
-                  "type": "HtmlOpenTag",
+                  "type": "HtmlTag",
                   "start": 46,
-                  "end": 49,
-                  "value": "<p>",
+                  "end": 68,
+                  "value": "<p>First paragraph</p>",
                   "children": [
                     {
-                      "type": "HtmlTagStart",
+                      "type": "HtmlOpenTag",
                       "start": 46,
-                      "end": 48,
-                      "value": "<p",
+                      "end": 49,
+                      "value": "<p>",
+                      "children": [
+                        {
+                          "type": "HtmlTagStart",
+                          "start": 46,
+                          "end": 48,
+                          "value": "<p",
+                          "children": [
+                            {
+                              "type": "HtmlName",
+                              "name": "p",
+                              "start": 47,
+                              "end": 48,
+                              "value": "p"
+                            }
+                          ],
+                          "tagName": "p"
+                        },
+                        {
+                          "type": "HtmlTagEnd",
+                          "start": 48,
+                          "end": 49,
+                          "value": ">",
+                          "autoclosing": false
+                        }
+                      ],
+                      "tagName": "p",
+                      "autoclosing": false
+                    },
+                    {
+                      "type": "HtmlCloseTag",
+                      "start": 64,
+                      "end": 68,
+                      "value": "</p>",
                       "children": [
                         {
                           "type": "HtmlName",
                           "name": "p",
-                          "start": 47,
-                          "end": 48,
+                          "start": 66,
+                          "end": 67,
                           "value": "p"
                         }
                       ],
                       "tagName": "p"
-                    },
-                    {
-                      "type": "HtmlTagEnd",
-                      "start": 48,
-                      "end": 49,
-                      "value": ">",
-                      "autoclosing": false
                     }
-                  ],
-                  "tagName": "p",
-                  "autoclosing": false
-                },
-                {
-                  "type": "HtmlCloseTag",
-                  "start": 64,
-                  "end": 68,
-                  "value": "</p>",
-                  "children": [
-                    {
-                      "type": "HtmlName",
-                      "name": "p",
-                      "start": 66,
-                      "end": 67,
-                      "value": "p"
-                    }
-                  ],
-                  "tagName": "p"
+                  ]
                 }
               ]
             },
@@ -211,59 +227,67 @@
               "level": 2
             },
             {
-              "type": "HtmlTag",
-              "start": 84,
+              "type": "MdTextBlock",
+              "start": 83,
               "end": 107,
-              "value": "<p>Second paragraph</p>",
+              "value": "\n<p>Second paragraph</p>",
               "children": [
                 {
-                  "type": "HtmlOpenTag",
+                  "type": "HtmlTag",
                   "start": 84,
-                  "end": 87,
-                  "value": "<p>",
+                  "end": 107,
+                  "value": "<p>Second paragraph</p>",
                   "children": [
                     {
-                      "type": "HtmlTagStart",
+                      "type": "HtmlOpenTag",
                       "start": 84,
-                      "end": 86,
-                      "value": "<p",
+                      "end": 87,
+                      "value": "<p>",
+                      "children": [
+                        {
+                          "type": "HtmlTagStart",
+                          "start": 84,
+                          "end": 86,
+                          "value": "<p",
+                          "children": [
+                            {
+                              "type": "HtmlName",
+                              "name": "p",
+                              "start": 85,
+                              "end": 86,
+                              "value": "p"
+                            }
+                          ],
+                          "tagName": "p"
+                        },
+                        {
+                          "type": "HtmlTagEnd",
+                          "start": 86,
+                          "end": 87,
+                          "value": ">",
+                          "autoclosing": false
+                        }
+                      ],
+                      "tagName": "p",
+                      "autoclosing": false
+                    },
+                    {
+                      "type": "HtmlCloseTag",
+                      "start": 103,
+                      "end": 107,
+                      "value": "</p>",
                       "children": [
                         {
                           "type": "HtmlName",
                           "name": "p",
-                          "start": 85,
-                          "end": 86,
+                          "start": 105,
+                          "end": 106,
                           "value": "p"
                         }
                       ],
                       "tagName": "p"
-                    },
-                    {
-                      "type": "HtmlTagEnd",
-                      "start": 86,
-                      "end": 87,
-                      "value": ">",
-                      "autoclosing": false
                     }
-                  ],
-                  "tagName": "p",
-                  "autoclosing": false
-                },
-                {
-                  "type": "HtmlCloseTag",
-                  "start": 103,
-                  "end": 107,
-                  "value": "</p>",
-                  "children": [
-                    {
-                      "type": "HtmlName",
-                      "name": "p",
-                      "start": 105,
-                      "end": 106,
-                      "value": "p"
-                    }
-                  ],
-                  "tagName": "p"
+                  ]
                 }
               ]
             },
@@ -313,61 +337,75 @@
           "level": 1
         },
         {
-          "type": "HtmlTag",
-          "start": 120,
+          "type": "MdTextBlock",
+          "start": 119,
           "end": 142,
-          "value": "<p>Third paragraph</p>",
+          "value": "\n<p>Third paragraph</p>",
           "children": [
             {
-              "type": "HtmlOpenTag",
+              "type": "HtmlTag",
               "start": 120,
-              "end": 123,
-              "value": "<p>",
+              "end": 142,
+              "value": "<p>Third paragraph</p>",
               "children": [
                 {
-                  "type": "HtmlTagStart",
+                  "type": "HtmlOpenTag",
                   "start": 120,
-                  "end": 122,
-                  "value": "<p",
+                  "end": 123,
+                  "value": "<p>",
+                  "children": [
+                    {
+                      "type": "HtmlTagStart",
+                      "start": 120,
+                      "end": 122,
+                      "value": "<p",
+                      "children": [
+                        {
+                          "type": "HtmlName",
+                          "name": "p",
+                          "start": 121,
+                          "end": 122,
+                          "value": "p"
+                        }
+                      ],
+                      "tagName": "p"
+                    },
+                    {
+                      "type": "HtmlTagEnd",
+                      "start": 122,
+                      "end": 123,
+                      "value": ">",
+                      "autoclosing": false
+                    }
+                  ],
+                  "tagName": "p",
+                  "autoclosing": false
+                },
+                {
+                  "type": "HtmlCloseTag",
+                  "start": 138,
+                  "end": 142,
+                  "value": "</p>",
                   "children": [
                     {
                       "type": "HtmlName",
                       "name": "p",
-                      "start": 121,
-                      "end": 122,
+                      "start": 140,
+                      "end": 141,
                       "value": "p"
                     }
                   ],
                   "tagName": "p"
-                },
-                {
-                  "type": "HtmlTagEnd",
-                  "start": 122,
-                  "end": 123,
-                  "value": ">",
-                  "autoclosing": false
                 }
-              ],
-              "tagName": "p",
-              "autoclosing": false
-            },
-            {
-              "type": "HtmlCloseTag",
-              "start": 138,
-              "end": 142,
-              "value": "</p>",
-              "children": [
-                {
-                  "type": "HtmlName",
-                  "name": "p",
-                  "start": 140,
-                  "end": 141,
-                  "value": "p"
-                }
-              ],
-              "tagName": "p"
+              ]
             }
           ]
+        },
+        {
+          "type": "MdTextBlock",
+          "start": 143,
+          "end": 146,
+          "value": "\n  "
         }
       ],
       "level": 1
