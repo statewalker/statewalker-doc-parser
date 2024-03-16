@@ -15,6 +15,7 @@
           "start": 12,
           "end": 22,
           "value": "\n    ```ts",
+          "separator": "`",
           "name": "ts",
           "depth": 4
         },
@@ -23,6 +24,7 @@
           "start": 49,
           "end": 57,
           "value": "\n    ```",
+          "separator": "`",
           "name": "",
           "depth": 4
         }
@@ -39,6 +41,7 @@
           "start": 58,
           "end": 68,
           "value": "\n    ```js",
+          "separator": "`",
           "name": "js",
           "depth": 4
         },
@@ -47,6 +50,7 @@
           "start": 89,
           "end": 97,
           "value": "\n    ```",
+          "separator": "`",
           "name": "",
           "depth": 4
         }
@@ -63,6 +67,7 @@
           "start": 98,
           "end": 106,
           "value": "\n    ```",
+          "separator": "`",
           "name": "",
           "depth": 4
         },
@@ -71,6 +76,7 @@
           "start": 130,
           "end": 138,
           "value": "\n    ```",
+          "separator": "`",
           "name": "",
           "depth": 4
         }

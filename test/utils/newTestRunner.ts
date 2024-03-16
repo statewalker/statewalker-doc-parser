@@ -11,13 +11,14 @@ export function newTestRunner(
     describe(message, async () => {
       await runTests(rootDir, (params) => {
         const { controlPath, description, control } = params;
-        it(description, async () => {
+        const prefix = controlPath.replace(/^.*\/(\d+).control.json/, "$1");
+        it(prefix + " : " + description, async () => {
           const result = await transform(params);
           try {
             expect(result).toEqual(control);
           } catch (error) {
             const resultPath = controlPath.replace(/\.control\./, ".result.");
-            result && await writeJson(resultPath, result);
+            result && (await writeJson(resultPath, result));
             // console.error(error);
             throw error;
           }

@@ -15,6 +15,7 @@
           "start": 12,
           "end": 22,
           "value": "\n    ```js",
+          "separator": "`",
           "name": "js",
           "depth": 4
         },
@@ -37,6 +38,7 @@
           "start": 49,
           "end": 59,
           "value": "\n    ```js",
+          "separator": "`",
           "name": "js",
           "depth": 4
         },
@@ -45,6 +47,7 @@
           "start": 87,
           "end": 95,
           "value": "\n    ```",
+          "separator": "`",
           "name": "",
           "depth": 4
         }
