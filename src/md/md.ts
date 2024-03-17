@@ -15,10 +15,13 @@ import { newMdFencedBlocksReader } from "./fenced-blocks.ts";
 import type { TMdListTokenizers } from "./lists.ts";
 import { newMdListReader } from "./lists.ts";
 import { type TMdSectionTokenizers, newMdSectionReader } from "./sections.ts";
+import type { TMdTableTokenizers} from "./tables.ts";
+import { newMdTableReader } from "./tables.ts";
 
 export type TMdTokenizers = THtmlTokenizers &
   TMdSectionTokenizers &
   TMdCodeBlockTokenizers &
+  TMdTableTokenizers &
   (Omit<TMdListTokenizers, "readListItemMarker"> & {
     readListItemMarker?: TTokenizerMethod;
   }) &
@@ -79,6 +82,14 @@ export function newMdReader(readers: TMdTokenizers = {}): TTokenizerMethod {
     // ),
   });
   blockTokenizers.push(readMdLists);
+
+
+  // -------------------------------------------------------
+
+  const readMdTables = newMdTableReader({
+    readTableCellContent: readBlockContent,
+  });
+  blockTokenizers.push(readMdTables);
 
   // -------------------------------------------------------
 

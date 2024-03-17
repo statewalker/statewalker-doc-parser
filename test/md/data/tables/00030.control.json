@@ -1,0 +1,216 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 158,
+  "value": "\nbefore\n| Header 1 | Header 2 | Header 3 |\n|----------|----------|----------|\n| Cell 1.1 | Cell 1.2 | Cell 1.2 |\n| Cell 2.1 | Cell 2.2 | Cell 2.2 |\nafter\n    ",
+  "children": [
+    {
+      "type": "MdTable",
+      "start": 7,
+      "end": 147,
+      "value": "\n| Header 1 | Header 2 | Header 3 |\n|----------|----------|----------|\n| Cell 1.1 | Cell 1.2 | Cell 1.2 |\n| Cell 2.1 | Cell 2.2 | Cell 2.2 |",
+      "children": [
+        {
+          "type": "MdTableRow",
+          "start": 7,
+          "end": 42,
+          "value": "\n| Header 1 | Header 2 | Header 3 |",
+          "children": [
+            {
+              "type": "MdTableRowStart",
+              "value": "\n|",
+              "start": 8,
+              "end": 9
+            },
+            {
+              "type": "MdTableCell",
+              "start": 9,
+              "end": 19,
+              "value": " Header 1 "
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 19,
+              "end": 20
+            },
+            {
+              "type": "MdTableCell",
+              "start": 20,
+              "end": 30,
+              "value": " Header 2 "
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 30,
+              "end": 31
+            },
+            {
+              "type": "MdTableCell",
+              "start": 31,
+              "end": 41,
+              "value": " Header 3 "
+            },
+            {
+              "type": "MdTableRowEnd",
+              "value": "|",
+              "start": 41,
+              "end": 42
+            }
+          ]
+        },
+        {
+          "type": "MdTableRow",
+          "start": 42,
+          "end": 77,
+          "value": "\n|----------|----------|----------|",
+          "children": [
+            {
+              "type": "MdTableRowStart",
+              "value": "\n|",
+              "start": 43,
+              "end": 44
+            },
+            {
+              "type": "MdTableCell",
+              "start": 44,
+              "end": 54,
+              "value": "----------"
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 54,
+              "end": 55
+            },
+            {
+              "type": "MdTableCell",
+              "start": 55,
+              "end": 65,
+              "value": "----------"
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 65,
+              "end": 66
+            },
+            {
+              "type": "MdTableCell",
+              "start": 66,
+              "end": 76,
+              "value": "----------"
+            },
+            {
+              "type": "MdTableRowEnd",
+              "value": "|",
+              "start": 76,
+              "end": 77
+            }
+          ]
+        },
+        {
+          "type": "MdTableRow",
+          "start": 77,
+          "end": 112,
+          "value": "\n| Cell 1.1 | Cell 1.2 | Cell 1.2 |",
+          "children": [
+            {
+              "type": "MdTableRowStart",
+              "value": "\n|",
+              "start": 78,
+              "end": 79
+            },
+            {
+              "type": "MdTableCell",
+              "start": 79,
+              "end": 89,
+              "value": " Cell 1.1 "
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 89,
+              "end": 90
+            },
+            {
+              "type": "MdTableCell",
+              "start": 90,
+              "end": 100,
+              "value": " Cell 1.2 "
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 100,
+              "end": 101
+            },
+            {
+              "type": "MdTableCell",
+              "start": 101,
+              "end": 111,
+              "value": " Cell 1.2 "
+            },
+            {
+              "type": "MdTableRowEnd",
+              "value": "|",
+              "start": 111,
+              "end": 112
+            }
+          ]
+        },
+        {
+          "type": "MdTableRow",
+          "start": 112,
+          "end": 147,
+          "value": "\n| Cell 2.1 | Cell 2.2 | Cell 2.2 |",
+          "children": [
+            {
+              "type": "MdTableRowStart",
+              "value": "\n|",
+              "start": 113,
+              "end": 114
+            },
+            {
+              "type": "MdTableCell",
+              "start": 114,
+              "end": 124,
+              "value": " Cell 2.1 "
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 124,
+              "end": 125
+            },
+            {
+              "type": "MdTableCell",
+              "start": 125,
+              "end": 135,
+              "value": " Cell 2.2 "
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 135,
+              "end": 136
+            },
+            {
+              "type": "MdTableCell",
+              "start": 136,
+              "end": 146,
+              "value": " Cell 2.2 "
+            },
+            {
+              "type": "MdTableRowEnd",
+              "value": "|",
+              "start": 146,
+              "end": 147
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

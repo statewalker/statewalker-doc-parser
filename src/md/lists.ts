@@ -76,14 +76,11 @@ export function newMdListReader({
     return (ctx: TokenizerContext): TToken | undefined =>
       ctx.guard(() => {
         const start = ctx.i;
-        // const emptyLine = readEmptyLine(ctx);
-        // if (!emptyLine) {
         ctx.i = start;
         const endMarker = readListItemMarker(ctx);
         if (!endMarker) return;
         // Embedded list item
         if (compareListItemMarkers(startMarker, endMarker) < 0) return;
-        // }
         const end = (ctx.i = start);
         return {
           type: "ListItemEnd",

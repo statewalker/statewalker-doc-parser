@@ -152,7 +152,7 @@ export function newBlockReader(
 export function newBlocksSequenceReader(
   type: string,
   readSeparator: TTokenizerMethod,
-  readToken?: TTokenizerMethod
+  readToken?: TTokenizerMethod,
 ): TTokenizerMethod {
   const readBlock = newBlockReader(type, readToken);
   return (ctx: TokenizerContext): TToken | undefined =>

@@ -10,6 +10,7 @@ async function main() {
   const readCode = newCodeReader();
   // const contentTokenizers: TTokenizerMethod[] = [readCode];
   // const readContent = newCompositeTokenizer(contentTokenizers);
+  
   const readers = {
     // * html:
     readOpenTagTokens: readCode,

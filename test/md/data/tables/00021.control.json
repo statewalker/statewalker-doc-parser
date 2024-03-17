@@ -1,0 +1,94 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 57,
+  "value": "\nbefore\n| Header   |\n|----------|\n| Cell     |\nafter\n    ",
+  "children": [
+    {
+      "type": "MdTable",
+      "start": 7,
+      "end": 46,
+      "value": "\n| Header   |\n|----------|\n| Cell     |",
+      "children": [
+        {
+          "type": "MdTableRow",
+          "start": 7,
+          "end": 20,
+          "value": "\n| Header   |",
+          "children": [
+            {
+              "type": "MdTableRowStart",
+              "value": "\n|",
+              "start": 8,
+              "end": 9
+            },
+            {
+              "type": "MdTableCell",
+              "start": 9,
+              "end": 19,
+              "value": " Header   "
+            },
+            {
+              "type": "MdTableRowEnd",
+              "value": "|",
+              "start": 19,
+              "end": 20
+            }
+          ]
+        },
+        {
+          "type": "MdTableRow",
+          "start": 20,
+          "end": 33,
+          "value": "\n|----------|",
+          "children": [
+            {
+              "type": "MdTableRowStart",
+              "value": "\n|",
+              "start": 21,
+              "end": 22
+            },
+            {
+              "type": "MdTableCell",
+              "start": 22,
+              "end": 32,
+              "value": "----------"
+            },
+            {
+              "type": "MdTableRowEnd",
+              "value": "|",
+              "start": 32,
+              "end": 33
+            }
+          ]
+        },
+        {
+          "type": "MdTableRow",
+          "start": 33,
+          "end": 46,
+          "value": "\n| Cell     |",
+          "children": [
+            {
+              "type": "MdTableRowStart",
+              "value": "\n|",
+              "start": 34,
+              "end": 35
+            },
+            {
+              "type": "MdTableCell",
+              "start": 35,
+              "end": 45,
+              "value": " Cell     "
+            },
+            {
+              "type": "MdTableRowEnd",
+              "value": "|",
+              "start": 45,
+              "end": 46
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

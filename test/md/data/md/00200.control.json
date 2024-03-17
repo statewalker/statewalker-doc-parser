@@ -1,0 +1,226 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 169,
+  "value": "\n| Header 1 | Header 2 | Header 3 |\n|----------|----------|----------|\n| Cell 1.1 | Cell ${\n\n  with\n\n    code\n\n} 1.2 | Cell 1.2 |\n| Cell 2.1 | Cell 2.2 | Cell 2.2 |\n    ",
+  "children": [
+    {
+      "type": "MdTable",
+      "start": 0,
+      "end": 164,
+      "value": "\n| Header 1 | Header 2 | Header 3 |\n|----------|----------|----------|\n| Cell 1.1 | Cell ${\n\n  with\n\n    code\n\n} 1.2 | Cell 1.2 |\n| Cell 2.1 | Cell 2.2 | Cell 2.2 |",
+      "children": [
+        {
+          "type": "MdTableRow",
+          "start": 0,
+          "end": 35,
+          "value": "\n| Header 1 | Header 2 | Header 3 |",
+          "children": [
+            {
+              "type": "MdTableRowStart",
+              "value": "\n|",
+              "start": 1,
+              "end": 2
+            },
+            {
+              "type": "MdTableCell",
+              "start": 2,
+              "end": 12,
+              "value": " Header 1 "
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 12,
+              "end": 13
+            },
+            {
+              "type": "MdTableCell",
+              "start": 13,
+              "end": 23,
+              "value": " Header 2 "
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 23,
+              "end": 24
+            },
+            {
+              "type": "MdTableCell",
+              "start": 24,
+              "end": 34,
+              "value": " Header 3 "
+            },
+            {
+              "type": "MdTableRowEnd",
+              "value": "|",
+              "start": 34,
+              "end": 35
+            }
+          ]
+        },
+        {
+          "type": "MdTableRow",
+          "start": 35,
+          "end": 70,
+          "value": "\n|----------|----------|----------|",
+          "children": [
+            {
+              "type": "MdTableRowStart",
+              "value": "\n|",
+              "start": 36,
+              "end": 37
+            },
+            {
+              "type": "MdTableCell",
+              "start": 37,
+              "end": 47,
+              "value": "----------"
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 47,
+              "end": 48
+            },
+            {
+              "type": "MdTableCell",
+              "start": 48,
+              "end": 58,
+              "value": "----------"
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 58,
+              "end": 59
+            },
+            {
+              "type": "MdTableCell",
+              "start": 59,
+              "end": 69,
+              "value": "----------"
+            },
+            {
+              "type": "MdTableRowEnd",
+              "value": "|",
+              "start": 69,
+              "end": 70
+            }
+          ]
+        },
+        {
+          "type": "MdTableRow",
+          "start": 70,
+          "end": 129,
+          "value": "\n| Cell 1.1 | Cell ${\n\n  with\n\n    code\n\n} 1.2 | Cell 1.2 |",
+          "children": [
+            {
+              "type": "MdTableRowStart",
+              "value": "\n|",
+              "start": 71,
+              "end": 72
+            },
+            {
+              "type": "MdTableCell",
+              "start": 72,
+              "end": 82,
+              "value": " Cell 1.1 "
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 82,
+              "end": 83
+            },
+            {
+              "type": "MdTableCell",
+              "start": 83,
+              "end": 117,
+              "value": " Cell ${\n\n  with\n\n    code\n\n} 1.2 ",
+              "children": [
+                {
+                  "type": "Code",
+                  "codeStart": 91,
+                  "codeEnd": 111,
+                  "start": 89,
+                  "end": 112,
+                  "value": "${\n\n  with\n\n    code\n\n}"
+                }
+              ]
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 117,
+              "end": 118
+            },
+            {
+              "type": "MdTableCell",
+              "start": 118,
+              "end": 128,
+              "value": " Cell 1.2 "
+            },
+            {
+              "type": "MdTableRowEnd",
+              "value": "|",
+              "start": 128,
+              "end": 129
+            }
+          ]
+        },
+        {
+          "type": "MdTableRow",
+          "start": 129,
+          "end": 164,
+          "value": "\n| Cell 2.1 | Cell 2.2 | Cell 2.2 |",
+          "children": [
+            {
+              "type": "MdTableRowStart",
+              "value": "\n|",
+              "start": 130,
+              "end": 131
+            },
+            {
+              "type": "MdTableCell",
+              "start": 131,
+              "end": 141,
+              "value": " Cell 2.1 "
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 141,
+              "end": 142
+            },
+            {
+              "type": "MdTableCell",
+              "start": 142,
+              "end": 152,
+              "value": " Cell 2.2 "
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 152,
+              "end": 153
+            },
+            {
+              "type": "MdTableCell",
+              "start": 153,
+              "end": 163,
+              "value": " Cell 2.2 "
+            },
+            {
+              "type": "MdTableRowEnd",
+              "value": "|",
+              "start": 163,
+              "end": 164
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
