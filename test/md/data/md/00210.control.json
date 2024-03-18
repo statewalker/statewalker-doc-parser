@@ -1,0 +1,254 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 168,
+  "value": "\n| Header 1 | Header 2 | Header 3 |\n|----------|----------|----------|\n| Cell 1.1 \n  - item one\n  - item two\n | Cell ${\n\n  with\n\n    code\n\n} 1.2 | \n > Blockoute  |\n    ",
+  "children": [
+    {
+      "type": "MdTable",
+      "start": 0,
+      "end": 147,
+      "value": "\n| Header 1 | Header 2 | Header 3 |\n|----------|----------|----------|\n| Cell 1.1 \n  - item one\n  - item two\n | Cell ${\n\n  with\n\n    code\n\n} 1.2 | ",
+      "children": [
+        {
+          "type": "MdTableRow",
+          "start": 0,
+          "end": 35,
+          "value": "\n| Header 1 | Header 2 | Header 3 |",
+          "children": [
+            {
+              "type": "MdTableRowStart",
+              "value": "\n|",
+              "start": 1,
+              "end": 2
+            },
+            {
+              "type": "MdTableCell",
+              "start": 2,
+              "end": 12,
+              "value": " Header 1 "
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 12,
+              "end": 13
+            },
+            {
+              "type": "MdTableCell",
+              "start": 13,
+              "end": 23,
+              "value": " Header 2 "
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 23,
+              "end": 24
+            },
+            {
+              "type": "MdTableCell",
+              "start": 24,
+              "end": 34,
+              "value": " Header 3 "
+            },
+            {
+              "type": "MdTableRowEnd",
+              "value": "|",
+              "start": 34,
+              "end": 35
+            }
+          ]
+        },
+        {
+          "type": "MdTableRow",
+          "start": 35,
+          "end": 70,
+          "value": "\n|----------|----------|----------|",
+          "children": [
+            {
+              "type": "MdTableRowStart",
+              "value": "\n|",
+              "start": 36,
+              "end": 37
+            },
+            {
+              "type": "MdTableCell",
+              "start": 37,
+              "end": 47,
+              "value": "----------"
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 47,
+              "end": 48
+            },
+            {
+              "type": "MdTableCell",
+              "start": 48,
+              "end": 58,
+              "value": "----------"
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 58,
+              "end": 59
+            },
+            {
+              "type": "MdTableCell",
+              "start": 59,
+              "end": 69,
+              "value": "----------"
+            },
+            {
+              "type": "MdTableRowEnd",
+              "value": "|",
+              "start": 69,
+              "end": 70
+            }
+          ]
+        },
+        {
+          "type": "MdTableRow",
+          "start": 70,
+          "end": 147,
+          "value": "\n| Cell 1.1 \n  - item one\n  - item two\n | Cell ${\n\n  with\n\n    code\n\n} 1.2 | ",
+          "children": [
+            {
+              "type": "MdTableRowStart",
+              "value": "\n|",
+              "start": 71,
+              "end": 72
+            },
+            {
+              "type": "MdTableCell",
+              "start": 72,
+              "end": 108,
+              "value": " Cell 1.1 \n  - item one\n  - item two",
+              "children": [
+                {
+                  "type": "MdList",
+                  "start": 82,
+                  "end": 108,
+                  "value": "\n  - item one\n  - item two",
+                  "children": [
+                    {
+                      "type": "MdListItem",
+                      "start": 82,
+                      "end": 95,
+                      "value": "\n  - item one",
+                      "children": [
+                        {
+                          "type": "MdListItemStart",
+                          "start": 82,
+                          "end": 87,
+                          "value": "\n  - ",
+                          "depth": 2,
+                          "marker": "  -"
+                        },
+                        {
+                          "type": "MdListItemContent",
+                          "start": 87,
+                          "end": 95,
+                          "value": "item one"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "MdListItem",
+                      "start": 95,
+                      "end": 108,
+                      "value": "\n  - item two",
+                      "children": [
+                        {
+                          "type": "MdListItemStart",
+                          "start": 95,
+                          "end": 100,
+                          "value": "\n  - ",
+                          "depth": 2,
+                          "marker": "  -"
+                        },
+                        {
+                          "type": "MdListItemContent",
+                          "start": 100,
+                          "end": 108,
+                          "value": "item two"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "MdTableCell",
+              "start": 109,
+              "end": 110,
+              "value": " "
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 110,
+              "end": 111
+            },
+            {
+              "type": "MdTableCell",
+              "start": 111,
+              "end": 145,
+              "value": " Cell ${\n\n  with\n\n    code\n\n} 1.2 ",
+              "children": [
+                {
+                  "type": "Code",
+                  "codeStart": 119,
+                  "codeEnd": 139,
+                  "start": 117,
+                  "end": 140,
+                  "value": "${\n\n  with\n\n    code\n\n}"
+                }
+              ]
+            },
+            {
+              "type": "MdTableRowEnd",
+              "value": "| ",
+              "start": 145,
+              "end": 147
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "MdList",
+      "start": 147,
+      "end": 168,
+      "value": "\n > Blockoute  |\n    ",
+      "children": [
+        {
+          "type": "MdListItem",
+          "start": 147,
+          "end": 168,
+          "value": "\n > Blockoute  |\n    ",
+          "children": [
+            {
+              "type": "MdListItemStart",
+              "start": 147,
+              "end": 151,
+              "value": "\n > ",
+              "depth": 1,
+              "marker": " >"
+            },
+            {
+              "type": "MdListItemContent",
+              "start": 151,
+              "end": 168,
+              "value": "Blockoute  |\n    "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

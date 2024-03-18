@@ -1,0 +1,80 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 40,
+  "value": "\n  * one\n[\n  * two\n  * three ]\n  * four\n",
+  "children": [
+    {
+      "type": "InnerList",
+      "start": 9,
+      "end": 30,
+      "value": "[\n  * two\n  * three ]",
+      "children": [
+        {
+          "type": "ListStart",
+          "value": "[",
+          "start": 9,
+          "end": 10
+        },
+        {
+          "type": "MdList",
+          "start": 10,
+          "end": 29,
+          "value": "\n  * two\n  * three ",
+          "children": [
+            {
+              "type": "MdListItem",
+              "start": 10,
+              "end": 18,
+              "value": "\n  * two",
+              "children": [
+                {
+                  "type": "MdListItemStart",
+                  "start": 10,
+                  "end": 15,
+                  "value": "\n  * ",
+                  "depth": 2,
+                  "marker": "  *"
+                },
+                {
+                  "type": "MdListItemContent",
+                  "start": 15,
+                  "end": 18,
+                  "value": "two"
+                }
+              ]
+            },
+            {
+              "type": "MdListItem",
+              "start": 18,
+              "end": 29,
+              "value": "\n  * three ",
+              "children": [
+                {
+                  "type": "MdListItemStart",
+                  "start": 18,
+                  "end": 23,
+                  "value": "\n  * ",
+                  "depth": 2,
+                  "marker": "  *"
+                },
+                {
+                  "type": "MdListItemContent",
+                  "start": 23,
+                  "end": 29,
+                  "value": "three "
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "ListEnd",
+          "value": "]",
+          "start": 29,
+          "end": 30
+        }
+      ]
+    }
+  ]
+}

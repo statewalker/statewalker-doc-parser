@@ -8,6 +8,7 @@ import {
   newCompositeTokenizer,
   newDynamicFencedBlockReader,
   newEmptyLinesReader,
+  newTokensSequenceReader,
 } from "../base/index.ts";
 
 export function readMdListItemMarker(
@@ -72,24 +73,6 @@ export function newMdListReader({
   const tokenizers: TTokenizerMethod[] = [];
   const compositeReader = newCompositeTokenizer(tokenizers);
   const readContent = newBlockReader(names.ListItemContent, compositeReader);
-  function newListItemEndReader(startMarker: TToken) {
-    return (ctx: TokenizerContext): TToken | undefined =>
-      ctx.guard(() => {
-        const start = ctx.i;
-        ctx.i = start;
-        const endMarker = readListItemMarker(ctx);
-        if (!endMarker) return;
-        // Embedded list item
-        if (compareListItemMarkers(startMarker, endMarker) < 0) return;
-        const end = (ctx.i = start);
-        return {
-          type: "ListItemEnd",
-          start,
-          end,
-          value: ctx.substring(start, end),
-        };
-      });
-  }
   const readListItem = newDynamicFencedBlockReader(
     names.ListItem,
     (ctx: TokenizerContext): TToken | undefined =>
@@ -100,23 +83,40 @@ export function newMdListReader({
         return token;
       }),
     () => readContent,
-    newListItemEndReader,
+    (startMarker: TToken) =>
+      (ctx: TokenizerContext): TToken | undefined =>
+        ctx.guard(() => {
+          const start = ctx.i;
+          ctx.i = start;
+          const endMarker = readListItemMarker(ctx);
+          if (!endMarker) return;
+          // Embedded list item
+          if (compareListItemMarkers(startMarker, endMarker) < 0) return;
+          const end = (ctx.i = start);
+          return {
+            ...endMarker,
+            start,
+            end,
+            value: ctx.substring(start, end),
+          };
+        }),
     false // don't include the end marker
   );
 
   const readEmptyLine = newEmptyLinesReader(1);
   const readListToken = newBlockReader(names.List, readListItem);
+  // const readListItems = newTokensSequenceReader(names.List, readListItem);
+
   const readList = (ctx: TokenizerContext): TToken | undefined =>
     ctx.guard((fences) => {
       const start = ctx.i;
       fences.addFence(readEmptyLine);
-
       const listItemMarker = readListItemMarker(ctx);
       ctx.i = start;
       if (!listItemMarker) return;
 
+      // const token = readListItems(ctx);
       const token = readListToken(ctx);
-
       if (!token || !token.children) return;
       return token;
     });

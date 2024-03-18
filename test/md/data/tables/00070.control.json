@@ -1,0 +1,80 @@
+{
+  "type": "Block",
+  "start": 0,
+  "end": 28,
+  "value": "\nbefore\n||||\n||||\nafter\n    ",
+  "children": [
+    {
+      "type": "MdTable",
+      "start": 7,
+      "end": 17,
+      "value": "\n||||\n||||",
+      "children": [
+        {
+          "type": "MdTableRow",
+          "start": 7,
+          "end": 12,
+          "value": "\n||||",
+          "children": [
+            {
+              "type": "MdTableRowStart",
+              "value": "\n|",
+              "start": 8,
+              "end": 9
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 9,
+              "end": 10
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 10,
+              "end": 11
+            },
+            {
+              "type": "MdTableRowEnd",
+              "value": "|",
+              "start": 11,
+              "end": 12
+            }
+          ]
+        },
+        {
+          "type": "MdTableRow",
+          "start": 12,
+          "end": 17,
+          "value": "\n||||",
+          "children": [
+            {
+              "type": "MdTableRowStart",
+              "value": "\n|",
+              "start": 13,
+              "end": 14
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 14,
+              "end": 15
+            },
+            {
+              "type": "MdTableCellSeparator",
+              "value": "|",
+              "start": 15,
+              "end": 16
+            },
+            {
+              "type": "MdTableRowEnd",
+              "value": "|",
+              "start": 16,
+              "end": 17
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

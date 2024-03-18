@@ -30,7 +30,6 @@ export function newMdTableReader(
       ctx.skipWhile(isSpace);
       const separator = readTableCellSeparator(ctx);
       if (!separator) return;
-      // ctx.skipWhile(isSpace);
       const end = ctx.i;
       return {
         ...separator,
@@ -40,20 +39,14 @@ export function newMdTableReader(
       };
     });
 
-  const readTableCells = newBlocksSequenceReader(
-    "MdTableCell",
-    readTableCellSeparator,
-    readTableCellContent
-  );
-
   const readTableRowEnd = (ctx: TokenizerContext) =>
-    ctx.guard((fences) => {
+    ctx.guard(() => {
       const start = ctx.i;
       const separator = readTableCellSeparator(ctx);
       if (!separator) return;
       ctx.skipWhile(isSpace);
       const end = ctx.i;
-      if (!isEol(ctx.getChar()) && !fences.isFenceBoundary()) return;
+      if (!isEol(ctx.getChar())) return;
       return {
         ...separator,
         type: "MdTableRowEnd",
@@ -61,6 +54,16 @@ export function newMdTableReader(
         value: ctx.substring(start, end),
       };
     });
+
+  const readTableCells = newBlocksSequenceReader(
+    "MdTableCell",
+    newCompositeTokenizer([
+      readTableRowStart,
+      readTableRowEnd,
+      readTableCellSeparator,
+    ]),
+    readTableCellContent
+  );
 
   const readTableRow = newFencedBlockReader(
     "MdTableRow",
